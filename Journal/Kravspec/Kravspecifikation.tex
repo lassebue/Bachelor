@@ -1,0 +1,200 @@
+
+\RequirePackage{etex}
+
+% Vi benytter 2 sidet, a4 størrelse og dansk sprog. 
+\documentclass[11pt,a4paper,twoside,danish]{memoir}
+
+
+\usepackage[paper=A4,pagesize]{typearea}
+   
+\usepackage[utf8]{inputenc} % danske tegn
+\usepackage[danish]{babel} % dansk sprogpakke
+
+% Hvis engelsk sprog ønskes, uncomment denne
+% \usepackage[english]{babel}
+
+\newcommand*{\plogo}{\fbox{$\mathcal{PL}$}} % Generic publisher logo
+
+
+%%% % % % % % % PAKKER % % % % % % % % % % % % % % % % % % % % % % % 
+     % % % % %
+     %Pakker til fonts, farver, referencer og ligenende er placeret relevant sted i dokumentet.
+     % Her findes generelle pakker som bruges overordnet i dokumentet % 
+     \usepackage{footnote} % Package used to controle footnote(specially in tables etc.)
+     \usepackage{amsmath}
+     \usepackage{slantsc}
+    
+        %  \usepackage{float} % http://en.wikibooks.org/wiki/LaTeX/Floats,_Figures_and_Captions
+                 \usepackage{multirow} %sammenfletning af r�kker
+                % \usepackage{subfig}
+                 \usepackage{longtable} % tabeller der g�r over flere r
+                  \usepackage{geometry}
+         \usepackage[section]{placeins} %Gør det muligt at bruge \FloatBarrier
+   
+    
+    \usepackage[compatibility=false]{caption}
+    \captionsetup{font=small,labelfont=bf,textfont=it}
+    \usepackage{graphicx}
+    \usepackage{afterpage}
+    
+    
+    
+
+    \usepackage[draft]{fixme} %hvor 'options' bl.a. inkluderer final, draft, danish, inline og margin
+    
+   %\usepackage[pdftex,plainpages=false,pdfpagelabels,colorlinks=true,citecolor=black,linkcolor=black,breaklinks]{hyperref}
+   
+  
+ \usepackage{rotating}
+   
+  
+   \usepackage{eso-pic} % til inds�ttelse af forside.
+   % \usepackage{clock} % Til at lave et sejt anaogt ur 
+
+   \usepackage{rotating} % rotate stuff(EVERYTHING!11)
+   %\usepackage{lipsum}  % Use \lipsum to generate Lorem Ipsum text.
+      
+   
+   
+% % % % % % % % % % % % % % % MATH STUFF % % % % % % % % % % % % % %
+    %\usepackage{algorithmic}
+
+    %\usepackage{harpoon} %Tilf�jer harpun-pile over st�rrelser i math, m.m.
+ 
+    %\usepackage{pst-plot} % For axes   
+    %\usepackage{breqn}
+    %\usepackage{fourier}  %................... Roman+math - Utopia
+    
+  
+    %\usepackage{nomentbl} % http://ctan.mackichan.com/macros/latex/contrib/nomentbl/nomentbl.pdf
+
+    %\usepackage{psfrag} % insæt tag, mest brugt i forhold til grafer
+
+   
+   
+
+%%% DIVERSE CUSTOMS PAKKET NED I FILER FOR OVERBLIK
+    %\input{styles/HaxTilPreamble.tex}
+    %\input{styles/CustomFunctions.tex}
+    \input{Styles/todos.tex}
+    \input{Styles/figure.tex}
+    \input{Styles/forside}
+    
+    
+    
+% % % % % % % % % % % % % % ********% % %Generelt design % % % % % % % % % % % % % % % % % % %
+ 
+%\usepackage[table,dvipsnames]{xcolor} % 'table' er i stedet for \usepackage{colortbl} og 'dvipsnames' er et farveskema hvor man angiver farver med navne
+ 
+\usepackage{xcolor} % farver kan indsætttes i henhold til RGB med definecolor
+
+%Valg af temafarve % Denne farve bruges i chapterstyle %
+\definecolor{ThemeColor}{RGB}{224, 32, 28}
+
+
+% Valg af font %
+\usepackage[sc]{mathpazo}
+\linespread{1.05}         % Palatino needs more leading (space between lines)
+\usepackage[T1]{fontenc}
+
+
+% Pakker inkludere overordnede designvalg. Pakkerne er valgt for overskuelighed %
+	 \input{Styles/chapterstyle.tex}
+	 \input{Styles/header.tex}
+	 
+
+% Setup the margins:
+\setlrmarginsandblock{1in}{*}{1.5}
+\setulmarginsandblock{3cm}{4cm}{*}
+
+
+
+% Setup header and footer: %
+% \setheadfoot{headheight}{footskip}
+% \setheaderspaces{headdrop}{headsep}{ratio}
+\setheadfoot{45pt}{1cm}
+\setheaderspaces{1cm}{*}{*}
+\checkandfixthelayout
+% Se dette pdf for dokmentaton:
+% www.tug.dk/_media/foredrag/2003-12-03/slides-src.pdf
+
+
+
+
+ \checkandfixthelayout[nearest]
+    \checkthelayout
+    \fixthelayout
+    \baselineskip \topskip
+
+
+
+% % % % % % % % % % % % % % % % % % % %***** % % % % % % % % % % % % % % % % % % % % % % % % %
+
+%BibTex ops�tning
+\usepackage[semicolon,authoryear,square]{natbib}
+
+\bibliographystyle{plainnat}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+   
+    
+% % Smart listing function. Documentation: http://texblog.org/tag/makenomenclature/
+\usepackage{nomencl}
+\makenomenclature 
+
+
+
+% % % % % % % % % % % % % % % % Reference opsætning % % % % % % % % % % % % % % % % % % % % % % %
+
+\usepackage{varioref} % for references, http://www.ctex.org/documents/packages/bibref/varioref.pdf
+   
+   
+    
+% External reference package, zref makes the references into hyperlinks.
+\usepackage{url}
+\usepackage{hyperref}
+%\usepackage{zref-xr}
+\usepackage{xr}
+%Reference til ekstern Rapport.
+%\externaldocument[Rapport-]{../Rapport/Rapport}
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+
+%\usepackage{showlabels}
+
+
+% footruleskip is allready defined in memoir, so we have to undefine it, in order to include fancyhdr for our footer and header.
+\let\footruleskip\undefined
+\usepackage{fancyhdr}% For making fancy headers http://ctan.org/pkg/fancyhdr
+
+
+
+\AtBeginDocument{\renewcommand\contentsname{Indholdsfortegnelse}}
+
+% % % % % % % % % % % % % Inkluderinger af ønskede kapitler % % % % % % % % % % % % %
+
+\begin{document}
+\include{Kapitler/Forside}
+\include{Kapitler/Indholdsfortegnelse}
+
+% Setup header and footer
+\pagestyle{fancy}
+\fancyhf{} % Clear all header an footer fields 
+\renewcommand{\headrulewidth}{0pt} % Delete headruler
+\fancyhead[R]{\includegraphics[height=40pt]{header}} % Insert picture in left side of header
+%\fancyhead[R]{\rightmark} % insert chapter title in right side of header
+\fancyfoot[LE,RO]{\thepage} % insert pagenumber on right side of even page, left side of odd page 
+%\setcounter{page}{1}
+
+\input{Kapitler/Indledning}
+\input{Kapitler/Systembeskrivelse}
+\input{Kapitler/FunktionelleKrav}
+\input{Kapitler/IkkeFunktionelleKrav}
+
+
+\bibliographystyle{plainnat}
+\bibliography{bibliografi}% Selects .bib file AND prints bibliography
+\thispagestyle{fancy}
+
+%\listoftodos % Make a list of todo's
+\end{document}

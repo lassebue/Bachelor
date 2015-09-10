@@ -1,0 +1,96 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                            Custom for funktioner                          %
+%                     			      	        		                    %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% Package for wrapping figures in text
+\usepackage{wrapfig}
+
+% Set the path where LaTeX looks for pictures.
+\graphicspath{{../figurer/}}
+
+% You need a newsubfloat element to use subcaption
+\newsubfloat{figure}
+
+% Command to set caption styles
+\captionnamefont{\bfseries\small}
+\captiontitlefont{\itshape\small}
+\subcaptionlabelfont{\bfseries\small}
+\subcaptionfont{\itshape\small}
+
+% When we don't use chapter numbering, 
+% the figure numbering are shown like 
+% fx 0.3 if we don't use this line.
+\counterwithout{figure}{chapter}
+
+
+% Command \figur{filename}{caption}{label}{width} 
+% for inserting a new figure.
+\newcommand{\figur}[4]{ 
+ \begin{figure}[ht] 
+ \centering 
+ \includegraphics[width=#4\textwidth]{#1} 
+ \caption{#2} 
+ \label{#3} 
+ \end{figure}
+ } 
+ 
+% Command \wrapfigur{filename}{caption}{label}{width}{r/l}
+% for inserting a new figure wraped in the text. 
+\newcommand{\wrapfigur}[5]{ 
+ \begin{wrapfigure}{#5}{#4 \textwidth}
+   \begin{center}
+    \includegraphics[width=#4\textwidth]{#1}
+   \end{center}
+   \caption{#2}
+   \label{#3} 
+ \end{wrapfigure}
+}
+ 
+% Command \subfigur{filename1}{filename2}{caption}
+% {subcaption1}{subcaption2}{label1}{label2}
+% {width1}{width1} for inserting a new figure.
+\newcommand{\subfigur}[9]{
+\begin{figure}[ht]
+\centering
+\subbottom[{#4}\label{#6}]%
+    {\includegraphics[width=#8\textwidth]{#1}}\hfill
+\subbottom[{#5}\label{#7}]%
+    {\includegraphics[width=#9\textwidth]{#2}}
+\caption{#3}
+\label{fig:subfigures}
+\end{figure}
+}
+% Command \truefigure{filename}{caption}{label}
+% for inserting a picture without scaling.
+\newcommand{\truefigure}[3]{ 
+ \begin{figure}[ht] 
+ \centering 
+ \includegraphics{#1} 
+ \caption{#2} 
+ \label{#3} 
+ \end{figure}
+ } 
+
+% Keeps floats in the section. 
+% Help control place to put pix
+\usepackage[section]{placeins}
+
+% Commands for rightaligning wraped text in a tabular
+\newcommand{\rr}{\raggedright}
+\newcommand{\tn}{\tabularnewline}
+
+\usepackage{multirow}
+
+%Tabular pakke som Wex har fundet, men som vi ikke bruger alligvel
+%\usepackage{tabu}
+
+% Include code pieces from files
+% Documentation:
+% ftp://ftp.tex.ac.uk/tex-archive/macros/latex/contrib/listings/listings.pdf
+\usepackage{listings}
+
+
+%Package with enumirate command with extra options (used within cells of tabular)
+\usepackage[inline]{enumitem}

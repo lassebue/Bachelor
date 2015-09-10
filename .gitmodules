@@ -1,0 +1,3 @@
+[submodule "Win/WrapperTestProject"]
+	path = Win/WrapperTestProject
+	url = ../../tayfuzun/MyoSharp.git

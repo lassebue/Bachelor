@@ -1,0 +1,287 @@
+\chapter{Test af funktionelle krav}
+ \label{chp:testfunktionelle}
+
+\subsection{Introduktion}
+Der arbejdes iterativt i udviklingen af projektet, og samtlige test cases for de udspecificerede kravspecifikationer opstilles således løbende for systemet.  
+
+
+\section{Test: UC1 Login}
+
+\subsection{UC1 Hovedforløb }
+
+
+\begin{longtable}{| p{0.7cm}  | p{3cm}  | p{4cm} |  p{3cm}  | p{3cm}  |}
+\hline
+Step & Handling & Forventet Resultat & Test & Resultat \\
+\hline
+1 & Bruger åbner mobilapplikationen  & Mobilapplikationen informerer om krav til forbindelse med brugers facebook & Aflæses på brugers enhed & \FuckingHuge{\checkmark} \\
+\hline
+2 & Bruger vælger at logge ind med Facebook  & Mobilapplikationen fremviser mulighed for at logge ind med Facebook & Aflæses på brugers enhed & \FuckingHuge{\checkmark} \\
+\hline
+3 & Bruger indtaster brugernavn: 'hauswow@ gmail.com' og adgangskode: 'semesterprojekt' og bekræfter & hovedmenuen fremvises på mobilapplikationen  & Aflæses på brugers enhed  & \FuckingHuge{\checkmark} \\
+\hline
+\end{longtable}
+
+
+\subsection{UC1: [Extension 1: Bruger har tidligere logget ind]}
+
+\begin{longtable}{| p{0.7cm}  | p{3cm}  | p{4cm} |  p{3cm}  | p{3cm}  |}
+\hline
+Step & Handling & Forventet Resultat & Test & Resultat \\
+\hline
+1 & Bruger åbner mobilapplikationen  & Applikation informerer om krav til forbindelse med brugers facebook & Krav aflæses på brugers enhed & \FuckingHuge{\checkmark} \\
+\hline
+2 & Bruger vælger at logge ind med Facebook  & Hovedmenuen fremvises på mobilappplikation & Aflæses på brugers enhed & \FuckingHuge{\checkmark}\\
+\hline
+\end{longtable}
+
+
+
+
+\newpage
+\section{Test: UC2 Enheder forbindes}
+
+
+
+\subsection{UC2 Hovedforløb}
+
+\begin{longtable}{| p{0.7cm}  | p{3cm}  | p{4cm} |  p{3cm}  | p{3cm}  |}
+\hline
+Step & Handling & Forventet Resultat & Test & Resultat \\
+\hline
+1 &  Bruger og Festivalgæst vælger Mingle i hovedmenuen &  Mulighed for at vælge at starte et spil og deltage i et spil fremvises  & Aflæses på Brugers og Festivalgæsts enhed & \FuckingHuge{\checkmark} \\
+\hline
+2 &  Bruger vælger at oprette spil &  Brugers id vises på enheden  & Aflæses på Brugers enhed & \FuckingHuge{\checkmark} \\
+\hline
+3 &  Festivalgæst vælger at deltage i et spil &  Festivalgæst har mulighed for at indtaste id  & Aflæses på Festivalgæsts enhed & \FuckingHuge{\checkmark} \\
+\hline
+4 &  Bruger udveksler unikt id med Festivalgæst, og Festivalgæst indtaster Brugers unikke id &  Brugers id er indtastet på Festivalgæsts enhed  & Aflæses på Festivalgæsts enhed & \FuckingHuge{\checkmark} \\
+\hline
+5 &  Bruger udveksler unikt id med Festivalgæst, og Festivalgæst indtaster Brugers unikke id &  Brugers id er indtastet på Festivalgæsts enhed  & Aflæses på Festivalgæsts enhed & \FuckingHuge{\checkmark} \\
+\hline
+6 & Festivalgæst accepterer &  Bruger og Festivalgæst informeres om at de er forbundet & Aflæses på Brugers og Festivalsgæsts enhed & \FuckingHuge{\checkmark}\\ 
+\hline
+7 & Bruger og Festivalgæst accepterer &   Brugers og Festivalgæsts mobilapplikationer fremviser identiske spørgsmål og svarmuligheder. & Identiske spørgsmål og svarmuligheder aflæses på Brugers og Festivalgæsts enheder & \FuckingHuge{\checkmark} \\
+\hline
+\end{longtable}
+
+\newpage
+
+\subsection{UC2: [Extension 1: Bruger og Festivalgæst har tidligere i samarbejde vundet spørgsmålsspillet]}
+
+\begin{longtable}{| p{0.7cm}  | p{3cm}  | p{4cm} |  p{3cm}  | p{3cm}  |}
+\hline
+Step & Handling & Forventet Resultat & Test & Resultat \\
+\hline
+1 &  Bruger og Festivalgæst vælger Mingle i hovedmenuen &  Mulighed for at vælge at starte et spil og deltage i et spil fremvises  & Aflæses på Brugers og Festivalgæsts enhed & \FuckingHuge{\checkmark} \\
+\hline
+2 &  Bruger vælger at oprette spil &  Brugers id vises på enheden  & Aflæses på Brugers enhed & \FuckingHuge{\checkmark} \\
+\hline
+3 &  Festivalgæst vælger at deltage i et spil &  Festivalgæst har mulighed for at indtaste id  & Aflæses på Festivalgæsts enhed & \FuckingHuge{\checkmark} \\
+\hline
+4 &  Bruger udveksler unikt id med Festivalgæst, og Festivalgæst indtaster Brugers unikke id &  Brugers id er indtastet på Festivalgæsts enhed  & Aflæses på Festivalgæsts enhed & \FuckingHuge{\checkmark} \\
+\hline
+5 & Festivalgæst accepterer &  Bruger og Festivalgæst informeres om at de er forbundet, men at der ikke optjenes point & Aflæses på Brugers og Festivalsgæsts enhed & \FuckingHuge{\checkmark}\\ 
+\hline
+6 & Bruger og Festivalgæst accepterer &   Brugers og Festivalgæsts mobilapplikationer fremviser identiske spørgsmål og svarmuligheder. & Identiske spørgsmål og svarmuligheder aflæses på Brugers og Festivalgæsts enheder & \FuckingHuge{\checkmark} \\
+\hline
+\end{longtable}
+
+
+\subsection{UC2: [Extension 2: Bruger indtaster ikke korrekt id]}
+
+
+\begin{longtable}{| p{0.7cm}  | p{3cm}  | p{4cm} |  p{3cm}  | p{3cm}  |}
+\hline
+Step & Handling & Forventet Resultat & Test & Resultat \\
+\hline
+1 &  Bruger og Festivalgæst vælger Mingle i hovedmenuen &  Mulighed for at vælge at starte et spil og deltage i et spil fremvises  & Aflæses på Brugers og Festivalgæsts enhed & \FuckingHuge{\checkmark} \\
+\hline
+2 &  Bruger vælger at oprette spil &  Brugers id vises på enheden  & Aflæses på Brugers enhed & \FuckingHuge{\checkmark} \\
+\hline
+3 &  Festivalgæst vælger at deltage i et spil &  Festivalgæst har mulighed for at indtaste id  & Aflæses på Festivalgæsts enhed & \FuckingHuge{\checkmark} \\
+\hline
+4 &  Bruger udveksler unikt id med Festivalgæst, og Festivalgæst indtaster '12345' &  '12345' er indtastet på Festivalgæsts enhed  & Aflæses på Festivalgæsts enhed & \FuckingHuge{\checkmark} \\
+\hline
+5 & Festivalgæst accepterer & Festivalgæst informeres om at der ikke finde en aktiv spiller med dette id & Aflæses på Brugers og Festivalsgæsts enhed & \FuckingHuge{\checkmark} \\ 
+\hline
+\end{longtable}
+
+
+\newpage
+
+\section{Test: UC3 Spil nyt spil}
+
+\subsection{UC3 Hovedforløb}
+
+\begin{longtable}{| p{0.7cm}  | p{3cm}  | p{4cm} |  p{3cm}  | p{3cm}  |}
+\hline
+Step & Handling & Forventet Resultat & Test & Resultat \\
+\hline
+1 &  Bruger har afsluttet UC2  &  Brugers og Festivalgæsts mobilapplikationer fremviser spørgsmål og svarmuligheder. & Identiske spørgsmål og svarmuligheder aflæses på Brugers og Festivalgæsts enheder & \FuckingHuge{\checkmark} \\
+\hline
+2 &  Bruger og festivalgæst vælger det øverste svar &  Mobilapplikationerne informerer Bruger og Festivalgæst om korrekt svar. & Afæses på Brugers og Festivalgæsts enheder & \FuckingHuge{\checkmark}\\ 
+\hline
+3 &  Bruger og Festivalgæst accepterer korrekt svar  &  Brugers og Festivalgæsts mobilapplikationer fremviser spørgsmål og svarmuligheder. & Identiske spørgsmål og svarmuligheder aflæses på Brugers og Festivalgæsts enheder & \FuckingHuge{\checkmark} \\
+\hline
+4 &  Bruger og festivalgæst vælger det miderste svar &  Applikationerne informerer Bruger og Festivalgæst om korrekt svar. & Afæses på Brugers og Festivalgæsts enheder & \FuckingHuge{\checkmark}\\ 
+\hline
+5 &  Bruger og Festivalgæst accepterer korrekt svar  &  Brugers og Festivalgæsts mobilapplikationer fremviser spørgsmål og svarmuligheder. & Identiske spørgsmål og svarmuligheder aflæses på Brugers og Festivalgæsts enheder & \FuckingHuge{\checkmark} \\
+\hline
+6 &  Bruger og festivalgæst vælger det nederste svar &  Applikationerne informerer Bruger og Festivalgæst om vundet spil og at der er optjent point. & Afæses på Brugers og Festivalgæsts enheder & \FuckingHuge{\checkmark}\\ 
+\hline
+7 & Bruger og Festivalgæst accepterer  & Bruger og Festivalgæst har nu 10 point og hovedmenuen fremvises & Aflæses på Brugers og Festivalgæsts enheder & \FuckingHuge{\checkmark}\\
+\hline
+\end{longtable}
+
+
+
+
+\subsection{UC3: [Extension 1: Bruger og festivalgæst vælger ikke samme svar]}
+
+\begin{longtable}{| p{0.7cm}  | p{3cm}  | p{4cm} |  p{3cm}  | p{3cm}  |}
+\hline
+Step & Handling & Forventet Resultat & Test & Resultat \\
+\hline
+1 &  Bruger har afsluttet UC2  &  Brugers og Festivalgæsts mobilapplikationer fremviser spørgsmål og svarmuligheder. & Identiske spørgsmål og svarmuligheder aflæses på Brugers og Festivalgæsts enheder & \FuckingHuge{\checkmark}\\
+\hline
+2 &  Bruger vælger det øverste svar og Festivalgæst vælger det nederste svar  & Mobilapplikationen informerer om at bruger og festivalgæst har tabt. & Aflæses på Brugers og Festivalgæsts enheder &  \FuckingHuge{\checkmark} \\
+\hline
+3 &  Bruger og Festivalgæst accepterer  & Mobilapplikationen fremviser hovedmenuen. & Aflæses på Brugers og Festivalgæsts enheder & \FuckingHuge{\checkmark} \\
+\hline
+\end{longtable}
+
+\subsection{UC3: [Extension 2: Bruger annullerer spørgsmålsspillet]}
+
+\begin{longtable}{| p{0.7cm}  | p{3cm}  | p{4cm} |  p{3cm}  | p{3cm}  |}
+\hline
+Step & Handling & Forventet Resultat & Test & Resultat \\
+\hline
+1 &  Bruger har afsluttet UC2  &  Brugers og Festivalgæsts mobilapplikationer fremviser spørgsmål og svarmuligheder. & Identiske spørgsmål og svarmuligheder aflæses på Brugers og Festivalgæsts enheder & \FuckingHuge{\checkmark} \\
+\hline
+2 &  Bruger annullerer spørgsmålsspillet  & Applikationerne informerer Bruger og Festivalgæst om, at spillet er annulleret. & Aflæses på Brugers og Festivalgæsts enheder &  \FuckingHuge{\textdiv}  \\
+\hline
+\end{longtable}
+
+\newpage
+
+\subsection{UC3: [Extension 3: Festivalgæst annullerer spørgsmålsspillet]}
+
+\begin{longtable}{| p{0.7cm}  | p{3cm}  | p{4cm} |  p{3cm}  | p{3cm}  |}
+\hline
+Step & Handling & Forventet Resultat & Test & Resultat \\
+\hline
+1 &  Bruger har afsluttet UC2  &  Brugers og Festivalgæsts mobilapplikationer fremviser spørgsmål og svarmuligheder. & Identiske spørgsmål og svarmuligheder aflæses på Brugers og Festivalgæsts enheder &  \FuckingHuge{\checkmark} \\
+\hline
+2 &  Festivalgæst annullerer spørgsmålsspillet  & Applikationerne informerer Bruger og Festivalgæst om, at spillet er annulleret. & Aflæses på Brugers og Festivalgæsts enheder &   \FuckingHuge{\textdiv} \\
+\hline
+\end{longtable}
+
+
+
+\subsection{UC3: [Extension 4:Bruger og Festivalgæst har tidligere i samarbejde vundet spørgsmålsspillet]}
+
+\begin{longtable}{| p{0.7cm}  | p{3cm}  | p{4cm} |  p{3cm}  | p{3cm}  |}
+\hline
+Step & Handling & Forventet Resultat & Test & Resultat \\
+\hline
+1 &  Bruger har afsluttet UC2  &  Brugers og Festivalgæsts mobilapplikationer fremviser spørgsmål og svarmuligheder. & Identiske spørgsmål og svarmuligheder aflæses på Brugers og Festivalgæsts enheder & \FuckingHuge{\checkmark} \\
+\hline
+2 &  Bruger og festivalgæst vælger det øverste svar &  Mobilapplikationerne informerer Bruger og Festivalgæst om korrekt svar. & Afæses på Brugers og Festivalgæsts enheder & \FuckingHuge{\checkmark} \\ 
+\hline
+3 &  Bruger og Festivalgæst accepterer korrekt svar  &  Brugers og Festivalgæsts mobilapplikationer fremviser spørgsmål og svarmuligheder. & Identiske spørgsmål og svarmuligheder aflæses på Brugers og Festivalgæsts enheder & \FuckingHuge{\checkmark} \\
+\hline
+4 &  Bruger og festivalgæst vælger det miderste svar &  Applikationerne informerer Bruger og Festivalgæst om korrekt svar. & Afæses på Brugers og Festivalgæsts enheder & \FuckingHuge{\checkmark} \\ 
+\hline
+5 &  Bruger og Festivalgæst accepterer korrekt svar  &  Brugers og Festivalgæsts mobilapplikationer fremviser spørgsmål og svarmuligheder. & Identiske spørgsmål og svarmuligheder aflæses på Brugers og Festivalgæsts enheder & \FuckingHuge{\checkmark}  \\
+\hline
+6 &  Bruger og festivalgæst vælger det nederste svar &  Applikationerne informerer Bruger og Festivalgæst om vundet spil og at der er optjent point. & Afæses på Brugers og Festivalgæsts enheder & \FuckingHuge{\checkmark} \\ 
+\hline
+7 & Bruger og Festivalgæst accepterer  & Bruger og Festivalgæst har nu 10 point og hovedmenuen fremvises & Aflæses på Brugers og Festivalgæsts enheder & \FuckingHuge{\checkmark} \\
+\hline
+8 & Bruger og Festivalgæst accepterer  & Bruger og Festivalgæst har nu 0 point og hovedmenuen fremvises & Aflæses på Brugers og Festivalgæsts enheder & \FuckingHuge{\checkmark} \\
+\hline
+\end{longtable}
+
+
+\newpage
+
+
+
+
+\section{Test: UC4 Aflæs point}
+
+\subsection{UC4 Hovedforløb}
+
+\begin{longtable}{| p{0.7cm}  | p{3cm}  | p{4cm} |  p{3cm}  | p{3cm}  |}
+\hline
+Step & Handling & Forventet Resultat & Test & Resultat \\
+\hline
+1 & Bruger aflæser antal optjente point & Mobilapplikationen fremviser 10 point i hovedmenuen & 10 point aflæses på Brugers enheder &  \FuckingHuge{\checkmark} \\
+\hline
+\end{longtable}
+
+
+
+\section{Test: UC5 Indløs point}
+
+\subsection{UC5 Hovedforløb}
+
+\begin{longtable}{| p{0.7cm}  | p{3cm}  | p{4cm} |  p{3cm}  | p{3cm}  |}
+\hline
+Step & Handling & Forventet Resultat & Test & Resultat \\
+\hline
+1 &   &  & & \FuckingHuge{\textdiv}  \\
+\hline
+\end{longtable}
+
+\subsection{UC5: [Extension 1: Bruger har ikke nødvendigt antal point]}
+
+\begin{longtable}{| p{0.7cm}  | p{3cm}  | p{4cm} |  p{3cm}  | p{3cm}  |}
+\hline
+Step & Handling & Forventet Resultat & Test & Resultat \\
+\hline
+1 &  &  & & \FuckingHuge{\textdiv} \\
+\hline
+\end{longtable}
+
+
+
+\section{Test: UC6 Aflæs historik}
+
+\subsection{UC6 Hovedforløb}
+
+\begin{longtable}{| p{0.7cm}  | p{3cm}  | p{4cm} |  p{3cm}  | p{3cm}  |}
+\hline
+Step & Handling & Forventet Resultat & Test & Resultat \\
+\hline
+1 & &  & & \FuckingHuge{\textdiv}  \\
+\hline
+\end{longtable}
+
+\subsection{UC6: [Bruger har ikke haft nogen sammenkoblinger]}
+
+\begin{longtable}{| p{0.7cm}  | p{3cm}  | p{4cm} |  p{3cm}  | p{3cm}  |}
+\hline
+Step & Handling & Forventet Resultat & Test & Resultat \\
+\hline
+1 &  & &  & \FuckingHuge{\textdiv} \\
+\hline
+\end{longtable}
+
+
+\newpage
+
+\section{Test: UC7 Log ud}
+
+\subsection{UC7 Hovedforløb}
+
+\begin{longtable}{| p{0.7cm}  | p{3cm}  | p{4cm} |  p{3cm}  | p{3cm}  |}
+\hline
+Step & Handling & Forventet Resultat & Test & Resultat \\
+\hline
+1 &  Bruger vælger at logge ud i hovedmenuen &    Mobilapplikationen informerer om krav til at logge ind med Facebook. & Aflæses på Brugers enhed & \FuckingHuge{\checkmark} \\
+\hline
+\end{longtable}
+
+

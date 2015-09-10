@@ -1,0 +1,88 @@
+
+
+
+%Dette hax gør således at man kan lave en itemize inden i en tabel.
+
+\usepackage{mdwlist}
+\makeatletter
+\def\noVSpace{\@minipagetrue}
+\newenvironment{tabItemize}{%
+  \@minipagetrue%
+  \begin{itemize*}%
+}{\vspace{-\normalbaselineskip}%
+  \end{itemize*}}
+\makeatother
+
+\newcolumntype{d}[1]{D{.}{.}{#1}}
+
+
+%___________SEMI-tættere itemize
+%eks:
+%\begin{itemize} \semitightlist
+%   \item
+%\end{itemize}
+
+
+\newcommand{\semitightlist}{%
+\setlength{\itemsep}{0.2cm} \setlength{\parskip}{1pt}}
+
+
+%Indsættelse af NAnote
+\usepackage{ifthen}
+\newcommand{\clearemptydoublepage}{\newpage{\pagestyle{empty}%
+  \cleardoublepage{}}}
+\newcommand{\NAfinalversion}{false}
+\newcommand{\NAcompileimages}{true}
+%% IN TEXT COMMENTING COMMANDS
+%% To remove comments redefine \NAfinalversion to true in NA_RepPreamble
+\ifthenelse{\equal{\NAfinalversion}{false}}
+  { \newcommand\Note[1]{\textcolor{red}{\large\texttt{(NOTE: #1)}}} }
+  { \newcommand\Note[1]{} }
+
+%%%% Nomenklatur under formler
+%\newcommand\nomenklatur[1]{%
+%\begin{table}[htb]
+%\centering
+%\begin{tabular}{p{0.80\textwidth}}
+%\begin{center}\small \textit{#1}\end{center}
+%\end{tabular}
+%\end{table}}
+
+
+%___Til at vise programkode
+\usepackage{listings}
+\lstset{extendedchars=true, basicstyle=\ttfamily,keywordstyle=\normalfont\ttfamily, columns=flexible, numbers=left, numberstyle=\tiny, breaklines, breakatwhitespace=true, language=Matlab, morecomment=[l][\color{blue}]{\%}}
+
+\renewcommand\ttdefault{txtt}
+
+\newcommand\uu[1]{\underline{\underline{#1}}}
+\newcommand\RA{\qquad \Rightarrow}
+\newcommand\qqquad{\qquad \qquad}
+\newcommand\qqqquad{\qqquad \qqquad}
+\newcommand\qqqqquad{\qqqquad \qqqquad}
+\newcommand\degree{^{\circ}}
+\newcommand\f{\\[0.3cm]}
+\renewcommand{\Re}{\operatorname{Re}}
+\renewcommand{\Im}{\operatorname{Im}}
+\newcommand\units[1]{\left[{#1}\right]}
+
+%%%___Morten Kjelds hax
+%Indsættelse af fede græske vektorer
+\newcommand{\gve}[1]
+{\textrm{\boldmath ${#1}$ \unboldmath}\!}
+%Indsættelse af vektor
+\newcommand{\ve}[1]
+{\mathbf{#1}}
+%Indsættelse af vektor med streg over
+\newcommand{\ove}[1]
+{\overline\mathbf{#1}}
+%Indsættelse af æ, ø og å i formeludtryk
+\newcommand{\æ}
+{\textit{\textrm{æ}}}
+\newcommand{\ø}
+{\textit{\textrm{ø}}}
+\newcommand{\å}
+{\textit{\textrm{å}}}
+
+\definecolor{shadecolor}{gray}{.91}
+

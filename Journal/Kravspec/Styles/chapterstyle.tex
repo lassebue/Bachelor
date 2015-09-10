@@ -1,0 +1,69 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                             Chapter and Section                           %
+%                     			      Style	       		                    %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% % % % Redefined so that header will show even on chapter start. % % % %
+\makeatletter
+    \let\stdchapter\chapter
+    \renewcommand*\chapter{%
+    \@ifstar{\starchapter}{\@dblarg\nostarchapter}}
+    \newcommand*\starchapter[1]{%
+        \stdchapter*{#1}
+        \thispagestyle{fancy}
+        \markboth{\MakeUppercase{#1}}{}
+    }
+    \def\nostarchapter[#1]#2{%
+        \stdchapter[{#1}]{#2}
+        \thispagestyle{fancy}
+    }
+\makeatother
+
+
+
+
+\usepackage{titlesec} % Pakke til opsætning af chapter og sektioner
+
+
+% % defining new font for the chapternumber. Calling it FuckingHuge 
+\newcommand{\FuckingHuge}{% Needs a 'stretchable' font
+      \usefont{\encodingdefault}{\rmdefault}{b}{n}%
+      \fontsize{35}{45}\normalfont\color{ThemeColor}} %60 80
+
+
+%%% TAL I OVERSKRIFTER, både chapters og sections. 
+    \maxsecnumdepth{subsubsection} %subsubsection er dybdeniveau for numering.
+   	\setsecnumdepth{subsubsection}
+
+
+  
+ % % % % CHAPTER OPSÆTNING % % % % % % % % % % % % % % % % % % % % %
+
+%Hang thoose numbers! I margin med tallene for både sections og chapters! En lækker chapter style!
+\chapterstyle{hangnum}
+ 
+%Modificering af ovenstående style
+%Placering af chapter overskriften på siden i forhold til sidens start %
+\renewcommand*{\chapterheadstart}{\vspace*{-20pt}}
+
+
+% FARVE PÅ CHAPTER % %
+%TItel farve og font valg
+\renewcommand*{\chaptitlefont}{\normalfont\Huge\color{ThemeColor}}
+%Numering farve og font valg
+\renewcommand{\chapnumfont}{\normalfont\FuckingHuge\color{ThemeColor}}
+
+
+
+% % % % SECTION OPSÆTNING % % % % % % % % % % % % % % % % % % % %
+\hangsecnum % vi smidder numering ud i marken
+
+%Vi benytter tema farven til numeringen
+\renewcommand\thesection{\color{ThemeColor}\thechapter.\arabic{section}}
+
+
+
+    
+    
+

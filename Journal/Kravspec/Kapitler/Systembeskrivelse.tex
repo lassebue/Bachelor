@@ -1,0 +1,26 @@
+\thispagestyle{fancy}
+\chapter{Systembeskrivelse}
+\label{chp:systembeskrivelse}
+På baggrund af projektafgrænsningen vil dette kapitel præsenterere det system, som udgør rammerne for systemets udvikling. I figur \ref{fig:systembeskrivelse} forsøges det afgrænsede projekt beskrevet. Systemet beskrives som en mobilapplikation kørende på flere Windows Phone 8 enheder, en serverapplikation kørende på en Windows 7 eller nyere og en database, hvor relevante data opbevares. Det endelige system udvikles som et proof of concept til festivaller og navngives \textit{Mingle}.
+
+\figur{systembeskrivelse.jpg}{Beskrivelse af systemet}{fig:systembeskrivelse}{1}
+
+Det er målet igennem en mobilapplikation at støtte festivalgæsterne i socialisering og skabelse af nye venskaber. Dette gøres med et spørgsmålsspil, hvor to personer i samarbejde skal svare på spørgsmål om hinanden. Mobilapplikationen, serverapplikationen og databasen giver tilsammen denne personlige spiloplevelse.
+
+For at skabe en personliggørelse af spillet er systemet tæt koblet med Facebook, hvorfra relevante informationer om brugerne hentes og gemmes i databasen. Når en bruger ønsker at logge ind benyttes email og adgangskode til Facebook. Hvis en bruger ønsker at benytte Mingle, er en Facebook bruger derfor et krav. 
+
+Når et spørgsmålsspil startes fremvises det samme spørgsmål på mobilapplikationerne. Disse spørgsmål modtages fra serveren, som henter dem fra databasen. På databasen opbevares både spørgsmål og tilhørende svarmuligheder.
+
+Ved et gennemført spil optjenes point. Disse point gemmes ligeledes i databasen og kan benyttes til at købe varer på festivaller. En festivalmedarbejder  verificerer købet, og pointene trækkes fra brugerens totale antal point.
+
+
+Da Mingle har fokus på at skabe nye venskaber, sættes en begrænsning, hvor der udelukkende tildeles point for første spil som i samarbejde er vundet. Dette realiseres igennem en historik, som serveren håndterer og gemmer på databasen.
+
+
+
+
+
+
+ 
+
+ 

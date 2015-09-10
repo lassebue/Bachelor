@@ -1,0 +1,43 @@
+\usepackage{geometry}
+\usepackage{amsmath}
+\usepackage[some]{background}
+
+
+\definecolor{titlepagecolor}{cmyk}{1,.60,0,.40}
+
+\DeclareFixedFont{\bigsf}{T1}{phv}{b}{n}{1.5cm}
+
+\backgroundsetup{
+scale=1,
+angle=0,
+opacity=1,
+contents={\begin{tikzpicture}[remember picture,overlay]
+ \path [fill=ThemeColor] (-0.5\paperwidth,5) rectangle (0.5\paperwidth,10);  
+\end{tikzpicture}}
+}
+\makeatletter                       
+\def\printauthor{%                  
+    {\large \@author}}              
+\makeatother
+\author{%
+201270762, René R. Jensen \\
+\vspace*{0.75cm}
+201270763, Sander Louring \\
+\vspace*{0.75cm}
+201206094, Kasper H. Liholm \\
+\vspace*{0.75cm}
+201271015, Christian Sørensen \\
+\vspace*{0.75cm}
+201270893, Andreas H. Jakobsen \\
+\vspace*{0.75cm}
+201270097, Simon Ø. Kristensen \\
+\vspace*{0.75cm}
+201270987, Christoffer B. Rasmussen \\
+
+
+
+\vspace*{0.75cm}
+Vejleder: Steen F. Krøyer
+}
+
+

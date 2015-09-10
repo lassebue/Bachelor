@@ -1,0 +1,345 @@
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                              Custom functions                             %
+%                         For general use in projects                      %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% For use in definition of new commands:
+\usepackage{xspace}           % \newcommand{\cmd}{text\xspace} ensures the correct spacing between text and other words/characters.
+
+% For cellheight adjustments in nomenklatur-function
+\usepackage{cellspace}
+    \addtolength\cellspacetoplimit{0pt}
+    \addtolength\cellspacebottomlimit{0pt}
+
+
+%
+%% Custom "paragraph" function for making line-seperated paragraphs (e.g. double newline)
+%
+
+% Make double line break with no line indent (for changing the way paragraphs are made)
+\newcommand{\newpar}{$\,$ \\ $\,$ \\}
+% Alias of \newpar
+\newcommand{\newparagraph}{\newpar{}}
+
+\newcommand{\subsubsubsection}[1]{%
+\newpar\paragraph{#1}$\,$\\%
+}
+
+
+%
+%% Function for creating horizontal lines between points in a recipe-like list
+%
+\newcommand{\recipeline}{%
+\vspace{2pt}
+\hrule
+\vspace{2pt}
+}
+%
+%% Function for creating a boxed, centered equation  behaving like the equation environment
+%
+\newcommand{\boxedeq}[2]{%
+	\[\fbox{%
+			\addtolength{\linewidth}{-2\fboxsep}%
+			\addtolength{\linewidth}{-2\fboxrule}%
+			\begin{minipage}{#2}%
+				\bigskip%
+				\[#1\]%
+				\hspace{1cm}%
+			\end{minipage}%
+	}\]%
+			\addtolength{\linewidth}{-2\fboxsep}%
+			}
+			%
+			%% Function for creating a boxed, centered equation  behaving like the equation environment
+			%
+			\newcommand{\boxedeqlabel}[3]{%
+				\[\fbox{%
+			\addtolength{\linewidth}{-2\fboxrule}%
+			\begin{minipage}{#2}%
+				\bigskip%
+				\begin{equation}#1\end{equation}%
+				\label{#3}%
+				\hspace{1cm}%
+			\end{minipage}%
+	}\]%
+}
+
+%
+%% Environment for displaying a 0th, 1st or 2nd order tensor in matrix format
+%
+\newenvironment{tensor}
+{
+	\begin{pmatrix}
+}
+{
+    \end{pmatrix}
+}
+
+%
+%% For displaying vectors
+%
+\newenvironment{vect}
+{
+	\begin{Bmatrix}
+}
+{
+    \end{Bmatrix}
+}
+
+% VECTOR IS DEFINED
+\newcommand{\vectq}[1]{\ensuremath{%
+%	\{#1\}
+\text{\overrightharp{$#1$}}
+}}
+
+% UNIT VECTOR IS DEFINED
+\newcommand{\unitvecq}[1]{\ensuremath{%
+\widehat{#1}
+}}
+
+% TIME INVARIANT IS DEFINED
+\newcommand{\tInvar}[1]{
+\widetilde{#1}
+}
+%
+%% For displaying matrices
+%
+\newenvironment{matr}
+{
+	\begin{bmatrix}
+}
+{
+    \end{bmatrix}
+}
+\newcommand{\matrq}[1]{\ensuremath{%
+%	[#1]
+\underline{#1}
+}}
+\renewcommand{\Re}[1]{
+%\text{Re}\Big\langle#1\Big\rangle%
+\text{Re}\left\{#1\right\}
+}
+\renewcommand{\Im}[1]{
+%\text{Im}\Big\langle#1\Big\rangle%
+\text{Im}\left\{#1\right\}
+}
+%
+%% Function for creating small introductions for every new chapter (italic text)
+%
+\newcommand{\chapintro}[1]{%
+    \textit{#1} \\ \linebreak%
+    \noindent%
+}
+
+%
+%% Function for creating small introductions for every new section (italic text)
+%
+\newcommand{\secintro}[1]{%
+    \textit{#1} \\ \linebreak%
+    \noindent%
+}
+
+%
+%% Function for creating isolated remarks (indented italic text)
+%
+\newcommand{\remark}[1]{%
+	\begin{center}%
+		\parbox{0.8\textwidth}{\textit{#1}}%
+	\end{center}%
+    \noindent%
+}
+
+%
+%% Function for creating isolated remarks (indented italic text)
+%
+\newcommand{\makequote}[2]{%
+	\begin{center}%
+		\parbox{0.8\textwidth}{"\textit{#1}" #2}%
+	\end{center}
+    \noindent%
+}
+
+%%% Function for using \verytightlist - not very pretty!
+%\newcommand{\verytightlist}{%
+%    \setlength{\itemsep}{0.05cm} \setlength{\parskip}{1pt}}
+%
+%
+%%% Function for almost using \tightlist without using the memoir-class
+%\newcommand{\allmosttightlist}{%
+%    \setlength{\itemsep}{0.1cm} \setlength{\parskip}{1pt}}
+%
+%
+%%% Function for using \semitightlist
+%\newcommand{\semitightlist}{%
+%    \setlength{\itemsep}{0.2cm} \setlength{\parskip}{1pt}}
+%
+
+%
+%% Comments (shown in document outer margin)
+%
+\renewcommand{\comment}[2]{%
+    \textcolor{blue}{\textbf{*}} \marginpar{%
+        \fcolorbox{white}{blue}{\parbox{3.5cm}{%
+            \color{white} \small \sffamily \textbf{#1:} #2}%
+        }%
+    }%
+}
+%\newcommand{\comment}[2]{} % Use for hiding comments
+
+%
+%% Fixmes (shown in document outer margin)
+%
+\renewcommand{\fixme}[2]{%
+    \textcolor{red}{\textbf{!}} \marginpar{%
+        \fcolorbox{white}{red}{\parbox{3.5cm}{%
+            \color{white} \small \sffamily \textbf{FIXME:} #2 (#1)}%
+        }%
+    }%
+}
+%\newcommand{\fixme}[2]{} % Use for hiding fixmes
+
+
+%
+%% Pretext style headers/footers (for use before \mainmatter}
+%% NB: Use only for report/book style in documentclass
+%
+\newenvironment{pretext}
+{
+	% Don't use
+	\pagestyle{plain}
+}
+{
+	\cleardoublepage
+	\pagestyle{fancy}
+}
+
+
+%%% Function for using \bf to write in bold
+\renewcommand{\bf}{%
+    \bfseries%
+}
+
+%%% Function for using \it to write in italic
+\renewcommand{\it}{%
+    \itshape%
+}
+
+
+%% Home made commands by Rene
+\newcommand{\abs}[1]{\lvert#1\rvert}
+\newcommand{\sgn}[1]{\text{sgn}\left(#1\right)} %Sign function
+\newcommand{\nrcs}[1]{\: \put(5.5,3.5){\circle{14}}#1 \,} %Laver en cirkel omkring et to cifferet tal, nummer cirkel stor fx \nrcs{15}
+\newcommand{\nrc}[1]{\: \put(3,3.5){\circle{12}}#1 \,} %Laver en cirkel omkring et ét cifferet tal, nummer cirkel fx \nrc{5}
+\newcolumntype{R}[1]{>{\raggedleft\arraybackslash}p{#1}} %R{2cm} laver en right orienteret søjle med en bredde på 2cm
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                              Custom functions                             %
+%                       Primarily for this project; I6                      %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%
+%% Adds vertical space around \hline in tabular, T = top
+%
+\newcommand\T{%
+    \rule{5pt}{5ex}%
+}
+
+%
+%% Adds vertical space around \hline in tabular, B = buttom
+%
+\newcommand\B{%
+    \rule{0pt}{2.6ex}%
+}
+
+%
+%% Nomenclature below equations
+%
+\newcommand\nomenklaturCellHeight{%
+\includegraphics[scale=1]{styles/nomenklaturCellHeight.PNG}%
+}
+\renewcommand\nomenklaturCellHeight{}
+
+
+\newcommand\nomenklatur[2]{%
+\nomenclature{$#1$}{#2.}{}{}%
+\begin{minipage}[top]{0.7\textwidth}\flushleft%\renewcommand\arraystretch{1.25}% (Value=1.0 is for standard spacing}%
+\begin{tabular}{S{p{1.0cm}}S{p{1.3cm}} Sl}%
+{$\,$} & \ensuremath{#1} &\nomenklaturCellHeight\parbox{12cm}{\footnotesize{#2.}}%
+\end{tabular}%
+\end{minipage}%
+%}
+\\ \noindent%
+}
+
+%
+%% Start nomenclature below equations - use this command for the first line of each nomenclature-block.
+%
+\newcommand\nomenklaturstart[2]{%
+\nomenclature{$#1$}{#2.}{}{}%
+\begin{minipage}[top]{0.7\textwidth}\flushleft%\renewcommand\arraystretch{1.25}% (Value=1.0 is for standard spacing}%
+\begin{tabular}{>{\setlength{\parindent}{-0.2cm}}S{p{1.0cm}}S{p{1.3cm}} Sl}
+where:\nomenklaturCellHeight & \ensuremath{#1} &\nomenklaturCellHeight\parbox{12cm}{\footnotesize{#2.}}%
+\end{tabular}%
+\end{minipage}%
+%}
+\\ \noindent%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%figur nomenklatur
+%%%%%%%%%%%%
+%\newcommand\ehnomenklatur[3]{%
+%\noindent
+%\nomenclature{$#1$}{#2}{}{}%
+%\begin{minipage}[top]{0.7\textwidth}\flushleft%\renewcommand\arraystretch{1.25}% (Value=1.0 is for standard spacing}%
+%\begin{tabular}{S{p{1.0cm}} S{p{1.3cm}} Sl}%
+%{$\,$} & \ensuremath{#1} &\nomenklaturCellHeight\parbox{8cm}{\footnotesize{#2}} \ensuremath{\footnotesize{#3}}%
+%\end{tabular}%
+%\end{minipage}%
+%%}
+%\\ \noindent%
+%}
+%
+%%
+%%% Start nomenclature below equations - use this command for the first line of each nomenclature-block.
+%%
+%\newcommand\ehnomenklaturstart[3]{%
+%\noindent
+%\nomenclature{$#1$}{#2}{}{}%
+%\begin{minipage}[top]{0.7\textwidth}\flushleft%\renewcommand\arraystretch{1.25}% (Value=1.0 is for standard spacing}%
+%\begin{tabular}{>{\setlength{\parindent}{-0.2cm}}S{p{1.0cm}}S{p{1.3cm}} Sl}
+%$\quad$ \\
+%where:\nomenklaturCellHeight & \ensuremath{#1} &\nomenklaturCellHeight\parbox{8cm}{\footnotesize{#2}} \ensuremath{\footnotesize{#3}}%
+%\end{tabular}%
+%\end{minipage}%
+%%}
+%\\ \noindent%
+%}
+
+
+%
+%% Command for definition of new terms in text
+%
+\newcommand\term[1]{%
+    \emph{#1}%
+}
+
+%% Command for creating a double-bar over a matrix symbol
+\newcommand\dbar[1]{%
+    \ensuremath{\bar{\bar{#1}}}%
+}
+
+%% Command for definition of planar cross product
+\newcommand\planarCross{%
+%    \ensuremath{\underline{\times}}%
+%    \ensuremath{\dtimes}%
+\begin{turn}{90}\ensuremath{\ltimes}\end{turn}
+}
+
+

@@ -1,0 +1,289 @@
+\chapter{Funktionelle krav} 
+\label{chp:funktionellekrav}
+
+\section{Indledning}
+I dette kapitel indledes med en beskrivese af de funktionelle krav. Disse beskrives ved hjælp af use cases og indledes med et UML use case diagram, som hjælper læseren med at skabe overblik over de forskellige use cases, som herefter beskrives dybdegående
+
+\section{Overblik over use cases}
+I følgende beskrives de funktionelle krav igennem 7 forskellige  fully dressed use cases. 
+
+Ved benævnelse af \emph{system} refereres der til \emph{mobilapplikationen}, \emph{serverapplikation} med dertilhørende \emph{database}.
+
+
+\section{Aktørbeskrivelse}
+Aktørerne som fremgår af use case diagrammet, og deres interaktion med systemet beskrives herefter.
+
+\subsection{Bruger}
+Bruger er den primære aktør i samtlige use cases. Det er brugeren der ønsker at benytte mobilapplikationen på sin mobile enhed. Brugeren ønsker at spille spørgsmålsspillet med andre festivalgæster, indtjene point i samarbejde med andre festivalgæster samt indløse point ved en festivalmedarbejder
+
+\subsection{Festivalmedarbejder}
+Festivalmedarbejder er en medarbejder på festivallen, som Bruger indløser sine point hos ved køb af en vare på festivallen.
+
+\subsection{Facebook}
+Facebook er et socialt netværk hvorfra oplysninger omkring brugere hentes. Et Facebook login er påkrævet for brugere af systemet, da der herfra indhentes de fornødne brugerinformationer.
+
+\newpage
+
+\section{Ordforklaringer}
+
+\subsubsection{Mobilapplikationen:}
+Refererer til den mobilapplikation, der kører på Brugers og Festivalgæsts enheder. Mobilapplikationen kommunikerer med resten af systemet
+
+\subsubsection{Enhed:}
+Refererer til en smartphone, som mobilapplikationen kører på.
+
+\subsubsection{Spørgsmålspil:}
+Refererer til det spil, som Bruger spiller med Festivalgæst gennem mobilapplikationerne på deres smartphones for at optjene point. Spillet består af en række spørgsmål, som både Bruger og Festivalgæst skal svare ens på.
+
+\subsubsection{Point:}
+Refererer til den digitale møntfod, som Bruger kan optjene ved at spille spørgsmålsspillet med nye festivalgæster. Møntfoden benyttes til at købe varer for hos Festivalmedarbejder.
+
+\subsubsection{Unikt id:}
+Refererer til det unikke id, som Bruger får tildelt ved første facebook login, og som derfra er Systems unikke reference til brugeren.
+
+\subsubsection{Sammenkobling}
+Refererer til at to brugere kobles sammen ved at udveksle deres unikke id'er. En sammenkobling opfattes for systemet som to unikke bruger-id'er og et tidsstempel samt en indikator for, om brugerne har modtaget point for sammenkoblingen.
+
+\subsubsection{Historik}
+Refererer til en oversigt over Brugers tidligere sammenkoblinger. Bruger kan derved se udvalgte facebookoplysninger på andre brugere, som Bruger tidligere har været i kontakt med via mobilapplikationen.
+
+ \newpage
+
+
+% Command \figur{filename}{caption}{label}{width} 
+\figur{Krav/Kontekstdiagram.png}{Use Case Context Diagram:Use case 1-7}{Fig:UC: 1-7}{1}
+
+\newpage
+
+\section{UC1: Log ind}
+
+\begin{tabular}{ >{\raggedleft} p{3cm} | p{12cm} }
+Mål: & Bruger er logget ind. \\
+Initiator: & Bruger \\
+Primær aktør: & Bruger \\
+Sekundær aktør: & Facebook \\
+Forudsætning: & Mobilapplikationen er opstartet på Brugers enhed \newline
+Dataforbindelse tilgængelig
+ \\
+ & \\
+Hovedforløb:  & \begin{enumerate}[label=\arabic*.),itemjoin={\newline},topsep=0pt,partopsep=0pt,itemsep=0pt,leftmargin=*]   
+\item Mobilapplikationen informerer om krav til forbindelse med Brugers Facebookprofil. \newline
+[Extension 1: Bruger er allerede logget ind]
+\item Bruger indtaster brugernavn og adgangskode til Facebook og bekræfter. \newline
+[Extension 2: Bruger falsificerer]
+\item System henter informationer fra Facebook samt det unikke id fra mobilapplikationen og fremviser hovedmenuen for Bruger.
+\end{enumerate}\\
+Extension 1: & [Bruger er allerede logget ind] \newline
+\begin{enumerate}[label=\arabic*.),itemjoin={\newline},topsep=0pt,partopsep=0pt,itemsep=0pt,leftmargin=*]   
+\item Use casen genoptages ved hovedforløb 3.) 
+\end{enumerate} \\
+Extension 2: & [Bruger falsificerer] \newline
+\begin{enumerate}[label=\arabic*.),itemjoin={\newline},topsep=0pt,partopsep=0pt,itemsep=0pt,leftmargin=*]   
+\item Use casen genoptages ved hovedforløb 2.)
+\end{enumerate} \\
+& \\
+\end{tabular}
+
+
+\newpage
+
+\section{UC2: Forbind enheder}
+\begin{tabular}{ >{\raggedleft} p{3cm} | p{12cm} }
+Mål: & Brugers enhed er sammenkoblet med Festivalgæsts enhed. \\
+Initiator: & Bruger \\
+Primær aktør: & Bruger \\
+Sekundær aktør: & Festivalgæst  \\
+Reference: & UC3 \\
+Forudsætning: & Bruger befinder sig i hovedmenuen
+ \\
+ & \\
+Hovedforløb:  & \begin{enumerate}[label=\arabic*.),itemjoin={\newline},topsep=0pt,partopsep=0pt,itemsep=0pt,leftmargin=*]   
+\item Bruger og Festivalgæst vælger at Mingle i hovedmenuen
+\item Mobilapplikationen fremviser sammenkoblingsmenuen
+\item Bruger vælger at oprette et spil
+\item Mobilapplikationen fremviser Brugers id
+\item Festivalgæst vælger at deltage i et spil
+\item Mobilapplikationen fremviser muligheden for at indtaste id
+\item Bruger udveksler unikt id med Festivalgæst. 
+\item Festivalgæst indtaster Brugers id og accepterer. \newline
+[Extension 1: Bruger og Festivalgæst har tidligere i samarbejde vundet spørgsmålsspillet]
+[Extension 2: Bruger indtaster ikke korrekt id]
+\item System forbinder Bruger med Festivalgæst og informerer herom.
+\item Bruger og Festivalgæst accepterer. \newline
+\item Use case 3 påbegyndes.
+\end{enumerate}\\
+Extension 1: & [Bruger og Festivalgæst har tidligere i samarbejde vundet spørgsmålsspillet]
+\vspace{2 mm}
+\begin{enumerate}[label=\arabic*.),itemjoin={\newline},topsep=0pt,partopsep=0pt,itemsep=0pt,leftmargin=*]   
+\item System registrerer, at Bruger og Festivalgæst tidligere i samarbejde har vundet et spørgsmålsspil. Bruger og Festivalgæst informeres om at der således ikke optjenes point
+\item Use casen genoptages ved hovedforløb 3.)
+\end{enumerate} \\
+Extension 2: & [Bruger indtaster ikke korrekt id]
+\vspace{2 mm}
+\begin{enumerate}[label=\arabic*.),itemjoin={\newline},topsep=0pt,partopsep=0pt,itemsep=0pt,leftmargin=*]   
+\item System registrerer at ingen med det indtastede id ønsker at spille, og bruger informeres om fejlindtastelse.
+\item Use casen genoptages ved hovedforløb 2.)
+\end{enumerate} \\
+& \\
+& \\
+\end{tabular}
+
+\newpage
+
+\section{UC3: Spil nyt spil}
+\begin{tabular}{ >{\raggedleft} p{3cm} | p{12cm} }
+Mål: & Bruger og Festivalgæst har gennemført spørgsmålsspil og modtaget point. \\
+Initiator: & Startes af UC2 \\
+Primær aktør: & Bruger \\
+Sekundær aktør: & Festivalgæst  \\
+Reference: & UC2: Enheder forbindes \\
+Forudsætning: & Målet for UC2: Enheder forbindes er opnået
+ \\
+ & \\
+Hovedforløb:  & \begin{enumerate}[label=\arabic*.),itemjoin={\newline},topsep=0pt,partopsep=0pt,itemsep=0pt,leftmargin=*]   
+\item Brugers og Festivalgæsts mobilapplikationer fremviser spørgsmål og svarmuligheder.
+\item Bruger og Festivalgæst vælger samme svar. \newline
+[Extension 1: Bruger og Festivalgæst vælger ikke samme svar] \newline
+[Extension 2: Bruger annullerer spørgsmålsspillet] \newline
+[Extension 3: Festivalgæst annullerer spørgsmålspillet]
+\item Mobilapplikationerne informerer Bruger og Festivalgæst om korrekt svar. Hovedforløb startes på ny fra 1.) til tre korrekte svar er opnået.
+\item System tildeler point og informerer Bruger og Festivalgæst herom\newline 
+[Extension 4: Bruger og Festivalgæst har tidligere i samarbejde vundet spørgsmålsspillet] 
+\newline
+\item Mobilapplikationerne gemmer sammenkobling mellem Festivalgæst og Bruger i historik og hovedmenuen fremvises mobilapplikationerne.
+\end{enumerate}\\
+Extension 1: &  [Bruger og Festivalgæst vælger ikke samme svar]
+\vspace{2 mm}
+\begin{enumerate}[label=\arabic*.),itemjoin={\newline},topsep=0pt,partopsep=0pt,itemsep=0pt,leftmargin=*]   
+\item Mobilapplikationen informerer om at Bruger og Festivalgæst har svaret forkert.
+\item Spørgsmålsspillet stoppes og Bruger og Festivalgæst informeres herom
+\item Bruger og Festivalgæst accepterer.
+\item Use case afsluttes og hovedmenuen fremvises
+\end{enumerate} \\
+Extension 2: &  [Bruger annullerer spørgsmålsspillet]
+\vspace{2 mm}
+\begin{enumerate}[label=\arabic*.),itemjoin={\newline},topsep=0pt,partopsep=0pt,itemsep=0pt,leftmargin=*]   
+\item Mobilapplikationerne informerer Bruger og Festivalgæst om, at spørgsmålsspillet er annulleret.
+\item Use case afsluttes og hovedmenuen fremvises
+\end{enumerate} \\
+\end{tabular}
+
+\newpage
+
+\begin{tabular}{ >{\raggedleft} p{3cm} | p{12cm} }
+& \\
+& \\
+Extension 3: &  [Festivalgæst annullerer spørgsmålsspillet]
+\vspace{2 mm}
+\begin{enumerate}[label=\arabic*.),itemjoin={\newline},topsep=0pt,partopsep=0pt,itemsep=0pt,leftmargin=*]   
+\item Mobilapplikationerne informerer Bruger og Festivalgæst om, at spørgsmålsspillet er annulleret.
+\item Use case afsluttes og hovedmenuen fremvises
+\end{enumerate} \\
+Extension 4: & [Bruger og Festivalgæst har tidligere i samarbejde vundet spørgsmålsspillet]
+\vspace{2 mm}
+\begin{enumerate}[label=\arabic*.),itemjoin={\newline},topsep=0pt,partopsep=0pt,itemsep=0pt,leftmargin=*]   
+\item System tildeler ikke point og informerer Bruger og Festivalgæst herom.
+\item Bruger og Festivalgæst accepterer
+\item Use casen genoptages ved hovedforløb 5.)
+\end{enumerate} \\
+\end{tabular}
+
+\newpage
+
+\section{UC4: Aflæs point}
+\begin{tabular}{ >{\raggedleft} p{3cm} | p{12cm} }
+Mål: & Bruger har aflæst point. \\
+Initiator: & Mobilapplikationen \\
+Primær aktør: & Bruger \\
+Sekundær aktør: &  \\
+Forudsætning: & Bruger befinder sig i hovedmenuen.
+ \\
+ & \\
+Hovedforløb:  & \begin{enumerate}[label=\arabic*.),itemjoin={\newline},topsep=0pt,partopsep=0pt,itemsep=0pt,leftmargin=*]   
+\item Mobilapplikationen fremviser antal optjente point i hovedmenuen.
+\item Bruger aflæser antal optjente point.
+\end{enumerate}\\
+& \\
+\end{tabular}
+
+
+
+\section{UC5: Indløs point}
+\begin{tabular}{ >{\raggedleft} p{3cm} | p{12cm} }
+Mål: & Bruger har indløst point og modtaget vare. \\
+Initiator: & Bruger \\
+Primær aktør: & Bruger \\
+Sekundær aktør: & Festivalmedarbejder  \\
+Forudsætning: & Bruger befinder sig i hovedmenuen. \newline
+Dataforbindelse tilgængelig.
+ \\
+ & \\
+Hovedforløb:  & \begin{enumerate}[label=\arabic*.),itemjoin={\newline},topsep=0pt,partopsep=0pt,itemsep=0pt,leftmargin=*]   
+\item Bruger vælger at indløse point.
+\item Mobilapplikationen fremviser købsmenu.
+\item Bruger vælger ønsket vare.  \newline
+[Extension 1: Bruger har ikke nødvendigt antal point] 
+\item Mobilapplikationen fremviser verificering, og informerer Bruger om at overrække enheden til Festivalmedarbejder.
+\item Bruger giver enhed til Festivalmedarbejder.
+\item Festivalmedarbejder verificerer købet i mobilapplikationen.
+\item Mobilapplikationen fjerner point tilsvarende købets værdi fra Bruger og 
+fremviser hovedmenuen.
+
+\end{enumerate}\\
+Extension 1: & [Bruger har ikke nødvendigt antal point]
+\vspace{2 mm}
+\begin{enumerate}[label=\arabic*.),itemjoin={\newline},topsep=0pt,partopsep=0pt,itemsep=0pt,leftmargin=*]   
+\item Applikation informerer Bruger om, at der ikke er optjent tilstrækkeligt antal point til at indløse ønskede vare.
+\item Bruger accepterer.
+\item Use case genoptages fra hovedforløb 2.)
+\end{enumerate} \\
+& \\
+\end{tabular}
+
+\newpage 
+
+\section{UC6: Aflæs historik}
+\begin{tabular}{ >{\raggedleft} p{3cm} | p{12cm} }
+Mål: & Bruger har aflæst historik over sammenkoblinger og er tilbage i hovedmenuen. \\
+Initiator: & Bruger \\
+Primær aktør: & Bruger \\
+Sekundær aktør: &  Facebook \\
+Forudsætning: & Bruger befinder sig i hovedmenuen
+ \\
+ & \\
+Hovedforløb:  & \begin{enumerate}[label=\arabic*.),itemjoin={\newline},topsep=0pt,partopsep=0pt,itemsep=0pt,leftmargin=*]   
+\item Bruger vælger historik i hovedmenuen.
+\item Mobilapplikationen fremviser historik over sammenkoblinger og dertilhørende Facebookoplysninger.  \newline
+[Extension 1: Bruger har ikke haft nogen sammenkoblinger]
+\item Bruger aflæser historik og trykker sig tilbage til hovedmenuen.
+\item Mobilapplikationen fremviser hovedmenuen.
+\end{enumerate}\\
+Extension 1: & [Bruger har ikke haft nogen sammenkoblinger]
+\vspace{2 mm}
+\begin{enumerate}[label=\arabic*.),itemjoin={\newline},topsep=0pt,partopsep=0pt,itemsep=0pt,leftmargin=*]   
+\item Mobilapplikationen informerer Bruger om, at der endnu ikke er forekommet nogen sammenkoblinger og opfordrer Bruger til at søge nye venskaber.
+\item Bruger trykker sig tilbage til hovedmenuen.
+\item Applikationen fremviser hovedmenuen.
+\end{enumerate} \\
+& \\
+\end{tabular}
+
+
+\section{UC7: Log ud}
+\begin{tabular}{ >{\raggedleft} p{3cm} | p{12cm} }
+Mål: &  Bruger er logget ud \\
+Initiator: & Bruger \\
+Primær aktør: & Bruger \\
+Sekundær aktør: &  Facebook\\
+Forudsætning: & Bruger befinder sig i hovedmenuen i mobilapplikationen.
+ \\
+ & \\
+Hovedforløb:  & \begin{enumerate}[label=\arabic*.),itemjoin={\newline},topsep=0pt,partopsep=0pt,itemsep=0pt,leftmargin=*]   
+\item Bruger vælger at logge ud i hovedmenuen.
+\item Mobilapplikationen logger Bruger ud, og UC1 hovedforløb 1.) påbegyndes.
+\end{enumerate}\\
+& \\
+\end{tabular}
+
+
+
