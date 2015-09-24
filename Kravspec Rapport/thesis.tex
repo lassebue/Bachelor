@@ -27,8 +27,11 @@
 
 % Colors for chapters and table of content
 \usepackage[table,xcdraw]{xcolor}
+\usepackage[table]{xcolor}
 \definecolor{ThemeColor}{RGB}{0, 154, 242} % Blue
 \definecolor{BlackColor}{RGB}{0, 0, 0} % Black
+\definecolor{grey}{RGB}{197,197,197}
+\definecolor{lightgrey}{RGB}{235,235,235}
 
 % Table packages
 % Merge cells i tables
@@ -76,7 +79,21 @@
         \tableofcontents*	% The star keeps TOC from indexing itself
     \endgroup
     
-    \include{chapter/indledning}   
+    \section*{Versionshistorik}
+    Følgende tabel viser dokumentets historik.\\    
+    Initialer:\\
+    LBS: Lasse Bue Svendsen\\
+    KSG: Kristoffer Sloth Gade\\
+    \begin{center}
+    	\begin{tabular}{llll}
+    		\rowcolor{grey} Version	& Dato 		& Initialer & Beskrivelse \\
+    		\rowcolor{lightgrey}1	 & 16.10.2015 	&  		& Første udkast\\
+    	\end{tabular}
+    \end{center}
+    
+    
+    \include{chapter/indledning}
+    \include{chapter/aktorbeskrivelse}   
     
     % Nomenclature
     % option "Xcm" is spacing for the symbols
