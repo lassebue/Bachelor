@@ -1,52 +1,8 @@
-\begin{thebibliography}{6}
+\begin{thebibliography}{0}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
   \providecommand{\doi}[1]{doi: #1}\else
   \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
-
-\bibitem[Cheer and Elliott(2013)]{exampleConference}
-Jordan Cheer and Stephen~J. Elliott.
-\newblock A comparison of control strategies for a car cabin personal audio
-  system.
-\newblock In \emph{Audio Engineering Society Conference: 52nd International
-  Conference: Sound Field Control - Engineering and Perception}, September
-  2013.
-\newblock URL \url{http://www.aes.org/e-lib/browse.cfm?elib=16915}.
-\newblock Url last visited 1992-06-92.
-
-\bibitem[Gen and Kuo(2007{\natexlab{a}})]{exampleBook}
-Woon-Seng Gen and Sen~M. Kuo.
-\newblock \emph{Embedded Signal Processing with the Micro Signal Architecture}.
-\newblock John Wiley \& Sons, Inc., Hoboken, New Jersey, March
-  2007{\natexlab{a}}.
-\newblock ISBN 978-0-471-73841-1.
-
-\bibitem[Gen and Kuo(2007{\natexlab{b}})]{exampleInbook}
-Woon-Seng Gen and Sen~M. Kuo.
-\newblock \emph{Embedded Signal Processing with the Micro Signal Architecture},
-  chapter~8, pages 330--380.
-\newblock John Wiley \& Sons, Inc., Hoboken, New Jersey, March
-  2007{\natexlab{b}}.
-\newblock ISBN 978-0-471-73841-1.
-
-\bibitem[LLC()]{exampleUrl}
-MultiMedia LLC.
-\newblock Ms windows nt kernel description.
-\newblock URL
-  \url{http://web.archive.org/web/20080207010024/http://www.808multimedia.com/winnt/kernel.htm}.
-\newblock Url last visited 1992-06-92.
-
-\bibitem[Radmanesh and Burnett(2013)]{exampleArticle}
-Nasim Radmanesh and Ian~S. Burnett.
-\newblock Generation of isolated wideband sound fields using a combined
-  two-stage lasso-ls algorithm.
-\newblock \emph{IEEE Audio, Speech, Language Process}, 21:\penalty0 378--387,
-  February 2013.
-
-\bibitem[STMicroelectronics(2002)]{exampleManualOrDatasheet}
-STMicroelectronics.
-\newblock \emph{BC547B, BC547C}, 2002.
-\newblock Rev. 42.
 
 \end{thebibliography}

@@ -1,0 +1,86 @@
+\chapter{Funktionelle Krav}
+
+\section{Use Cases}
+Diagram
+\subsection{Indsaml datasæt}
+\bgroup
+\def\arraystretch{1.8}
+\begin{center}
+	\begin{table}[htbp]
+		\rowcolors{2}{white}{lightgrey}
+		\begin{tabular}{lp{10cm}}
+			\rowcolor{grey} Use case 1:		& Indsaml datasæt \\
+			Mål: 	& At få insamlet data om en pose fra testperson. \\
+			initiering:	& Testperson\\
+			Aktør: & Testperson\\
+			Prækondition: & Testperson har Myo båndet på, og dataindsamlingssoftware kører\\
+			Postkondition: & Datasæt er indsamlet\\
+			Hovedscenarie: & 1: Testperson trykker på knap for at starte dataindsamlingen\\
+			& 2: Testperson laver pose\\
+			& 3: Testperson trykker på knap for at stoppe dataindsamlingen\\
+			& 4: Admin vælger, hvilken bevægelsestype der er blevet indsamlet og angiver hvem testpersonen er.\\
+			& 5: Admin trykke rpå knap for at gemme datasæt\\
+		\end{tabular}
+		\caption{Use Case 1}
+	\end{table}
+\end{center}
+
+\subsection{Tilføj ny bevægelsestype}
+\begin{center}
+	\begin{table}[htbp]
+		\rowcolors{2}{white}{lightgrey}
+		\begin{tabular}{lp{10cm}}
+			\rowcolor{grey} Use case 2:		& Tilføj ny pose\\
+			Mål: 	& At tilføje en ny pose som systemet kan indsamle data om og genkende \\
+			initiation:	& Testperson\\
+			Aktør: & Testperson\\
+			Prækondition: & Datainsamlingssoftware kører \\
+			Postkondition: & En ny pose er tilføjet dataindsamlingssoftwaren\\
+			Hovedscenarie: & 1:Testperson trykker på knap for at tilføje en ny pose\\
+			& 2. Testperson angiver titel for den nye pose\\
+			& 3. Testperson vælger, hvilken pose der er blevet indsamlet og angiver hvem testpersonen er\\
+			& 4. Testperson trykker på knap for at gemme pose\\
+		\end{tabular}
+		\caption{Use Case 2}
+	\end{table}
+\end{center}
+
+\subsection{Slet datasæt}
+\begin{center}
+	\begin{table}[htbp]
+		\rowcolors{2}{white}{lightgrey}
+		\begin{tabular}{lp{10cm}}
+			\rowcolor{grey} Use case 3:	& Slet datasæt \\
+			Mål:	& At slette et gemt datasæt fra databasen \\
+			initiation:	& Testperson\\
+			Aktør: & Testperson\\
+			Prækondition: & Et datasæt eksisterer i databasen\\
+			Postkondition: & datasæt er slettet fra databasen\\
+			Hovedscenarie: & 1: Testperson vælger eksisterende datasæt\\
+			& 2: Testperson trykker på knap for at slette valgte datasæt.
+		\end{tabular}
+		\caption{Use Case 3}
+	\end{table}
+\end{center}
+
+\subsection{Anvendelse af pose genkendelse}
+\begin{center}
+	\begin{table}[htbp]
+		\rowcolors{2}{white}{lightgrey}
+		\begin{tabular}{lp{10cm}}
+			\rowcolor{grey} Use case 4:		& genkendelse af pose\\
+			Mål: & at kunne finde ud af hvilken pose der laves af personen med Myo båndet på. \\
+			initiation:	& Bruger \\
+			Aktør: & Bruger\\
+			Prækondition: & Bruger har Myo bånd på, som er forbundet til pc med genkendelsessoftware \\
+			Postkondition: & Pose er blevet genkendt \\
+			Hovedscenarie: & 1: Bruger laver håndbevægelse \\
+			& 2: Myo-data sendes til software på computeren\\
+			& 3: pose genkendelses software processerer Myo-data\\
+			& 4: Myo-data genkendes\\
+			& 5: Brugerens pose genkendes\\
+		\end{tabular}
+		\caption{Use Case 4}
+	\end{table}
+\end{center}
+\egroup
