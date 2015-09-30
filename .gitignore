@@ -195,3 +195,5 @@ Backup[ ]of[ ]*.numbers/
 
 # Mac desktop service store files
 .DS_Store
+
+.DS_Store
