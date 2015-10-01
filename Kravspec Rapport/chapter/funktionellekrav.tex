@@ -1,15 +1,36 @@
 \chapter{Funktionelle Krav}
-
+\label{chp:funktionellen}
+I det følgende kapitel vil de funktionelle krave blive fremsat ud fra systembeskrivelsen i sektion \ref{chp:projektafgensning} og de nævnte aktører i sektion \ref{chp:aktorbeskrivelser}. Systemets krav bliver opsat i use cases, som medvirker til at danne overblik over, hvordan systemet krav bliver opfyldt og hvordan de forskellige aktører relaterer til systemet systemet.    
 \section{Use Cases}
 Diagram
-\subsection{Indsaml datasæt}
+
+\subsection{Se vejledning}
 \bgroup
 \def\arraystretch{1.8}
 \begin{center}
 	\begin{table}[htbp]
 		\rowcolors{2}{white}{lightgrey}
 		\begin{tabular}{lp{10cm}}
-			\rowcolor{grey} Use case 1:		& Indsaml datasæt \\
+			\rowcolor{grey} Use case 1:	& Se vejledning \\
+			Mål:	& At Testpersonen ved hvordan data skal indsamles korrekt. \\
+			initiation:	& Testperson\\
+			Aktør: & Testperson\\
+			Prækondition: & Dataopsamlings applikationen er klar.\\
+			Postkondition: & Vejledningen til dataopsamlingen er blevet vist.\\
+			Hovedscenarie: & 1: Testperson vælger at se vejledningen.\\
+			& 2: Vejledningen vistes i applikationen.\\
+		\end{tabular}
+		\caption{Use Case 1}
+	\end{table}
+\end{center}
+
+\subsection{Indsaml datasæt}
+
+\begin{center}
+	\begin{table}[htbp]
+		\rowcolors{2}{white}{lightgrey}
+		\begin{tabular}{lp{10cm}}
+			\rowcolor{grey} Use case 2:		& Indsaml datasæt \\
 			Mål: 	& At få insamlet data om en pose fra testperson. \\
 			initiering:	& Testperson\\
 			Aktør: & Testperson\\
@@ -19,9 +40,9 @@ Diagram
 			& 2: Testperson laver pose\\
 			& 3: Testperson trykker på knap for at stoppe dataindsamlingen\\
 			& 4: Admin vælger, hvilken bevægelsestype der er blevet indsamlet og angiver hvem testpersonen er.\\
-			& 5: Admin trykke rpå knap for at gemme datasæt\\
+			& 5: Admin trykke på knap for at gemme datasæt\\
 		\end{tabular}
-		\caption{Use Case 1}
+		\caption{Use Case 2}
 	\end{table}
 \end{center}
 
@@ -30,7 +51,7 @@ Diagram
 	\begin{table}[htbp]
 		\rowcolors{2}{white}{lightgrey}
 		\begin{tabular}{lp{10cm}}
-			\rowcolor{grey} Use case 2:		& Tilføj ny pose\\
+			\rowcolor{grey} Use case 3:		& Tilføj ny pose\\
 			Mål: 	& At tilføje en ny pose som systemet kan indsamle data om og genkende \\
 			initiation:	& Testperson\\
 			Aktør: & Testperson\\
@@ -41,7 +62,7 @@ Diagram
 			& 3. Testperson vælger, hvilken pose der er blevet indsamlet og angiver hvem testpersonen er\\
 			& 4. Testperson trykker på knap for at gemme pose\\
 		\end{tabular}
-		\caption{Use Case 2}
+		\caption{Use Case 3}
 	\end{table}
 \end{center}
 
@@ -50,7 +71,7 @@ Diagram
 	\begin{table}[htbp]
 		\rowcolors{2}{white}{lightgrey}
 		\begin{tabular}{lp{10cm}}
-			\rowcolor{grey} Use case 3:	& Slet datasæt \\
+			\rowcolor{grey} Use case 4:	& Slet datasæt \\
 			Mål:	& At slette et gemt datasæt fra databasen \\
 			initiation:	& Testperson\\
 			Aktør: & Testperson\\
@@ -59,7 +80,7 @@ Diagram
 			Hovedscenarie: & 1: Testperson vælger eksisterende datasæt\\
 			& 2: Testperson trykker på knap for at slette valgte datasæt.
 		\end{tabular}
-		\caption{Use Case 3}
+		\caption{Use Case 4}
 	\end{table}
 \end{center}
 
@@ -68,19 +89,61 @@ Diagram
 	\begin{table}[htbp]
 		\rowcolors{2}{white}{lightgrey}
 		\begin{tabular}{lp{10cm}}
-			\rowcolor{grey} Use case 4:		& genkendelse af pose\\
-			Mål: & at kunne finde ud af hvilken pose der laves af personen med Myo båndet på. \\
+			\rowcolor{grey} Use case 5:		& genkendelse af pose\\
+			Mål: & At kunne finde ud af hvilken pose, der laves af Brugeren med Myo båndet på. \\
 			initiation:	& Bruger \\
 			Aktør: & Bruger\\
-			Prækondition: & Bruger har Myo bånd på, som er forbundet til pc med genkendelsessoftware \\
+			Prækondition: & Bruger har Myo bånd på, som er forbundet til pc med genkendelsessoftware kørende \\
 			Postkondition: & Pose er blevet genkendt \\
+			Hovedscenarie: & 1: Bruger laver håndbevægelse \\
+			& 2: Myo-data sendes til software på computeren\\
+			& 3: Pose genkendelses software processerer Myo-data\\
+			& 4: Myo-data genkendes\\
+			& 5: Brugerens pose genkendes\\
+		\end{tabular}
+		\caption{Use Case 5}
+	\end{table}
+\end{center}
+
+\subsection{Lukke CrustCrawler greb}
+\begin{center}
+	\begin{table}[htbp]
+		\rowcolors{2}{white}{lightgrey}
+		\begin{tabular}{lp{10cm}}
+			\rowcolor{grey} Use case 6:		& Lukke CrustCrawler greb \\
+			Mål: & Som Bruger vil man lukke CrustCrawlerens greb, ved at lave et pose  med hånden, hvorpå Myo båndet er. \\
+			initiation:	& Bruger \\
+			Aktør: & Bruger \& CrustCrawler\\
+			Prækondition: & Bruger har Myo bånd på, som er forbundet til pc med genkendelsessoftware kørende \\
+			Postkondition: & CrustCrawleren greb er lukket \\
+			Hovedscenarie: & 1: Bruger laver pose med hånden, hvorpå Myo'en sidder. \\
+			& 2: Systemet genkender posen tilknyttet CrustCrawlerens funktion til at lukke grebet.\\
+			& 3: Systemet lukker CrustCrawlerens greb.\\
+
+		\end{tabular}
+		\caption{Use Case 5}
+	\end{table}
+\end{center}
+
+\subsection{Åbne CrustCrawler greb}
+\begin{center}
+	\begin{table}[htbp]
+		\rowcolors{2}{white}{lightgrey}
+		\begin{tabular}{lp{10cm}}
+			\rowcolor{grey} Use case 7:		& Åbne CrustCrawler greb\\
+			Mål: & Som Bruger vil man åbne CrustCrawlerens greb, ved at lave et pose  med hånden, hvorpå Myo båndet er.\\
+			initiation:	& Bruger \\
+			Aktør: & Bruger\\
+			Prækondition: & Bruger har Myo bånd på, som er forbundet til pc med genkendelsessoftware kørende \\
+			Postkondition: & Brugerne  \\
 			Hovedscenarie: & 1: Bruger laver håndbevægelse \\
 			& 2: Myo-data sendes til software på computeren\\
 			& 3: pose genkendelses software processerer Myo-data\\
 			& 4: Myo-data genkendes\\
 			& 5: Brugerens pose genkendes\\
 		\end{tabular}
-		\caption{Use Case 4}
+		\caption{Use Case 5}
 	\end{table}
 \end{center}
+
 \egroup
