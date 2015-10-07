@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
-        
+        <ListBox HorizontalAlignment="Left" Height="299" VerticalAlignment="Top" Width="480" 
+                 Margin="10,10,0,0" ItemsSource="{Binding Path=PrintData}"/>
     </Grid>
 </Window>
