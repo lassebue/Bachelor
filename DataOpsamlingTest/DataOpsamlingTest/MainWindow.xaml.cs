@@ -37,6 +37,7 @@ namespace DataOpsamlingTest
         public ObservableCollection<string> Abe;
         public IEmgSaver Printer;
         private IEmgSaver _emgLogger;
+
         #endregion
 
         public MainWindow()
@@ -82,7 +83,7 @@ namespace DataOpsamlingTest
             _sensorSamples = new List<Tuple<double, int>>(SENSOR_COUNT);
 
             // pull data from each sensor
-            for (int i = 0; i < SENSOR_COUNT; i++)
+            for (int i = 0; i < SENSOR_COUNT-1; i++)
             {
                 _sensorSamples.Add(new Tuple< double, int>((e.Timestamp - _startTime).TotalSeconds, e.EmgData.GetDataForSensor(i)));
             }
@@ -92,7 +93,6 @@ namespace DataOpsamlingTest
         #endregion
 
         #region Methodes
-
 
         private void WindowLoaded(object sender, RoutedEventArgs e)
         {
