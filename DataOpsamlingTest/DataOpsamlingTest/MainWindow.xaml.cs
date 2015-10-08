@@ -30,7 +30,7 @@ namespace DataOpsamlingTest
         private readonly IChannel _channel;
         private readonly IHub _hub;
         private readonly DateTime _startTime;
-        private List<Tuple<double, int>> _sensorSamples = new List<Tuple<double, int>>(SENSOR_COUNT);
+        private List<Tuple<double, int>> _sensorSamples = new List<Tuple<double, int>>();
         private List<List<Tuple<double, int>>> _data;
         private ObservableCollection<string> _printData = new ObservableCollection<string>();
         private IEmgSaver _dataSaver;
@@ -65,8 +65,9 @@ namespace DataOpsamlingTest
 
         private void Myo_EmgDataAcquired(object sender, EmgDataEventArgs e)
         {
+            _sensorSamples = new List<Tuple<double, int>>(SENSOR_COUNT);
             // pull data from each sensor
-            for (int i = 0; i < SENSOR_COUNT; i++)
+            for (int i = 0; i < SENSOR_COUNT-1; i++)
             {
                 _sensorSamples[i] = new Tuple<double, int>((e.Timestamp - _startTime).TotalSeconds, e.EmgData.GetDataForSensor(i));
             }
