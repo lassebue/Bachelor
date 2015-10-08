@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MyoSharp.Device;
 using MyoSharp.Communication;
+using Microsoft.Win32;
 
 namespace DataOpsamlingTest
 {
@@ -30,19 +31,32 @@ namespace DataOpsamlingTest
         private readonly IChannel _channel;
         private readonly IHub _hub;
         private readonly DateTime _startTime;
-        private List<Tuple<double, int>> _sensorSamples = new List<Tuple<double, int>>(SENSOR_COUNT);
-        private List<List<Tuple<double, int>>> _data;
-        private ObservableCollection<string> _printData = new ObservableCollection<string>();
-        private IEmgSaver _dataSaver;
+        private List<Tuple<double, int>> _sensorSamples;
+        //private List<List<Tuple<double, int>>> _data;
+        public ObservableCollection<string> PrintData;
+        public ObservableCollection<string> Abe;
+        public IEmgSaver Printer;
+        private IEmgSaver _emgLogger;
         #endregion
 
         public MainWindow()
         {
             InitializeComponent();
-            
+                 
             _startTime = DateTime.UtcNow;
             _channel = Channel.Create(ChannelDriver.Create(ChannelBridge.Create()));
-            _dataSaver = new EmgPrinterSaver(_printData);
+            Printer = new EmgPrinterSaver();
+
+            SaveFileDialog saveFileDia = new SaveFileDialog();
+            saveFileDia.Filter = "csv|*.csv";
+            if (saveFileDia.ShowDialog() == true)
+            {
+                _emgLogger = new EmgFileSavers(saveFileDia.FileName);
+
+            }
+
+            //MyList.ItemsSource = DataSaver.PrintOutList;
+            DataContext = Printer.PrintOutList;
 
             Loaded += WindowLoaded;
             Closed += WindowClosed;
@@ -61,29 +75,24 @@ namespace DataOpsamlingTest
         {
             e.Myo.EmgDataAcquired += Myo_EmgDataAcquired;
             e.Myo.SetEmgStreaming(true);
-        }
+        } 
 
         private void Myo_EmgDataAcquired(object sender, EmgDataEventArgs e)
         {
+            _sensorSamples = new List<Tuple<double, int>>(SENSOR_COUNT);
+
             // pull data from each sensor
             for (int i = 0; i < SENSOR_COUNT; i++)
             {
-                _sensorSamples[i] = new Tuple<double, int>((e.Timestamp - _startTime).TotalSeconds, e.EmgData.GetDataForSensor(i));
+                _sensorSamples.Add(new Tuple< double, int>((e.Timestamp - _startTime).TotalSeconds, e.EmgData.GetDataForSensor(i)));
             }
-
-            _dataSaver.SaveEmgData(_sensorSamples);
-
+            Printer.SaveEmgData(_sensorSamples);
+            _emgLogger.SaveEmgData(_sensorSamples);
         }
         #endregion
 
         #region Methodes
-        public ObservableCollection<string> PrintData
-        {
-            get 
-            {
-                return _printData;
-            }
-        }
+
 
         private void WindowLoaded(object sender, RoutedEventArgs e)
         {
@@ -103,5 +112,10 @@ namespace DataOpsamlingTest
             base.OnClosed(e);
         }
         #endregion
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Abe.Add("Bullie!");
+        }
     }
 }
