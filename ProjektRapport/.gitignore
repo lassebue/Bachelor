@@ -1,0 +1,6 @@
+*.out
+*.aux
+*.synctex.gz
+*.toc
+*.pdf
+/appendix.aux

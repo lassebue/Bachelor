@@ -1,0 +1,123 @@
+\RequirePackage{etex}
+\RequirePackage{fix-cm} % For custom font shaping
+
+% Document class
+\documentclass[pdftex, 11pt, a4paper, twoside, danish]{memoir}
+
+
+% Page styling
+\let\footruleskip\undefined
+\usepackage{fancyhdr} 
+\pagestyle{fancy}
+
+% Danish language package
+\usepackage[danish]{babel}
+
+% Adding appendix caption to danish language package
+\addto\captionsdanish{%
+    \renewcommand{\appendixname}%
+    {Bilag }%
+}
+\renewcommand*\cftappendixname{\appendixname}
+
+% UTF-8 characters
+\usepackage[utf8]{inputenc}
+
+% Package for dummy text
+\usepackage{lipsum}
+
+% Colors for chapters and table of content
+\usepackage[table,xcdraw]{xcolor}
+\usepackage[table]{xcolor}
+\definecolor{ThemeColor}{RGB}{0, 154, 242} % Blue
+\definecolor{BlackColor}{RGB}{0, 0, 0} % Black
+\definecolor{grey}{RGB}{197,197,197} % Grey
+\definecolor{lightgrey}{RGB}{235,235,235} % Lightgrey
+
+% Table packages
+% Merge cells i tables
+\usepackage{multirow}
+
+% PDF propeties (fx. hyperlinks, pdftitle)
+\usepackage[colorlinks=true]{hyperref}
+
+% BibTeX = bibliography
+% ALWAYS USE \citep{} or something like:
+% \citep[see this baws article]{fooArticle}
+\usepackage[]{natbib}
+\bibliographystyle{plainnat}
+
+% Package for editing captions. Fx for figures and code listings
+\usepackage{caption}
+
+% Package for nomenclature
+% To add things to the nomenclature see:
+% http://tex.stackexchange.com/questions/161304/makeindex-no-nls-file
+% option "intoc" insert nomenclature to table of contents
+% option "danish" makes reference texts and the nomenclature title danish
+\usepackage[intoc, danish]{nomencl}
+\makenomenclature
+% If you  dont like the name of the nomenclature
+%\renewcommand{\nomname}{myNomeclatureTitle}
+
+% Styles
+\input{style/chapter}
+\input{style/headerFooter}
+\input{style/figure}
+\input{style/todos}
+\input{style/code}
+\input{style/customCmds}
+
+\begin{document}
+    \begin{titlingpage}
+        % Frontpage goes here
+%        \include{chapter/SHARC-NADO}
+    \end{titlingpage}
+    
+    % Table of contents
+    \begingroup
+        \hypersetup{linkcolor=black}
+        \tableofcontents*	% The star keeps TOC from indexing itself
+    \endgroup
+    
+    \section*{Versionshistorik}
+    Følgende tabel viser dokumentets historik.\\    
+    Initialer:\\
+    LBS: Lasse Bue Svendsen\\
+    KSG: Kristoffer Sloth Gade
+    \bgroup
+    \def\arraystretch{1.8}
+    \begin{center}
+    	\rowcolors{2}{white}{lightgrey}
+    	\begin{tabular}{lllp{186pt}}
+    		\rowcolor{grey} Version	& Dato 		& Initialer & Beskrivelse \\
+    		1.0	 & 16.10.2015 	& LBS/KSG	& Første udkast\\
+    	\end{tabular}
+    \end{center}
+    \egroup
+    
+    
+    \include{chapter/indledning}
+    \include{chapter/aktorbeskrivelse}
+    \include{chapter/funktionellekrav}
+    \include{chapter/ikkeFunktionelleKrav}
+    
+    % Nomenclature
+    % option "Xcm" is spacing for the symbols
+    %\printnomenclature[2cm]
+    %\todokr{inline}{UPDATE NOMECLATURE}
+    
+    
+    % Appendix
+    \include{style/appendix} % Changes chapter and section style and toc adding
+    
+    \include{chapter/testAppendiks}
+
+
+    % BibTeX: Not affected by \appendix command
+    \bibliography{bibliografi}% Selects .bib file AND prints bibliography
+    
+    % Make a list of todos
+    \settocdepth{subsection} % set depth to print content of list of todos
+    \listoftodos
+\end{document}
