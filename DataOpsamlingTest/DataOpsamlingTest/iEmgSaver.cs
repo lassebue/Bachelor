@@ -4,12 +4,13 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using EmgDataModel;
 
 namespace DataOpsamlingTest
 {
     public interface IEmgSaver
     {
-        void SaveEmgData(List<Tuple<double, int>> emgData);
+        void SaveEmgData(EmgDataSample emgData);
         ObservableCollection<string> PrintOutList
         { get; set; }
 

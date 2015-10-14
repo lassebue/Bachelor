@@ -16,7 +16,8 @@ using System.Windows.Shapes;
 using MyoSharp.Device;
 using MyoSharp.Communication;
 using Microsoft.Win32;
-
+using Parse;
+using EmgDataModel;
 namespace DataOpsamlingTest
 {
     /// <summary>
@@ -34,16 +35,16 @@ namespace DataOpsamlingTest
         private List<Tuple<double, int>> _sensorSamples;
         //private List<List<Tuple<double, int>>> _data;
         public ObservableCollection<string> PrintData;
-        public ObservableCollection<string> Abe;
         public IEmgSaver Printer;
         private IEmgSaver _emgLogger;
-
+        private long sampleCount = 0;
+        private long samplePeriode = 5;
         #endregion
 
         public MainWindow()
         {
             InitializeComponent();
-                 
+
             _startTime = DateTime.UtcNow;
             _channel = Channel.Create(ChannelDriver.Create(ChannelBridge.Create()));
             Printer = new EmgPrinterSaver();
@@ -53,10 +54,12 @@ namespace DataOpsamlingTest
             if (saveFileDia.ShowDialog() == true)
             {
                 _emgLogger = new EmgFileSavers(saveFileDia.FileName);
-
             }
 
+            var sprintList = ((IEmgSaver)FindResource("SprintListModel"));
+
             //MyList.ItemsSource = DataSaver.PrintOutList;
+
             DataContext = Printer.PrintOutList;
 
             Loaded += WindowLoaded;
@@ -69,38 +72,48 @@ namespace DataOpsamlingTest
         #region Events
         private void HubMyoDisconnected(object sender, MyoEventArgs e)
         {
-            e.Myo.EmgDataAcquired -= Myo_EmgDataAcquired;
+            e.Myo.EmgDataAcquired -= MyoEmgDataAcquired;
         }
 
         private void HubMyoConnected(object sender, MyoEventArgs e)
         {
-            e.Myo.EmgDataAcquired += Myo_EmgDataAcquired;
+            e.Myo.EmgDataAcquired += MyoEmgDataAcquired;
             e.Myo.SetEmgStreaming(true);
         } 
 
-        private void Myo_EmgDataAcquired(object sender, EmgDataEventArgs e)
+        private void MyoEmgDataAcquired(object sender, EmgDataEventArgs e)
         {
             _sensorSamples = new List<Tuple<double, int>>(SENSOR_COUNT);
+            
+            EmgDataSample sample = new EmgDataSample(SENSOR_COUNT);
+            sample.TimeStamp = (e.Timestamp - _startTime).TotalSeconds;
+            sample.TimeMs = samplePeriode * sampleCount;
 
             // pull data from each sensor
-            for (int i = 0; i < SENSOR_COUNT-1; i++)
+            for (int i = 0; i < SENSOR_COUNT; i++)
             {
-                _sensorSamples.Add(new Tuple< double, int>((e.Timestamp - _startTime).TotalSeconds, e.EmgData.GetDataForSensor(i)));
+                sample.SensorValues.Add(e.EmgData.GetDataForSensor(i));
+                //_sensorSamples.Add(new Tuple< double, int>((e.Timestamp - _startTime).TotalSeconds, e.EmgData.GetDataForSensor(i)));
             }
-            Printer.SaveEmgData(_sensorSamples);
-            _emgLogger.SaveEmgData(_sensorSamples);
+            //Printer.SaveEmgData(_sensorSamples);
+            //_emgLogger.SaveEmgData(_sensorSamples);
+            Printer.SaveEmgData(sample);
+            _emgLogger.SaveEmgData(sample);
         }
         #endregion
 
         #region Methodes
 
-        private void WindowLoaded(object sender, RoutedEventArgs e)
+
+
+        private async void WindowLoaded(object sender, RoutedEventArgs e)
         {
             // We will start to listening after the Myo data herer
-
+            var testObject = new ParseObject("TestObject");
+            testObject["foo"] = "bar";
+            await testObject.SaveAsync();
             _channel.StartListening();
         }
-
 
         private void WindowClosed(object sender, EventArgs e)
         {
@@ -113,9 +126,6 @@ namespace DataOpsamlingTest
         }
         #endregion
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            Abe.Add("Bullie!");
-        }
+
     }
 }

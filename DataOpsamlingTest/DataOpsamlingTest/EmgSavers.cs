@@ -7,13 +7,14 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using EmgDataModel;
 
 namespace DataOpsamlingTest
 {
     class EmgListSaver : IEmgSaver
     {
 
-        public void SaveEmgData(List<Tuple<double, int>> emgData)
+        public void SaveEmgData( EmgDataSample emgData )
         {
             throw new NotImplementedException();
         }
@@ -36,13 +37,12 @@ namespace DataOpsamlingTest
     {
         ObservableCollection<string> _printOutList = new ObservableCollection<string>();
 
-        public void SaveEmgData(List<Tuple<double, int>> emgData)
+        public void SaveEmgData(EmgDataSample emgData)
         {
-            string emgOutPut = "Time " + emgData[0].Item1 + ", emg1 " + emgData[0].Item2 + ", emg2 " + emgData[1].Item2 +
-                ", emg3 " + emgData[2].Item2 + ", emg4 " + emgData[3].Item2 + ", emg5 " + emgData[4].Item2 +
-                ", emg7 " + emgData[5].Item2 + ", emg1 " + emgData[6].Item2 + ", emg1 " + emgData[7].Item2;
-        
-            
+            string emgOutPut = "Time " + emgData.TimeMs + ", " + emgData.SensorValues[0] + ", " + emgData.SensorValues[1] +
+                ", " + emgData.SensorValues[2] + ", " + emgData.SensorValues[3] + ", " + emgData.SensorValues[4] +
+                ", " + emgData.SensorValues[5] + ", " + emgData.SensorValues[6] + ", " + emgData.SensorValues[7];
+
             System.Windows.Application.Current.Dispatcher.Invoke(
         
                 System.Windows.Threading.DispatcherPriority.Normal,
@@ -95,12 +95,12 @@ namespace DataOpsamlingTest
 
 
         }
-        public void SaveEmgData(List<Tuple<double, int>> emgData)
+        public void SaveEmgData(EmgDataSample emgData)
         {
             // The format follows the '_headerString'
-            string emgDataLine = emgData[0].Item1 + "," + emgData[0].Item2 + "," + emgData[1].Item2 +
-                "," + emgData[2].Item2 + "," + emgData[3].Item2 + "," + emgData[4].Item2 +
-                "," + emgData[5].Item2 + "," + emgData[6].Item2 + "," + emgData[7].Item2;
+            string emgDataLine = emgData.TimeMs + "," + emgData.SensorValues[0] + "," + emgData.SensorValues[1] +
+                "," + emgData.SensorValues[2] + "," + emgData.SensorValues[3] + "," + emgData.SensorValues[4] +
+                "," + emgData.SensorValues[5] + "," + emgData.SensorValues[6] + "," + emgData.SensorValues[7];
 
             if (File.Exists(_filePath))
             {
@@ -116,7 +116,6 @@ namespace DataOpsamlingTest
                 {
                     steamWriter.WriteLine(_headerString);
                     steamWriter.WriteLine(emgDataLine);
-
                 }
             }
         }
@@ -138,7 +137,7 @@ namespace DataOpsamlingTest
     class EmgOnlineSavers : IEmgSaver
     {
 
-        public void SaveEmgData(List<Tuple<double, int>> emgData)
+        public void SaveEmgData(EmgDataSample emgData)
         {
             throw new NotImplementedException();
         }

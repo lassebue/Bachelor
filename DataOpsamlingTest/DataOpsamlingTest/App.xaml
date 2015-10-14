@@ -1,8 +1,11 @@
 ﻿<Application x:Class="DataOpsamlingTest.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:DataOpsamlingTest"
+             xmlns:model="clr-namespace:EmgDataModel;assembly=EmgDataModel"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <model:Pose x:Key="asd"></model:Pose>
+        <local:Controller x:Key="asdfa"></local:Controller>
     </Application.Resources>
 </Application>
