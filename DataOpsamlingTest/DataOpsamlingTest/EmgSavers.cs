@@ -31,6 +31,12 @@ namespace DataOpsamlingTest
                 throw new NotImplementedException();
             }
         }
+
+
+        public void FinalizeSave()
+        {
+            throw new NotImplementedException();
+        }
     }
 
     public class EmgPrinterSaver : INotifyPropertyChanged, IEmgSaver
@@ -74,6 +80,12 @@ namespace DataOpsamlingTest
             }
 
         }
+
+
+        public void FinalizeSave()
+        {
+            throw new NotImplementedException();
+        }
     }
 
     class EmgFileSavers : IEmgSaver
@@ -95,6 +107,8 @@ namespace DataOpsamlingTest
 
 
         }
+        List<string> dataList = new List<string>();
+
         public void SaveEmgData(EmgDataSample emgData)
         {
             // The format follows the '_headerString'
@@ -102,22 +116,7 @@ namespace DataOpsamlingTest
                 "," + emgData.SensorValues[2] + "," + emgData.SensorValues[3] + "," + emgData.SensorValues[4] +
                 "," + emgData.SensorValues[5] + "," + emgData.SensorValues[6] + "," + emgData.SensorValues[7];
 
-            if (File.Exists(_filePath))
-            {
-                // Saves the current samples in the file 
-                using (StreamWriter steamWriter = File.AppendText(_filePath))
-                {
-                    steamWriter.WriteLine(emgDataLine);
-                }
-            } else 
-            {
-                // Create the .csv file to save the EMG data in
-                using (StreamWriter steamWriter = File.CreateText(_filePath))
-                {
-                    steamWriter.WriteLine(_headerString);
-                    steamWriter.WriteLine(emgDataLine);
-                }
-            }
+            dataList.Add(emgDataLine);
         }
 
 
@@ -130,6 +129,36 @@ namespace DataOpsamlingTest
             set
             {
                 throw new NotImplementedException();
+            }
+        }
+
+
+
+
+        public void FinalizeSave()
+        {
+            if (File.Exists(_filePath))
+            {
+                // Saves the current samples in the file 
+                using (StreamWriter steamWriter = File.AppendText(_filePath))
+                {
+                    foreach (var item in dataList)
+                    {
+                        steamWriter.WriteLine(item);
+                    }
+                }
+            }
+            else
+            {
+                // Create the .csv file to save the EMG data in
+                using (StreamWriter steamWriter = File.CreateText(_filePath))
+                {
+                    steamWriter.WriteLine(_headerString);
+                    foreach (var item in dataList)
+                    {
+                        steamWriter.WriteLine(item);
+                    }
+                }
             }
         }
     }
@@ -153,6 +182,12 @@ namespace DataOpsamlingTest
             {
                 throw new NotImplementedException();
             }
+        }
+
+
+        public void FinalizeSave()
+        {
+            throw new NotImplementedException();
         }
     }
 }

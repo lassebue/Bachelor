@@ -15,15 +15,29 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <ListBox 
-                 Margin="0,34,10,76" Name="MyList"
-                    IsSynchronizedWithCurrentItem="True" ItemsSource="{Binding}" HorizontalAlignment="Right" Width="144"/>
-        <Button Content="Record EMG Data" Margin="361,297,10,26"/>
-        <Button Content="Check Orientation" Margin="361,272,10,51"/>
-        <Button Content="_Save Data" Name="SaveDataBtn" Margin="10,297,361,26"/>
+                 Margin="0,34,10,76" Name="MyList" DataContext="{DynamicResource controller}" 
+                    IsSynchronizedWithCurrentItem="True" ItemsSource="{Binding Path=Printer.PrintOutList}" HorizontalAlignment="Right" Width="144"/>
+        <Button Content="_Record EMG Data" Name="RecordDataBtn" DataContext="{DynamicResource controller}" 
+                Command="{Binding Path=StartDataRecordingCommandHandler}"
+                Margin="361,272,10,51"/>
+        <Button Content="S_top Recording" x:Name="StopRecordDataBtn" DataContext="{DynamicResource controller}" 
+                Command="{Binding StopDataRecordingCommandHandler}"
+        	    Margin="361,297,10,26"/>
+        <Button Content="Check Orientation" Name="OrientationCheckBtn"
+                DataContext="{DynamicResource controller}"
+                Command="{Binding Path=CheckOrientationCommandHandler}"
+                Margin="159,272,212,51"/>
+        <Button Content="_Save Data" Name="SaveDataBtn" DataContext="{DynamicResource controller}"
+                Command="{Binding Path=SaveEmgDataCommandHandler}"
+                Margin="10,297,361,26"/>
+        <Button Content="_Delete Data"   DataContext="{DynamicResource controller}"
+                Command="{Binding Path=DeleteDataCommandHandler}"
+                Margin="159,297,212,26"/>
+
         <Menu Height="29" VerticalAlignment="Top" IsMainMenu="True">
             <MenuItem Header="_File" VerticalAlignment="Center" ></MenuItem>
         </Menu>
         <StatusBar Margin="0,322,0,0"/>
-        <Button Content="_Delete Data" Margin="159,297,212,26"/>
+
     </Grid>
 </Window>

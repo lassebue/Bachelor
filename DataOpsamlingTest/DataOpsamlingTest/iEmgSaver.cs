@@ -11,6 +11,7 @@ namespace DataOpsamlingTest
     public interface IEmgSaver
     {
         void SaveEmgData(EmgDataSample emgData);
+        void FinalizeSave();
         ObservableCollection<string> PrintOutList
         { get; set; }
 

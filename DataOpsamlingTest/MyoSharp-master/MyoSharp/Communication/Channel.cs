@@ -193,7 +193,17 @@ namespace MyoSharp.Communication
             if (_eventThread != null)
             {
                 _killEventThread = true;
-                _eventThread.Join();
+                try
+                {
+                    _eventThread.Abort();
+                    //_eventThread.Join();
+
+                }
+                catch (Exception e)
+                {
+                    var buller = e;
+                    buller.Message.EndsWith("a");
+                }
             }
         }
 

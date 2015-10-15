@@ -6,6 +6,6 @@
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <model:Pose x:Key="asd"></model:Pose>
-        <local:Controller x:Key="asdfa"></local:Controller>
+        <local:Controller x:Key="controller"></local:Controller>
     </Application.Resources>
 </Application>
