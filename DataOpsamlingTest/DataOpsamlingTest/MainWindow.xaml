@@ -8,6 +8,7 @@
 
     <Window.Resources>
         <model:EmgDataSet x:Key="dataSet" Hand="1" Orientation="15" EmgDataFile="-"></model:EmgDataSet>
+        <model:Pose x:Key="buller"></model:Pose>
     </Window.Resources>
 
     <Grid>

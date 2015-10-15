@@ -4,7 +4,6 @@
 % Document class
 \documentclass[pdftex, 11pt, a4paper, twoside, danish]{memoir}
 
-
 % Page styling
 \let\footruleskip\undefined
 \usepackage{fancyhdr} 
@@ -29,7 +28,7 @@
 % Colors for chapters and table of content
 \usepackage[table,xcdraw]{xcolor}
 \usepackage[table]{xcolor}
-\definecolor{ThemeColor}{RGB}{0, 154, 242} % Blue
+\definecolor{ThemeColor}{RGB}{0, 154, 242} % LightBlue
 \definecolor{BlackColor}{RGB}{0, 0, 0} % Black
 \definecolor{grey}{RGB}{197,197,197} % Grey
 \definecolor{lightgrey}{RGB}{235,235,235} % Lightgrey
@@ -74,6 +73,8 @@
 %        \include{chapter/SHARC-NADO}
     \end{titlingpage}
     
+    \include{chapter/resume}
+    
     % Table of contents
     \begingroup
         \hypersetup{linkcolor=black}
@@ -98,9 +99,14 @@
     
     
     \include{chapter/indledning}
-    \include{chapter/aktorbeskrivelse}
-    \include{chapter/funktionellekrav}
-    \include{chapter/ikkeFunktionelleKrav}
+    \include{chapter/problemformulering}
+    \include{chapte/projektafgraensning}
+    \include{chapter/systembeskrivelse}
+    \include{chapter/krav}
+    \include{chapter/designogimplemenering}
+    \include{chapter/resultaterogdiskussion}
+    \include{chapter/fremtidigtarbejde}
+    \include{chapter/konklusion}
     
     % Nomenclature
     % option "Xcm" is spacing for the symbols
