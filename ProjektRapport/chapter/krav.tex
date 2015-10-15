@@ -1,10 +1,69 @@
 \thispagestyle{fancy}
 \chapter{Krav}
 \label{chp:krav}
+I det følgende kapitel vil de funktionelle krave blive fremsat ud fra systembe- skrivelsen i kapitel \ref{chp:systembeskrivelse} og de forskellige aktører som er beskrevet i sektion \ref{sec:aktorbeskrivelser}.
+Systemets krav bliver opsat i use cases, som medvirker til at danne overblik over, hvordan systemets krav bliver opfyldt og hvordan de forskellige aktører relaterer til systemet.
 
 \section{Funktionalle krav}
 \label{sec:funktionellekrav}
 
+\subsection{Aktørbeskrivelser}
+\label{sec:aktorbeskrivelser}
+De tre forskellige aktører Testperson, Bruger og CrustCrawler er beskrevet herunder.
+
+\subsubsection{Testperson}
+I systemet bruges en testperson som har et Myo-armband på. Han anvender dataopsamlingsprogrammet til at opsamle, katagorisere og gemme ny data.
+
+\subsubsection{Bruger}
+Brugeren har en Myo-armband på og bruger genkendelssoftwaren til at styre en CrustCrawler robot med.
+
+\subsubsection{CrustCrawler}
+CrustCrawleren er en robotarm med en gribeklo. Denne bruges som en anvendelse af genkendelssoftwaren, hvor den ville kunne reagere på forskellige poses der kan laves af brugeren.
+
+\subsection{Tabel over funktionelle krav}
+I følgende tabel \ref{tab:funktionellekrav} ses alle de funktionelle krav der stilles til systemet.
+\bgroup
+\def\arraystretch{1.8}
+\begin{center}
+	\rowcolors{2}{white}{lightgrey}
+	\begin{table}
+		\begin{tabular}{lp{225pt}}
+			\rowcolor{grey} En Tesperson skal kunne: &\\
+			Krav 1:& Se vejledning til hvordan program bruges\\
+			Krav 2:& Optage datasæt fra Myo\\
+			Krav 3:& tilføje ny pose\\
+			Krav 4:& Gemme datasæt\\
+			Krav 5:& Uploade datasæt til data collection\\
+			Krav 6:& Slette datasæt fra data collection\\
+			\rowcolor{grey}En Bruger skal kunne: &\\
+			Krav 7:& Genkende en pose vha. genkendelsessoftwaren\\
+			Krav 8:& Lave knyttet næve så CrustCrawler lukker sammen\\
+			Krav 9:& Lave åbnet hånd så CrustCrawler åbnes
+		\end{tabular}
+		\caption{Funktionelle krav}
+		\label{tab:funktionellekrav}
+	\end{table}	
+\end{center}
+\egroup
+
+\subsection{Use Case beskrivelser}
+For at kunne dække de forskellige funktionelle krav opstilles der en række Use cases. Her er de forskellige use Cases gennemgået og beskrevet.
+
+\subsubsection{Se vejledning}
+Her skal testpersonen have mulighed for at få en hurtig vejledning i hvordan dataopsamlingsprogrammet virker. Denne Use Case dækker krav \#1
+
+\subsubsection{Indsaml datasæt og tilføj ny pose}
+Testpersonen skal kunne indsamle et nyt datasæt og derefter tilføje det til en kategori, så som "knyttet hånd". Herefter uploades det til den fælles data collection. Disse Use Cases dækker krav \#2, 3, 4 og 5.
+
+\subsubsection{Slet datasæt}
+Det skal være muligt for testpersonen at kunne slette de datasæt som han selv har uploaded i data collection. Denne Use Case dækker krav \#6
+
+\subsubsection{Genkendelse af pose}
+Brugeren skal med genkendelsessoftwaren genkende en bestem pose som brugeren laver med Myo armband på. Dette er med henblik på at anvende det videre på noget andet. Denne Use Case dækker krav \#7
+
+\subsubsection{Åbn og luk CrustCrawler greb}
+Brugeren skal kunne lade CrustCrawleren greb åbne og lukke på kommando efter man laver knyttet hånd eller åben hånd. Det er her at anvendelsen er i brug. Disse Use Cases dækker krav \#8 og 9
 
 \section{Ikke funktionelle krav}
 \label{sec:ikkefunktionellekrav}
+I følgende kapitel beskrives systemets ikke funktionelle krav. Disse har ikke en direkte effekt på systemets funktionalitet, men i højere grad omfanget og kvaliteten af systemet, samt nogle generelle valg, der er truffet i forbindelse med projektet.

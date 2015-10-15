@@ -76,11 +76,10 @@
     \include{chapter/resume}
     
     % Table of contents
-    \begingroup
-        \hypersetup{linkcolor=black}
-        \tableofcontents*	% The star keeps TOC from indexing itself
-    \endgroup
-    
+    \bgroup
+	    \hypersetup{linkcolor=black}
+	    \tableofcontents*	% The star keeps TOC from indexing itself
+    \egroup
     \section*{Versionshistorik}
     Følgende tabel viser dokumentets historik.\\    
     Initialer:\\
@@ -92,7 +91,7 @@
     	\rowcolors{2}{white}{lightgrey}
     	\begin{tabular}{lllp{186pt}}
     		\rowcolor{grey} Version	& Dato 		& Initialer & Beskrivelse \\
-    		1.0	 & 16.10.2015 	& LBS/KSG	& Første udkast\\
+    		1.0	 & 30.10.2015 	& LBS/KSG	& Første udkast\\
     	\end{tabular}
     \end{center}
     \egroup
@@ -102,6 +101,8 @@
     \include{chapter/problemformulering}
     \include{chapte/projektafgraensning}
     \include{chapter/systembeskrivelse}
+    \include{chapter/projektgenneforsel}
+    \include{chapter/Forretningsperspektiv}
     \include{chapter/krav}
     \include{chapter/designogimplemenering}
     \include{chapter/resultaterogdiskussion}
