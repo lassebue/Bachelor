@@ -130,6 +130,9 @@ namespace DataOpsamlingTest
         {
             //var sprintList = ((IEmgSaver)Application.Current.FindResource("SprintListModel"));
             MessageBox.Show("Orientation wtf!!!!");
+            var dataSet = ((EmgDataSet )Application.Current.FindResource("emgDataSet"));
+            var Pose = dataSet.Pose.PoseName;
+            
         }
         #endregion
 
@@ -202,8 +205,14 @@ namespace DataOpsamlingTest
         }
         public void MyoDispose()
         {
-            _channel.Dispose();
-            _hub.Dispose();
+            if (_channel != null)
+            {
+                _channel.Dispose();
+            }
+            if (_hub != null)
+            {
+                _hub.Dispose();
+            }
         }
 
 

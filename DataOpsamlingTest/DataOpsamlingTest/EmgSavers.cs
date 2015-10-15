@@ -78,7 +78,6 @@ namespace DataOpsamlingTest
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(propName));
             }
-
         }
 
 

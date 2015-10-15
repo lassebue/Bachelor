@@ -2,7 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -34,9 +36,34 @@ namespace EmgDataModel
             get { return GetProperty<string>(); }
             set { SetProperty<string>(value); }
         }
-
-
     }
+
+     public class PoseCollection : INotifyPropertyChanged
+     {
+         private ObservableCollection<Pose> _poses;
+         public ObservableCollection<Pose> Poses
+         {
+             get { return _poses; }
+             set
+             {
+                 _poses = value;
+                 Notify();
+             }
+         }
+         public PoseCollection()
+         {
+             _poses = new ObservableCollection<Pose>();
+         }
+
+         public event PropertyChangedEventHandler PropertyChanged;
+         protected void Notify([CallerMemberName]string propName = null)
+         {
+             if (this.PropertyChanged != null)
+             {
+                 PropertyChanged(this, new PropertyChangedEventArgs(propName));
+             }
+         }
+     }
 
     //[ParseClassName("EmgDataSample")]
     //public class ParseEmgDataSample: ParseObject
@@ -99,12 +126,10 @@ namespace EmgDataModel
             get { return _sensorValues;}
             set { _sensorValues = value;}
         }
-
-
     }
 
     [ParseClassName("EmgDataSet")]
-    public class EmgDataSet : ParseObject  
+    public class EmgDataSet : ParseObject  , INotifyPropertyChanged
     {
 
         public EmgDataSet(){}
@@ -117,6 +142,7 @@ namespace EmgDataModel
             set { 
                 if(value > 0 ) { SetProperty<int>(1); }
                 else SetProperty<int>(0);
+                Notify();
             }
         }
 
@@ -149,9 +175,22 @@ namespace EmgDataModel
         }
 
         [ParseFieldName("pose")]
-        public ParseRelation<Pose> Pose
+        public Pose Pose
         {
-            get { return GetRelationProperty<Pose>(); }
+            get { return GetProperty<Pose>(); }
+            set
+            {
+                SetProperty<Pose>(value);
+                Notify();
+            }
+        }
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void Notify([CallerMemberName]string propName = null)
+        {
+            if (this.PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propName));
+            }
         }
     }
 

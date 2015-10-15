@@ -5,7 +5,8 @@
              xmlns:model="clr-namespace:EmgDataModel;assembly=EmgDataModel"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <model:Pose x:Key="asd"></model:Pose>
+        <model:EmgDataSet x:Key="emgDataSet"></model:EmgDataSet>
+        <model:PoseCollection x:Key="poseCollection"></model:PoseCollection>
         <local:Controller x:Key="controller"></local:Controller>
     </Application.Resources>
 </Application>

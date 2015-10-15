@@ -29,16 +29,9 @@ namespace DataOpsamlingTest
         private const int SENSOR_COUNT = 8;
         #endregion
         #region Fields
-        private readonly IChannel _channel;
-        private readonly IHub _hub;
-        private readonly DateTime _startTime;
-        private List<Tuple<double, int>> _sensorSamples;
-        //private List<List<Tuple<double, int>>> _data;
         public ObservableCollection<string> PrintData;
         public IEmgSaver Printer;
-        private IEmgSaver _emgLogger;
-        private long sampleCount = 0;
-        private long samplePeriode = 5;
+
         #endregion
 
         public MainWindow()
@@ -64,9 +57,14 @@ namespace DataOpsamlingTest
 
             Loaded += WindowLoaded;
             Closed += WindowClosed;
+            var abe = new Pose();
+            var buller = new Pose();
 
-
-
+            abe.PoseName = "SpreadFinger";
+            buller.PoseName = "CloseHand";
+            var poseC = ((PoseCollection)FindResource("poseCollection"));
+            poseC.Poses.Add(abe);
+            poseC.Poses.Add(buller);
             //_hub = Hub.Create(_chanel);
             //_hub.MyoConnected +=HubMyoConnected;
             //_hub.MyoDisconnected +=HubMyoDisconnected;
