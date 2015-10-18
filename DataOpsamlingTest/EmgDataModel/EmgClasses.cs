@@ -28,13 +28,21 @@ namespace EmgDataModel
      [ParseClassName("Pose")]
     public class Pose: ParseObject 
     {
-        public Pose() { }
+         public Pose() { PoseId = 0; }
 
         [ParseFieldName("poseName")]
         public string PoseName
         {
             get { return GetProperty<string>(); }
             set { SetProperty<string>(value); }
+        }
+
+
+        [ParseFieldName("poseId")]
+        public int PoseId
+        {
+            get { return GetProperty<int>(); }
+            set { SetProperty<int>(value); }
         }
     }
 
@@ -132,7 +140,7 @@ namespace EmgDataModel
     public class EmgDataSet : ParseObject  , INotifyPropertyChanged
     {
 
-        public EmgDataSet(){}
+        public EmgDataSet() { Orientation = 100; }
 
         // left hand = 0, right hand = 1
         [ParseFieldName("hand")]
@@ -147,9 +155,14 @@ namespace EmgDataModel
         }
 
         [ParseFieldName("user")]
-        public ParseRelation<ParseUser> User
+        public ParseUser User
         {
-            get { return GetRelationProperty<ParseUser>(); }
+            get { return GetProperty<ParseUser>(); }
+            set
+            {
+                SetProperty<ParseUser>(value);
+                Notify();
+            }
         }
 
         // Between 0-360, if not within the that parameter, value = -1.

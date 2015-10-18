@@ -60,13 +60,11 @@ namespace DataOpsamlingTest
                 saveFileDia.Filter = "csv|*.csv";
                 if (saveFileDia.ShowDialog() == true)
                 {
-                    _emgLogger = new EmgFileSavers(saveFileDia.FileName);
+                    var dataSet = ((EmgDataSet)Application.Current.FindResource("emgDataSet"));
+                    _emgLogger = new EmgFileSavers(saveFileDia.FileName, dataSet);
                 }
                 InitMyo();
                 _channel.StartListening();
-
-
-
             }
 
             //var sprintList = ((IEmgSaver)Application.Current.FindResource("SprintListModel"));
@@ -130,7 +128,7 @@ namespace DataOpsamlingTest
         {
             //var sprintList = ((IEmgSaver)Application.Current.FindResource("SprintListModel"));
             MessageBox.Show("Orientation wtf!!!!");
-            var dataSet = ((EmgDataSet )Application.Current.FindResource("emgDataSet"));
+            var dataSet = ((EmgDataSet)Application.Current.FindResource("emgDataSet"));
             var Pose = dataSet.Pose.PoseName;
             
         }

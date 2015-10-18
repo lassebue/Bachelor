@@ -61,7 +61,9 @@ namespace DataOpsamlingTest
             var buller = new Pose();
 
             abe.PoseName = "SpreadFinger";
+            abe.PoseId = 0;
             buller.PoseName = "CloseHand";
+            buller.PoseId = 1;
             var poseC = ((PoseCollection)FindResource("poseCollection"));
             poseC.Poses.Add(abe);
             poseC.Poses.Add(buller);

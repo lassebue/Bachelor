@@ -8,6 +8,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using EmgDataModel;
+using Parse;
 
 namespace DataOpsamlingTest
 {
@@ -79,7 +80,7 @@ namespace DataOpsamlingTest
                 PropertyChanged(this, new PropertyChangedEventArgs(propName));
             }
         }
-
+        
 
         public void FinalizeSave()
         {
@@ -89,12 +90,21 @@ namespace DataOpsamlingTest
 
     class EmgFileSavers : IEmgSaver
     {
-        private String _headerString = "timestamp,emg1,emg2,emg3,emg4,emg5,emg6,emg7,emg8";
+        private string _headerString = "time,emg1,emg2,emg3,emg4,emg5,emg6,emg7,emg8,hand,pose,orientation,testPerson";
         private string _filePath;
+        private EmgDataSet _dataSet;
 
-        public EmgFileSavers(string filePath)
+        public EmgFileSavers(string filePath, EmgDataSet dataSet)
         {
+            _dataSet = dataSet;
+
+            // Tmp user                                     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            _dataSet.User = new ParseUser();
+            _dataSet.User.Username = "BueBaby!";
+
             _filePath = filePath;
+            _dataSet.EmgDataFile = _filePath;
+
             if (!File.Exists(_filePath))
             {
                 // Create the .csv file to save the EMG data in
@@ -131,9 +141,6 @@ namespace DataOpsamlingTest
             }
         }
 
-
-
-
         public void FinalizeSave()
         {
             if (File.Exists(_filePath))
@@ -143,7 +150,11 @@ namespace DataOpsamlingTest
                 {
                     foreach (var item in dataList)
                     {
-                        steamWriter.WriteLine(item);
+                        if (dataList.IndexOf(item) == 0){
+		                    steamWriter.WriteLine(item +","+ _dataSet.Hand+","+_dataSet.Pose.PoseId+","+_dataSet.Orientation+","+_dataSet.User.Username);
+	                    } else{
+                            steamWriter.WriteLine(item);
+	                    }
                     }
                 }
             }
