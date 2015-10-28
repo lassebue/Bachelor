@@ -42,3 +42,5 @@ summary(cate)
 
 abe = mediumKNN.predictFcn(newPoseTrainingData);
 summary(abe)
+
+% [x,y] = myfunc(3,6,'world')
