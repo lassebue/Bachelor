@@ -37,7 +37,7 @@ namespace DataOpsamlingTest
         public MainWindow()
         {
             InitializeComponent();
-
+            Title = "Data Collection";
             //_startTime = DateTime.UtcNow;
             //_channel = Channel.Create(ChannelDriver.Create(ChannelBridge.Create()));
             //Printer = new EmgPrinterSaver();
@@ -59,14 +59,18 @@ namespace DataOpsamlingTest
             Closed += WindowClosed;
             var abe = new Pose();
             var buller = new Pose();
+            var bullie = new Pose();
 
             abe.PoseName = "SpreadFinger";
             abe.PoseId = 0;
             buller.PoseName = "CloseHand";
             buller.PoseId = 1;
+            bullie.PoseName = "Relaxed hand";
+            bullie.PoseId = 2;
             var poseC = ((PoseCollection)FindResource("poseCollection"));
             poseC.Poses.Add(abe);
             poseC.Poses.Add(buller);
+            poseC.Poses.Add(bullie);
             //_hub = Hub.Create(_chanel);
             //_hub.MyoConnected +=HubMyoConnected;
             //_hub.MyoDisconnected +=HubMyoDisconnected;
