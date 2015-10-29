@@ -18,6 +18,7 @@ using MyoSharp.Communication;
 using Microsoft.Win32;
 using Parse;
 using EmgDataModel;
+using System.ComponentModel;
 namespace DataOpsamlingTest
 {
     /// <summary>
@@ -31,6 +32,8 @@ namespace DataOpsamlingTest
         #region Fields
         public ObservableCollection<string> PrintData;
         public IEmgSaver Printer;
+        MLApp.MLApp matlab; 
+        private readonly BackgroundWorker worker = new BackgroundWorker();
 
         #endregion
 
@@ -54,6 +57,10 @@ namespace DataOpsamlingTest
 
             //DataContext = Printer.PrintOutList
 
+            worker.DoWork += worker_DoWork;
+            worker.RunWorkerCompleted += worker_RunWorkerCompleted;
+            worker.RunWorkerAsync();
+
 
             Loaded += WindowLoaded;
             Closed += WindowClosed;
@@ -76,6 +83,19 @@ namespace DataOpsamlingTest
             //_hub.MyoDisconnected +=HubMyoDisconnected;
         }
 
+        private void worker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            e.Result = new MLApp.MLApp();
+        }
+
+        private void worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            matlab = ((MLApp.MLApp)e.Result);
+            matlab.Execute(@"cd('Z:\Bachelor\Matlab import')");
+
+            var _controller = ((Controller)FindResource("controller"));
+            _controller.createWindPredictor(matlab);
+        }
         //#region Events
         //private void HubMyoDisconnected(object sender, MyoEventArgs e)
         //{

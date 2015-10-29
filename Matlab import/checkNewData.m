@@ -39,8 +39,8 @@ cpaData     = varfun(@windPca,rawSenorData);
 newPoseTrainingData = [meanData stdData cpaData];
 %poseTrainingData.pose = cate;
 summary(cate)
-
-abe = mediumKNN.predictFcn(newPoseTrainingData);
+load('subSpaceModel')
+abe = subspaceKNN.predictFcn(newPoseTrainingData);
 summary(abe)
 
 % [x,y] = myfunc(3,6,'world')

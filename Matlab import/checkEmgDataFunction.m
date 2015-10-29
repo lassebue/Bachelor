@@ -40,8 +40,8 @@ cpaData     = varfun(@windPca,rawSenorData);
 newPoseTrainingData = [meanData stdData cpaData];
 %poseTrainingData.pose = cate;
 summary(cate)
-
-predictedCats = MediumTree.predictFcn(newPoseTrainingData(1,:));
+load('subSpaceModel')
+predictedCats = subspaceKNN.predictFcn(newPoseTrainingData(1,:));
 abe = char(predictedCats(1));
 buller = 'asdfasdf';
 end

@@ -34,9 +34,9 @@
             <MenuItem Header="_File" VerticalAlignment="Center" ></MenuItem>
         </Menu>
         <StatusBar Margin="0,322,0,0"/>
-        <Label DataContext="{DynamicResource emgDataSet}" Content="{Binding Path=Hand}" HorizontalAlignment="Left" Margin="166,241,0,0" VerticalAlignment="Top" Width="151"/>
+        <Label DataContext="{DynamicResource emgDataSet}" Content="{Binding Path=Hand}" HorizontalAlignment="Left" Margin="166,241,0,0" VerticalAlignment="Top" Width="144"/>
         <Button Content="_Add new pose" DataContext="{DynamicResource emgDataSet}" 
-                HorizontalAlignment="Left" Margin="10,165,0,0" VerticalAlignment="Top" Width="144" Height="26" />
+                HorizontalAlignment="Left" Margin="10,165,0,0" VerticalAlignment="Top" Width="151" Height="26" />
         
         <ComboBox Name="HandSelector" SelectedIndex="{Binding Path=Hand}" 
                   DataContext="{DynamicResource emgDataSet}"  Text="Choose Hand"  Margin="10,237,361,78">
@@ -46,7 +46,7 @@
         
         <Label DataContext="{DynamicResource emgDataSet}" Content="{Binding Path=Pose.PoseName}" 
               
-               HorizontalAlignment="Left" Margin="166,206,0,0" VerticalAlignment="Top" Width="315"/>
+               HorizontalAlignment="Left" Margin="166,206,0,0" VerticalAlignment="Top" Width="144" Height="26"/>
         <ComboBox Name="Pose" 
                   SelectedIndex="0"
                   ItemsSource="{Binding Path=Poses}" 
@@ -55,6 +55,9 @@
                   DataContext="{DynamicResource poseCollection}" 
                   Text="Choose Hand"  Margin="10,196,361,119">
         </ComboBox>
+        <ListBox 
+        	Margin="0,34,166,76" x:Name="MyList_Copy" DataContext="{DynamicResource controller}" 
+        	IsSynchronizedWithCurrentItem="True" ItemsSource="{Binding WindowPredictor.PrintOutList}" HorizontalAlignment="Right" Width="144"/>
     </Grid>
 </Window>
 
