@@ -169,6 +169,21 @@ namespace DataOpsamlingTest
                 Notify();
             }
         }
+        private IEmgSaver _windowPredictor;
+        public IEmgSaver WindowPredictor
+        {
+            get { return _windowPredictor; }
+            set
+            {
+                _windowPredictor = value;
+                Notify();
+            }
+        }
+
+        public void createWindPredictor(MLApp.MLApp matlab)
+        {
+            WindowPredictor = new EmgWindowSaver(matlab, 256);
+        }
 
         public void InitMyo()
         {
@@ -241,6 +256,7 @@ namespace DataOpsamlingTest
                 sample.SensorValues.Add(e.EmgData.GetDataForSensor(i));
             }
             Printer.SaveEmgData(sample);
+            WindowPredictor.SaveEmgData(sample);
             _emgLogger.SaveEmgData(sample);
         }
         #endregion

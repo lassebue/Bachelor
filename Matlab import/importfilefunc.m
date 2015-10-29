@@ -77,11 +77,16 @@ fclose(fileID);
 
 %% Allocate imported array to column variable names
 time = dataArray{:, 1};
-emg1 = dataArray{:, 2};
 
+emg1 = dataArray{:, 2};
 [data,paddingTmp] = vec2mat(transpose(emg1),256);
+
+
 emg1Collection = [emg1Collection ; data];
+% Variable to check if the data sets has zero padding, if so it will be
+% remove later
 padding = [padding ; paddingTmp];
+
 
 emg2 = dataArray{ :, 3};
 [data] = vec2mat(transpose(emg2),256);
@@ -118,21 +123,49 @@ clc
 orientation = cell2mat(dataArray{:, 12});
 testPerson = char((dataArray{:, 13}));
 
-hand = str2num(hand(1))
-pose = str2num(pose(1))
+hand = str2num(hand(1));
+pose = str2num(pose(1));
 
 A=[];
 
 strcmp(testPerson(1,:),'BueBaby!')
 if(hand == 1 && pose == 0 && strcmp(testPerson(1,:),'BueBaby!')==1)
     A=1;
+elseif(hand == 1 && pose == 1 && strcmp(testPerson(1,:),'BueBaby!')==1) 
+    A=2;
+elseif(hand == 1 && pose == 2 && strcmp(testPerson(1,:),'BueBaby!')==1) 
+    A=3;
 end
 % A = gallery('integerdata',3,[5,2],1)
 % A= 1;
 catValues = [1:3];
 catNames = {'RightFingerSpreadBue' 'RightClosedBue' 'RightRelaxedBue'};
 
-% categorical(A,catValues,catNames,'Ordinal',true)
+% Data windows collected
+antal = length(data(:,1));
 
-cate = [cate; categorical(A,catValues,catNames,'Ordinal',true)];
+% Remove data window with  padding.
+if(paddingTmp ~= 0)
+    emg1Collection = emg1Collection(2:end,:);
+    emg2Collection = emg2Collection(2:end,:);
+    emg3Collection = emg3Collection(2:end,:);
+    emg4Collection = emg4Collection(2:end,:);
+    emg5Collection = emg5Collection(2:end,:);
+    emg6Collection = emg6Collection(2:end,:);
+    emg7Collection = emg7Collection(2:end,:);
+    emg8Collection = emg8Collection(2:end,:);
+    antal = antal-1;
+end
+
+% categorical(A,catValues,catNames,'Ordinal',true)
+for k=1:antal
+    cate = [cate; categorical(A,catValues,catNames,'Ordinal',true)];
+    
+end
+
+
+
+
+% x = data(2:end,:);
+% x
 
