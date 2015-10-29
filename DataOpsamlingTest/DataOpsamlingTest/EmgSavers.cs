@@ -206,62 +206,60 @@ namespace DataOpsamlingTest
             if (_sampleCount == windSize)
             {
                 object result = null;
-                //var abe = emgWindowContainer.ElementAt(1);
-                //System.Array pr = new double[4];
-                //pr.SetValue(11, 0);
-                //pr.SetValue(12, 1);
-                //pr.SetValue(13, 2);
-                //pr.SetValue(14, 3);
 
-                //System.Array pi = new double[4];
-                //pi.SetValue(1, 0);
-                //pi.SetValue(2, 1);
-                //pi.SetValue(3, 2);
-                //pi.SetValue(4, 3);
+                //var abe = emgWindowContainer.ElementAt(1);
+
 
                 //matlab.PutFullMatrix("a", "base", pr, pi);
                 //matlab.PutCharArray("abe", "base", "asdfasdfasd");
-                //matlab.PutFullMatrix("a", "base", emgWindowContainer.ElementAt(0),
-                //                                  emgWindowContainer.ElementAt(1));
-                
-                //matlab.PutFullMatrix("b", "base", emgWindowContainer.ElementAt(2),
-                //                                  emgWindowContainer.ElementAt(3));
-  
-                //matlab.PutFullMatrix("c", "base", emgWindowContainer.ElementAt(4),
-                //                                  emgWindowContainer.ElementAt(5));
-  
-                //matlab.PutFullMatrix("d", "base", emgWindowContainer.ElementAt(6),
-                //                                  emgWindowContainer.ElementAt(7));
+                //matlab.PutWorkspaceData("a", "base", emgWindowContainer.ElementAt(0));
+                //matlab.PutWorkspaceData("b", "base", emgWindowContainer.ElementAt(1));
+                //matlab.PutWorkspaceData("c", "base", emgWindowContainer.ElementAt(2));
+                //matlab.PutWorkspaceData("d", "base", emgWindowContainer.ElementAt(3));
+                //matlab.PutWorkspaceData("e", "base", emgWindowContainer.ElementAt(4));
+                //matlab.PutWorkspaceData("f", "base", emgWindowContainer.ElementAt(5));
+                //matlab.PutWorkspaceData("g", "base", emgWindowContainer.ElementAt(6));
+                //matlab.PutWorkspaceData("h", "base", emgWindowContainer.ElementAt(7));
 
 
-                //matlab.Execute("emg1Collection = a(1,:)");
-                //matlab.Execute("emg2Collection = a(2,:)");
 
-                //matlab.Execute("emg3Collection = b(1,:)");
-                //matlab.Execute("emg4Collection = b(2,:)");
+                //matlab.Execute("emg1Collection = a");
+                //matlab.Execute("emg2Collection = b");
 
-                //matlab.Execute("emg5Collection = c(1,:)");
-                //matlab.Execute("emg6Collection = c(2,:)");
+                //matlab.Execute("emg3Collection = c");
+                //matlab.Execute("emg4Collection = d");
 
-                //matlab.Execute("emg7Collection = d(1,:)");
-                //matlab.Execute("emg8Collection = d(2,:)");
+                //matlab.Execute("emg5Collection = e");
+                //matlab.Execute("emg6Collection = f");
+
+                //matlab.Execute("emg7Collection = g");
+                //matlab.Execute("emg8Collection = h");
 
 
-                //matlab.Feval("posePredictor", 1, out result);
+                matlab.Feval("posePredictor", 1, out result,emgWindowContainer.ElementAt(0),
+                                                            emgWindowContainer.ElementAt(1),
+                                                            emgWindowContainer.ElementAt(2),
+                                                            emgWindowContainer.ElementAt(3),
+                                                            emgWindowContainer.ElementAt(4),
+                                                            emgWindowContainer.ElementAt(5),
+                                                            emgWindowContainer.ElementAt(6),
+                                                            emgWindowContainer.ElementAt(7));
 
-                //object[] res = result as object[];
 
-                //System.Windows.Application.Current.Dispatcher.Invoke(
 
-                //System.Windows.Threading.DispatcherPriority.Normal,
-                //(Action)delegate()
-                //{
-                //    PrintOutList.Add((string)res[0]);
-                //});
+                object[] res = result as object[];
+
+                System.Windows.Application.Current.Dispatcher.Invoke(
+
+                System.Windows.Threading.DispatcherPriority.Normal,
+                (Action)delegate()
+                {
+                    PrintOutList.Add((string)res[0]);
+                });
 
                 //var _controller = ((Controller)App.Current.FindResource("controller"));
                 //_controller.MyoDispose();
-                emgWindowContainer.Clear();
+                _sampleCount = 0;
             }
         }
       

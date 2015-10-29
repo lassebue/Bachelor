@@ -36,11 +36,11 @@ I det følgende kapitel vil de funktionelle krave blive fremsat ud fra systembes
 			Aktør: & Testperson\\
 			Prækondition: & Testperson har Myo båndet på, og dataindsamlingssoftware kører\\
 			Postkondition: & Datasæt er indsamlet\\
-			Hovedscenarie: & 1: Testperson trykker på knap for at starte dataindsamlingen\\
-			& 2: Testperson laver pose\\
-			& 3: Testperson trykker på knap for at stoppe dataindsamlingen\\
-			& 4: Admin vælger, hvilken pose der er blevet indsamlet og angiver hvem testpersonen er.\\
-			& 5: Admin trykke på knap for at gemme datasæt\\
+			Hovedscenarie: & 1: Testperson vælger, hvilken hånd og pose, der skal samles data fra\\
+			& 2: Testperson trykker på knap for at starte dataindsamlingen\\
+			& 3: Testperson vælger, hvor den nye data skal gemmes\\
+			& 4: Testperson lave pose og holder denne\\
+			& 5: Testperson trykker på knap for at stoppe dataindsamlingen\\
 		\end{tabular}
 		\caption{Use Case 2}
 	\end{table}
@@ -59,7 +59,6 @@ I det følgende kapitel vil de funktionelle krave blive fremsat ud fra systembes
 			Postkondition: & En ny pose er tilføjet dataindsamlingssoftwaren\\
 			Hovedscenarie: & 1:Testperson trykker på knap for at tilføje en ny pose\\
 			& 2. Testperson angiver titel for den nye pose\\
-			& 3. Testperson vælger, hvilken pose der er blevet indsamlet og angiver hvem testpersonen er\\
 			& 4. Testperson trykker på knap for at gemme pose\\
 		\end{tabular}
 		\caption{Use Case 3}
@@ -78,13 +77,13 @@ I det følgende kapitel vil de funktionelle krave blive fremsat ud fra systembes
 			Prækondition: & Et datasæt eksisterer i databasen\\
 			Postkondition: & datasæt er slettet fra databasen\\
 			Hovedscenarie: & 1: Testperson vælger eksisterende datasæt\\
-			& 2: Testperson trykker på knap for at slette valgte datasæt.
+			& 2: Testperson trykker på knap for at slette valgte datasæt\\
 		\end{tabular}
 		\caption{Use Case 4}
 	\end{table}
 \end{center}
 
-\subsection{Genkendelse pose}
+\subsection{Genkendelse af pose}
 \begin{center}
 	\begin{table}[htbp]
 		\rowcolors{2}{white}{lightgrey}
@@ -97,9 +96,8 @@ I det følgende kapitel vil de funktionelle krave blive fremsat ud fra systembes
 			Postkondition: & Pose er blevet genkendt \\
 			Hovedscenarie: & 1: Bruger laver pose \\
 			& 2: Myo-data sendes til software på computeren\\
-			& 3: Pose genkendelses software processerer Myo-data\\
-			& 4: Myo-data genkendes\\
-			& 5: Brugerens pose genkendes\\
+			& 3: Genkendelses software processeer Myo-data\\
+			& 4: Brugerens pose genkendes\\
 		\end{tabular}
 		\caption{Use Case 5}
 	\end{table}
@@ -111,11 +109,11 @@ I det følgende kapitel vil de funktionelle krave blive fremsat ud fra systembes
 		\rowcolors{2}{white}{lightgrey}
 		\begin{tabular}{lp{274pt}}
 			\rowcolor{grey} Use case 6:		& Lukke CrustCrawler greb \\
-			Mål: & Som Bruger vil man lukke CrustCrawlerens greb, ved at lave et pose  med hånden, hvorpå Myo båndet er. \\
+			Mål: & Som Bruger vil man lukke CrustCrawlerens greb, ved at lave et pose med hånden, hvorpå Myo båndet er. \\
 			initiation:	& Bruger\\
 			Aktør: & Bruger \& CrustCrawler\\
 			Prækondition: & Bruger har Myo bånd på, som er forbundet til pc med genkendelsessoftware kørende \\
-			Postkondition: & CrustCrawleren greb er lukket \\
+			Postkondition: & CrustCrawlerens greb lukker \\
 			Hovedscenarie: & 1: Bruger laver pose for at lukke CrustCrawlers greb. \\
 			& 2: Systemet genkender posen tilknyttet CrustCrawlerens funktion til at lukke grebet.\\
 			& 3: CrustCrawleren lukker grebet.\\
@@ -135,7 +133,7 @@ I det følgende kapitel vil de funktionelle krave blive fremsat ud fra systembes
 			initiation:	& Bruger \\
 			Aktør: & Bruger \& CrustCrawler\\
 			Prækondition: & Bruger har Myo bånd på, som er forbundet til pc med genkendelsessoftware kørende. \\
-			Postkondition: & CrustCrawleren greb er åbnet. \\
+			Postkondition: & CrustCrawlerens greb er åbnet. \\
 			Hovedscenarie: & 1: Bruger laver pose til at åbne CrustCrawlerens greb\\
 			& 2: Systemet genkender posen tilknyttet CrustCrawlerens funktion til at åbne grebet.\\
 			& 3: CrustCrawleren åbner grebet.\\
