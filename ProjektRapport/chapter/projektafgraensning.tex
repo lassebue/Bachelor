@@ -1,11 +1,13 @@
 \thispagestyle{fancy}
 \chapter{Projktafgrænsning}
 \label{chp:projektafgraensning}
+I dette afsnit gennemgås opsatte læringsmål, samt en specificering af projektets omfang. 
+\section{Læringsmål}
 Da dette er en bachelor opgave på Ingeniørhøjskolen ved Aarhus Universitet, er der opsat en række læringsmål der skal opfyldes igennem projektet. I det følgende der de forskellige læringsmål gennemgået og en beskrivelse af hvordan projektet opfylder læringsmålene.
 \begin{itemize}
 	\item Omsætte forskningsresultater samt naturvidenskabelig og teknisk viden til anvendelse ved udviklingsopgaver og ved løsning af teknologiske problemstillinger.
 	\begin{itemize}
-		\item 
+		\item Undersøgelse af teori bag machine learning og projekter med EMG anvendelse, hvorefter relevante erfaringer integreres i dette projekt. \todoall {Hvad kan der lige skrives her}
 	\end{itemize}
 	\item Søge, analysere og vurdere ny viden indenfor relevante områder.
 	\begin{itemize}
@@ -17,7 +19,7 @@ Da dette er en bachelor opgave på Ingeniørhøjskolen ved Aarhus Universitet, e
 	\end{itemize}
 	\item Anvende ingeniørfaglig teori og metode på en systematisk måde.
 	\begin{itemize}
-		\item Projektet gennemføres vha. diverse specifikke principper og modeller, der undervejs giver en god projektgennemførsel. Dette er ting som bl.a. udarbejdelse af kravspecifikation.
+		\item Projektet gennemføres vha. diverse specifikke principper og modeller, der undervejs giver en god projektgennemførsel. Dette er bl.a. udarbejdelse af kravspecifikation.
 	\end{itemize}
 	\item Vurdere og forklare projektresultater for ingeniører og andre målgrupper, skriftlig og mundtligt.
 	\begin{itemize}
@@ -29,6 +31,36 @@ Da dette er en bachelor opgave på Ingeniørhøjskolen ved Aarhus Universitet, e
 	\end{itemize}
 \end{itemize}
 
-De opstillede læringsmål vil blive brugt igennem projektet ved undersøgelse af eksisterende projekter og udviklingen af gruppens eget system.
+De opstillede læringsmål vil blive brugt igennem projektet ved undersøgelse af eksisterende projekter og udviklingen af gruppens eget system.\\
+
 
 \todoall{Her skal skrives mere når Problemformulering er lavet}
+\section{Projekt omfang}
+Det ses ud fra problemformuleringen at flere systemer vil kunne optimeres og gøres mere intuitivt med genkendelse af poses vha. machine learning i stedet for brug af knapper, mobilapplikationer og joystik. \\
+
+I forbindelse med armproteser, hvor der allerede findes en løsning, hvor proteser kan styres vha. EMG signaler, er problemet at der anvendes kommandoer, som brugerne skal huske, videre er der kun få mulige kommandoer, således er brugerne ofte nød til at skrifte protese bevægelser, bestemt af kommandoerne. Desuden gør kommandoerne at brugerne ikke kan lave intuitive muskelbevægelser for de poses de gerne vil lave med protesen. 
+
+Her vil det gennem projektet bliver undersøgt om det er muligt at udvikle pose genkendelse vha. machine learning, da man, hvis det er muligt, vil kunne lave intuitiv styring af flere protese bevægelser. \\
+Som tidligere nævnt findes et wearable device, Myo armbåndet til pose genkendelse. Denne funktionalitet ville kunne anvendes i denne sammenhæng, dog har armbåndet en stor begrænsning i forhold til antallet af poses, der kan genkendes. Denne løsning vil således ikke være meget bedre end den eksisterende.\\
+
+Derfor vil der i dette projekt, blive udviklet et program til genkendelse af EMG signaler vha. machine learning. \\
+Ved machine learning, har man behov for relativt store mængder data. Har man ingen data, kan man ikke lave machine learning. I den forbindelse ville det være smart at have en datasamling. Til at få fat i denne data har Myo armbåndet også en anden funktion, der gør det muligt at opsamle den rå EMG data.
+
+
+
+
+
+Det færdige projekt skal derfor indeholde:
+\begin{itemize}
+\item Et system skal kunne:
+	\begin{itemize}
+		\item Opsamle EMG fra underarmen data.
+		\item Uploade data til en samlet datasamling.
+		\item Bruge den indsamlede data til træning af en genkendelse algoritme.
+		\item Genkende forskellige poses vha. udviklet genkendelse algoritme i realtid.
+		\item Implementer relevant anvendelse af genkendelse algoritme.
+	\end{itemize}
+\item Undersøgelse af eksisterende projekter indenfor machine learning.
+\item Undersøgelse af det udviklede system.
+\end{itemize}
+\todoall{evt. flyt til projektafgrænsning}
