@@ -2,16 +2,35 @@
 \chapter{Problemformulering}
 \label{chp:problemformulering}
 
-Formålet med dette projekt er at åbne op for mulighederne til at bruge EMG signaler og machine learning til styrelse af forskellige ting, som fx. en robotarm. Machine learning er på vej frem, og det vil med dette projekt kunne blive nemmere at udnytte de samme data til forskellige projekter.\\
-
-Problemstillingen består dermed i at mange ting vil kunne optimeres og gøres mere intuitivt ved brug af EMG signaler og machine learning i stedet for brug af knapper, mobilapplikationer og joystik. Til det vil det også være smart at unne bruge de samme data, i stedet for at der skal laves nye data til hver projekt der udvikles.\\
+Problemstillingen består i at mange systemer vil kunne optimeres og gøres mere intuitivt med genkendelse af poses vha. machine learning i stedet for brug af knapper, mobilapplikationer og joystik. Ved machine learning, har man behov for relativt store mængder data. Har man ingen data, kan man ikke lave machine learning. I den forbindelse ville det være smart at lave en datasamling, i stedet for at der skal laves nye data til hver projekt der udvikles.\\
 
 Det færdige projekt skal derfor kunne:
 \begin{itemize}
-	\item Opsamle data med et Myo Armband.
-	\item uploade data til en samlet data collection.
-	\item Bruge den samlede data i en machine learning algoritme.
-	\item genkende forskellige poses vha. machinelearning.
-	\item lade CrustCrawler reagere på en pose som brugeren laver.
+	\item Opsamle EMG fra underarmen data
+	\item Uploade data til en samlet datasamling
+	\item Bruge den indsamlede data til træning af en genkendelse algoritme
+	\item Genkende forskellige poses vha. udviklet genkendelse algoritme i realtid
+	\item Implementer relevant anvendelse af genkendelse algoritme
 \end{itemize}
+\todoall{evt. flyt til projektafgrænsning}
+Antagelsen i projektet er, at der findes mange anvendelsesmuligheder for genkendelse af håndbevægelser, blandt andet inden for de tidligere nævnte områder, nemlig VR, myoelektriske proteser og exoskeletter og robotstyring. Her findes der på nuværende tidspunkt en række problemstilling, men findes der allerede eksisterende løsninger til disse?\\
 
+Ses der på proteser, findes der allerede løsninger til styring, hvor der anvendes EMG til styring af de kunstige lemmer, men her genkendes ikke, hvilke bevægelser brugeren laver. I stedet "bevæger" brugeren særlige muskler, hvorpå musklens aktivitet registeres. Gentagende "bevægelser" af en bestemt muskel vil så være en bestemt kommando, der får protesen til at lave en bevægelse. Her vil det dog kun være muligt at aktivere få af protesens bevægelser vha. EMG af gangen, da der kun kan laves få kommandoer med musklerne. \\
+
+Dette problem har man løst, ved at give mulighed for udskifte protesebevægelserne til de enkelte kommandoer. Man kan således vælge, hvilke bevægelser man har brug for på bestemt tidspunkter. I dag kan man vælge protesebevægelserne til hver muskel-kommando på en smartphone app. Ligeledes kan selve protesen styres direkte fra smartphone appen.
+\todoall{indsæt reference til Thouch Bionics}\\
+Dog findes et par problemer med denne løsning, først og fremmest problemet med de få (4)\todoall{ Det er vist 4, men tjek det!!!} kommandoer, hvor langt flere kommandoer vil være nyttige for brugerne. Dog vil ekstra kommandoer nedsætte brugervenligheden, da brugerne vil skulle huske hver kommando og de forskellige kombinationer af muskelspændinger for at lave dem.\\
+
+Videre ses det som et problem, at kommandoerne er nødvendig. Det endelige mål for en armprotese må være, at brugerne i så vid udstrækning som mulig kan bruge proteserne, som om de har rigtige hænder. Her anses kommandoerne for at være en hindring for den intuitive anvendelse af proteserne.\\
+
+Det er her mønstergenkendelse vil kunne anvendes til, at genkende de bevægelser, f.eks. at lukke eller åbne hånden, brugerne ville lave med en rigtig hånd. Når bevægelsen er genkendt vil protesen, efterfølgende kunne lave samme bevægelse. Dette vil være muligt, hvis man har øvre del af underarmen. \\
+
+Til netop dette formål findes et relativ billigt wearable device, der netop er i stand til at genkende håndbevægelser. Myo er et armbånd, med 8 EMG sensorer og 9 aksial IMU med accelaometer, gyroscope og magnetometer, der kan mål EMG signal og omsætte dem til poses, som bæreren af armbåndet laver. \\
+Denne funktionalitet er et stor skridt i den rigtige retning. Brugerne af en armprotese med disse egenskaber vil kunne bruge armprotesen langt mere intuitivt og uden at skulle tænke over, hvilke muskler der skal spændes for at lave en bestemt kommando.\\
+Et problem med Myo armbåndet er dog, at den kun er i stand til at genkende 5 poses. Skulle Myo armbåndet integreres med en armprotese ville brugerne, således stå i næsten samme situation, som med de tidligere nævnte myoelektriske proteser med 4 mulige muskelkommandoer.\\
+
+I Forbindelse med exoskeletler forskes, udvikles og eksperimenteres der på Regionshospitalet Hammel Neurocenter inden for nye løsninger til at hjælpe til med genoptræning af patienter. Én af de projekter der har været igang er udviklingen af et en exoskelet-arm. Denne exo-arm skal hjælpe patienten med at bøje albueleddet når bicept bliver aktiveret. Modsat gælder det, når det registreres at triceps aktiveres, her hjælper exo-armen med at strække patientens arm ud igen. Hensigten med exo-armen er ikke at gøre patienten stærkere, men har i stedet fokus på genoptræning af patienterne, ved at give dem evnen til at løfte deres arm tilbage.\\
+
+På samme måde som exo-armen hjælper med genoptræning i albueleddet, vil anvendelsen af EMG genkendelsessystemet kunne hjælpe med genoptræning af hånd og fingre i forbindelse med en exoskelet-hånd. Ved at registrere aktivitet i musklerne i underarmen, vil en exo-hånd kunne hjælpe en patient med at åbne og lukke sin hånd. Derved vil hjælpe patienten med gradvis at få førlighed tilbage, og videre have hjælp til at gribe fat om genstande. Det kan siges at systemet her er en udvidelse af den exo-arm, der er udviklet i projektet på Neurocentret. \todoall{Indsæt reference til exoarm rapport}\\
+
+Genkendelse af håndbevægelser vil kunne anvendes i et virtuelt miljø, hvor man vha.  genkendelsesmodeller vil kunne være i stand til at manipulere med elementer, der eksisterer i det virtuelle miljø mere intuitivt vha. hænderne. Et eksempel på det kunne være et spil, hvor man kan gribe, løfte, flytte rundt på, og give slip på nogle klodser.
