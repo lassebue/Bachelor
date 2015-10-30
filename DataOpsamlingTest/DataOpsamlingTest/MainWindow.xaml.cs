@@ -136,9 +136,9 @@ namespace DataOpsamlingTest
         private async void WindowLoaded(object sender, RoutedEventArgs e)
         {
             // We will start to listening after the Myo data herer
-            var testObject = new ParseObject("TestObject");
-            testObject["foo"] = "bar";
-            await testObject.SaveAsync();
+            //var testObject = new ParseObject("TestObject");
+            //testObject["foo"] = "bar";
+            //await testObject.SaveAsync();
 
             //var _controller = ((Controller)FindResource("controller"));
             //_controller.InitMyo();

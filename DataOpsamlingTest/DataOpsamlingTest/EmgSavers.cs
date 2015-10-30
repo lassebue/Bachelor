@@ -207,35 +207,6 @@ namespace DataOpsamlingTest
             {
                 object result = null;
 
-                //var abe = emgWindowContainer.ElementAt(1);
-
-
-                //matlab.PutFullMatrix("a", "base", pr, pi);
-                //matlab.PutCharArray("abe", "base", "asdfasdfasd");
-                //matlab.PutWorkspaceData("a", "base", emgWindowContainer.ElementAt(0));
-                //matlab.PutWorkspaceData("b", "base", emgWindowContainer.ElementAt(1));
-                //matlab.PutWorkspaceData("c", "base", emgWindowContainer.ElementAt(2));
-                //matlab.PutWorkspaceData("d", "base", emgWindowContainer.ElementAt(3));
-                //matlab.PutWorkspaceData("e", "base", emgWindowContainer.ElementAt(4));
-                //matlab.PutWorkspaceData("f", "base", emgWindowContainer.ElementAt(5));
-                //matlab.PutWorkspaceData("g", "base", emgWindowContainer.ElementAt(6));
-                //matlab.PutWorkspaceData("h", "base", emgWindowContainer.ElementAt(7));
-
-
-
-                //matlab.Execute("emg1Collection = a");
-                //matlab.Execute("emg2Collection = b");
-
-                //matlab.Execute("emg3Collection = c");
-                //matlab.Execute("emg4Collection = d");
-
-                //matlab.Execute("emg5Collection = e");
-                //matlab.Execute("emg6Collection = f");
-
-                //matlab.Execute("emg7Collection = g");
-                //matlab.Execute("emg8Collection = h");
-
-
                 matlab.Feval("posePredictor", 1, out result,emgWindowContainer.ElementAt(0),
                                                             emgWindowContainer.ElementAt(1),
                                                             emgWindowContainer.ElementAt(2),

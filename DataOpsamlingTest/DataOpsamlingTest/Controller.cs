@@ -182,7 +182,7 @@ namespace DataOpsamlingTest
 
         public void createWindPredictor(MLApp.MLApp matlab)
         {
-            WindowPredictor = new EmgWindowSaver(matlab, 256);
+            WindowPredictor = new EmgWindowSaver(matlab, 128);
         }
 
         public void InitMyo()
