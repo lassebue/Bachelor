@@ -44,23 +44,18 @@ Her vil det gennem projektet bliver undersøgt om det er muligt at udvikle pose 
 Som tidligere nævnt findes et wearable device, Myo armbåndet til pose genkendelse. Denne funktionalitet ville kunne anvendes i denne sammenhæng, dog har armbåndet en stor begrænsning i forhold til antallet af poses, der kan genkendes. Denne løsning vil således ikke være meget bedre end den eksisterende.\\
 
 Derfor vil der i dette projekt, blive udviklet et program til genkendelse af EMG signaler vha. machine learning. \\
-Ved machine learning, har man behov for relativt store mængder data. Har man ingen data, kan man ikke lave machine learning. I den forbindelse ville det være smart at have en datasamling. Til at få fat i denne data har Myo armbåndet også en anden funktion, der gør det muligt at opsamle den rå EMG data.
-
-
-
-
-
-Det færdige projekt skal derfor indeholde:
+Ved machine learning, har man behov for relativt store mængder data. Har man ingen data, kan man ikke lave machine learning. I den forbindelse ville det være smart at have en datasamling. Til at indsamle denne data har Myo armbåndet, en anden funktion, der gør det muligt at opsamle den rå EMG data. Således vil det være muligt anskaffe signal data fra underarm, som vil kunne anvendes til træning machine learnings klassifikationsmodeller. \\
+I projektet er det intentionen, at anvende de trænede modeller til en konkret anvendelse mulighed. \\\\
+Det færdige projekt skal således indeholde:
 \begin{itemize}
-\item Et system skal kunne:
+\item Et system der skal kunne:
 	\begin{itemize}
 		\item Opsamle EMG fra underarmen data.
 		\item Uploade data til en samlet datasamling.
 		\item Bruge den indsamlede data til træning af en genkendelse algoritme.
-		\item Genkende forskellige poses vha. udviklet genkendelse algoritme i realtid.
+		\item Genkende forskellige poses i realtid vha. udviklet genkendelse algoritme.
 		\item Implementer relevant anvendelse af genkendelse algoritme.
 	\end{itemize}
 \item Undersøgelse af eksisterende projekter indenfor machine learning.
 \item Undersøgelse af det udviklede system.
 \end{itemize}
-\todoall{evt. flyt til projektafgrænsning}

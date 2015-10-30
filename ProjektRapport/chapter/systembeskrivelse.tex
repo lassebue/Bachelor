@@ -5,11 +5,12 @@
 Systemet i dette projekt består af flere dele, nemlig Dataopsamlingsprogram, Data collection og en Anvendelsesdel.
 \subsubsection{Dataopsamlingsprogram}
 Til denne del af projektet anvendes et Myo armbånd. Myo Armband er et relativt billigt wearable device som har en række funktionaliteter, hvor den ene er at den kan opfange EMG signaler i underarmen, og sende den opsamlede data til et program.\\
-Da der er behov for data specifikt til machine learning, vil der i projektet blive designet et software program, med henblik på at opsamle og ordne data sendt fra Myo båndet, til senere træning af machine learning modeller.
+Da der er behov for data specifikt til machine learning, vil der i projektet blive designet et software program, med henblik på at opsamle og ordne data sendt fra Myo båndet, til senere træning af machine learning modeller.\\
+Data collection, som er anden del af systemet, hvilket her er hostet hos parse.com, er en database hvor alle de opsamlede data ligger. Disse kan anvendes til forskellige formål.
 
-
-\subsubsection{Data collection}
-Data collection, som er anden del af systemet, hvilket her er hostet hos parse.com, er en database hvor alle de opsamlede data ligger. Disse kan anvendes til forskellige formål. Dataene bliver processeret i matlab algoritmer, hvor de bliver trænet til at genkende poses.
+\subsubsection{Modeltræning}
+Til træning af machine learnings modellen, er det intentionen at anvende Matlabs indbyggede toolboxes, der er særligt egnet til at udvikle og træne genkendelses modellerne, samt at teste disse. 
+Her er det ligeledes muligt, at undersøge, hvilke typer af machine learning modeller, der er de meste effektive til at genkende poses, og hvilke der er poses, de forskellige modeller har sværest ved er se forskel på.
 
 \subsubsection{Anvendelse}
 I denne del del af systemet anvendes den trænede data. En bruger med en Myo kan her lave poses som sendes til matlab algoritmen og her genkendes det specifikke pose. Efterfølgende vil anvendelsesprogrammet ved hjælp af den genkendte pose, sende en kommando ud til en en robotarm. Systemet gør brug af en robotarm kaldet CrustCrawler. Denne robot er en arm med 2 bøjelige led, 2 roterende led og en klo der kan gribe ud efter genstande. CrustCrawleren vil modtage en kommando fra anvendelsesprogrammet, og reagere herpå. Kloen kan lukke i eller åbne alt efter om brugeren knytter sin hånd eller åbner den.\\
