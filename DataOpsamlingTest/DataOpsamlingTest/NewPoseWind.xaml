@@ -1,0 +1,14 @@
+﻿<Window x:Class="DataOpsamlingTest.NewPoseWind"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:DataOpsamlingTest"
+        xmlns:model="clr-namespace:EmgDataModel;assembly=EmgDataModel"
+        Title="Add new Pose" Height="251" Width="185">
+    
+    <Grid Margin="0,0,2,-1">
+        <Label Content="New pose name:" FontSize="11" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="120"/>
+        <TextBox HorizontalAlignment="Left" DataContext="{DynamicResource npController}" Name="poseText" Text="{Binding Path=NewPoseName}" Height="23" Margin="10,40,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Button Content="Save pose" DataContext="{DynamicResource npController}" Command="{Binding Path=SavePoseCommandHandler}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="10,68,0,0"/>
+
+    </Grid>
+</Window>

@@ -16,7 +16,13 @@ namespace DataOpsamlingTest
     {
         public App()
         {
+
+
             this.InitializeComponent();
+            
+            ParseObject.RegisterSubclass<EmgDataModel.Pose>();
+            ParseObject.RegisterSubclass<EmgDataModel.PoseCollection>();
+
             ParseClient.Initialize("4MpkWjGUq6gngl88lAZL9GuBjqlwt5dywI0zaWYG", "U7wDQU90gDR32cK50a1rU7TFRhBWAHXArBcU8Wdx");
         }
         

@@ -28,7 +28,7 @@ namespace EmgDataModel
      [ParseClassName("Pose")]
     public class Pose: ParseObject 
     {
-         public Pose() { PoseId = 0; }
+         public Pose() { }
 
         [ParseFieldName("poseName")]
         public string PoseName
@@ -45,22 +45,25 @@ namespace EmgDataModel
             set { SetProperty<int>(value); }
         }
     }
-
-     public class PoseCollection : INotifyPropertyChanged
+     
+    [ParseClassName("PoseCollection")]
+     public class PoseCollection: ParseObject, INotifyPropertyChanged
      {
-         private ObservableCollection<Pose> _poses;
-         public ObservableCollection<Pose> Poses
+        //private ObservableCollection<Pose> _poses;
+
+        [ParseFieldName("Poses")]
+        public ObservableCollection<Pose> Poses
          {
-             get { return _poses; }
+             get { return GetProperty<ObservableCollection<Pose>>(); }
              set
              {
-                 _poses = value;
+                 SetProperty<ObservableCollection<Pose>>(value); 
                  Notify();
              }
          }
          public PoseCollection()
          {
-             _poses = new ObservableCollection<Pose>();
+             Poses = new ObservableCollection<Pose>();
          }
 
          public event PropertyChangedEventHandler PropertyChanged;
@@ -154,13 +157,24 @@ namespace EmgDataModel
             }
         }
 
-        [ParseFieldName("user")]
-        public ParseUser User
+        //[ParseFieldName("user")]
+        //public ParseUser User
+        //{
+        //    get { return GetProperty<ParseUser>(); }
+        //    set
+        //    {
+        //        SetProperty<ParseUser>(value);
+        //        Notify();
+        //    }
+        //}
+
+        [ParseFieldName("userName")]
+        public string UserName
         {
-            get { return GetProperty<ParseUser>(); }
+            get { return GetProperty<string>(); }
             set
             {
-                SetProperty<ParseUser>(value);
+                SetProperty<string>(value);
                 Notify();
             }
         }
@@ -172,8 +186,22 @@ namespace EmgDataModel
             get { return GetProperty<int>(); }
             set
             {
-                if (value >= 0||value <=360) { SetProperty<int>(value); }
+                if (value >= 0||value <=100) { SetProperty<int>(value); }
                 else SetProperty<int>(-1);
+                Notify();
+
+            }
+        }
+
+        private ParseFile _parseFile = null;
+
+        [ParseFieldName("onlineFile")]
+        public ParseFile OnlineFile
+        {
+            get { return _parseFile; }
+            set
+            {
+                _parseFile = value;
             }
         }
 

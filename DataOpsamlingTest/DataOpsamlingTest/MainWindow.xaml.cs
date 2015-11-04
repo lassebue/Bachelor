@@ -37,50 +37,47 @@ namespace DataOpsamlingTest
 
         #endregion
 
+        Pose abe = new Pose();
+        Pose buller = new Pose();
+        Pose bullie = new Pose();
+
         public MainWindow()
         {
             InitializeComponent();
             Title = "Data Collection";
-            //_startTime = DateTime.UtcNow;
-            //_channel = Channel.Create(ChannelDriver.Create(ChannelBridge.Create()));
-            //Printer = new EmgPrinterSaver();
-
-            //SaveFileDialog saveFileDia = new SaveFileDialog();
-            //saveFileDia.Filter = "csv|*.csv";
-            //if (saveFileDia.ShowDialog() == true)
-            //{
-            //    _emgLogger = new EmgFileSavers(saveFileDia.FileName);
-            //}
-
-
-            //MyList.ItemsSource = DataSaver.PrintOutList;
-
-            //DataContext = Printer.PrintOutList
-
-            worker.DoWork += worker_DoWork;
-            worker.RunWorkerCompleted += worker_RunWorkerCompleted;
-            worker.RunWorkerAsync();
-
+            
+            // Inits the matlab server and start the predictions of the server 
+            ////worker.DoWork += worker_DoWork;
+            ////worker.RunWorkerCompleted += worker_RunWorkerCompleted;
+            ////worker.RunWorkerAsync();
 
             Loaded += WindowLoaded;
             Closed += WindowClosed;
-            var abe = new Pose();
-            var buller = new Pose();
-            var bullie = new Pose();
 
-            abe.PoseName = "SpreadFinger";
-            abe.PoseId = 0;
-            buller.PoseName = "CloseHand";
-            buller.PoseId = 1;
-            bullie.PoseName = "Relaxed hand";
-            bullie.PoseId = 2;
+            GetPoses();
+        }
+        private async void GetPoses()
+        {
+            //ParseQuery<ParseObject> query = ParseObject.GetQuery("PoseCollection");
+            //ParseObject gameScore = await query.GetAsync("xWMyZ4YEGZ");
+
+            //var query = from pose in new ParseQuery<Pose>()
+            //            where pose.PoseId > -1
+            //            select pose;
+            //IEnumerable<Pose> result = await query.FindAsync();
+
             var poseC = ((PoseCollection)FindResource("poseCollection"));
-            poseC.Poses.Add(abe);
-            poseC.Poses.Add(buller);
-            poseC.Poses.Add(bullie);
-            //_hub = Hub.Create(_chanel);
-            //_hub.MyoConnected +=HubMyoConnected;
-            //_hub.MyoDisconnected +=HubMyoDisconnected;
+
+            var query = new ParseQuery<Pose>();
+
+            IEnumerable<Pose> result = await query.FindAsync();
+
+            foreach (var item in result)
+            {
+                poseC.Poses.Add(item);
+            }
+            
+            result.ToString();
         }
 
         private void worker_DoWork(object sender, DoWorkEventArgs e)
@@ -94,6 +91,8 @@ namespace DataOpsamlingTest
             matlab.Execute(@"cd('Z:\Bachelor\Matlab import')");
 
             var _controller = ((Controller)FindResource("controller"));
+            
+           
             _controller.createWindPredictor(matlab);
         }
         //#region Events

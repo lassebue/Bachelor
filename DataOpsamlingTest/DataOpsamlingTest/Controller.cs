@@ -4,15 +4,19 @@ using MvvmFoundation.Wpf;
 using MyoSharp.Communication;
 using MyoSharp.Device;
 using MyoSharp.Exceptions;
+using MyoSharp.Math;
+using Parse;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media.Media3D;
 
 namespace DataOpsamlingTest
 {
@@ -52,21 +56,24 @@ namespace DataOpsamlingTest
             }
             else
             {
-                _recording = true;
-                sampleCount = 0;
-
-                MessageBox.Show("recording stuff");
+                //MessageBox.Show("recording stuff");
                 SaveFileDialog saveFileDia = new SaveFileDialog();
                 saveFileDia.Filter = "csv|*.csv";
                 if (saveFileDia.ShowDialog() == true)
                 {
-                    var dataSet = ((EmgDataSet)Application.Current.FindResource("emgDataSet"));
-                    _emgLogger = new EmgFileSavers(saveFileDia.FileName, dataSet);
-                }
-                InitMyo();
-                _channel.StartListening();
-            }
+                    _recording = true;
+                    sampleCount = 0;
 
+                    var dataSet = ((EmgDataSet)Application.Current.FindResource("emgDataSet"));
+                    
+                    dataSet.EmgDataFile = saveFileDia.FileName;
+                    _emgLogger = new EmgFileSavers(saveFileDia.FileName, dataSet);
+
+                    InitMyo();
+                    _channel.StartListening();
+                }
+
+            }
             //var sprintList = ((IEmgSaver)Application.Current.FindResource("SprintListModel"));
         }
         #endregion
@@ -100,8 +107,39 @@ namespace DataOpsamlingTest
 
                 _emgLogger.FinalizeSave();
                 MyoDispose();
-            }
+                MessageBoxResult result = MessageBox.Show("Would you like to save the recorded file online?", "DCA", MessageBoxButton.YesNo);
+                switch (result)
+                {
+                    case MessageBoxResult.Yes:
+                        
+                        var dataSet = ((EmgDataSet)Application.Current.FindResource("emgDataSet"));
+                        
+                        
+                        // Prepare for the csv file to be saved
+                        var pathArray = dataSet.EmgDataFile.Split('\\');
+                        var fileName = pathArray[pathArray.Length - 1];
+                        
+                        FileStream fs = new FileStream( dataSet.EmgDataFile, FileMode.Open);
 
+                        ParseFile file = new ParseFile(fileName,fs,null);
+                        SaveFileOnline(file,dataSet);
+
+                        //dataSet.OnlineFile = file;
+
+                        //dataSet["fileFile"] = file;
+
+                        //SaveSomething(file);
+
+                        // Saves the dataSet in Parse.com
+                        //SaveDataSetOnline(dataSet);
+
+
+                        MessageBox.Show("Nice! It's been saved!", "DCA");
+                        break;
+                    case MessageBoxResult.No:
+                        break;
+                }
+            }
             //System.Windows.Application.Current.Dispatcher.Invoke(
 
             //    System.Windows.Threading.DispatcherPriority.Normal,
@@ -111,8 +149,28 @@ namespace DataOpsamlingTest
             //    });
 
             //MyoDispose();
-
         }
+
+        private async void SaveDataSetOnline(EmgDataSet dataSet)
+        {
+            await dataSet.SaveAsync();
+        }
+
+        private async void SaveFileOnline(ParseFile file, EmgDataSet dataSet)
+        {
+            await file.SaveAsync();
+            dataSet["onlineFile"] = file;
+            await dataSet.SaveAsync();
+        }
+
+        private async void SaveSomething(ParseFile file)
+        {
+            var jobApplication = new ParseObject("JobApplication");
+            jobApplication["applicantName"] = "Joe Smith";
+            jobApplication["applicantResumeFile"] = file;
+            await jobApplication.SaveAsync();
+        }
+
         #endregion
 
         #region checkOrientation
@@ -127,10 +185,43 @@ namespace DataOpsamlingTest
         private void CheckOrientation()
         {
             //var sprintList = ((IEmgSaver)Application.Current.FindResource("SprintListModel"));
-            MessageBox.Show("Orientation wtf!!!!");
-            var dataSet = ((EmgDataSet)Application.Current.FindResource("emgDataSet"));
-            var Pose = dataSet.Pose.PoseName;
             
+            _channel = Channel.Create(
+                                        ChannelDriver.Create(ChannelBridge.Create(),
+                                        MyoErrorHandlerDriver.Create(MyoErrorHandlerBridge.Create())));
+            _hub = Hub.Create(_channel);
+            // listen for when the Myo connects
+            _hub.MyoConnected += (sender, e) =>
+            {
+                e.Myo.Vibrate(VibrationType.Short);
+                e.Myo.EmgDataAcquired += MyoOrientatiomAcquired;
+                e.Myo.SetEmgStreaming(true);
+            };
+
+            // listen for when the Myo disconnects
+            _hub.MyoDisconnected += (sender, e) =>
+            {
+                e.Myo.SetEmgStreaming(false);
+                e.Myo.EmgDataAcquired -= MyoOrientatiomAcquired;
+            };
+
+            _channel.StartListening();
+            MessageBoxResult result = MessageBox.Show("Click ok and the current Roll orientation will be saved!", "DCA", MessageBoxButton.OK);
+            switch (result)
+            {
+                case MessageBoxResult.OK:
+                    MessageBox.Show("Nice! It's been saved!", "DCA");
+                     _channel.StopListening();
+                    break;
+                //case MessageBoxResult.No:
+                //    MessageBox.Show("Keep trying!", "DCA");
+                //    break;
+
+            }
+
+
+
+
         }
         #endregion
 
@@ -149,6 +240,23 @@ namespace DataOpsamlingTest
         }
         #endregion
 
+        #region newPose
+        private ICommand _newPoseCommand;
+
+        public ICommand NewPoseCommandHandler
+        {
+            get { return _newPoseCommand ?? (_newPoseCommand = new RelayCommand(NewPose)); }
+        }
+
+        private void NewPose()
+        {
+            //var sprintList = ((IEmgSaver)Application.Current.FindResource("SprintListModel"));
+            
+            //MessageBox.Show("New pose!!!!");
+            NewPoseWind newPoseWind = new NewPoseWind();
+            newPoseWind.ShowDialog();
+        }
+        #endregion
 
 
         // Myo initiation
@@ -159,6 +267,8 @@ namespace DataOpsamlingTest
         private IEmgSaver _emgLogger;
         private long sampleCount = 0;
         private long samplePeriode = 5;
+
+        // IEmgSaver instances for logging, printing og predicting the EMG data
         private IEmgSaver _printer;
         public IEmgSaver Printer
         {
@@ -180,6 +290,18 @@ namespace DataOpsamlingTest
             }
         }
 
+        public string Roll
+        {
+            get { return _roll; }
+            set
+            {
+                _roll = value;
+                Notify();
+            }
+        }
+        private string _roll = "";
+
+
         public void createWindPredictor(MLApp.MLApp matlab)
         {
             WindowPredictor = new EmgWindowSaver(matlab, 128);
@@ -196,6 +318,7 @@ namespace DataOpsamlingTest
             {
                 e.Myo.Vibrate(VibrationType.Short);
                 e.Myo.EmgDataAcquired += MyoEmgDataAcquired;
+                //e.Myo.EmgDataAcquired += MyoOrientatiomAcquired;
                 e.Myo.SetEmgStreaming(true);
             };
 
@@ -204,6 +327,8 @@ namespace DataOpsamlingTest
             {
                 e.Myo.SetEmgStreaming(false);
                 e.Myo.EmgDataAcquired -= MyoEmgDataAcquired;
+                //e.Myo.EmgDataAcquired -= MyoOrientatiomAcquired;
+
             };
 
             //start listening for Myo data
@@ -230,17 +355,38 @@ namespace DataOpsamlingTest
 
 
         #region Events
-        private void HubMyoDisconnected(object sender, MyoEventArgs e)
-        {
-            e.Myo.EmgDataAcquired -= MyoEmgDataAcquired;
-            e.Myo.SetEmgStreaming(false);
+        //private void HubMyoDisconnected(object sender, MyoEventArgs e)
+        //{
+        //    e.Myo.EmgDataAcquired -= MyoEmgDataAcquired;
+        //    e.Myo.SetEmgStreaming(false);
 
-        }
+        //}
 
-        private void HubMyoConnected(object sender, MyoEventArgs e)
+        //private void HubMyoConnected(object sender, MyoEventArgs e)
+        //{
+        //    e.Myo.EmgDataAcquired += MyoEmgDataAcquired;
+        //    e.Myo.SetEmgStreaming(true);
+        //}
+
+        
+        private void MyoOrientatiomAcquired(object sender, EmgDataEventArgs e)
         {
-            e.Myo.EmgDataAcquired += MyoEmgDataAcquired;
-            e.Myo.SetEmgStreaming(true);
+            // Orientation test code
+            var abe = e.Myo.Orientation;
+            var roll = QuaternionF.Roll(abe);
+            var yaw = QuaternionF.Yaw(abe);
+            var pitch = QuaternionF.Pitch(abe);
+
+            var roll_w = (int)((roll + (float)Math.PI) / (Math.PI * 2.0f) * 50);
+            var pitch_w = (int)((pitch + (float)Math.PI / 2.0f) / Math.PI * 50);
+            var yaw_w = (int)((yaw + (float)Math.PI) / (Math.PI * 2.0f) * 50);
+
+            var acc = e.Myo.Accelerometer;
+            var gyro = e.Myo.Gyroscope;
+
+            Roll = "Roll: " + roll_w;
+            var dataSet = ((EmgDataSet)Application.Current.FindResource("emgDataSet"));
+            dataSet.Orientation = roll_w;
         }
 
         private void MyoEmgDataAcquired(object sender, EmgDataEventArgs e)
@@ -255,9 +401,13 @@ namespace DataOpsamlingTest
             {
                 sample.SensorValues.Add(e.EmgData.GetDataForSensor(i));
             }
+            
             Printer.SaveEmgData(sample);
-            WindowPredictor.SaveEmgData(sample);
             _emgLogger.SaveEmgData(sample);
+
+
+
+            //var sprintList = ((IEmgSaver)Application.Current.FindResource("SprintListModel"));
         }
         #endregion
 

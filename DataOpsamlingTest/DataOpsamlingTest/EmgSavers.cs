@@ -99,8 +99,10 @@ namespace DataOpsamlingTest
             _dataSet = dataSet;
 
             // Tmp user                                     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            _dataSet.User = new ParseUser();
-            _dataSet.User.Username = "BueBaby!";
+            //_dataSet.User = new ParseUser();
+            //_dataSet.User.Username = "BueBaby!";
+
+            _dataSet.UserName = "BueBaby!";
 
             _filePath = filePath;
             _dataSet.EmgDataFile = _filePath;
@@ -110,11 +112,10 @@ namespace DataOpsamlingTest
                 // Create the .csv file to save the EMG data in
                 using (StreamWriter steamWriter = File.CreateText(_filePath))
                 {
-                    steamWriter.WriteLine(_headerString); 
+                    steamWriter.WriteLine(_headerString);
                 }
             }
-
-
+            else File.Delete(_filePath);
         }
         List<string> dataList = new List<string>();
 
@@ -127,8 +128,6 @@ namespace DataOpsamlingTest
 
             dataList.Add(emgDataLine);
         }
-
-        
 
         public ObservableCollection<string> PrintOutList
         {
@@ -152,7 +151,7 @@ namespace DataOpsamlingTest
                     foreach (var item in dataList)
                     {
                         if (dataList.IndexOf(item) == 0){
-		                    steamWriter.WriteLine(item +","+ _dataSet.Hand+","+_dataSet.Pose.PoseId+","+_dataSet.Orientation+","+_dataSet.User.Username);
+		                    steamWriter.WriteLine(item +","+ _dataSet.Hand+","+_dataSet.Pose.PoseId+","+_dataSet.Orientation+","+_dataSet.UserName);
 	                    } else{
                             steamWriter.WriteLine(item);
 	                    }
@@ -165,9 +164,17 @@ namespace DataOpsamlingTest
                 using (StreamWriter steamWriter = File.CreateText(_filePath))
                 {
                     steamWriter.WriteLine(_headerString);
+
                     foreach (var item in dataList)
                     {
-                        steamWriter.WriteLine(item);
+                        if (dataList.IndexOf(item) == 0)
+                        {
+                            steamWriter.WriteLine(item + "," + _dataSet.Hand + "," + _dataSet.Pose.PoseId + "," + _dataSet.Orientation + "," + _dataSet.UserName);
+                        } 
+                        else
+                        {
+                            steamWriter.WriteLine(item);
+                        }
                     }
                 }
             }
@@ -215,8 +222,6 @@ namespace DataOpsamlingTest
                                                             emgWindowContainer.ElementAt(5),
                                                             emgWindowContainer.ElementAt(6),
                                                             emgWindowContainer.ElementAt(7));
-
-
 
                 object[] res = result as object[];
 

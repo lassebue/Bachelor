@@ -8,5 +8,7 @@
         <model:EmgDataSet x:Key="emgDataSet"></model:EmgDataSet>
         <model:PoseCollection x:Key="poseCollection"></model:PoseCollection>
         <local:Controller x:Key="controller"></local:Controller>
+        <local:NpController x:Key="npController"></local:NpController>
+
     </Application.Resources>
 </Application>

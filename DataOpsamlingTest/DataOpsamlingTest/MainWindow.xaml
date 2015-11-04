@@ -35,15 +35,15 @@
         </Menu>
         <StatusBar Margin="0,322,0,0"/>
         <Label DataContext="{DynamicResource emgDataSet}" Content="{Binding Path=Hand}" HorizontalAlignment="Left" Margin="166,241,0,0" VerticalAlignment="Top" Width="144"/>
-        <Button Content="_Add new pose" DataContext="{DynamicResource emgDataSet}" 
+        <Button Content="_Add new pose" DataContext="{DynamicResource controller}" Command="{Binding Path=NewPoseCommandHandler}" 
                 HorizontalAlignment="Left" Margin="10,165,0,0" VerticalAlignment="Top" Width="151" Height="26" />
-        
+
         <ComboBox Name="HandSelector" SelectedIndex="{Binding Path=Hand}" 
                   DataContext="{DynamicResource emgDataSet}"  Text="Choose Hand"  Margin="10,237,361,78">
             <ComboBoxItem IsSelected="False" Content="Left Hand"/>
             <ComboBoxItem IsSelected="True" Content="Right Hand"/>
         </ComboBox>
-        
+
         <Label DataContext="{DynamicResource emgDataSet}" Content="{Binding Path=Pose.PoseName}" 
               
                HorizontalAlignment="Left" Margin="166,206,0,0" VerticalAlignment="Top" Width="144" Height="26"/>
@@ -58,6 +58,8 @@
         <ListBox 
         	Margin="0,34,166,76" x:Name="MyList_Copy" DataContext="{DynamicResource controller}" 
         	IsSynchronizedWithCurrentItem="True" ItemsSource="{Binding WindowPredictor.PrintOutList}" HorizontalAlignment="Right" Width="144"/>
+        <Label HorizontalAlignment="Left" Content="{Binding Path=Roll}" DataContext="{DynamicResource controller}"  Margin="10,64,0,0" VerticalAlignment="Top" Width="120">
+        </Label>
     </Grid>
 </Window>
 
