@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,9 +20,25 @@ namespace MatlabTest
 
             Console.WriteLine("Loading function...");
 
+
+
+            var abe = Directory.GetCurrentDirectory();
+            
+            var tmpDir = Directory.GetParent(abe);
+
+            int length = 3;
+            for (int i = 0; i < length; i++)
+            {
+                tmpDir = tmpDir.Parent;
+            }
+            var bibi = tmpDir.GetDirectories();
+            var bob = bibi[0];
+            //buller.MoveTo("CCController");
+
             // Change to the directory where the function is located 
             //C:\Users\Lasse Bue Svendsen\Desktop\Matlab import\myfunc.m"
-
+            var path = "cd('" + bob.FullName +"')";
+            matlab.Execute(path);
 
             matlab.Execute(@"cd('Z:\Bachelor\CrustCrawlerApp')");
             
