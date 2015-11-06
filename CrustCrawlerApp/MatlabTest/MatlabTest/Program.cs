@@ -40,11 +40,7 @@ namespace MatlabTest
             var path = "cd('" + bob.FullName +"')";
             matlab.Execute(path);
 
-            matlab.Execute(@"cd('Z:\Bachelor\CrustCrawlerApp')");
-            
-
-
-
+            //matlab.Execute(@"cd('Z:\Bachelor\CrustCrawlerApp')");
 
             Console.WriteLine("Done!");
             
@@ -53,33 +49,48 @@ namespace MatlabTest
             object result = null;
 
             //object result = null;
-            Console.WriteLine("Executing function...");
+
+            matlab.Feval("LoadLib", 0, out result);
+
+            var yes = "";
+            while (yes!="yes")
+            {
+                Console.WriteLine("Write that degree!!");
+
+                double buller = double.Parse(Console.ReadLine());
+                Console.WriteLine("Executing function...");
+                try
+                {
+                    //matlab.Execute(@"clear");
+
+                    matlab.Feval("MoveServo", 0, out result, 7, buller, 50);
+                }
+                catch (Exception e)
+                {
+                    e.ToString();
+                    //Console.WriteLine(e.ToString());
+                }
+
+                // Call the MATLAB function myfunc
+                //matlab.Feval("checkEmgDataFunction", 1, out result,1
+
+                Console.WriteLine("End session?");
+
+                //// Display result 
+                //object[] res = result as object[];
+                yes = Console.ReadLine();
+                //Console.WriteLine(res[0]);
+            }
+            
             try
             {
-                matlab.Execute(@"clear");
+                matlab.Feval("UnloadLib", 0, out result);
 
-                matlab.Feval("LoadLib", 0, out result);
-                matlab.Feval("MoveServo",0,out result, 90,6,50);
-                matlab.Feval("UnloadLib",0, out result);
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                e.ToString();
-                throw;
+                
             }
-
-            // Call the MATLAB function myfunc
-            //matlab.Feval("checkEmgDataFunction", 1, out result,1);
-            
-
-            Console.WriteLine("Done!");
-
-
-            //// Display result 
-            //object[] res = result as object[];
-
-            //Console.WriteLine(res[0]);
-            Console.ReadLine(); 
         }
     }
 }
