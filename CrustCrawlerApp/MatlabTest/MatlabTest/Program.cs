@@ -23,7 +23,7 @@ namespace MatlabTest
             //C:\Users\Lasse Bue Svendsen\Desktop\Matlab import\myfunc.m"
 
 
-            matlab.Execute(@"cd('Z:\Bachelor\Matlab import')");
+            matlab.Execute(@"cd('Z:\Bachelor\CrustCrawlerApp')");
             
 
 
@@ -41,8 +41,9 @@ namespace MatlabTest
             {
                 matlab.Execute(@"clear");
 
-                matlab.Feval("checkEmgDataFunction", 1, out result); 
-
+                matlab.Feval("LoadLib", 0, out result);
+                matlab.Feval("MoveServo",0,out result, 90,6,50);
+                matlab.Feval("UnloadLib",0, out result);
             }
             catch (Exception e)
             {
