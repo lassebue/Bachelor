@@ -58,10 +58,10 @@ namespace MatlabTest
             Console.WriteLine("Done!");
 
 
-            // Display result 
-            object[] res = result as object[];
+            //// Display result 
+            //object[] res = result as object[];
 
-            Console.WriteLine(res[0]);
+            //Console.WriteLine(res[0]);
             Console.ReadLine(); 
         }
     }
