@@ -23,7 +23,7 @@ orientation = [];
 
     if(ischar(FileName))
     [emg1Collection,emg2Collection,emg3Collection,emg4Collection,...
-        emg5Collection,emg6Collection,emg7Collection,emg8Collection,padding,cate] ...
+        emg5Collection,emg6Collection,emg7Collection,emg8Collection,padding,cate,orientation] ...
     = importfilefuncOri( strcat(char(PathName),FileName), 2 ,emg1Collection...
         ,emg2Collection,emg3Collection,emg4Collection,emg5Collection,emg6Collection,emg7Collection,emg8Collection...
     ,padding,cate,orientation);
@@ -68,7 +68,7 @@ meanData    = varfun(@windMean,rawSenorData);
 stdData     = varfun(@windStd,rawSenorData);
 cpaData     = varfun(@windPca,rawSenorData); 
 
-poseTrainingData = [meanData stdData cpaData];
+poseTrainingData = [meanData stdData cpaData,table(orientation)];
 poseTrainingData.pose = cate;
 
 classificationLearner

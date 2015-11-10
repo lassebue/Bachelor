@@ -120,7 +120,9 @@ emg8Collection = [emg8Collection ; data];
 hand = cell2mat ( dataArray{:, 10});
 pose = cell2mat (dataArray{:, 11});
 clc
-orientationNew = cell2mat(dataArray{:, 12});
+orientationNew = char(dataArray{:, 12});
+orientationNew = str2num(orientationNew(1,:));
+
 testPerson = char((dataArray{:, 13}));
 
 hand = str2num(hand(1));
@@ -160,7 +162,7 @@ end
 % categorical(A,catValues,catNames,'Ordinal',true)
 for k=1:antal
     cate = [cate; categorical(A,catValues,catNames,'Ordinal',true)];
-    orientation = [orientation; orientationNew];
+    orientation = [ orientation; orientationNew];
 end
 
 
