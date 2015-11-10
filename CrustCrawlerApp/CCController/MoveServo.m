@@ -1,20 +1,17 @@
-function MoveServo(deg,id,speed)
-    % Dynamixel Hello World
-    % Light the LED on ID 1
+function MoveServo(id,deg,speed)
+%{
+    Rotates one servo
 
-    
-    % theta is angle in degrees
-    
-    % setup the dynamixel API
-    % Load dynamixel.dll
-
-    fullPathToHeader = 'dynamixel.h';
+    id is id of servo
+    deg is angle in degrees
+    speed is speed of the rotation
+  %}
+    %Set up Dynamixel API
     fullPathToLibrary = 'dynamixel';
     res = calllib(fullPathToLibrary,'dxl_initialize',4,1);
 
     if res == 1         
         goalPosition = 512+(deg/0.29);
-        
         %dynamixel 1
         calllib('dynamixel','dxl_set_txpacket_id',254);
         %length = number of parameter + 2 (2 + 2)
@@ -26,6 +23,7 @@ function MoveServo(deg,id,speed)
         
         calllib(fullPathToLibrary,'dxl_set_txpacket_parameter',1, 4);
         
+        %Choose servo by id
         calllib(fullPathToLibrary,'dxl_set_txpacket_parameter',2, id);
         
         %Position
@@ -39,14 +37,14 @@ function MoveServo(deg,id,speed)
         highByte = calllib(fullPathToLibrary,'dxl_get_highbyte', speed);
         calllib(fullPathToLibrary,'dxl_set_txpacket_parameter',5, lowByte);
         calllib(fullPathToLibrary,'dxl_set_txpacket_parameter',6, highByte);
-         
+        
         %transmit
         calllib('dynamixel','dxl_tx_packet');
     else
         disp('Failed to open USB2Dynamixel!');
     end
-    
+    % Terminate
     calllib('dynamixel','dxl_terminate');
-
+    
 end
 

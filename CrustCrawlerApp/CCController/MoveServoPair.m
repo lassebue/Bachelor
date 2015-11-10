@@ -1,49 +1,16 @@
 function MoveServoPair(id, deg, speed)
 %{  
-    DualDynamixel180Phase will rotate two dynamixels
-    in opposite directions.
+    rotates a dual angle with two servos
     
-    id is a two element array that contains the
-    Dynamixel IDs
-
-    theta is the angle in radians to move from center
-
-    speed is the moving speed 0-1023
-    
-    DualDynamixel180Phase(id, sind(0), 256)
-
-    Sample SyncWrite command
-    FF FF FE 0E 83 1E 04 01 00 02 00 02 02 00 01 00 01 45
+    id is a two element array that contains the servos IDs
+    deg is the angle in degrees
+    speed is the speed of the rotation
 %}
-
-    %Load the dynamixel library
-    fullPathToHeader = 'dynamixel.h';
+    % Setup Dynamixel API
     fullPathToLibrary = 'dynamixel';
-    
-    loadlibrary(fullPathToLibrary,fullPathToHeader);
-    m = libfunctions(fullPathToLibrary);
-    
-    response = calllib(fullPathToLibrary,'dxl_initialize',4,1)
-    pause on
-    
-    %There should only be 2 Dynamixels total
-   % numberOfDynamixels = length(id);
-    
-    if response == 1
-        
-%         % Phase allows us to position the servos
-%         % in some relationship to theta.
-%         phase = zeros(1,2);
-%         for i = 1:numberOfDynamixels
-%             phase(1,i) = (2 * pi) * (i)/numberOfDynamixels;
-%         end
-% 
-%         goalPosition = zeros(1,2);
-%         % Convert theta + phase to goal position
-%         for i = 1:numberOfDynamixels
-%             goalPosition(1, i) = int16((sin(theta + phase(1,i)) + 1) * 512);
-%         end
-        
+    res = calllib(fullPathToLibrary,'dxl_initialize',4,1);
+
+    if res == 1
         goalPosition = zeros(1,2);
         goalPosition(1,1)= 512+(-deg/0.29);
         goalPosition(1,2)= 512+(deg/0.29);
@@ -67,44 +34,42 @@ function MoveServoPair(id, deg, speed)
         
         %Parameters for syncwrite
         % id | position | speed
-        %ID 
+        %ID 2
         calllib(fullPathToLibrary,'dxl_set_txpacket_parameter',2, id(:,1));
         
+        %Position
         lowByte = calllib(fullPathToLibrary,'dxl_get_lowbyte', goalPosition(1,1));
         highByte = calllib(fullPathToLibrary,'dxl_get_highbyte', goalPosition(1,1));
         calllib(fullPathToLibrary,'dxl_set_txpacket_parameter',3, lowByte);
         calllib(fullPathToLibrary,'dxl_set_txpacket_parameter',4, highByte);
         
-        %Speed = 512
+        %Speed
         lowByte = calllib(fullPathToLibrary,'dxl_get_lowbyte', speed);
         highByte = calllib(fullPathToLibrary,'dxl_get_highbyte', speed);
         calllib(fullPathToLibrary,'dxl_set_txpacket_parameter',5, lowByte);
         calllib(fullPathToLibrary,'dxl_set_txpacket_parameter',6, highByte);
         
-        %Parameters for syncwrite dynamixel id = 2
+        %Parameters for servo 2
         % id | position | speed
-        %ID = 2
+        %ID 2
         calllib(fullPathToLibrary,'dxl_set_txpacket_parameter',7, id(:,2));
         
-        %Position = 512
+        %Position
         lowByte = calllib(fullPathToLibrary,'dxl_get_lowbyte', goalPosition(1,2));
         highByte = calllib(fullPathToLibrary,'dxl_get_highbyte', goalPosition(1,2));
         calllib(fullPathToLibrary,'dxl_set_txpacket_parameter',8, lowByte);
         calllib(fullPathToLibrary,'dxl_set_txpacket_parameter',9, highByte);
         
-        %Speed = 512
+        %Speed
         lowByte = calllib(fullPathToLibrary,'dxl_get_lowbyte', speed);
         highByte = calllib(fullPathToLibrary,'dxl_get_highbyte', speed);
         calllib(fullPathToLibrary,'dxl_set_txpacket_parameter',10, lowByte);
         calllib(fullPathToLibrary,'dxl_set_txpacket_parameter',11, highByte);
-       
         
         %transmit
-        calllib(fullPathToLibrary,'dxl_tx_packet');      
-        
+        calllib(fullPathToLibrary,'dxl_tx_packet'); 
     else
         disp('Failed to open USB2Dynamixel!');
     end
     calllib(fullPathToLibrary,'dxl_terminate');
-    unloadlibrary(fullPathToLibrary);
 end
