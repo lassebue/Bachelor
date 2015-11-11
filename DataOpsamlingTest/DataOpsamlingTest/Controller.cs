@@ -22,27 +22,6 @@ namespace DataOpsamlingTest
 {
     class Controller : INotifyPropertyChanged
     {
-        //public Controller()
-        //{
-        //    _channel = Channel.Create(
-        //                                 ChannelDriver.Create(ChannelBridge.Create(),
-        //                                 MyoErrorHandlerDriver.Create(MyoErrorHandlerBridge.Create())));
-        //    _hub = Hub.Create(_channel);
-        //    // listen for when the Myo connects
-        //    _hub.MyoConnected += (sender, e) =>
-        //    {
-        //        e.Myo.Vibrate(VibrationType.Short);
-        //        e.Myo.EmgDataAcquired += MyoOrientatiomAcquired;
-        //        e.Myo.SetEmgStreaming(true);
-        //    };
-
-        //    // listen for when the Myo disconnects
-        //    _hub.MyoDisconnected += (sender, e) =>
-        //    {
-        //        e.Myo.SetEmgStreaming(false);
-        //        e.Myo.EmgDataAcquired -= MyoOrientatiomAcquired;
-        //    };
-        //}
         // Fields
         private bool _recording;
         // UI Commands
@@ -90,8 +69,6 @@ namespace DataOpsamlingTest
                 {
                     _recording = true;
                     sampleCount = 0;
-
-
 
                     // ---------------------------------------------------------"BueBaby!" is a tmp user !!!!
                     dataSet.EmgDataFile = saveFileDia.FileName;
@@ -276,6 +253,37 @@ namespace DataOpsamlingTest
             NewPoseWind newPoseWind = new NewPoseWind();
             newPoseWind.ShowDialog();
         }
+        #endregion
+
+        #region exit
+        private ICommand _exitCommand;
+
+        public ICommand exitCommandHandler
+        {
+            get { return _exitCommand ?? (_exitCommand = new RelayCommand(ExitBtn)); }
+        }
+
+        private void ExitBtn()
+        {
+            Application.Current.Shutdown();
+        }
+
+        #endregion
+
+        #region instructions
+        private ICommand _instructionsCommand;
+
+        public ICommand instructionCommandHandler
+        {
+            get { return _instructionsCommand ?? (_instructionsCommand = new RelayCommand(instructionBtn)); }
+        }
+
+        private void instructionBtn()
+        {
+            InstructionsWind instWind = new InstructionsWind();
+            instWind.Show();
+        }
+
         #endregion
 
         // Myo initiation
