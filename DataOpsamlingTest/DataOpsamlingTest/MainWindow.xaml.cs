@@ -51,7 +51,7 @@ namespace DataOpsamlingTest
             ////worker.RunWorkerCompleted += worker_RunWorkerCompleted;
             ////worker.RunWorkerAsync();
 
-            Loaded += WindowLoaded;
+            //Loaded += WindowLoaded;
             Closed += WindowClosed;
 
             GetPoses();
@@ -132,26 +132,26 @@ namespace DataOpsamlingTest
 
 
 
-        private async void WindowLoaded(object sender, RoutedEventArgs e)
-        {
-            // We will start to listening after the Myo data herer
-            //var testObject = new ParseObject("TestObject");
-            //testObject["foo"] = "bar";
-            //await testObject.SaveAsync();
+        //private async void WindowLoaded(object sender, RoutedEventArgs e)
+        //{
+        //     // We will start to listening after the Myo data herer
+        //    var testObject = new ParseObject("TestObject");
+        //    testObject["foo"] = "bar";
+        //    await testObject.SaveAsync();
 
-            //var _controller = ((Controller)FindResource("controller"));
-            //_controller.InitMyo();
-            //_channel.StartListening();
-        }
+        //    var _controller = ((Controller)FindResource("controller"));
+        //    _controller.InitMyo();
+        //    _channel.StartListening();
+        //}
 
         private void WindowClosed(object sender, EventArgs e)
         {
 
-            //_channel.Dispose();
-            //_hub.Dispose();
-            var _controller = ((Controller)FindResource("controller"));
-            _controller.MyoDispose();
-            Loaded -= WindowLoaded;
+            ////_channel.Dispose();
+            ////_hub.Dispose();
+            //var _controller = ((Controller)FindResource("controller"));
+            //_controller.MyoDispose();
+            //Loaded -= WindowLoaded;
             Closed -= WindowClosed;
             base.OnClosed(e);
         }

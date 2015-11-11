@@ -9,6 +9,8 @@ using System.Text;
 using System.Threading.Tasks;
 using EmgDataModel;
 using Parse;
+using System.Windows;
+using Microsoft.Win32;
 
 namespace DataOpsamlingTest
 {
@@ -50,9 +52,17 @@ namespace DataOpsamlingTest
                 ", " + emgData.SensorValues[2] + ", " + emgData.SensorValues[3] + ", " + emgData.SensorValues[4] +
                 ", " + emgData.SensorValues[5] + ", " + emgData.SensorValues[6] + ", " + emgData.SensorValues[7];
 
+
+            //PrintOutList.Add(emgOutPut);
+
+            //Application.Current.Dispatcher.Invoke((Action)(() =>
+            //{
+            //    PrintOutList.Add(emgOutPut);
+            //}));
+
             System.Windows.Application.Current.Dispatcher.Invoke(
-        
-                System.Windows.Threading.DispatcherPriority.Normal,
+
+                System.Windows.Threading.DispatcherPriority.Background,
                 (Action)delegate()
                 {
                     PrintOutList.Add(emgOutPut);
@@ -94,29 +104,52 @@ namespace DataOpsamlingTest
         private string _filePath;
         private EmgDataSet _dataSet;
 
-        public EmgFileSavers(string filePath, EmgDataSet dataSet)
+        public EmgFileSavers(EmgDataSet dataSet)
         {
             _dataSet = dataSet;
 
-            // Tmp user                                     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            //_dataSet.User = new ParseUser();
-            //_dataSet.User.Username = "BueBaby!";
-
-            _dataSet.UserName = "BueBaby!";
-
-            _filePath = filePath;
+            _filePath = _dataSet.EmgDataFile ;
             _dataSet.EmgDataFile = _filePath;
 
-            if (!File.Exists(_filePath))
+            saveFile(_filePath);
+        }
+
+        public void saveFile(string filePath)
+        {
+            if (!File.Exists(filePath))
             {
                 // Create the .csv file to save the EMG data in
-                using (StreamWriter steamWriter = File.CreateText(_filePath))
+                using (StreamWriter steamWriter = File.CreateText(filePath))
                 {
                     steamWriter.WriteLine(_headerString);
                 }
             }
-            else File.Delete(_filePath);
+            else
+            {
+                try
+                {
+                    // Delete the existing file
+                    File.Delete(filePath);
+                    // Create the .csv file to save the EMG data in
+                    //using (StreamWriter steamWriter = File.CreateText(_filePath))
+                    //{
+                    //    steamWriter.WriteLine(_headerString);
+                    //}
+                }
+                catch (Exception e)
+                {
+                    e.ToString();
+                    MessageBox.Show("The file could not be overwritten, try another name...");
+                    SaveFileDialog saveFileDia = new SaveFileDialog();
+                    saveFileDia.Filter = "csv|*.csv";
+                    if (saveFileDia.ShowDialog() == true)
+                    {
+                        saveFile(saveFileDia.FileName);
+                    }
+                }
+            }
         }
+
         List<string> dataList = new List<string>();
 
         public void SaveEmgData(EmgDataSample emgData)

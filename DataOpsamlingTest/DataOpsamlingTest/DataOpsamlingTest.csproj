@@ -82,6 +82,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MyoController.cs" />
     <Compile Include="NewPoseWind.xaml.cs">
       <DependentUpon>NewPoseWind.xaml</DependentUpon>
     </Compile>

@@ -143,7 +143,19 @@ namespace EmgDataModel
     public class EmgDataSet : ParseObject  , INotifyPropertyChanged
     {
 
-        public EmgDataSet() { Orientation = 100; }
+        public EmgDataSet(int ori, int hand, string user, Pose pose, string filePath )
+        {
+            Orientation = ori;
+            Hand = hand;
+            Pose = pose;
+            UserName = user;
+            EmgDataFile = filePath;
+
+        }
+
+        public EmgDataSet() { 
+            Orientation = -1;
+        }
 
         // left hand = 0, right hand = 1
         [ParseFieldName("hand")]

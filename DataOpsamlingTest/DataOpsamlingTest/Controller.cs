@@ -22,6 +22,27 @@ namespace DataOpsamlingTest
 {
     class Controller : INotifyPropertyChanged
     {
+        //public Controller()
+        //{
+        //    _channel = Channel.Create(
+        //                                 ChannelDriver.Create(ChannelBridge.Create(),
+        //                                 MyoErrorHandlerDriver.Create(MyoErrorHandlerBridge.Create())));
+        //    _hub = Hub.Create(_channel);
+        //    // listen for when the Myo connects
+        //    _hub.MyoConnected += (sender, e) =>
+        //    {
+        //        e.Myo.Vibrate(VibrationType.Short);
+        //        e.Myo.EmgDataAcquired += MyoOrientatiomAcquired;
+        //        e.Myo.SetEmgStreaming(true);
+        //    };
+
+        //    // listen for when the Myo disconnects
+        //    _hub.MyoDisconnected += (sender, e) =>
+        //    {
+        //        e.Myo.SetEmgStreaming(false);
+        //        e.Myo.EmgDataAcquired -= MyoOrientatiomAcquired;
+        //    };
+        //}
         // Fields
         private bool _recording;
         // UI Commands
@@ -50,10 +71,16 @@ namespace DataOpsamlingTest
 
         private void StartDataRecording()
         {
+            var dataSet = ((EmgDataSet)Application.Current.FindResource("emgDataSet"));
+
             if (_recording)
             {
                 MessageBox.Show("You are already recording!");
             }
+            //else if (dataSet.Orientation ==-1)
+            //{
+            //    MessageBox.Show("You must check the orientation before recording!");
+            //}
             else
             {
                 //MessageBox.Show("recording stuff");
@@ -64,13 +91,19 @@ namespace DataOpsamlingTest
                     _recording = true;
                     sampleCount = 0;
 
-                    var dataSet = ((EmgDataSet)Application.Current.FindResource("emgDataSet"));
-                    
-                    dataSet.EmgDataFile = saveFileDia.FileName;
-                    _emgLogger = new EmgFileSavers(saveFileDia.FileName, dataSet);
 
-                    InitMyo();
-                    _channel.StartListening();
+
+                    // ---------------------------------------------------------"BueBaby!" is a tmp user !!!!
+                    dataSet.EmgDataFile = saveFileDia.FileName;
+                    dataSet.UserName = "BueBaby!";
+
+                    //var newDataSet = new EmgDataSet(dataSet.Orientation, dataSet.Hand, "BueBaby!", dataSet.Pose, saveFileDia.FileName);
+                    _emgLogger = new EmgFileSavers(dataSet);
+                    Printer = new EmgPrinterSaver();
+
+                    myoControl = new MyoEmgController();
+                    //InitMyo();
+                    //_channel.StartListening();
                 }
 
             }
@@ -96,8 +129,11 @@ namespace DataOpsamlingTest
             {
                 _recording = false;
                 MessageBox.Show("stop recording stuff");
-                _channel.StopListening();
-                
+                myoControl.Dispose();
+
+                //_channel.StopListening();
+
+
                 //System.Windows.Application.Current.Dispatcher.Invoke(
                 //System.Windows.Threading.DispatcherPriority.Normal,
                 //(Action)delegate()
@@ -106,23 +142,24 @@ namespace DataOpsamlingTest
                 //});
 
                 _emgLogger.FinalizeSave();
-                MyoDispose();
+                //MyoDispose();
                 MessageBoxResult result = MessageBox.Show("Would you like to save the recorded file online?", "DCA", MessageBoxButton.YesNo);
                 switch (result)
                 {
                     case MessageBoxResult.Yes:
                         
                         var dataSet = ((EmgDataSet)Application.Current.FindResource("emgDataSet"));
-                        
-                        
+
+                        var newDataSet = new EmgDataSet(dataSet.Orientation, dataSet.Hand, dataSet.UserName, dataSet.Pose, dataSet.EmgDataFile);
+
                         // Prepare for the csv file to be saved
                         var pathArray = dataSet.EmgDataFile.Split('\\');
                         var fileName = pathArray[pathArray.Length - 1];
-                        
-                        FileStream fs = new FileStream( dataSet.EmgDataFile, FileMode.Open);
+
+                        FileStream fs = new FileStream(newDataSet.EmgDataFile, FileMode.Open);
 
                         ParseFile file = new ParseFile(fileName,fs,null);
-                        SaveFileOnline(file,dataSet);
+                        SaveFileOnline(file, newDataSet);
 
                         //dataSet.OnlineFile = file;
 
@@ -184,44 +221,27 @@ namespace DataOpsamlingTest
 
         private void CheckOrientation()
         {
-            //var sprintList = ((IEmgSaver)Application.Current.FindResource("SprintListModel"));
-            
-            _channel = Channel.Create(
-                                        ChannelDriver.Create(ChannelBridge.Create(),
-                                        MyoErrorHandlerDriver.Create(MyoErrorHandlerBridge.Create())));
-            _hub = Hub.Create(_channel);
-            // listen for when the Myo connects
-            _hub.MyoConnected += (sender, e) =>
-            {
-                e.Myo.Vibrate(VibrationType.Short);
-                e.Myo.EmgDataAcquired += MyoOrientatiomAcquired;
-                e.Myo.SetEmgStreaming(true);
-            };
+            // Start to listening to events from the Myo
+            //_channel.StartListening();
 
-            // listen for when the Myo disconnects
-            _hub.MyoDisconnected += (sender, e) =>
-            {
-                e.Myo.SetEmgStreaming(false);
-                e.Myo.EmgDataAcquired -= MyoOrientatiomAcquired;
-            };
+            var myoControl = new MyoController();
 
-            _channel.StartListening();
             MessageBoxResult result = MessageBox.Show("Click ok and the current Roll orientation will be saved!", "DCA", MessageBoxButton.OK);
             switch (result)
             {
                 case MessageBoxResult.OK:
-                    MessageBox.Show("Nice! It's been saved!", "DCA");
-                     _channel.StopListening();
+                    myoControl.Dispose();
+                    //MyoDispose();
+                    //_channel.StopListening();
+                    //MessageBox.Show("Nice! It's been saved!", "DCA");
+                     //_channel.StopListening();
+
                     break;
                 //case MessageBoxResult.No:
                 //    MessageBox.Show("Keep trying!", "DCA");
                 //    break;
 
             }
-
-
-
-
         }
         #endregion
 
@@ -258,15 +278,15 @@ namespace DataOpsamlingTest
         }
         #endregion
 
-
         // Myo initiation
-        private IChannel _channel;
-        private IHub _hub;
-        private readonly DateTime _startTime = DateTime.UtcNow;
-        private const int SENSOR_COUNT = 8;
-        private IEmgSaver _emgLogger;
-        private long sampleCount = 0;
-        private long samplePeriode = 5;
+        private readonly IChannel _channel;
+        private readonly IHub _hub;
+        public readonly DateTime startTime = DateTime.UtcNow;
+        public  int sensorCount = 8;
+        public long sampleCount = 0;
+        public long samplePeriode = 5;
+
+        private MyoController myoControl;
 
         // IEmgSaver instances for logging, printing og predicting the EMG data
         private IEmgSaver _printer;
@@ -289,6 +309,17 @@ namespace DataOpsamlingTest
                 Notify();
             }
         }
+        private IEmgSaver _emgLogger;
+        public IEmgSaver EmgLogger
+        {
+            get { return _emgLogger; }
+            set
+            {
+                _emgLogger = value;
+                Notify();
+            }
+        }
+
 
         public string Roll
         {
@@ -301,114 +332,96 @@ namespace DataOpsamlingTest
         }
         private string _roll = "";
 
-
         public void createWindPredictor(MLApp.MLApp matlab)
         {
             WindowPredictor = new EmgWindowSaver(matlab, 128);
         }
 
-        public void InitMyo()
-        {
-            _channel = Channel.Create(
-                 ChannelDriver.Create(ChannelBridge.Create(),
-                 MyoErrorHandlerDriver.Create(MyoErrorHandlerBridge.Create())));
-            _hub = Hub.Create(_channel);
-            // listen for when the Myo connects
-            _hub.MyoConnected += (sender, e) =>
-            {
-                e.Myo.Vibrate(VibrationType.Short);
-                e.Myo.EmgDataAcquired += MyoEmgDataAcquired;
-                //e.Myo.EmgDataAcquired += MyoOrientatiomAcquired;
-                e.Myo.SetEmgStreaming(true);
-            };
+        //public void InitMyo()
+        //{
 
-            // listen for when the Myo disconnects
-            _hub.MyoDisconnected += (sender, e) =>
-            {
-                e.Myo.SetEmgStreaming(false);
-                e.Myo.EmgDataAcquired -= MyoEmgDataAcquired;
-                //e.Myo.EmgDataAcquired -= MyoOrientatiomAcquired;
+        //    // listen for when the Myo connects
+        //    _hub.MyoConnected += (sender, e) =>
+        //    {
+        //        e.Myo.Vibrate(VibrationType.Short);
+        //        e.Myo.EmgDataAcquired += MyoEmgDataAcquired;
+        //        //e.Myo.EmgDataAcquired += MyoOrientatiomAcquired;
+        //        e.Myo.SetEmgStreaming(true);
+        //    };
 
-            };
+        //    // listen for when the Myo disconnects
+        //    _hub.MyoDisconnected += (sender, e) =>
+        //    {
+        //        e.Myo.SetEmgStreaming(false);
+        //        e.Myo.EmgDataAcquired -= MyoEmgDataAcquired;
+        //        //e.Myo.EmgDataAcquired -= MyoOrientatiomAcquired;
+        //    };
 
-            //start listening for Myo data
-            //_channel.StartListening();
+        //    //start listening for Myo data
+        //    //_channel.StartListening();
 
 
-            //_channel = Channel.Create(ChannelDriver.Create(ChannelBridge.Create()));
-            //_hub = Hub.Create(_channel);
-            //_hub.MyoConnected += HubMyoConnected;
-            //_hub.MyoDisconnected += HubMyoDisconnected;
-            Printer = new EmgPrinterSaver();
-        }
-        public void MyoDispose()
-        {
-            if (_channel != null)
-            {
-                _channel.Dispose();
-            }
-            if (_hub != null)
-            {
-                _hub.Dispose();
-            }
-        }
+        //    //_channel = Channel.Create(ChannelDriver.Create(ChannelBridge.Create()));
+        //    //_hub = Hub.Create(_channel);
+        //    //_hub.MyoConnected += HubMyoConnected;
+        //    //_hub.MyoDisconnected += HubMyoDisconnected;
+        //    Printer = new EmgPrinterSaver();
+        //}
+        //public void MyoDispose()
+        //{
+        //    if (_channel != null)
+        //    {
+        //        _channel.Dispose();
+        //    }
+        //    if (_hub != null)
+        //    {
+        //        _hub.Dispose();
+        //    }
+        //}
 
 
         #region Events
-        //private void HubMyoDisconnected(object sender, MyoEventArgs e)
-        //{
-        //    e.Myo.EmgDataAcquired -= MyoEmgDataAcquired;
-        //    e.Myo.SetEmgStreaming(false);
-
-        //}
-
-        //private void HubMyoConnected(object sender, MyoEventArgs e)
-        //{
-        //    e.Myo.EmgDataAcquired += MyoEmgDataAcquired;
-        //    e.Myo.SetEmgStreaming(true);
-        //}
-
         
-        private void MyoOrientatiomAcquired(object sender, EmgDataEventArgs e)
-        {
-            // Orientation test code
-            var abe = e.Myo.Orientation;
-            var roll = QuaternionF.Roll(abe);
-            var yaw = QuaternionF.Yaw(abe);
-            var pitch = QuaternionF.Pitch(abe);
+        //private void MyoOrientatiomAcquired(object sender, EmgDataEventArgs e)
+        //{
+        //    // Orientation test code
+        //    var abe = e.Myo.Orientation;
+        //    var roll = QuaternionF.Roll(abe);
+        //    var yaw = QuaternionF.Yaw(abe);
+        //    var pitch = QuaternionF.Pitch(abe);
 
-            var roll_w = (int)((roll + (float)Math.PI) / (Math.PI * 2.0f) * 50);
-            var pitch_w = (int)((pitch + (float)Math.PI / 2.0f) / Math.PI * 50);
-            var yaw_w = (int)((yaw + (float)Math.PI) / (Math.PI * 2.0f) * 50);
+        //    var roll_w = (int)((roll + (float)Math.PI) / (Math.PI * 2.0f) * 50);
+        //    var pitch_w = (int)((pitch + (float)Math.PI / 2.0f) / Math.PI * 50);
+        //    var yaw_w = (int)((yaw + (float)Math.PI) / (Math.PI * 2.0f) * 50);
 
-            var acc = e.Myo.Accelerometer;
-            var gyro = e.Myo.Gyroscope;
+        //    var acc = e.Myo.Accelerometer;
+        //    var gyro = e.Myo.Gyroscope;
 
-            Roll = "Roll: " + roll_w;
-            var dataSet = ((EmgDataSet)Application.Current.FindResource("emgDataSet"));
-            dataSet.Orientation = roll_w;
-        }
+        //    Roll = "Roll: " + roll_w;
+        //    var dataSet = ((EmgDataSet)Application.Current.FindResource("emgDataSet"));
+        //    dataSet.Orientation = roll_w;
+        //}
 
-        private void MyoEmgDataAcquired(object sender, EmgDataEventArgs e)
-        {
-            EmgDataSample sample = new EmgDataSample(SENSOR_COUNT);
-            sample.TimeStamp = (e.Timestamp - _startTime).TotalSeconds;
-            sample.TimeMs = samplePeriode * sampleCount;
-            sampleCount++;
+        //private void MyoEmgDataAcquired(object sender, EmgDataEventArgs e)
+        //{
+        //    EmgDataSample sample = new EmgDataSample(sen);
+        //    sample.TimeStamp = (e.Timestamp - _startTime).TotalSeconds;
+        //    sample.TimeMs = samplePeriode * sampleCount;
+        //    sampleCount++;
 
-            // pull data from each sensor
-            for (int i = 0; i < SENSOR_COUNT; i++)
-            {
-                sample.SensorValues.Add(e.EmgData.GetDataForSensor(i));
-            }
+        //    // pull data from each sensor
+        //    for (int i = 0; i < SENSOR_COUNT; i++)
+        //    {
+        //        sample.SensorValues.Add(e.EmgData.GetDataForSensor(i));
+        //    }
             
-            Printer.SaveEmgData(sample);
-            _emgLogger.SaveEmgData(sample);
+        //    Printer.SaveEmgData(sample);
+        //    _emgLogger.SaveEmgData(sample);
 
 
 
-            //var sprintList = ((IEmgSaver)Application.Current.FindResource("SprintListModel"));
-        }
+        //    //var sprintList = ((IEmgSaver)Application.Current.FindResource("SprintListModel"));
+        //}
         #endregion
 
         public event PropertyChangedEventHandler PropertyChanged;
