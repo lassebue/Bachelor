@@ -258,6 +258,36 @@ namespace DataOpsamlingTest
         }
         #endregion
 
+        #region exit
+        private ICommand _exitCommand;
+
+        public ICommand exitCommandHandler
+        {
+            get { return _exitCommand ?? (_exitCommand = new RelayCommand(ExitBtn)); }
+        }
+
+        private void ExitBtn()
+        {
+            Application.Current.Shutdown();
+        }
+
+        #endregion
+
+        #region instructions
+        private ICommand _instructionsCommand;
+
+        public ICommand instructionCommandHandler
+        {
+            get { return _instructionsCommand ?? (_instructionsCommand = new RelayCommand(instructionBtn)); }
+        }
+
+        private void instructionBtn()
+        {
+            InstructionsWind instWind = new InstructionsWind();
+            instWind.Show();
+        }
+
+        #endregion
 
         // Myo initiation
         private IChannel _channel;

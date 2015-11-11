@@ -3,67 +3,136 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:DataOpsamlingTest"
         xmlns:model="clr-namespace:EmgDataModel;assembly=EmgDataModel"
-        Title="MainWindow" Height="382" Width="530"
-        >
+        Title="MainWindow" Height="386" Width="600"
+        ResizeMode="NoResize"
+        WindowStyle="None" AllowsTransparency="True">
 
-    <Grid DataContext="{DynamicResource emgDataSet}">
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
-        <ListBox 
-                 Margin="0,34,10,76" Name="MyList" DataContext="{DynamicResource controller}" 
-                    IsSynchronizedWithCurrentItem="True" ItemsSource="{Binding Path=Printer.PrintOutList}" HorizontalAlignment="Right" Width="144"/>
-        <Button Content="_Record EMG Data" Name="RecordDataBtn" DataContext="{DynamicResource controller}" 
-                Command="{Binding Path=StartDataRecordingCommandHandler}"
-                Margin="361,272,10,51"/>
-        <Button Content="S_top Recording" x:Name="StopRecordDataBtn" DataContext="{DynamicResource controller}" 
-                Command="{Binding StopDataRecordingCommandHandler}"
-        	    Margin="361,297,10,26"/>
-        <Button Content="Check Orientation" Name="OrientationCheckBtn"
-                DataContext="{DynamicResource controller}"
-                Command="{Binding Path=CheckOrientationCommandHandler}"
-                Margin="159,272,212,51"/>
-        <Button Content="_Save Data" Name="SaveDataBtn" DataContext="{DynamicResource controller}"
-                Command="{Binding Path=SaveEmgDataCommandHandler}"
-                Margin="10,297,361,26"/>
-        <Button Content="_Delete Data"   DataContext="{DynamicResource controller}"
-                Command="{Binding Path=DeleteDataCommandHandler}"
-                Margin="159,297,212,26"/>
+    <StackPanel x:Name="FullStackPanel">
+        
+        
+        <!--Title bar-->
+        <Rectangle x:Name="titleBar" Fill="#FF5EB0EA" Height="25" Stroke="#FF5EB0EA"
+                   MouseLeftButtonDown="titleBar_MouseLeftButtonDown" StrokeThickness="12"/>
 
-        <Menu Height="29" VerticalAlignment="Top" IsMainMenu="True">
-            <MenuItem Header="_File" VerticalAlignment="Center" ></MenuItem>
+        
+        <!--Menu bar-->
+        <Menu Height="20" VerticalAlignment="Top" IsMainMenu="True">
+            <MenuItem Header="_File" VerticalAlignment="Center">
+                <MenuItem Header="Instructions"
+                          DataContext="{DynamicResource controller}"
+                          Command="{Binding instructionCommandHandler}"/>
+                <Separator/>
+                <MenuItem Header="Exit"
+                          DataContext="{DynamicResource controller}"
+                          Command="{Binding exitCommandHandler}"/>
+            </MenuItem>
         </Menu>
-        <StatusBar Margin="0,322,0,0"/>
-        <Label DataContext="{DynamicResource emgDataSet}" Content="{Binding Path=Hand}" HorizontalAlignment="Left" Margin="166,241,0,0" VerticalAlignment="Top" Width="144"/>
-        <Button Content="_Add new pose" DataContext="{DynamicResource controller}" Command="{Binding Path=NewPoseCommandHandler}" 
-                HorizontalAlignment="Left" Margin="10,165,0,0" VerticalAlignment="Top" Width="151" Height="26" />
+        
+        <!--2 column StackPanel-->
+        <StackPanel Orientation="Horizontal" Height="321">
+            
+            <!--1. column-->
+            <StackPanel Width="200" DataContext="{DynamicResource emgDataSet}">
+                
+                <!--Check orientation Btn-->
+                <Button Content="Check Orientation" Name="OrientationCheckBtn"
+                                DataContext="{DynamicResource controller}"
+                                Command="{Binding CheckOrientationCommandHandler}"
+                                Margin="5,5,5,0"
+                                Height="25"/>
+                
+                <!--Roll Label-->
+                <Label HorizontalAlignment="Left" Content="{Binding Roll}"
+                        DataContext="{DynamicResource controller}"  Margin="5,5,0,0">
+                </Label>
 
-        <ComboBox Name="HandSelector" SelectedIndex="{Binding Path=Hand}" 
-                  DataContext="{DynamicResource emgDataSet}"  Text="Choose Hand"  Margin="10,237,361,78">
-            <ComboBoxItem IsSelected="False" Content="Left Hand"/>
-            <ComboBoxItem IsSelected="True" Content="Right Hand"/>
-        </ComboBox>
+                <!--Add New Pose Btn-->
+                <Button Content="_Add New Pose" DataContext="{DynamicResource controller}"
+                        Command="{Binding Path=NewPoseCommandHandler}" 
+                        HorizontalAlignment="Left" Margin="5,5,0,0" VerticalAlignment="Top"
+                        Width="118" Height="25"/>
+                <Label DataContext="{DynamicResource emgDataSet}" Content="{Binding Path=Hand}"
+                        HorizontalAlignment="Left" Margin="5,5,5,5"
+                        VerticalAlignment="Top" Width="144"/>
+                
+                <!--Left/Right Hand CB-->
+                <ComboBox Name="HandSelector" SelectedIndex="{Binding Path=Hand}" Height="25" 
+                        DataContext="{DynamicResource emgDataSet}"  Text="Choose Hand"  Margin="5,5,5,5">
+                    <ComboBoxItem IsSelected="False" Content="Left Hand"/>
+                    <ComboBoxItem IsSelected="True" Content="Right Hand"/>
+                </ComboBox>
+                <Label DataContext="{DynamicResource emgDataSet}" Content="{Binding Path=Pose.PoseName}"
+                        HorizontalAlignment="Left" Margin="5,5,5,5"
+                        VerticalAlignment="Top" Width="144" Height="25"/>
 
-        <Label DataContext="{DynamicResource emgDataSet}" Content="{Binding Path=Pose.PoseName}" 
-              
-               HorizontalAlignment="Left" Margin="166,206,0,0" VerticalAlignment="Top" Width="144" Height="26"/>
-        <ComboBox Name="Pose" 
-                  SelectedIndex="0"
-                  ItemsSource="{Binding Path=Poses}" 
-                  DisplayMemberPath="PoseName"
-                  SelectedItem="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}, Path=DataContext.Pose}"
-                  DataContext="{DynamicResource poseCollection}" 
-                  Text="Choose Hand"  Margin="10,196,361,119">
-        </ComboBox>
-        <ListBox 
-        	Margin="0,34,166,76" x:Name="MyList_Copy" DataContext="{DynamicResource controller}" 
-        	IsSynchronizedWithCurrentItem="True" ItemsSource="{Binding WindowPredictor.PrintOutList}" HorizontalAlignment="Right" Width="144"/>
-        <Label HorizontalAlignment="Left" Content="{Binding Path=Roll}" DataContext="{DynamicResource controller}"  Margin="10,64,0,0" VerticalAlignment="Top" Width="120">
-        </Label>
-    </Grid>
+                <!--Pose CB-->
+                <ComboBox Name="Pose" 
+                        SelectedIndex="0"
+                        ItemsSource="{Binding Path=Poses}" 
+                        DisplayMemberPath="PoseName"
+                        SelectedItem="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type StackPanel}}, Path=DataContext.Pose}"
+                        DataContext="{DynamicResource poseCollection}" 
+                        Text="Choose Hand"  Margin="5,5,5,5"
+                        Height="25">
+                </ComboBox>
+                
+                <!--Save Data Btn-->
+                <Button Content="_Save Data" Name="SaveDataBtn" DataContext="{DynamicResource controller}"
+                        Command="{Binding Path=SaveEmgDataCommandHandler}"
+                        Margin="5,5,5,5"
+                        Height="25"/>
+            </StackPanel>
+            
+            <!--2. column-->
+            <StackPanel Width="350" Margin="5,5,0,5">
+                <ListBox Name="MyList" DataContext="{DynamicResource controller}" 
+                        IsSynchronizedWithCurrentItem="True"
+                        ItemsSource="{Binding Printer.PrintOutList}"
+                        Height="250"/>
+                
+                <!--4 buttons-->
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <StackPanel Width="175">
+
+                        <!--Record EMG Data Btn-->
+                        <Button Content="_Record EMG Data" Name="RecordDataBtn"
+                                DataContext="{DynamicResource controller}" 
+                                Command="{Binding StartDataRecordingCommandHandler}"
+                                Margin="0,5,2.5,0"
+                                Height="25"/>
+
+                        <!--Stop Recording Btn-->
+                        <Button Content="S_top Recording" x:Name="StopRecordDataBtn"
+                                DataContext="{DynamicResource controller}" 
+                                Command="{Binding StopDataRecordingCommandHandler}"
+                                Margin="0,5,2.5,0"
+                                Height="25"/>
+                    </StackPanel>
+                    <StackPanel Width="175">
+
+                        <!--Delete Data Btn-->
+                        <Button Content="_Delete Data"   DataContext="{DynamicResource controller}"
+                                Command="{Binding DeleteDataCommandHandler}"
+                                Margin="2.5,5,0,0"
+                                Height="25"/>
+                        
+                        <!--Exti Btn-->
+                        <Button Content="_Exit" DataContext="{DynamicResource controller}"
+                                Command="{Binding exitCommandHandler}"
+                                Margin="2.5,5,0,0"
+                                Height="25"/>
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+
+        <!--Process bar-->   
+        <StatusBar Margin="0,0,0,0" Height="20">
+            <ProgressBar Minimum="0" Maximum="100" Value="66" Height="10" Width="150"></ProgressBar>
+        </StatusBar>
+    </StackPanel>
 </Window>
 
-
 <!--DataContext="{DynamicResource poseCollection}"
-SelectedValue="{Binding RelativeSource={RelativeSource AncestorType={x:Type GridView}},Path=DataContext.Pose}"--> 
-
+SelectedValue="{Binding RelativeSource={RelativeSource AncestorType={x:Type GridView}}
+    ,Path=DataContext.Pose}"--> 

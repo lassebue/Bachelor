@@ -157,6 +157,9 @@ namespace DataOpsamlingTest
         }
         #endregion
 
-
+        private void titleBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            DragMove();
+        }
     }
 }
