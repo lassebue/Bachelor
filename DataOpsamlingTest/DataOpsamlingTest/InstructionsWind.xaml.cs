@@ -23,5 +23,15 @@ namespace DataOpsamlingTest
         {
             InitializeComponent();
         }
+
+        private void titleBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            DragMove();
+        }
+
+        private void CloseBtn(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }
