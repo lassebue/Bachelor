@@ -8,7 +8,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using MyoLib;
 
 namespace CrustCrawlerApp.WindControl
 {
@@ -26,8 +25,12 @@ namespace CrustCrawlerApp.WindControl
         private void CheckOrientation()
         {
             //var sprintList = ((IEmgSaver)Application.Current.FindResource("SprintListModel"));
+            var myoControl =  new MyoController(this);
+            
             MessageBox.Show("Orientation stuff wtf!!!!");
-             
+
+            myoControl.Dispose();
+
         }
         #endregion
 

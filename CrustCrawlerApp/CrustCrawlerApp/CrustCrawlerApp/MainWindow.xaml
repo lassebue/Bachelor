@@ -1,8 +1,12 @@
 ﻿<Window x:Class="CrustCrawlerApp.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:CrustCrawlerApp.WindControl"
+
         Title="MainWindow" Height="350" Width="525">
     <Grid>
-        
+        <Button Content="Check Orientation" Command="{Binding CheckOrientationCommandHandler}" DataContext="{DynamicResource mainVm}" HorizontalAlignment="Left" Margin="151,108,0,0" VerticalAlignment="Top" Width="75"/>
+        <Label Content="Label" HorizontalAlignment="Left" Margin="151,77,0,0" VerticalAlignment="Top"/>
+
     </Grid>
 </Window>

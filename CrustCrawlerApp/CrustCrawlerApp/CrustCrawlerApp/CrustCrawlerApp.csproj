@@ -56,6 +56,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="MyoController.cs" />
     <Compile Include="WindControl\MainVM.cs" />
     <Compile Include="WindControl\RelayCommand.cs" />
     <Page Include="MainWindow.xaml">
@@ -97,6 +98,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MyoLib\MyoLib.csproj">
+      <Project>{f1a59348-9139-43ca-ae1b-c94a72530b7f}</Project>
+      <Name>MyoLib</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
