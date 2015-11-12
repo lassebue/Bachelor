@@ -1,14 +1,18 @@
 ﻿using MvvmFoundation.Wpf;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
+using MyoLib;
 
 namespace CrustCrawlerApp.WindControl
 {
-    public class MainVM
+    public class MainVM: INotifyPropertyChanged
     {
         // UI commands
         #region Check Orientation
@@ -22,10 +26,29 @@ namespace CrustCrawlerApp.WindControl
         private void CheckOrientation()
         {
             //var sprintList = ((IEmgSaver)Application.Current.FindResource("SprintListModel"));
-            //MessageBox.Show("Save stuff wtf!!!!");
+            MessageBox.Show("Orientation stuff wtf!!!!");
+             
         }
         #endregion
 
+        private string _orientation = "";
+        public string Orientation
+        {
+            get { return _orientation; }
+            set { 
+                _orientation = value;
+                Notify();
+            }
+        }
 
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void Notify([CallerMemberName]string propName = null)
+        {
+            if (this.PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propName));
+            }
+
+        }
     }
 }

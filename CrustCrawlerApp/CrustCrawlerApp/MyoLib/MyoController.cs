@@ -95,19 +95,19 @@ namespace MyoLib
 
         public override void DataAcquired(object sender, EmgDataEventArgs e)
         {
-            EmgDataSample sample = new EmgDataSample(controller.sensorCount);
-            sample.TimeStamp = (e.Timestamp - controller.startTime).TotalSeconds;
-            sample.TimeMs = controller.samplePeriode * controller.sampleCount;
-            controller.sampleCount++;
+           // EmgDataSample sample = new EmgDataSample(controller.sensorCount);
+           // sample.TimeStamp = (e.Timestamp - controller.startTime).TotalSeconds;
+           // sample.TimeMs = controller.samplePeriode * controller.sampleCount;
+           // controller.sampleCount++;
 
-            // pull data from each sensor
-            for (int i = 0; i < controller.sensorCount; i++)
-            {
-                sample.SensorValues.Add(e.EmgData.GetDataForSensor(i));
-            }
+           // // pull data from each sensor
+           // for (int i = 0; i < controller.sensorCount; i++)
+           // {
+           //     sample.SensorValues.Add(e.EmgData.GetDataForSensor(i));
+           // }
 
-            controller.Printer.SaveEmgData(sample);
-           controller.EmgLogger.SaveEmgData(sample);
+           // controller.Printer.SaveEmgData(sample);
+           //controller.EmgLogger.SaveEmgData(sample);
         }
 
     }
