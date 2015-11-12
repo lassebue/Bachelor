@@ -98,7 +98,7 @@ namespace DataOpsamlingTest
         }
     }
 
-    class EmgFileSavers : IEmgSaver
+    class EmgFileSavers : IEmgSaver, INotifyPropertyChanged
     {
         private string _headerString = "time,emg1,emg2,emg3,emg4,emg5,emg6,emg7,emg8,hand,pose,orientation,testPerson";
         private string _filePath;
@@ -138,7 +138,6 @@ namespace DataOpsamlingTest
                 }
                 catch (Exception e)
                 {
-                    e.ToString();
                     MessageBox.Show("The file could not be overwritten, try another name...");
                     SaveFileDialog saveFileDia = new SaveFileDialog();
                     saveFileDia.Filter = "csv|*.csv";
@@ -174,42 +173,78 @@ namespace DataOpsamlingTest
             }
         }
 
+        double _progress = 0;
+        public double Progress
+        {
+            get { return _progress; }
+            set {
+                ((Controller)App.Current.FindResource("controller")).FileProgress = value;
+                _progress = value;
+                Notify();
+
+            }
+        }
         public void FinalizeSave()
         {
-            if (File.Exists(_filePath))
-            {
-                // Saves the current samples in the file 
-                using (StreamWriter steamWriter = File.AppendText(_filePath))
-                {
-                    foreach (var item in dataList)
-                    {
-                        if (dataList.IndexOf(item) == 0){
-		                    steamWriter.WriteLine(item +","+ _dataSet.Hand+","+_dataSet.Pose.PoseId+","+_dataSet.Orientation+","+_dataSet.UserName);
-	                    } else{
-                            steamWriter.WriteLine(item);
-	                    }
-                    }
-                }
-            }
-            else
-            {
-                // Create the .csv file to save the EMG data in
-                using (StreamWriter steamWriter = File.CreateText(_filePath))
-                {
-                    steamWriter.WriteLine(_headerString);
+            var controller = ((Controller)App.Current.FindResource("controller"));
+            double index = 0;
+            double count = dataList.Count;
 
-                    foreach (var item in dataList)
+            Task.Factory.StartNew(() =>
+            {
+                if (File.Exists(_filePath))
+                {
+                    // Saves the current samples in the file 
+                    using (StreamWriter streamWriter = File.AppendText(_filePath))
                     {
-                        if (dataList.IndexOf(item) == 0)
+
+
+                        foreach (var item in dataList)
                         {
-                            steamWriter.WriteLine(item + "," + _dataSet.Hand + "," + _dataSet.Pose.PoseId + "," + _dataSet.Orientation + "," + _dataSet.UserName);
-                        } 
-                        else
-                        {
-                            steamWriter.WriteLine(item);
+                            if (dataList.IndexOf(item) == 0)
+                            {
+                                streamWriter.WriteLine(item + "," + _dataSet.Hand + "," + _dataSet.Pose.PoseId + "," + _dataSet.Orientation + "," + _dataSet.UserName);
+                            }
+                            else
+                            {
+                                streamWriter.WriteLine(item);
+                                index = dataList.IndexOf(item);
+                                Progress = index / count * 100;
+                            }
                         }
                     }
                 }
+                else
+                {
+                    using (StreamWriter streamWriter = File.AppendText(_filePath))
+                    {
+                        streamWriter.WriteLine(_headerString);
+
+                        foreach (var item in dataList)
+                        {
+                            if (dataList.IndexOf(item) == 0)
+                            {
+                                streamWriter.WriteLine(item + "," + _dataSet.Hand + "," + _dataSet.Pose.PoseId + "," + _dataSet.Orientation + "," + _dataSet.UserName);
+                            }
+                            else
+                            {
+                                streamWriter.WriteLine(item);
+                                index = dataList.IndexOf(item);
+                                Progress = index / count * 100;
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void Notify([CallerMemberName]string propName = null)
+        {
+            if (this.PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propName));
             }
         }
     }

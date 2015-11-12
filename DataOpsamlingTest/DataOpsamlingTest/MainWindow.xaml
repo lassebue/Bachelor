@@ -128,7 +128,7 @@
 
         <!--Process bar-->   
         <StatusBar Margin="0,0,0,0" Height="20">
-            <ProgressBar Minimum="0" Maximum="100" Value="66" Height="10" Width="150"></ProgressBar>
+            <ProgressBar Minimum="0" DataContext="{DynamicResource controller}" Maximum="100" Value="{Binding FileProgress}" Height="10" Width="150"></ProgressBar>
         </StatusBar>
     </StackPanel>
 </Window>

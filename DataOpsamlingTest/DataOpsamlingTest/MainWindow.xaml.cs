@@ -76,7 +76,6 @@ namespace DataOpsamlingTest
             {
                 poseC.Poses.Add(item);
             }
-            
             result.ToString();
         }
 
@@ -92,7 +91,6 @@ namespace DataOpsamlingTest
 
             var _controller = ((Controller)FindResource("controller"));
             
-           
             _controller.createWindPredictor(matlab);
         }
         //#region Events
