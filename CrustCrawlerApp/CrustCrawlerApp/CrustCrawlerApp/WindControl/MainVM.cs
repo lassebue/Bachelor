@@ -34,6 +34,20 @@ namespace CrustCrawlerApp.WindControl
         }
         #endregion
 
+        #region Open Claw
+        private ICommand _openClawCommand;
+
+        public ICommand openClawCommandHandler
+        {
+            get { return _openClawCommand ?? (_openClawCommand = new RelayCommand(OpenClaw)); }
+        }
+
+        private void OpenClaw()
+        {
+            
+        }
+        #endregion
+
         private string _orientation = "";
         public string Orientation
         {

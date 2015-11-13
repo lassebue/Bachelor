@@ -5,8 +5,15 @@
 
         Title="MainWindow" Height="350" Width="525">
     <Grid>
-        <Button Content="Check Orientation" Command="{Binding CheckOrientationCommandHandler}" DataContext="{DynamicResource mainVm}" HorizontalAlignment="Left" Margin="151,108,0,0" VerticalAlignment="Top" Width="75"/>
-        <Label Content="{Binding Orientation}" DataContext="{DynamicResource mainVm}"  HorizontalAlignment="Left" Margin="151,77,0,0" VerticalAlignment="Top"/>
-
+        <Button Content="Check Orientation" Command="{Binding CheckOrientationCommandHandler}"
+                DataContext="{DynamicResource mainVm}" HorizontalAlignment="Left"
+                Margin="151,108,0,0" VerticalAlignment="Top"
+                Height="25" Width="100"/>
+        <Label Content="{Binding Orientation}" DataContext="{DynamicResource mainVm}"
+               HorizontalAlignment="Left" Margin="151,77,0,0" VerticalAlignment="Top"/>
+        <Button Content="Open Claw" Command="{Binding}"
+                DataContext="{DynamicResource mainVm}" Height="25" Width="100"
+                Margin="407,10,10,284"/>
+        <Button Content="Close Claw" Height="25" Width="100" Margin="407,40,10,254"/>
     </Grid>
 </Window>
