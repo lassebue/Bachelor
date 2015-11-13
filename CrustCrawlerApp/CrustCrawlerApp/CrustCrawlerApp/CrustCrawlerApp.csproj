@@ -34,9 +34,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MyoSharp">
-      <HintPath>..\MyoSharp\bin\Debug\MyoSharp.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -103,6 +100,10 @@
     <ProjectReference Include="..\MyoLib\MyoLib.csproj">
       <Project>{f1a59348-9139-43ca-ae1b-c94a72530b7f}</Project>
       <Name>MyoLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MyoSharp-master\MyoSharp\MyoSharp.csproj">
+      <Project>{b075c7e9-fe48-4508-b44c-1a259bcc8b22}</Project>
+      <Name>MyoSharp</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

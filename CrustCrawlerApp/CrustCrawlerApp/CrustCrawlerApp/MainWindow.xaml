@@ -6,7 +6,7 @@
         Title="MainWindow" Height="350" Width="525">
     <Grid>
         <Button Content="Check Orientation" Command="{Binding CheckOrientationCommandHandler}" DataContext="{DynamicResource mainVm}" HorizontalAlignment="Left" Margin="151,108,0,0" VerticalAlignment="Top" Width="75"/>
-        <Label Content="Label" HorizontalAlignment="Left" Margin="151,77,0,0" VerticalAlignment="Top"/>
+        <Label Content="{Binding Orientation}" DataContext="{DynamicResource mainVm}"  HorizontalAlignment="Left" Margin="151,77,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>

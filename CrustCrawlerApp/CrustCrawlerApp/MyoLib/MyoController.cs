@@ -1,8 +1,4 @@
-﻿using MyoSharp.Communication;
-using MyoSharp.Device;
-using MyoSharp.Exceptions;
-using MyoSharp.Math;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
