@@ -8,11 +8,25 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using CrustCrawlerApp;
 
 namespace CrustCrawlerApp.WindControl
 {
+    //private readonly BackgroundWorker worker = new BackgroundWorker();
+
+
+
     public class MainVM: INotifyPropertyChanged
     {
+            // Skal ikke initeres her!!!
+        private InitMatlab _im = new InitMatlab();
+
+        public InitMatlab MatlabInit
+        {
+            get { return _im; }
+            set { _im = value; }
+        }
+
         // UI commands
         #region Check Orientation
         private ICommand _checkOrientationCommand;
@@ -44,7 +58,21 @@ namespace CrustCrawlerApp.WindControl
 
         private void OpenClaw()
         {
-            
+            MatlabInit.OpenClaw();
+        }
+        #endregion
+
+        #region Close Claw
+        private ICommand _closeClawCommand;
+
+        public ICommand closeClawCommandHandler
+        {
+            get { return _closeClawCommand ?? (_closeClawCommand = new RelayCommand(CloseClaw)); }
+        }
+
+        private void CloseClaw()
+        {
+            MatlabInit.CloseClaw();
         }
         #endregion
 

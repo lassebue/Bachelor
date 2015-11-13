@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:CrustCrawlerApp.WindControl"
 
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="426.527" Width="525">
     <Grid>
         <Button Content="Check Orientation" Command="{Binding CheckOrientationCommandHandler}"
                 DataContext="{DynamicResource mainVm}" HorizontalAlignment="Left"
@@ -11,9 +11,9 @@
                 Height="25" Width="100"/>
         <Label Content="{Binding Orientation}" DataContext="{DynamicResource mainVm}"
                HorizontalAlignment="Left" Margin="151,77,0,0" VerticalAlignment="Top"/>
-        <Button Content="Open Claw" Command="{Binding}"
+        <Button Content="Open Claw" Command="{Binding openClawCommandHandler}"
                 DataContext="{DynamicResource mainVm}" Height="25" Width="100"
                 Margin="407,10,10,284"/>
-        <Button Content="Close Claw" Height="25" Width="100" Margin="407,40,10,254"/>
+        <Button Content="Close Claw" Height="25" DataContext="{DynamicResource mainVm}" Command="{Binding closeClawCommandHandler}" Width="100" Margin="407,91,10,203"/>
     </Grid>
 </Window>

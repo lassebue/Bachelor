@@ -11,10 +11,10 @@ LoadLib();
 %}
 
 % Functions
-MoveUpperPair(-90,100)
-MoveLowerPair(90,100)
-MoveServo(1,-90,100)
-MoveServo(6,-90,100)
+MoveUpperPair(90,100)
+MoveLowerPair(-90,100)
+MoveServo(1,90,100)
+MoveServo(6,90,100)
 OpenClaw(100)
 pause(2)
 CloseClaw(100)

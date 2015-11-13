@@ -53,7 +53,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="MatlabIni.cs" />
+    <Compile Include="initMatlab.cs" />
     <Compile Include="MyoController.cs" />
     <Compile Include="WindControl\MainVM.cs" />
     <Compile Include="WindControl\RelayCommand.cs" />
