@@ -195,8 +195,8 @@ namespace MyoSharp.Communication
                 _killEventThread = true;
                 try
                 {
-                    _eventThread.Abort();
-                    //_eventThread.Join();
+                    //_eventThread.Abort();
+                    _eventThread.Join();
 
                 }
                 catch (Exception e)
