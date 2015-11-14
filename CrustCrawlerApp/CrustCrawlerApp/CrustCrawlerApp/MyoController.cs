@@ -1,4 +1,5 @@
 ﻿using CrustCrawlerApp.WindControl;
+using EmgDataModel;
 using MyoSharp.Communication;
 using MyoSharp.Device;
 using MyoSharp.Exceptions;
@@ -19,7 +20,7 @@ namespace CrustCrawlerApp
         // Myo initiation
         private readonly IChannel _channel;
         private readonly IHub _hub;
-        private MainVM _vm;
+        protected MainVM _vm;
         //private Controller _troller;
         public MyoController(MainVM mv) 
         {
@@ -97,21 +98,21 @@ namespace CrustCrawlerApp
             //controller = ((Controller)Application.Current.FindResource("controller"));
         }
 
+        
+
         public override void DataAcquired(object sender, EmgDataEventArgs e)
         {
-           // EmgDataSample sample = new EmgDataSample(controller.sensorCount);
-           // sample.TimeStamp = (e.Timestamp - controller.startTime).TotalSeconds;
-           // sample.TimeMs = controller.samplePeriode * controller.sampleCount;
-           // controller.sampleCount++;
+            EmgDataSample sample = new EmgDataSample(8);
 
-           // // pull data from each sensor
-           // for (int i = 0; i < controller.sensorCount; i++)
-           // {
-           //     sample.SensorValues.Add(e.EmgData.GetDataForSensor(i));
-           // }
+            //sample.TimeStamp = (e.Timestamp - _mv.startTime).TotalSeconds;
+            //sample.TimeMs = controller.samplePeriode * controller.sampleCount;
+            //controller.sampleCount++;
 
-           // controller.Printer.SaveEmgData(sample);
-           //controller.EmgLogger.SaveEmgData(sample);
+            //// pull data from each sensor
+            //for (int i = 0; i < controller.sensorCount; i++)
+            //{
+            //    sample.SensorValues.Add(e.EmgData.GetDataForSensor(i));
+            //}
         }
 
     }

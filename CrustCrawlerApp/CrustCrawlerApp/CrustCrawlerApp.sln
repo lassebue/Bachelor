@@ -1,13 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
-MinimumVisualStudioVersion = 10.0.40219.1
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrustCrawlerApp", "CrustCrawlerApp\CrustCrawlerApp.csproj", "{F90262BE-D398-466D-9CE0-0F9839B55841}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyoLib", "MyoLib\MyoLib.csproj", "{F1A59348-9139-43CA-AE1B-C94A72530B7F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyoSharp", "MyoSharp-master\MyoSharp\MyoSharp.csproj", "{B075C7E9-FE48-4508-B44C-1A259BCC8B22}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmgDataModel", "..\..\DataOpsamlingTest\EmgDataModel\EmgDataModel.csproj", "{1EBC0B29-171C-4B2A-B564-2BA65A28FBE8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +27,10 @@ Global
 		{B075C7E9-FE48-4508-B44C-1A259BCC8B22}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B075C7E9-FE48-4508-B44C-1A259BCC8B22}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B075C7E9-FE48-4508-B44C-1A259BCC8B22}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1EBC0B29-171C-4B2A-B564-2BA65A28FBE8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1EBC0B29-171C-4B2A-B564-2BA65A28FBE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1EBC0B29-171C-4B2A-B564-2BA65A28FBE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1EBC0B29-171C-4B2A-B564-2BA65A28FBE8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

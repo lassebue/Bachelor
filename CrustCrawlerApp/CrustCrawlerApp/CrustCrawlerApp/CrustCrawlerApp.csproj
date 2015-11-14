@@ -98,6 +98,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\DataOpsamlingTest\EmgDataModel\EmgDataModel.csproj">
+      <Project>{1ebc0b29-171c-4b2a-b564-2ba65a28fbe8}</Project>
+      <Name>EmgDataModel</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MyoLib\MyoLib.csproj">
       <Project>{f1a59348-9139-43ca-ae1b-c94a72530b7f}</Project>
       <Name>MyoLib</Name>
