@@ -1,5 +1,4 @@
 ﻿using CrustCrawlerApp.WindControl;
-using EmgDataModel;
 using MyoSharp.Communication;
 using MyoSharp.Device;
 using MyoSharp.Exceptions;
@@ -15,19 +14,57 @@ using System.Windows;
 
 namespace CrustCrawlerApp
 {
+
+    public delegate void ChangedEventHandler(object sender, EmgSampleEventArgs e);
+    public delegate void OrientationEventHandler(object sender, OrientationEventArgs e);
+
+    public class EmgSampleEventArgs : EventArgs
+    {
+        public EmgSampleEventArgs(EmgDataSample sample)
+        {
+            _sample = sample;
+        }
+
+        private EmgDataSample _sample;
+        public EmgDataSample Sample
+        {
+            get { return _sample; }
+        }
+
+    }
+    public class OrientationEventArgs : EventArgs
+    {
+        public OrientationEventArgs(int ori)
+        {
+            _orientation = ori;
+        }
+
+        private int _orientation;
+        public int Orientation
+        {
+            get { return _orientation; }
+        }
+
+    }
+
+
     public class MyoController : IDisposable, INotifyPropertyChanged
     {
         // Myo initiation
         private readonly IChannel _channel;
         private readonly IHub _hub;
-        protected MainVM _vm;
+        public readonly DateTime _startTime = DateTime.UtcNow;
+        public int sensorCount = 8;
+        public long samplePeriode = 5;
+        public long sampleCount = 0;
+
+
         //private Controller _troller;
-        public MyoController(MainVM mv) 
+        public MyoController()
         {
-            _vm = mv;
-             _channel = Channel.Create(
-                ChannelDriver.Create(ChannelBridge.Create(),
-                MyoErrorHandlerDriver.Create(MyoErrorHandlerBridge.Create())));
+            _channel = Channel.Create(
+               ChannelDriver.Create(ChannelBridge.Create(),
+               MyoErrorHandlerDriver.Create(MyoErrorHandlerBridge.Create())));
             _hub = Hub.Create(_channel);
 
             _hub.MyoConnected += (sender, e) =>
@@ -46,8 +83,15 @@ namespace CrustCrawlerApp
                 //e.Myo.EmgDataAcquired -= MyoOrientatiomAcquired;
             };
             _channel.StartListening();
-            
         }
+
+        public event OrientationEventHandler OrientationReceived;
+        protected virtual void OnOrientationReceived(OrientationEventArgs e)
+        {
+            if (OrientationReceived != null)
+                OrientationReceived(this, e);
+        }
+
 
         public virtual void DataAcquired(object sender, EmgDataEventArgs e)
         {
@@ -64,9 +108,12 @@ namespace CrustCrawlerApp
             var acc = e.Myo.Accelerometer;
             var gyro = e.Myo.Gyroscope;
 
-            _vm.Orientation = "Roll: " + roll_w;
-            //var controller = ((Controller)Application.Current.FindResource("controller"));
+            OnOrientationReceived( new OrientationEventArgs(roll_w) );
             
+            //_vm.Orientation = "Roll: " + roll_w;
+            
+            //var controller = ((Controller)Application.Current.FindResource("controller"));
+
             //controller.Roll = "Roll: " + roll_w;
             //var dataSet = ((EmgDataSet)Application.Current.FindResource("emgDataSet"));
             //dataSet.Orientation = roll_w;
@@ -90,29 +137,54 @@ namespace CrustCrawlerApp
         }
     }
 
-    public class MyoEmgController : MyoController
+
+    public class MyoEmgController : MyoController//, CrustCrawlerApp.IMyoEmgController
     {
-        //Controller controller;
-        public MyoEmgController(MainVM vm): base(vm)
+
+        private int _sampleCount = 0;
+        private IEmgWindowRecognition emgWindRecogn;
+        private readonly int windSize = 256;
+        private List<System.Array> emgWindowContainer = new List<Array>(8);
+
+
+        public MyoEmgController( IEmgWindowRecognition emgWindRecogn ): base()
         {
-            //controller = ((Controller)Application.Current.FindResource("controller"));
+            this.emgWindRecogn = emgWindRecogn;
         }
 
-        
+        //public event ChangedEventHandler Changed;
+
+        //protected virtual void OnChanged(EmgSampleEventArgs e)
+        //{
+        //    if (Changed != null)
+        //        Changed(this, e);
+        //}
 
         public override void DataAcquired(object sender, EmgDataEventArgs e)
         {
             EmgDataSample sample = new EmgDataSample(8);
 
-            //sample.TimeStamp = (e.Timestamp - _mv.startTime).TotalSeconds;
-            //sample.TimeMs = controller.samplePeriode * controller.sampleCount;
-            //controller.sampleCount++;
+            sample.TimeStamp = (e.Timestamp - _startTime).TotalSeconds;
+            sample.TimeMs = samplePeriode * sampleCount;
+            _sampleCount++;
 
-            //// pull data from each sensor
-            //for (int i = 0; i < controller.sensorCount; i++)
+            // pull data from each sensor
+            for (int i = 0; i < sensorCount; i++)
+            {
+                sample.SensorValues.Add(e.EmgData.GetDataForSensor(i));
+            }
+
+            emgWindRecogn.SaveEmgData(sample);
+            //OnChanged(new EmgSampleEventArgs(sample));
+
+
+
+            //for (int i = 0; i < 8; i++)
             //{
-            //    sample.SensorValues.Add(e.EmgData.GetDataForSensor(i));
+            //    emgWindowContainer.ElementAt(i).SetValue((double)emgData.SensorValues[i], _sampleCount);
             //}
+            //_sampleCount++;
+        
         }
 
     }

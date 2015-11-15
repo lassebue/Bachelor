@@ -8,9 +8,14 @@ using System.Threading.Tasks;
 
 namespace CrustCrawlerApp
 {
+
+
     public class InitMatlab
     {
         MLApp.MLApp matlab = new MLApp.MLApp();
+
+            public delegate void OrientationEventHandler(object sender, OrientationEventArgs e);
+
 
         // Inits the matlab server and start the predictions of the server 
         public InitMatlab()
@@ -23,7 +28,6 @@ namespace CrustCrawlerApp
             object result = null;
             matlab.Feval("LoadLib", 0, out result);
 
-            
         }
 
         public void OpenClaw()
@@ -47,5 +51,37 @@ namespace CrustCrawlerApp
             }
             catch (Exception) { }
         }
+
+        private EmgWindowRecognition _emgRecognition;
+        public EmgWindowRecognition EmgRecognition
+        {
+            get { return _emgRecognition; }
+            set { _emgRecognition = value; }
+        }
+
+        
+        public void StartEmgRecognition(  )
+        {
+            if (EmgRecognition != null)
+            {
+                EmgRecognition.WindowFilled += new EmgWindowEventHandler(RecognizeEmgWindow);
+            }
+            else { }
+        }
+
+        public void StopEmgRecognition()
+        {
+            if (EmgRecognition != null)
+            {
+                EmgRecognition.WindowFilled -= new EmgWindowEventHandler(RecognizeEmgWindow);
+            }
+            else { }
+        }
+
+        private void RecognizeEmgWindow(object sender, EmgWindEventArgs e)
+        {
+            // Implement the matlab execution of the recognition!
+        }
+
     }
 }

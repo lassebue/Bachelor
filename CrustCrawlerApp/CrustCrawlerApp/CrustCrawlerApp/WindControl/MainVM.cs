@@ -18,8 +18,10 @@ namespace CrustCrawlerApp.WindControl
 
     public class MainVM: INotifyPropertyChanged
     {
-            // Skal ikke initeres her!!!
+        // Skal ikke initeres her!!!
+        // Skal nok have et interface!
         private InitMatlab _im = new InitMatlab();
+        private EmgWindowRecognition windRecogn;
 
         public InitMatlab MatlabInit
         {
@@ -36,16 +38,60 @@ namespace CrustCrawlerApp.WindControl
             get { return _checkOrientationCommand ?? (_checkOrientationCommand = new RelayCommand(CheckOrientation)); }
         }
 
+
         private void CheckOrientation()
         {
             //var sprintList = ((IEmgSaver)Application.Current.FindResource("SprintListModel"));
-            var myoControl =  new MyoController(this);
+            var myoControl =  new MyoController();
+            myoControl.OrientationReceived += new OrientationEventHandler(UpdateOrientation);
             
             MessageBox.Show("Orientation stuff wtf!!!!");
+
+            myoControl.OrientationReceived -= new OrientationEventHandler(UpdateOrientation);
 
             myoControl.Dispose();
 
         }
+
+        private string _orientation = "";
+        public string Orientation
+        {
+            get { return _orientation; }
+            set
+            {
+                _orientation = value;
+                Notify();
+            }
+        }
+
+        private void UpdateOrientation( object sender, OrientationEventArgs e)
+        {
+            Orientation = "Orientation: "+ e.Orientation;
+        }
+
+        #endregion
+
+        #region Start Recognition
+
+        public void StartRecognition()
+        {
+            windRecogn = new EmgWindowRecognition(128);
+            MatlabInit.EmgRecognition = windRecogn;
+            MatlabInit.StartEmgRecognition();
+
+        }
+
+        #endregion
+
+        #region Stop Recognition
+
+        public void StopRecognition()
+        {
+            MatlabInit.EmgRecognition = windRecogn;
+            MatlabInit.StopEmgRecognition();
+
+        }
+
         #endregion
 
         #region Open Claw
@@ -76,15 +122,6 @@ namespace CrustCrawlerApp.WindControl
         }
         #endregion
 
-        private string _orientation = "";
-        public string Orientation
-        {
-            get { return _orientation; }
-            set { 
-                _orientation = value;
-                Notify();
-            }
-        }
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected void Notify([CallerMemberName]string propName = null)

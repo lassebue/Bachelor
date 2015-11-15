@@ -1,5 +1,4 @@
-﻿using EmgDataModel;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,65 +6,82 @@ using System.Threading.Tasks;
 
 namespace CrustCrawlerApp
 {
-    public class EmgWindowSaver
+    public delegate void EmgWindowEventHandler(object sender, EmgWindEventArgs e);
+
+    public class EmgWindowRecognition : CrustCrawlerApp.IEmgWindowRecognition
     {
-        private MLApp.MLApp matlab;
-        private int _sampleCount = 0;
+        private int sampleCount = 0;
+        private static int sensorCount = 8;
         private int windSize = 256;
-        private List<System.Array> emgWindowContainer = new List<Array>(8);
+        private List<System.Array> emgWindowContainer = new List<Array>(sensorCount);
+        private MyoEmgController myoControl;
+
         //private ObservableCollection<string> _printOutList = new ObservableCollection<string>();
         private List<string> _printOutPoseList = new List<string>();
 
-        public EmgWindowSaver(MLApp.MLApp _matlab, int windowSize)
+        public EmgWindowRecognition(int windowSize)
         {
             windSize = windowSize;
-            matlab = _matlab;
             System.Array tmpArray;
-            for (int i = 0; i < 8; i++)
-            {
+            myoControl = new MyoEmgController(this);
 
+            for (int i = 0; i < sensorCount; i++)
+            {
                 tmpArray = new double[windSize];
                 emgWindowContainer.Add(tmpArray);
             }
         }
 
-        public void SaveEmgData(EmgDataSample emgData)
-        {
+        public event EmgWindowEventHandler WindowFilled;
 
+        protected virtual void OnWindowFilled(EmgWindEventArgs e)
+        {
+            if (WindowFilled != null)
+                WindowFilled(this, e);
+        }
+
+        public void SaveEmgData(EmgDataSample emgSample)
+        {
             for (int i = 0; i < 8; i++)
             {
-                emgWindowContainer.ElementAt(i).SetValue((double)emgData.SensorValues[i], _sampleCount);
+               emgWindowContainer.ElementAt(i).SetValue((double)emgSample.SensorValues[i], sampleCount);
             }
-            _sampleCount++;
-            if (_sampleCount == windSize)
+            sampleCount++;
+            if (sampleCount == windSize)
             {
-                object result = null;
+                OnWindowFilled(new EmgWindEventArgs(emgWindowContainer));
 
-                matlab.Feval("posePredictor", 1, out result, emgWindowContainer.ElementAt(0),
-                                                            emgWindowContainer.ElementAt(1),
-                                                            emgWindowContainer.ElementAt(2),
-                                                            emgWindowContainer.ElementAt(3),
-                                                            emgWindowContainer.ElementAt(4),
-                                                            emgWindowContainer.ElementAt(5),
-                                                            emgWindowContainer.ElementAt(6),
-                                                            emgWindowContainer.ElementAt(7));
+                emgWindowContainer.Clear();
 
-                object[] res = result as object[];
-
-                //System.Windows.Application.Current.Dispatcher.Invoke(
-
-                //System.Windows.Threading.DispatcherPriority.Normal,
-                //(Action)delegate()
-                //{
-                //    _printOutPoseList.Add((string)res[0]);
-                //});
-
-                _printOutPoseList.Add((string)res[0]);
-
-                //var _controller = ((Controller)App.Current.FindResource("controller"));
-                //_controller.MyoDispose();
-                _sampleCount = 0;
             }
         }
+
+        //public void StartRecognition()
+        //{
+        //    myoControl.Changed += new ChangedEventHandler(SaveEmgData);
+        //}
+
+        //public void StopRecognition()
+        //{
+        //    myoControl.Changed -= new ChangedEventHandler(SaveEmgData);
+        //}
     }
+
+
+    public class EmgWindEventArgs : EventArgs
+    {
+
+        public EmgWindEventArgs(List<System.Array> emgWind)
+        {
+            _emgWind = emgWind;
+        }
+
+        private List<System.Array> _emgWind;
+        public List<System.Array> EmgWindow
+        {
+            get { return _emgWind; }
+        }
+
+    }
+
 }
