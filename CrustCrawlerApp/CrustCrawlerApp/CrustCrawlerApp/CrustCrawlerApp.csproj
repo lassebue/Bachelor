@@ -60,6 +60,7 @@
     <Compile Include="InitMatlab.cs" />
     <Compile Include="MatlabIni.cs" />
     <Compile Include="MyoController.cs" />
+    <Compile Include="WindControl\IDisplayPose.cs" />
     <Compile Include="WindControl\MainVM.cs" />
     <Compile Include="WindControl\RelayCommand.cs" />
     <Page Include="MainWindow.xaml">

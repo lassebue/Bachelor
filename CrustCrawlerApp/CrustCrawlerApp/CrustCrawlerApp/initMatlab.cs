@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CrustCrawlerApp.WindControl;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
@@ -12,14 +13,16 @@ namespace CrustCrawlerApp
 
     public class InitMatlab
     {
-        MLApp.MLApp matlab = new MLApp.MLApp();
-
-            public delegate void OrientationEventHandler(object sender, OrientationEventArgs e);
+        private MLApp.MLApp matlab = new MLApp.MLApp();
+        private IDisplayPose mv;
+        
+         public delegate void OrientationEventHandler(object sender, OrientationEventArgs e);
 
 
         // Inits the matlab server and start the predictions of the server 
-        public InitMatlab()
+        public InitMatlab( IDisplayPose mv )
         {
+            this.mv = mv;
             string path = "cd('" +
                           @"Z:\Users\KSG\Google Drev\Dokumenter\7.Semester\Bachelor\Bachelor\CrustCrawlerApp\CCController" +
                           "')";
@@ -74,13 +77,27 @@ namespace CrustCrawlerApp
             if (EmgRecognition != null)
             {
                 EmgRecognition.WindowFilled -= new EmgWindowEventHandler(RecognizeEmgWindow);
+                EmgRecognition.Dispose();
             }
             else { }
         }
 
         private void RecognizeEmgWindow(object sender, EmgWindEventArgs e)
         {
-            // Implement the matlab execution of the recognition!
+            object result = null;
+            matlab.Feval("posePredictor", 1, out result, e.EmgWindow.ElementAt(0),
+                                                        e.EmgWindow.ElementAt(1),
+                                                        e.EmgWindow.ElementAt(2),
+                                                        e.EmgWindow.ElementAt(3),
+                                                        e.EmgWindow.ElementAt(4),
+                                                        e.EmgWindow.ElementAt(5),
+                                                        e.EmgWindow.ElementAt(6),
+                                                        e.EmgWindow.ElementAt(7));
+
+            object[] res = result as object[];
+            mv.CurrentPose = "The current pose is: " + (string)res[0];
+
+
         }
 
     }

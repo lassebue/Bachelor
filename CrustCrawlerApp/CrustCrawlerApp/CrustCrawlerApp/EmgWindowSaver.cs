@@ -8,7 +8,7 @@ namespace CrustCrawlerApp
 {
     public delegate void EmgWindowEventHandler(object sender, EmgWindEventArgs e);
 
-    public class EmgWindowRecognition : CrustCrawlerApp.IEmgWindowRecognition
+    public class EmgWindowRecognition : CrustCrawlerApp.IEmgWindowRecognition, IDisposable
     {
         private int sampleCount = 0;
         private static int sensorCount = 8;
@@ -56,6 +56,11 @@ namespace CrustCrawlerApp
             }
         }
 
+        public void Dispose()
+        {
+            myoControl.Dispose();
+        }
+
         //public void StartRecognition()
         //{
         //    myoControl.Changed += new ChangedEventHandler(SaveEmgData);
@@ -65,7 +70,7 @@ namespace CrustCrawlerApp
         //{
         //    myoControl.Changed -= new ChangedEventHandler(SaveEmgData);
         //}
-    }
+}
 
 
     public class EmgWindEventArgs : EventArgs

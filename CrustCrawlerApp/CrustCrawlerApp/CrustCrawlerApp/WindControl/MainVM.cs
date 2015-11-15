@@ -16,17 +16,34 @@ namespace CrustCrawlerApp.WindControl
 
 
 
-    public class MainVM: INotifyPropertyChanged
+    public class MainVM: INotifyPropertyChanged, IDisplayPose
     {
-        // Skal ikke initeres her!!!
-        // Skal nok have et interface!
-        private InitMatlab _im = new InitMatlab();
+
         private EmgWindowRecognition windRecogn;
 
+        // Skal ikke initeres her!!!
+        // Skal nok have et interface!
+        private InitMatlab _im;
         public InitMatlab MatlabInit
         {
             get { return _im; }
             set { _im = value; }
+        }
+
+        public MainVM()
+        {
+            MatlabInit = new InitMatlab( this );
+        }
+
+        private string _currentPose;
+        public string CurrentPose
+        {
+            get { return _currentPose; }
+            set 
+            {
+                _currentPose = value;
+                Notify();
+            }
         }
 
         // UI commands
@@ -122,6 +139,7 @@ namespace CrustCrawlerApp.WindControl
         }
         #endregion
 
+        
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected void Notify([CallerMemberName]string propName = null)

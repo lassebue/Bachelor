@@ -145,7 +145,7 @@ namespace CrustCrawlerApp
         private IEmgWindowRecognition emgWindRecogn;
         private readonly int windSize = 256;
         private List<System.Array> emgWindowContainer = new List<Array>(8);
-
+        
 
         public MyoEmgController( IEmgWindowRecognition emgWindRecogn ): base()
         {
