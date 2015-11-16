@@ -95,16 +95,28 @@ namespace CrustCrawlerApp.WindControl
             windRecogn = new EmgWindowRecognition(128);
             MatlabInit.EmgRecognition = windRecogn;
             MatlabInit.StartEmgRecognition();
+        }
 
+        private ICommand _startRecognCommand;
+
+        public ICommand StartRecognCommandHandler
+        {
+            get { return _startRecognCommand ?? (_startRecognCommand = new RelayCommand(StartRecognition)); }
         }
 
         #endregion
 
         #region Stop Recognition
 
+        private ICommand _stopRecognCommand;
+
+        public ICommand StopRecognCommandHandler
+        {
+            get { return _stopRecognCommand ?? (_stopRecognCommand = new RelayCommand(StopRecognition)); }
+        }
+
         public void StopRecognition()
         {
-            MatlabInit.EmgRecognition = windRecogn;
             MatlabInit.StopEmgRecognition();
 
         }

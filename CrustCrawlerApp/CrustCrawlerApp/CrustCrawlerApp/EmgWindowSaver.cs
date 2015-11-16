@@ -50,8 +50,7 @@ namespace CrustCrawlerApp
             if (sampleCount == windSize)
             {
                 OnWindowFilled(new EmgWindEventArgs(emgWindowContainer));
-
-                emgWindowContainer.Clear();
+                sampleCount = 0;
 
             }
         }

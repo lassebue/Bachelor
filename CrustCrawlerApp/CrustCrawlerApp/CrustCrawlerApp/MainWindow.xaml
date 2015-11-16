@@ -6,14 +6,18 @@
         Title="MainWindow" Height="426.527" Width="525">
     <Grid>
         <Button Content="Check Orientation" Command="{Binding CheckOrientationCommandHandler}"
-                DataContext="{DynamicResource mainVm}" HorizontalAlignment="Left"
-                Margin="151,108,0,0" VerticalAlignment="Top"
-                Height="25" Width="100"/>
+			DataContext="{DynamicResource mainVm}" HorizontalAlignment="Left"
+			Margin="151,108,0,0" VerticalAlignment="Top"
+			Height="25" Width="100"/>
         <Label Content="{Binding Orientation}" DataContext="{DynamicResource mainVm}"
-               HorizontalAlignment="Left" Margin="151,77,0,0" VerticalAlignment="Top"/>
+			HorizontalAlignment="Left" Margin="151,77,0,0" VerticalAlignment="Top"/>
         <Button Content="Open Claw" Command="{Binding openClawCommandHandler}"
-                DataContext="{DynamicResource mainVm}" Height="25" Width="100"
-                Margin="407,10,10,284"/>
+			DataContext="{DynamicResource mainVm}" Height="25" Width="100"
+			Margin="407,10,10,284"/>
         <Button Content="Close Claw" Height="25" DataContext="{DynamicResource mainVm}" Command="{Binding closeClawCommandHandler}" Width="100" Margin="407,91,10,203"/>
+        <Button Content="Start Recognition" Height="25" DataContext="{DynamicResource mainVm}" Command="{Binding StartRecognCommandHandler}" Width="100" Margin="407,216,10,155"/>
+        <Button Content="Stop Recognition" Height="25" DataContext="{DynamicResource mainVm}" Command="{Binding StopRecognCommandHandler}" Width="100" Margin="407,304,10,67"/>
+        <Label Content="{Binding CurrentPose}" HorizontalAlignment="Left" Margin="273,216,0,0" DataContext="{DynamicResource mainVm}" VerticalAlignment="Top" Width="100"/>
+
     </Grid>
 </Window>

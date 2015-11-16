@@ -3,6 +3,6 @@ namespace CrustCrawlerApp
 {
     interface IMyoEmgController
     {
-        event ChangedEventHandler Changed;
+        //event ChangedEventHandler Changed;
     }
 }
