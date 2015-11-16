@@ -76,10 +76,13 @@ fclose(fileID);
 % script.
 
 %% Allocate imported array to column variable names
+
+windowSize = 128;
+
 time = dataArray{:, 1};
 
 emg1 = dataArray{:, 2};
-[data,paddingTmp] = vec2mat(transpose(emg1),256);
+[data,paddingTmp] = vec2mat(transpose(emg1),windowSize);
 
 
 emg1Collection = [emg1Collection ; data];
@@ -87,33 +90,32 @@ emg1Collection = [emg1Collection ; data];
 % remove later
 padding = [padding ; paddingTmp];
 
-
 emg2 = dataArray{ :, 3};
-[data] = vec2mat(transpose(emg2),256);
+[data] = vec2mat(transpose(emg2),windowSize);
 emg2Collection = [emg2Collection ; data];
 
 emg3 = dataArray{:, 4};
-[data] = vec2mat(transpose(emg3),256);
+[data] = vec2mat(transpose(emg3),windowSize);
 emg3Collection = [emg3Collection ; data];
 
 emg4 = dataArray{:, 5};
-[data] = vec2mat(transpose(emg4),256);
+[data] = vec2mat(transpose(emg4),windowSize);
 emg4Collection = [emg4Collection ; data];
 
 emg5 = dataArray{:, 6};
-[data] = vec2mat(transpose(emg5),256);
+[data] = vec2mat(transpose(emg5),windowSize);
 emg5Collection = [emg5Collection ; data];
 
 emg6 = dataArray{:, 7};
-[data] = vec2mat(transpose(emg6),256);
+[data] = vec2mat(transpose(emg6),windowSize);
 emg6Collection = [emg6Collection ; data];
 
 emg7 = dataArray{:, 8};
-[data] = vec2mat(transpose(emg7),256);
+[data] = vec2mat(transpose(emg7),windowSize);
 emg7Collection = [emg7Collection ; data];
 
 emg8 = dataArray{:, 9};
-[data] = vec2mat(transpose(emg8),256);
+[data] = vec2mat(transpose(emg8),windowSize);
 emg8Collection = [emg8Collection ; data];
 
 

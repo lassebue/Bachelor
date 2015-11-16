@@ -49,7 +49,8 @@ namespace CrustCrawlerApp
             sampleCount++;
             if (sampleCount == windSize)
             {
-                OnWindowFilled(new EmgWindEventArgs(emgWindowContainer));
+                var windowTime = DateTime.UtcNow;
+                OnWindowFilled(new EmgWindEventArgs(emgWindowContainer,windowTime));
                 sampleCount = 0;
 
             }
@@ -75,15 +76,23 @@ namespace CrustCrawlerApp
     public class EmgWindEventArgs : EventArgs
     {
 
-        public EmgWindEventArgs(List<System.Array> emgWind)
+        public EmgWindEventArgs(List<System.Array> emgWind, DateTime windowTime)
         {
             _emgWind = emgWind;
+            _windowTime = windowTime;
         }
 
         private List<System.Array> _emgWind;
         public List<System.Array> EmgWindow
         {
             get { return _emgWind; }
+        }
+
+        // Tmp property 
+        private DateTime _windowTime;
+        public DateTime WindowTime
+        {
+            get { return _windowTime; }
         }
 
     }

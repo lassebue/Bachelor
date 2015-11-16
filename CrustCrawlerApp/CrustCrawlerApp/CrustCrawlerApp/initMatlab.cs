@@ -18,6 +18,10 @@ namespace CrustCrawlerApp
 
         private readonly BackgroundWorker worker = new BackgroundWorker();
 
+        private readonly BackgroundWorker worker2 = new BackgroundWorker();
+        private readonly BackgroundWorker worker1 = new BackgroundWorker();
+
+
         public delegate void OrientationEventHandler(object sender, OrientationEventArgs e);
 
 
@@ -31,14 +35,13 @@ namespace CrustCrawlerApp
             worker.RunWorkerCompleted += worker_RunWorkerCompleted;
             worker.RunWorkerAsync();
 
-            //string path = "cd('" +
-            //              @"Z:\Users\KSG\Google Drev\Dokumenter\7.Semester\Bachelor\Bachelor\CrustCrawlerApp\CCController" +
-            //              "')";
+            //worker1.DoWork += worker_DoWork1;
+            //worker1.RunWorkerCompleted += worker1_RunWorkerCompleted;
+            //worker1.RunWorkerAsync();
 
-            //matlab.Execute(path);
-            //object result = null;
-            //matlab.Feval("LoadLib", 0, out result);
-
+            //worker2.DoWork += worker_DoWork1;
+            //worker2.RunWorkerCompleted += worker1_RunWorkerCompleted;
+            //worker2.RunWorkerAsync();
         }
 
         public void OpenClaw()
@@ -93,18 +96,30 @@ namespace CrustCrawlerApp
         private void RecognizeEmgWindow(object sender, EmgWindEventArgs e)
         {
             object result = null;
+
+
+
+            //var time0 = DateTime.UtcNow;
+            
+            mv.WindowCount++;
+
+            //var inteval = (time0 - e.WindowTime).Milliseconds;
+
             matlab.Feval("posePredictor", 1, out result, e.EmgWindow.ElementAt(0),
-                                                        e.EmgWindow.ElementAt(1),
-                                                        e.EmgWindow.ElementAt(2),
-                                                        e.EmgWindow.ElementAt(3),
-                                                        e.EmgWindow.ElementAt(4),
-                                                        e.EmgWindow.ElementAt(5),
-                                                        e.EmgWindow.ElementAt(6),
-                                                        e.EmgWindow.ElementAt(7));
+                                        e.EmgWindow.ElementAt(1),
+                                        e.EmgWindow.ElementAt(2),
+                                        e.EmgWindow.ElementAt(3),
+                                        e.EmgWindow.ElementAt(4),
+                                        e.EmgWindow.ElementAt(5),
+                                        e.EmgWindow.ElementAt(6),
+                                        e.EmgWindow.ElementAt(7));
+                
+                
+            //var time1 = DateTime.UtcNow;
+            //var calTime = time1 - time0;
 
             object[] res = result as object[];
             mv.CurrentPose = "The current pose is: " + (string)res[0];
-            mv.WindowCount++;
 
             switch ((string)res[0])
             {
@@ -120,6 +135,7 @@ namespace CrustCrawlerApp
 
                     break;
             }
+
 
         }
 
@@ -149,12 +165,19 @@ namespace CrustCrawlerApp
             var dirBefore = Directory.GetDirectories(folderPath);
             var path = dirBefore[0];
 
-            // Change to the directory where the function is located 
-            //C:\Users\Lasse Bue Svendsen\Desktop\Matlab import\myfunc.m"
+            // Change to the directory where the matlab function folder is located 
             var changeDir = "cd('" + path + "')";
             matlab.Execute(changeDir);
-            //matlab.Execute(@"cd('Z:\Bachelor\Matlab import')");
         }
+
+        //private void worker_DoWork(object sender, DoWorkEventArgs e)
+        //{
+        //}
+
+        //private void worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        //{
+
+        //}
 
     }
 }
