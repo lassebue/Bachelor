@@ -116,6 +116,26 @@ namespace CrustCrawlerApp
         private void worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             matlab = ((MLApp.MLApp)e.Result);
+
+            var currentDir = Directory.GetCurrentDirectory();
+
+            var folders = currentDir.Split('\\');
+
+            var folderPath = "";
+            for (int i = 0; i < 3; i++)
+            {
+                folderPath = folderPath + "\\" + folders[i];
+                if (i == 0)
+                    folderPath = folders[0];
+            }
+
+            var dirBefore = Directory.GetDirectories(folderPath);
+            var path = dirBefore[0];
+
+            // Change to the directory where the function is located 
+            //C:\Users\Lasse Bue Svendsen\Desktop\Matlab import\myfunc.m"
+            var changeDir = "cd('" + path + "')";
+            matlab.Execute(changeDir);
             //matlab.Execute(@"cd('Z:\Bachelor\Matlab import')");
         }
 
