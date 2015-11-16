@@ -77,7 +77,7 @@ fclose(fileID);
 
 %% Allocate imported array to column variable names
 
-windowSize = 128;
+windowSize = 256;
 
 time = dataArray{:, 1};
 
