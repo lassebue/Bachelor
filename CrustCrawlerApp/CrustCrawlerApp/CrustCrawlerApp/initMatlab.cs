@@ -13,16 +13,24 @@ namespace CrustCrawlerApp
 
     public class InitMatlab
     {
-        private MLApp.MLApp matlab = new MLApp.MLApp();
+        private MLApp.MLApp matlab;// = new MLApp.MLApp();
         private IDisplayPose mv;
-        
-         public delegate void OrientationEventHandler(object sender, OrientationEventArgs e);
+
+        private readonly BackgroundWorker worker = new BackgroundWorker();
+
+        public delegate void OrientationEventHandler(object sender, OrientationEventArgs e);
 
 
         // Inits the matlab server and start the predictions of the server 
         public InitMatlab( IDisplayPose mv )
         {
             this.mv = mv;
+
+            // Inits the matlab server and start the predictions of the server 
+            worker.DoWork += worker_DoWork;
+            worker.RunWorkerCompleted += worker_RunWorkerCompleted;
+            worker.RunWorkerAsync();
+
             //string path = "cd('" +
             //              @"Z:\Users\KSG\Google Drev\Dokumenter\7.Semester\Bachelor\Bachelor\CrustCrawlerApp\CCController" +
             //              "')";
@@ -98,6 +106,17 @@ namespace CrustCrawlerApp
             mv.CurrentPose = "The current pose is: ";// +(string)res[0];
 
 
+        }
+
+        private void worker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            e.Result = new MLApp.MLApp();
+        }
+
+        private void worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            matlab = ((MLApp.MLApp)e.Result);
+            //matlab.Execute(@"cd('Z:\Bachelor\Matlab import')");
         }
 
     }
