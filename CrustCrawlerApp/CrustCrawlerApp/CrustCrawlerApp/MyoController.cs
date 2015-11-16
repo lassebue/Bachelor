@@ -15,7 +15,7 @@ using System.Windows;
 namespace CrustCrawlerApp
 {
 
-    public delegate void ChangedEventHandler(object sender, EmgSampleEventArgs e);
+    //public delegate void ChangedEventHandler(object sender, EmgSampleEventArgs e);
     public delegate void OrientationEventHandler(object sender, OrientationEventArgs e);
 
     public class EmgSampleEventArgs : EventArgs
@@ -175,6 +175,7 @@ namespace CrustCrawlerApp
             }
 
             emgWindRecogn.SaveEmgData(sample);
+            
             //OnChanged(new EmgSampleEventArgs(sample));
 
 
