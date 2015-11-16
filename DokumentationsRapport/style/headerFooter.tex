@@ -1,0 +1,20 @@
+% Clear all header an footer fields
+\fancyhf{}
+
+
+% % % % % % % % % % % % % % HEADER % % % % % % % % % % % % % % % % % % % % % % %
+% Delete headruler
+\renewcommand{\headrulewidth}{0pt}
+
+% Insert picture in left side on even pages and right side on odd pages
+\fancyhead[LE,RO]{\includegraphics[height=40pt]{figure/header/header}}
+
+
+
+% % % % % % % % % % % % % % FOOTER % % % % % % % % % % % % % % % % % % % % % % %
+% Insert pagenumber on right side of even page, left side of odd page
+\fancyfoot[LE,RO]{\thepage}
+
+\setlength\headheight{44.1pt}
+
+%\setcounter{page}{1}

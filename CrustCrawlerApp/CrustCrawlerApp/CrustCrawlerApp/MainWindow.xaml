@@ -10,20 +10,22 @@
         <!--Title bar-->
         <Grid Height="25" Background="#FF5EB0EA" MouseLeftButtonDown="titleBar_MouseLeftButtonDown">
             <TextBlock Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16">
-                Data Collection
+                CrustCrawler Application
             </TextBlock>
         </Grid>
 
         <!--Menu bar-->
         <Menu Height="20" VerticalAlignment="Top" IsMainMenu="True">
             <MenuItem Header="_File" VerticalAlignment="Center">
+                <MenuItem Header="Instructions"/>
+                <Separator/>
                 <MenuItem Header="Exit"
                           DataContext="{DynamicResource mainVm}"
                           Command="{Binding exitCommandHandler}"/>
             </MenuItem>
         </Menu>
 
-        <Grid Height="321">
+        <Grid Height="341">
             
             <!--Check Orientation-->
             <Button Content="Check Orientation" Command="{Binding CheckOrientationCommandHandler}"
@@ -69,9 +71,5 @@
                    Height="25" Width="100" Margin="51,192,249,104"/>
 
         </Grid>
-        <!--Process bar-->
-        <StatusBar Margin="0,0,0,0" Height="20">
-            <ProgressBar Minimum="0" Maximum="100" Value="66" Height="10" Width="150"/>
-        </StatusBar>
     </StackPanel>
 </Window>
