@@ -151,6 +151,21 @@ namespace CrustCrawlerApp.WindControl
         }
         #endregion
 
+        #region exit
+        private ICommand _exitCommand;
+
+        public ICommand exitCommandHandler
+        {
+            get { return _exitCommand ?? (_exitCommand = new RelayCommand(ExitBtn)); }
+        }
+
+        private void ExitBtn()
+        {
+            Application.Current.Shutdown();
+        }
+
+        #endregion
+
         
 
         public event PropertyChangedEventHandler PropertyChanged;

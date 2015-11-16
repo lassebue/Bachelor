@@ -24,5 +24,10 @@ namespace CrustCrawlerApp
         {
             InitializeComponent();
         }
+
+        private void titleBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            DragMove();
+        }
     }
 }
