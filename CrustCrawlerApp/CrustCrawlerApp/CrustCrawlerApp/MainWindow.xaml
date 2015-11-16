@@ -24,15 +24,19 @@
         </Menu>
 
         <Grid Height="321">
+            
+            <!--Check Orientation-->
             <Button Content="Check Orientation" Command="{Binding CheckOrientationCommandHandler}"
 			    DataContext="{DynamicResource mainVm}" HorizontalAlignment="Left"
 			    Margin="151,108,0,0" VerticalAlignment="Top"
 			    Height="25" Width="100"/>
+
+            <!--Roll label-->
             <Label Content="{Binding Orientation}" DataContext="{DynamicResource mainVm}"
 			    HorizontalAlignment="Left" Margin="151,77,0,0" VerticalAlignment="Top"/>
             
-            <!--4 buttons-->
-            <StackPanel Margin="409,65,71,123">
+            <!--buttons-->
+            <StackPanel Margin="409,65,71,96">
                 
                 <!--Open claw-->
                 <Button Content="Open Claw" DataContext="{DynamicResource mainVm}"
@@ -53,14 +57,21 @@
                 <Button Content="Stop Recognition" DataContext="{DynamicResource mainVm}"
                         Command="{Binding StopRecognCommandHandler}"
                         Height="25" Width="100" Margin="0,5,0,0"/>
+                
+                <!--Exit-->
+                <Button Content="Exit" DataContext="{DynamicResource mainVm}"
+                        Command="{Binding exitCommandHandler}"
+                        Height="25" Width="100" Margin="0,5,0,0"/>
             </StackPanel>
-            <Label Content="{Binding CurrentPose}" HorizontalAlignment="Left" Margin="184,178,0,0"
-                   DataContext="{DynamicResource mainVm}" VerticalAlignment="Top" Width="100"/>
+            <Label Content="{Binding CurrentPose}" HorizontalAlignment="Left" Margin="51,177,0,0"
+                   DataContext="{DynamicResource mainVm}" VerticalAlignment="Top" Width="300"/>
+            <Label Content="{Binding WindowCount}" DataContext="{DynamicResource mainVm}" 
+                   Height="25" Width="100" Margin="51,192,249,104"/>
 
         </Grid>
         <!--Process bar-->
         <StatusBar Margin="0,0,0,0" Height="20">
-            <ProgressBar Minimum="0" DataContext="{DynamicResource controller}" Maximum="100" Value="{Binding FileProgress}" Height="10" Width="150"></ProgressBar>
+            <ProgressBar Minimum="0" Maximum="100" Value="66" Height="10" Width="150"/>
         </StatusBar>
     </StackPanel>
 </Window>

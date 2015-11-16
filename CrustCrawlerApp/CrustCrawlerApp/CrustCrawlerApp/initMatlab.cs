@@ -92,19 +92,34 @@ namespace CrustCrawlerApp
 
         private void RecognizeEmgWindow(object sender, EmgWindEventArgs e)
         {
-            //object result = null;
-            //matlab.Feval("posePredictor", 1, out result, e.EmgWindow.ElementAt(0),
-            //                                            e.EmgWindow.ElementAt(1),
-            //                                            e.EmgWindow.ElementAt(2),
-            //                                            e.EmgWindow.ElementAt(3),
-            //                                            e.EmgWindow.ElementAt(4),
-            //                                            e.EmgWindow.ElementAt(5),
-            //                                            e.EmgWindow.ElementAt(6),
-            //                                            e.EmgWindow.ElementAt(7));
+            object result = null;
+            matlab.Feval("posePredictor", 1, out result, e.EmgWindow.ElementAt(0),
+                                                        e.EmgWindow.ElementAt(1),
+                                                        e.EmgWindow.ElementAt(2),
+                                                        e.EmgWindow.ElementAt(3),
+                                                        e.EmgWindow.ElementAt(4),
+                                                        e.EmgWindow.ElementAt(5),
+                                                        e.EmgWindow.ElementAt(6),
+                                                        e.EmgWindow.ElementAt(7));
 
-            //object[] res = result as object[];
-            mv.CurrentPose = "The current pose is: ";// +(string)res[0];
+            object[] res = result as object[];
+            mv.CurrentPose = "The current pose is: " + (string)res[0];
+            mv.WindowCount++;
 
+            switch ((string)res[0])
+            {
+                case "RightFingerSpreadBue":
+                    OpenClaw();
+                    break;
+
+                case "RightClosedBue":
+                    CloseClaw();
+                    break;
+
+                case "RightRelaxedBue":
+
+                    break;
+            }
 
         }
 
@@ -122,7 +137,9 @@ namespace CrustCrawlerApp
             var folders = currentDir.Split('\\');
 
             var folderPath = "";
-            for (int i = 0; i < 3; i++)
+
+            var targFolderNum = folders.Length - 4;
+            for (int i = 0; i < targFolderNum; i++)
             {
                 folderPath = folderPath + "\\" + folders[i];
                 if (i == 0)

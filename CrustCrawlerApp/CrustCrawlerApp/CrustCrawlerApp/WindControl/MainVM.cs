@@ -35,6 +35,18 @@ namespace CrustCrawlerApp.WindControl
             MatlabInit = new InitMatlab( this );
         }
 
+        private int _windowCount = 0;
+
+        public int WindowCount
+        {
+            get { return _windowCount; }
+            set
+            {
+                _windowCount = value;
+                Notify();
+            }
+        }
+
         private string _currentPose;
         public string CurrentPose
         {
