@@ -69,6 +69,8 @@
                    DataContext="{DynamicResource mainVm}" VerticalAlignment="Top" Width="300"/>
             <Label Content="{Binding WindowCount}" DataContext="{DynamicResource mainVm}" 
                    Height="25" Width="100" Margin="51,192,249,104"/>
+            <Label Content="{Binding CurrentWindow}" DataContext="{DynamicResource mainVm}" 
+                   Height="25" Width="100" Margin="309,192,191,124"/>
 
         </Grid>
     </StackPanel>

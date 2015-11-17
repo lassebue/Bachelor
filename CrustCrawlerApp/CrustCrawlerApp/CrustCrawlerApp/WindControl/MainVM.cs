@@ -125,7 +125,7 @@ namespace CrustCrawlerApp.WindControl
 
         public void StartRecognition()
         {
-            windRecogn = new EmgWindowRecognition(128);
+            windRecogn = new EmgWindowRecognition(128,this);
             MatlabInit.EmgRecognition = windRecogn;
             MatlabInit.StartEmgRecognition();
         }

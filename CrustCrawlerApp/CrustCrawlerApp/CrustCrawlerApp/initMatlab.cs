@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Documents;
 using CrustCrawlerApp.WindControl;
+using System.Threading;
 
 namespace CrustCrawlerApp
 {
@@ -14,10 +15,13 @@ namespace CrustCrawlerApp
 
         public delegate void OrientationEventHandler(object sender, OrientationEventArgs e);
 
+        private ThreadLocal<List<Array>> emgWindowThreadData;
 
         private readonly IDisplayPose mv;
 
         private readonly BackgroundWorker worker = new BackgroundWorker();
+        private readonly BackgroundWorker worker2 = new BackgroundWorker();
+
 
         //private DateTime interval;
         private DateTime executeStartTime;
@@ -87,6 +91,8 @@ namespace CrustCrawlerApp
 
                 worker.DoWork += worker_DoRecognition;
                 worker.RunWorkerCompleted += worker_RecognitionCompleted;
+                worker2.DoWork += worker_DoRecognition;
+                worker2.RunWorkerCompleted += worker2_RecognitionCompleted;
             }
         }
 
@@ -99,12 +105,16 @@ namespace CrustCrawlerApp
                 worker.DoWork -= worker_DoRecognition;
                 worker.RunWorkerCompleted -= worker_RecognitionCompleted;
 
+                worker2.DoWork -= worker_DoRecognition;
+                worker2.RunWorkerCompleted -= worker2_RecognitionCompleted;
+
+
                 EmgRecognition.Dispose();
             }
         }
 
 
-        private void RecognizeEmgWindow(object sender, EmgWindEventArgs b)
+        private void RecognizeEmgWindow(object sender, EmgWindEventArgs e)
         {
             object result = null;
 
@@ -196,19 +206,22 @@ namespace CrustCrawlerApp
 
 
 
-            worker.RunWorkerCompleted += worker_RecognitionCompleted;
 
-            //worker.DoWork += worker_DoRecognition;
-            //worker.RunWorkerCompleted += worker_RecognitionCompleted;
-            if (!isMatlabExecuting)
+            emgWindowThreadData = new ThreadLocal<List<Array>>(() => e.EmgWindow);
+
+            if (myWindow==0)
             {
+
                 worker.RunWorkerAsync();
                 mv.CurrentWindow = mv.WindowCount;
             }
 
-            mv.WindowCount++;
+            //mv.WindowCount++;
+            myWindow++;
             
         }
+
+        private int myWindow =0;
 
         private void worker_DoRecognition(object sender, DoWorkEventArgs e)
         {
@@ -216,8 +229,7 @@ namespace CrustCrawlerApp
 
             object result = null;
             var time0 = DateTime.UtcNow;
-            
-            var EmgWindow = e.Argument as List<double[]>;
+            var EmgWindow = emgWindowThreadData.Value;
 
             matlab.Feval("posePredictor", 1, out result,
                         EmgWindow.ElementAt(0),
@@ -229,6 +241,7 @@ namespace CrustCrawlerApp
                         EmgWindow.ElementAt(6),
                         EmgWindow.ElementAt(7));
 
+            mv.CurrentWindow = myWindow;
 
             var time1 = DateTime.UtcNow;
             var calTime = time1 - time0;
@@ -236,6 +249,7 @@ namespace CrustCrawlerApp
             var res = result as object[];
 
             e.Result = (string)res[0];
+            mv.CurrentPose = "Pose:  " + e.Result;
 
 
         }
@@ -244,14 +258,14 @@ namespace CrustCrawlerApp
         private bool isMatlabExecuting = false;
 
         private void worker_RecognitionCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-
+        {            
             var res = (string) e.Result;
 
             switch (res)
             {
                 case "RightFingerSpreadBue":
                     OpenClaw();
+                    
                     break;
 
                 case "RightClosedBue":
@@ -262,7 +276,29 @@ namespace CrustCrawlerApp
                     break;
             }
 
-            isMatlabExecuting = false;
+            worker2.RunWorkerAsync();
+        }
+        
+        private void worker2_RecognitionCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            var res = (string)e.Result;
+
+            switch (res)
+            {
+                case "RightFingerSpreadBue":
+
+                    OpenClaw();
+                    break;
+
+                case "RightClosedBue":
+                    CloseClaw();
+                    break;
+
+                case "RightRelaxedBue":
+                    break;
+            }
+            worker.RunWorkerAsync();
+
         }
 
 

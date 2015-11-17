@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CrustCrawlerApp.WindControl;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,9 +19,12 @@ namespace CrustCrawlerApp
 
         //private ObservableCollection<string> _printOutList = new ObservableCollection<string>();
         private List<string> _printOutPoseList = new List<string>();
+        IDisplayPose mv;
 
-        public EmgWindowRecognition(int windowSize)
+
+        public EmgWindowRecognition(int windowSize, IDisplayPose mv)
         {
+            this.mv = mv;
             windSize = windowSize;
             System.Array tmpArray;
             myoControl = new MyoEmgController(this);
@@ -49,10 +53,10 @@ namespace CrustCrawlerApp
             sampleCount++;
             if (sampleCount == windSize)
             {
+                mv.WindowCount++;
                 var windowTime = DateTime.UtcNow;
                 OnWindowFilled(new EmgWindEventArgs(emgWindowContainer,windowTime));
                 sampleCount = 0;
-
             }
         }
 
