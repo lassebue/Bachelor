@@ -38,7 +38,7 @@
 			    HorizontalAlignment="Left" Margin="151,77,0,0" VerticalAlignment="Top"/>
             
             <!--buttons-->
-            <StackPanel Margin="409,65,71,96">
+            <StackPanel Margin="409,65,71,0">
                 
                 <!--Open claw-->
                 <Button Content="Open Claw" DataContext="{DynamicResource mainVm}"

@@ -166,8 +166,13 @@ namespace CrustCrawlerApp
             var path = dirBefore[0];
 
             // Change to the directory where the matlab function folder is located 
-            var changeDir = "cd('" + path + "')";
+            var changeDir = @"cd('" + path + "')";
             matlab.Execute(changeDir);
+
+            //Load Library Dynamixel.dll
+            object result = null;
+            matlab.Feval("LoadLib", 0, out result);
+            
         }
 
         //private void worker_DoWork(object sender, DoWorkEventArgs e)
