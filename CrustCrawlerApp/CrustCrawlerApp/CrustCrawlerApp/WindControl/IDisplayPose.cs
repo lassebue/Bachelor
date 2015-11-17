@@ -5,5 +5,6 @@ namespace CrustCrawlerApp.WindControl
     {
         string CurrentPose { get; set; }
         int WindowCount { get; set; }
+        int CurrentWindow { get; set; }
     }
 }

@@ -1,41 +1,31 @@
-﻿using MvvmFoundation.Wpf;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using CrustCrawlerApp;
+using MvvmFoundation.Wpf;
 
 namespace CrustCrawlerApp.WindControl
 {
     //private readonly BackgroundWorker worker = new BackgroundWorker();
 
 
-
-    public class MainVM: INotifyPropertyChanged, IDisplayPose
+    public class MainVM : INotifyPropertyChanged, IDisplayPose
     {
-
-        private EmgWindowRecognition windRecogn;
+        private string _currentPose;
 
         // Skal ikke initeres her!!!
         // Skal nok have et interface!
-        private InitMatlab _im;
-        public InitMatlab MatlabInit
-        {
-            get { return _im; }
-            set { _im = value; }
-        }
+
+        private int _windowCount;
+
+        private EmgWindowRecognition windRecogn;
 
         public MainVM()
         {
-            MatlabInit = new InitMatlab( this );
+            MatlabInit = new InitMatlab(this);
         }
 
-        private int _windowCount = 0;
+        public InitMatlab MatlabInit { get; set; }
 
         public int WindowCount
         {
@@ -47,19 +37,43 @@ namespace CrustCrawlerApp.WindControl
             }
         }
 
-        private string _currentPose;
         public string CurrentPose
         {
             get { return _currentPose; }
-            set 
+            set
             {
                 _currentPose = value;
                 Notify();
             }
         }
 
+
+        private int _currentWindow;
+
+        public int CurrentWindow
+        {
+            get { return _currentWindow; }
+            set
+            {
+                _currentWindow = value;
+                Notify();
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void Notify([CallerMemberName] string propName = null)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propName));
+            }
+        }
+
         // UI commands
+
         #region Check Orientation
+
         private ICommand _checkOrientationCommand;
 
         public ICommand CheckOrientationCommandHandler
@@ -71,18 +85,18 @@ namespace CrustCrawlerApp.WindControl
         private void CheckOrientation()
         {
             //var sprintList = ((IEmgSaver)Application.Current.FindResource("SprintListModel"));
-            var myoControl =  new MyoController();
-            myoControl.OrientationReceived += new OrientationEventHandler(UpdateOrientation);
-            
+            var myoControl = new MyoController();
+            myoControl.OrientationReceived += UpdateOrientation;
+
             MessageBox.Show("Orientation stuff wtf!!!!");
 
-            myoControl.OrientationReceived -= new OrientationEventHandler(UpdateOrientation);
+            myoControl.OrientationReceived -= UpdateOrientation;
 
             myoControl.Dispose();
-
         }
 
         private string _orientation = "";
+
         public string Orientation
         {
             get { return _orientation; }
@@ -93,27 +107,27 @@ namespace CrustCrawlerApp.WindControl
             }
         }
 
-        private void UpdateOrientation( object sender, OrientationEventArgs e)
+        private void UpdateOrientation(object sender, OrientationEventArgs e)
         {
-            Orientation = "Orientation: "+ e.Orientation;
+            Orientation = "Orientation: " + e.Orientation;
         }
 
         #endregion
 
         #region Start Recognition
 
-        public void StartRecognition()
-        {
-            windRecogn = new EmgWindowRecognition(128);
-            MatlabInit.EmgRecognition = windRecogn;
-            MatlabInit.StartEmgRecognition();
-        }
-
         private ICommand _startRecognCommand;
 
         public ICommand StartRecognCommandHandler
         {
             get { return _startRecognCommand ?? (_startRecognCommand = new RelayCommand(StartRecognition)); }
+        }
+
+        public void StartRecognition()
+        {
+            windRecogn = new EmgWindowRecognition(128);
+            MatlabInit.EmgRecognition = windRecogn;
+            MatlabInit.StartEmgRecognition();
         }
 
         #endregion
@@ -130,12 +144,12 @@ namespace CrustCrawlerApp.WindControl
         public void StopRecognition()
         {
             MatlabInit.StopEmgRecognition();
-
         }
 
         #endregion
 
         #region Open Claw
+
         private ICommand _openClawCommand;
 
         public ICommand openClawCommandHandler
@@ -147,9 +161,11 @@ namespace CrustCrawlerApp.WindControl
         {
             MatlabInit.OpenClaw();
         }
+
         #endregion
 
         #region Close Claw
+
         private ICommand _closeClawCommand;
 
         public ICommand closeClawCommandHandler
@@ -161,9 +177,11 @@ namespace CrustCrawlerApp.WindControl
         {
             MatlabInit.CloseClaw();
         }
+
         #endregion
 
         #region exit
+
         private ICommand _exitCommand;
 
         public ICommand exitCommandHandler
@@ -177,17 +195,5 @@ namespace CrustCrawlerApp.WindControl
         }
 
         #endregion
-
-        
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void Notify([CallerMemberName]string propName = null)
-        {
-            if (this.PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propName));
-            }
-
-        }
     }
 }
