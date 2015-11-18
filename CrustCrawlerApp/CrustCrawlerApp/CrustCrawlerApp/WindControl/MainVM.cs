@@ -17,15 +17,25 @@ namespace CrustCrawlerApp.WindControl
 
         public InitMatlab MatlabInit { get; set; }
 
+
+        private int _currentWindow;
+        private int _windowCount;
         private EmgWindowRecognition windRecogn;
 
         public MainVM()
         {
-            MatlabInit = new InitMatlab(this);
+            matlab = new Matlab();
+            ccm = new CCManagement();
+            Rec = new Recognition(this);
+            //MatlabInit = new InitMatlab(this);
         }
 
         #region Window count. For Test!!!!
         private int _windowCount;
+        public CCManagement ccm { get; set; }
+        public Recognition Rec { get; set; }
+        public Matlab matlab { get; set; }
+        //public InitMatlab MatlabInit { get; set; }
 
         public int WindowCount
         {
@@ -72,6 +82,7 @@ namespace CrustCrawlerApp.WindControl
         private string _userName = "Username";
 
         public string UserName
+        public int CurrentWindow
         {
             get { return _userName; }
             set
@@ -149,9 +160,12 @@ namespace CrustCrawlerApp.WindControl
 
         public void StartRecognition()
         {
-            windRecogn = new EmgWindowRecognition(128,this);
-            MatlabInit.EmgRecognition = windRecogn;
-            MatlabInit.StartEmgRecognition();
+            windRecogn = new EmgWindowRecognition(128, this);
+
+            Rec.WindowRecognition = windRecogn;
+            Rec.StartEmgRecognition();
+            //MatlabInit.EmgRecognition = windRecogn;
+            //MatlabInit.StartEmgRecognition();
         }
 
         #endregion
@@ -167,7 +181,8 @@ namespace CrustCrawlerApp.WindControl
 
         public void StopRecognition()
         {
-            MatlabInit.StopEmgRecognition();
+            Rec.StopEmgRecognition();
+            //MatlabInit.StopEmgRecognition();
         }
 
         #endregion
@@ -183,7 +198,8 @@ namespace CrustCrawlerApp.WindControl
 
         private void OpenClaw()
         {
-            MatlabInit.OpenClaw();
+            ccm.OpenClaw();
+            //MatlabInit.OpenClaw();
         }
 
         #endregion
@@ -199,7 +215,8 @@ namespace CrustCrawlerApp.WindControl
 
         private void CloseClaw()
         {
-            MatlabInit.CloseClaw();
+            ccm.CloseClaw();
+            //MatlabInit.CloseClaw();
         }
 
         #endregion

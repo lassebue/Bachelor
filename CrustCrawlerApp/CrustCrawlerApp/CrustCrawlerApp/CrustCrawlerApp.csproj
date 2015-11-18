@@ -53,11 +53,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="CCManagement.cs" />
     <Compile Include="EmgDataSample.cs" />
     <Compile Include="EmgWindowSaver.cs" />
     <Compile Include="IEmgWindowRecognition.cs" />
     <Compile Include="InitMatlab.cs" />
+    <Compile Include="Matlab.cs" />
     <Compile Include="MyoController.cs" />
+    <Compile Include="Recognition.cs" />
     <Compile Include="WindControl\IDisplayPose.cs" />
     <Compile Include="WindControl\MainVM.cs" />
     <Compile Include="WindControl\RelayCommand.cs" />
@@ -92,6 +95,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="ClassDiagram1.cd" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

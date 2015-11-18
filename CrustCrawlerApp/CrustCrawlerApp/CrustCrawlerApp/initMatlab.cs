@@ -10,36 +10,27 @@ namespace CrustCrawlerApp
 {
     public class InitMatlab
     {
-        public delegate void DoWorkEventHandler(object sender, DoRecognitionEventArgs e);
-
-        public delegate void OrientationEventHandler(object sender, OrientationEventArgs e);
-
-        private readonly IDisplayPose mv;
-
-        private readonly BackgroundWorker worker = new BackgroundWorker();
-        private readonly BackgroundWorker worker2 = new BackgroundWorker();
-
-        private ThreadLocal<List<Array>> emgWindowThreadData;
-
-        private MLApp.MLApp matlab; // = new MLApp.MLApp();
-
-        private int myWindow;
+        private readonly IDisplayPose mv;                                       //Flyttet -> Recogn & Matlab
+        private readonly BackgroundWorker worker = new BackgroundWorker();      //Flyttet -> Recogn & Matlab
+        private readonly BackgroundWorker worker2 = new BackgroundWorker();     //Flyttet -> Recogn
+        private ThreadLocal<List<Array>> emgWindowThreadData;                   //Flyttet -> Recogn
+        private MLApp.MLApp matlab; // = new MLApp.MLApp();                     //Flyttet -> CCM & Matlab & Recogn
+        private int myWindow;                                                   //Flyttet -> Recogn
 
 
         // Inits the matlab server and start the predictions of the server 
-        public InitMatlab(IDisplayPose mv)
+        public InitMatlab(IDisplayPose mv)                                      //Flyttet -> Matlab
         {
             this.mv = mv;
-
-            // Inits the matlab server and start the predictions of the server 
+ 
             worker.DoWork += worker_DoWork;
             worker.RunWorkerCompleted += worker_RunWorkerCompleted;
             worker.RunWorkerAsync();
         }
 
-        public EmgWindowRecognition EmgRecognition { get; set; }
+        public EmgWindowRecognition EmgRecognition { get; set; }                //Flyttet -> Recogn
 
-        public void OpenClaw()
+        public void OpenClaw()                                                  //Flyttet -> CCM
         {
             object result = null;
 
@@ -52,7 +43,7 @@ namespace CrustCrawlerApp
             }
         }
 
-        public void CloseClaw()
+        public void CloseClaw()                                                 //Flyttet -> CCM
         {
             object result = null;
 
@@ -65,7 +56,7 @@ namespace CrustCrawlerApp
             }
         }
 
-        public void StartEmgRecognition()
+        public void StartEmgRecognition()                                       //Flyttet -> Recogn
         {
             if (EmgRecognition != null)
             {
@@ -78,7 +69,7 @@ namespace CrustCrawlerApp
             }
         }
 
-        public void StopEmgRecognition()
+        public void StopEmgRecognition()                                        //Flyttet -> Recogn
         {
             if (EmgRecognition != null)
             {
@@ -96,7 +87,7 @@ namespace CrustCrawlerApp
         }
 
 
-        private void RecognizeEmgWindow(object sender, EmgWindEventArgs e)
+        private void RecognizeEmgWindow(object sender, EmgWindEventArgs e)      //Flyttet -> Recogn
         {
             object result = null;
 
@@ -110,7 +101,7 @@ namespace CrustCrawlerApp
             }
         }
 
-        private void worker_DoRecognition(object sender, DoWorkEventArgs e)
+        private void worker_DoRecognition(object sender, DoWorkEventArgs e)     //Flyttet -> Recogn
         {
             object result = null;
             var EmgWindow = emgWindowThreadData.Value;
@@ -133,7 +124,7 @@ namespace CrustCrawlerApp
             mv.CurrentPose = "Pose:  " + e.Result;
         }
 
-        private void ActionOnPose(string pose, BackgroundWorker worker)
+        private void ActionOnPose(string pose, BackgroundWorker worker)         //Flyttet -> Recogn
         {
             switch (pose)
             {
@@ -152,24 +143,24 @@ namespace CrustCrawlerApp
             worker.RunWorkerAsync();
         }
 
-        private void worker_RecognitionCompleted(object sender, RunWorkerCompletedEventArgs e)
+        private void worker_RecognitionCompleted(object sender, RunWorkerCompletedEventArgs e) //Flyttet -> Recogn
         {
             var res = (string) e.Result;
             ActionOnPose(res, worker2);
         }
 
-        private void worker2_RecognitionCompleted(object sender, RunWorkerCompletedEventArgs e)
+        private void worker2_RecognitionCompleted(object sender, RunWorkerCompletedEventArgs e) //Flyttet -> Recogn
         {
             var res = (string) e.Result;
             ActionOnPose(res, worker);
         }
 
-        private void worker_DoWork(object sender, DoWorkEventArgs e)
+        private void worker_DoWork(object sender, DoWorkEventArgs e)            //Flyttet -> Matlab
         {
             e.Result = new MLApp.MLApp();
         }
 
-        private void worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        private void worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e) //Flytte -> Matlab
         {
             matlab = ((MLApp.MLApp) e.Result);
 
@@ -198,16 +189,6 @@ namespace CrustCrawlerApp
 
             worker.DoWork -= worker_DoWork;
             worker.RunWorkerCompleted -= worker_RunWorkerCompleted;
-        }
-
-        public class DoRecognitionEventArgs : DoWorkEventArgs
-        {
-            public DoRecognitionEventArgs(object argument, List<Array> emgWindow) : base(argument)
-            {
-                EmgWindow = emgWindow;
-            }
-
-            public List<Array> EmgWindow { get; private set; }
         }
     }
 }
