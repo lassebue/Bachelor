@@ -58,7 +58,6 @@
     <Compile Include="IEmgWindowRecognition.cs" />
     <Compile Include="IMyoEmgController.cs" />
     <Compile Include="InitMatlab.cs" />
-    <Compile Include="MatlabIni.cs" />
     <Compile Include="MyoController.cs" />
     <Compile Include="WindControl\IDisplayPose.cs" />
     <Compile Include="WindControl\MainVM.cs" />
