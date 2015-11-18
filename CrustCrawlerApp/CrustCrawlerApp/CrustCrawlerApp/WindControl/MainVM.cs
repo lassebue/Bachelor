@@ -11,31 +11,24 @@ namespace CrustCrawlerApp.WindControl
 
     public class MainVM : INotifyPropertyChanged, IDisplayPose
     {
-
-        // Skal ikke initeres her!!!
-        // Skal nok have et interface!
-
-        public InitMatlab MatlabInit { get; set; }
-
-
-        private int _currentWindow;
-        private int _windowCount;
         private EmgWindowRecognition windRecogn;
 
+        public CCManagement ccm { get; set; }
+        public Recognition Rec { get; set; }
+        public Matlab matlab { get; set; }
+        
         public MainVM()
         {
             matlab = new Matlab();
             ccm = new CCManagement();
             Rec = new Recognition(this);
-            //MatlabInit = new InitMatlab(this);
         }
+
+
 
         #region Window count. For Test!!!!
         private int _windowCount;
-        public CCManagement ccm { get; set; }
-        public Recognition Rec { get; set; }
-        public Matlab matlab { get; set; }
-        //public InitMatlab MatlabInit { get; set; }
+
 
         public int WindowCount
         {
@@ -82,7 +75,6 @@ namespace CrustCrawlerApp.WindControl
         private string _userName = "Username";
 
         public string UserName
-        public int CurrentWindow
         {
             get { return _userName; }
             set
