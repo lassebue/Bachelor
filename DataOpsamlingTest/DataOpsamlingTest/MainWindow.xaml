@@ -15,8 +15,8 @@
                 Data Collection
             </TextBlock>
         </Grid>
-        
-        
+
+
         <!--Menu bar-->
         <Menu Height="20" VerticalAlignment="Top" IsMainMenu="True">
             <MenuItem Header="_File" VerticalAlignment="Center">
@@ -29,20 +29,20 @@
                           Command="{Binding exitCommandHandler}"/>
             </MenuItem>
         </Menu>
-        
+
         <!--2 column StackPanel-->
         <StackPanel Orientation="Horizontal" Height="321">
-            
+
             <!--1. column-->
             <StackPanel Width="200" Margin="5,0,0,0" DataContext="{DynamicResource emgDataSet}">
-                
+
                 <!--Check orientation Btn-->
                 <Button Content="Check Orientation" Name="OrientationCheckBtn"
                         DataContext="{DynamicResource controller}"
                         Command="{Binding CheckOrientationCommandHandler}"
                         Margin="5,5,5,0"
                         Height="25"/>
-                
+
                 <!--Roll Label-->
                 <Label HorizontalAlignment="Left" Content="{Binding Roll}"
                         DataContext="{DynamicResource controller}"  Margin="5,5,0,0">
@@ -53,7 +53,7 @@
                         Command="{Binding Path=NewPoseCommandHandler}" 
                         HorizontalAlignment="Left" Margin="5,5,0,0" VerticalAlignment="Top"
                         Width="118" Height="25"/>
-               
+
                 <!--Pose CB-->
                 <ComboBox Name="Pose" 
                         SelectedIndex="0"
@@ -61,34 +61,37 @@
                         DisplayMemberPath="PoseName"
                         SelectedItem="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type StackPanel}}, Path=DataContext.Pose}"
                         DataContext="{DynamicResource poseCollection}" 
-                        Text="Choose Hand"  Margin="5,50,5,5"
+                        Text="Choose Hand"  Margin="5,20,5,5"
                         Height="25">
                 </ComboBox>
-                
+
                 <!--Left/Right Hand CB-->
                 <ComboBox Name="HandSelector" SelectedIndex="{Binding Hand}" 
                         DataContext="{DynamicResource emgDataSet}"  Text="Choose Hand"
-                        Margin="5,31,5,5"
+                        Margin="5,20,5,5"
                         Height="25">
                     <ComboBoxItem IsSelected="False" Content="Left Hand"/>
                     <ComboBoxItem IsSelected="True" Content="Right Hand"/>
                 </ComboBox>
-                
+
+                <TextBox Height="25" VerticalContentAlignment="Center" TextWrapping="Wrap"
+                         Margin="5,31,5,5" Text="{Binding UserName}" DataContext="{DynamicResource emgDataSet}" />
+
                 <!--Save Data Btn-->
                 <Button Content="_Save Data" Name="SaveDataBtn"
                         DataContext="{DynamicResource controller}"
                         Command="{Binding Path=SaveEmgDataCommandHandler}"
-                        Margin="5,58,5,5"
+                        Margin="5,20,5,5"
                         Height="25"/>
             </StackPanel>
-            
+
             <!--2. column-->
             <StackPanel Width="380" Margin="5,5,0,5">
                 <ListBox Name="MyList" DataContext="{DynamicResource controller}" 
                         IsSynchronizedWithCurrentItem="True"
                         ItemsSource="{Binding Printer.PrintOutList}"
                         Height="250"/>
-                
+
                 <!--4 buttons-->
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                     <StackPanel Width="190">
@@ -114,7 +117,7 @@
                                 Command="{Binding DeleteDataCommandHandler}"
                                 Margin="2.5,5,0,0"
                                 Height="25"/>
-                        
+
                         <!--Exti Btn-->
                         <Button Content="_Exit" DataContext="{DynamicResource controller}"
                                 Command="{Binding exitCommandHandler}"
@@ -125,7 +128,7 @@
             </StackPanel>
         </StackPanel>
 
-        <!--Process bar-->   
+        <!--Process bar-->
         <StatusBar Margin="0,0,0,0" Height="20">
             <ProgressBar Minimum="0" DataContext="{DynamicResource controller}" Maximum="100" Value="{Binding FileProgress}" Height="10" Width="150"></ProgressBar>
         </StatusBar>

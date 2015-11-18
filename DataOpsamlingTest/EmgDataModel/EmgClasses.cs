@@ -155,6 +155,7 @@ namespace EmgDataModel
 
         public EmgDataSet() { 
             Orientation = -1;
+            UserName = "Username";
         }
 
         // left hand = 0, right hand = 1

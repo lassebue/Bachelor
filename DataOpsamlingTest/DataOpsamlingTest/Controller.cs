@@ -60,9 +60,13 @@ namespace DataOpsamlingTest
             {
                 MessageBox.Show("You must check the orientation before recording!");
             }
+            else if (dataSet.UserName == "Username")
+            {
+                MessageBox.Show("Choose a username.\n You should always use the same username! ");
+            }
+
             else
             {
-                //MessageBox.Show("recording stuff");
                 SaveFileDialog saveFileDia = new SaveFileDialog();
                 saveFileDia.Filter = "csv|*.csv";
                 if (saveFileDia.ShowDialog() == true)
@@ -72,19 +76,13 @@ namespace DataOpsamlingTest
 
                     // ---------------------------------------------------------"BueBaby!" is a tmp user !!!!
                     dataSet.EmgDataFile = saveFileDia.FileName;
-                    dataSet.UserName = "BueBaby!";
 
-                    //var newDataSet = new EmgDataSet(dataSet.Orientation, dataSet.Hand, "BueBaby!", dataSet.Pose, saveFileDia.FileName);
                     _emgLogger = new EmgFileSavers(dataSet);
                     Printer = new EmgPrinterSaver();
 
                     myoControl = new MyoEmgController();
-                    //InitMyo();
-                    //_channel.StartListening();
                 }
-
             }
-            //var sprintList = ((IEmgSaver)Application.Current.FindResource("SprintListModel"));
         }
         #endregion
 
