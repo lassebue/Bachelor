@@ -58,8 +58,14 @@
     <Compile Include="EmgWindowSaver.cs" />
     <Compile Include="IEmgWindowRecognition.cs" />
     <Compile Include="InitMatlab.cs" />
+    <Compile Include="Poses\ClosedHandPose.cs" />
+    <Compile Include="Poses\IPoseHandlerMkI.cs" />
     <Compile Include="Matlab.cs" />
     <Compile Include="MyoController.cs" />
+    <Compile Include="Poses\IPoseHandlerMkII.cs" />
+    <Compile Include="Poses\OpenHandPose.cs" />
+    <Compile Include="Poses\Pose.cs" />
+    <Compile Include="Poses\RelaxedHandPose.cs" />
     <Compile Include="Recognition.cs" />
     <Compile Include="WindControl\IDisplayPose.cs" />
     <Compile Include="WindControl\MainVM.cs" />
