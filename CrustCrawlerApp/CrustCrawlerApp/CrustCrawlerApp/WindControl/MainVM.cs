@@ -11,12 +11,11 @@ namespace CrustCrawlerApp.WindControl
 
     public class MainVM : INotifyPropertyChanged, IDisplayPose
     {
-        private string _currentPose;
 
         // Skal ikke initeres her!!!
         // Skal nok have et interface!
 
-        private int _windowCount;
+        public InitMatlab MatlabInit { get; set; }
 
         private EmgWindowRecognition windRecogn;
 
@@ -25,7 +24,8 @@ namespace CrustCrawlerApp.WindControl
             MatlabInit = new InitMatlab(this);
         }
 
-        public InitMatlab MatlabInit { get; set; }
+        #region Window count. For Test!!!!
+        private int _windowCount;
 
         public int WindowCount
         {
@@ -36,18 +36,10 @@ namespace CrustCrawlerApp.WindControl
                 Notify();
             }
         }
+        #endregion 
 
-        public string CurrentPose
-        {
-            get { return _currentPose; }
-            set
-            {
-                _currentPose = value;
-                Notify();
-            }
-        }
-
-
+        
+        #region Current window. For test!!!
         private int _currentWindow;
 
         public int CurrentWindow
@@ -59,7 +51,38 @@ namespace CrustCrawlerApp.WindControl
                 Notify();
             }
         }
+        #endregion  
 
+
+        #region Current pose
+        private string _currentPose;
+
+        public string CurrentPose
+        {
+            get { return _currentPose; }
+            set
+            {
+                _currentPose = value;
+                Notify();
+            }
+        }
+        #endregion 
+        
+        #region Username
+        private string _userName = "Username";
+
+        public string UserName
+        {
+            get { return _userName; }
+            set
+            {
+                _userName = value;
+                Notify();
+            }
+        }
+        #endregion 
+
+        #region INotify
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected void Notify([CallerMemberName] string propName = null)
@@ -69,6 +92,7 @@ namespace CrustCrawlerApp.WindControl
                 PropertyChanged(this, new PropertyChangedEventArgs(propName));
             }
         }
+        #endregion
 
         // UI commands
 

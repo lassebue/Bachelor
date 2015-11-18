@@ -56,7 +56,6 @@
     <Compile Include="EmgDataSample.cs" />
     <Compile Include="EmgWindowSaver.cs" />
     <Compile Include="IEmgWindowRecognition.cs" />
-    <Compile Include="IMyoEmgController.cs" />
     <Compile Include="InitMatlab.cs" />
     <Compile Include="MyoController.cs" />
     <Compile Include="WindControl\IDisplayPose.cs" />

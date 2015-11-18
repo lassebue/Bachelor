@@ -5,7 +5,7 @@
         Title="MainWindow" Height="386" Width="600"
         ResizeMode="NoResize" WindowStyle="None"
         AllowsTransparency="True">
-    
+
     <StackPanel>
         <!--Title bar-->
         <Grid Height="25" Background="#FF5EB0EA" MouseLeftButtonDown="titleBar_MouseLeftButtonDown">
@@ -24,54 +24,61 @@
                           Command="{Binding exitCommandHandler}"/>
             </MenuItem>
         </Menu>
+        <Grid Height="341" >
 
-        <Grid Height="341">
-            
             <!--Check Orientation-->
             <Button Content="Check Orientation" Command="{Binding CheckOrientationCommandHandler}"
-			    DataContext="{DynamicResource mainVm}" HorizontalAlignment="Left"
-			    Margin="151,108,0,0" VerticalAlignment="Top"
-			    Height="25" Width="100"/>
+        		DataContext="{DynamicResource mainVm}" HorizontalAlignment="Left"
+        		Margin="151,108,0,0" VerticalAlignment="Top"
+        		Height="25" Width="100"/>
 
             <!--Roll label-->
             <Label Content="{Binding Orientation}" DataContext="{DynamicResource mainVm}"
-			    HorizontalAlignment="Left" Margin="151,77,0,0" VerticalAlignment="Top"/>
-            
+        		HorizontalAlignment="Left" Margin="151,77,0,0" VerticalAlignment="Top"/>
+
             <!--buttons-->
-            <StackPanel Margin="409,65,71,0">
-                
+            <StackPanel Margin="414,55,66,10">
+
                 <!--Open claw-->
                 <Button Content="Open Claw" DataContext="{DynamicResource mainVm}"
-                        Command="{Binding openClawCommandHandler}"
-                        Height="25" Width="100" Margin="0,5,0,0"/>
+        			Command="{Binding openClawCommandHandler}"
+        			Height="25" Width="100" Margin="0,5,0,0"/>
 
                 <!--Close Claw-->
                 <Button Content="Close Claw" DataContext="{DynamicResource mainVm}"
-                        Command="{Binding closeClawCommandHandler}"
-                        Height="25" Width="100" Margin="0,5,0,0"/>
-                
+        			Command="{Binding closeClawCommandHandler}"
+        			Height="25" Width="100" Margin="0,5,0,0"/>
+
                 <!--Start recogn-->
                 <Button Content="Start Recognition" DataContext="{DynamicResource mainVm}"
-                        Command="{Binding StartRecognCommandHandler}"
-                        Height="25" Width="100" Margin="0,5,0,0"/>
+        			Command="{Binding StartRecognCommandHandler}"
+        			Height="25" Width="100" Margin="0,5,0,0"/>
 
                 <!--Stop Recogn-->
                 <Button Content="Stop Recognition" DataContext="{DynamicResource mainVm}"
-                        Command="{Binding StopRecognCommandHandler}"
-                        Height="25" Width="100" Margin="0,5,0,0"/>
-                
+        			Command="{Binding StopRecognCommandHandler}"
+        			Height="25" Width="100" Margin="0,5,0,0"/>
+
                 <!--Exit-->
                 <Button Content="Exit" DataContext="{DynamicResource mainVm}"
-                        Command="{Binding exitCommandHandler}"
-                        Height="25" Width="100" Margin="0,5,0,0"/>
+        			Command="{Binding exitCommandHandler}"
+        			Height="25" Width="100" Margin="0,5,0,0"/>
+                <!--UserName-->
+                <TextBox HorizontalAlignment="Center" Height="25" Width="100"
+                	TextWrapping="Wrap" Text="{Binding UserName}" Margin="0,5,0,0"
+                         VerticalContentAlignment="Center" 
+                         DataContext="{DynamicResource mainVm}"/>
+
             </StackPanel>
             <Label Content="{Binding CurrentPose}" HorizontalAlignment="Left" Margin="51,177,0,0"
-                   DataContext="{DynamicResource mainVm}" VerticalAlignment="Top" Width="300"/>
+        		DataContext="{DynamicResource mainVm}" VerticalAlignment="Top" Width="300"/>
             <Label Content="{Binding WindowCount}" DataContext="{DynamicResource mainVm}" 
-                   Height="25" Width="100" Margin="51,192,249,104"/>
+        		Height="25" Width="100" Margin="51,192,249,104"/>
             <Label Content="{Binding CurrentWindow}" DataContext="{DynamicResource mainVm}" 
-                   Height="25" Width="100" Margin="309,192,191,124"/>
+        		Height="25" Width="100" Margin="309,192,191,124"/>
+
 
         </Grid>
+        <TextBlock TextWrapping="Wrap" Text="TextBlock"/>
     </StackPanel>
 </Window>
