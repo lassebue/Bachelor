@@ -19,9 +19,9 @@ namespace CrustCrawlerApp.Poses
 
         public override void PoseAction(IPoseHandlerMkI handler)
         {
-            CallClosedHandAction(handler);
+            CallClosedHandAction((IPoseHandlerMkII)handler);
         }
-        public void CallClosedHandAction(IPoseHandlerMkI handler)
+        public void CallClosedHandAction(IPoseHandlerMkII handler)
         {
             handler.ClosedHandPoseAction();
         }

@@ -22,9 +22,9 @@ namespace CrustCrawlerApp.WindControl
             matlab = new Matlab();
 
             // synes kun der skal være en instance af CCManagement
-            Rec = new Recognition(this);
+            ccm = new CCManagement();
+            Rec = new Recognition(this,ccm);
 
-            ccm = new CCManagement(Rec);
         }
 
         #region Window count. For Test!!!!

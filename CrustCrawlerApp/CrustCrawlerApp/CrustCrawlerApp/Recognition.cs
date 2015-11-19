@@ -15,7 +15,7 @@ namespace CrustCrawlerApp
     public class Recognition: IListenToRecognition
     {
         private readonly IDisplayPose mv;
-        private CCManagement ccm;
+        private IPoseListener poseListener;
 
         private readonly BackgroundWorker worker = new BackgroundWorker();
         private readonly BackgroundWorker worker2 = new BackgroundWorker();
@@ -26,11 +26,11 @@ namespace CrustCrawlerApp
 
         private int myWindow;
 
-        public Recognition(IDisplayPose mv)
+        public Recognition(IDisplayPose mv, IPoseListener poseListener)
         {
             this.mv = mv;
+            this.poseListener = poseListener;
 
-            ccm = new CCManagement(this);
         }
 
         public event PoseRecognizedHandler PoseRecognized;
@@ -50,12 +50,12 @@ namespace CrustCrawlerApp
             {
                 case "RightFingerSpreadBue":
                     pose = new OpenHandPose();
-                    ccm.OpenClaw();
+                    //ccm.OpenClaw();
                     break;
 
                 case "RightClosedBue":
                     pose = new ClosedHandPose();
-                    ccm.CloseClaw();
+                    //ccm.CloseClaw();
                     break;
 
                 case "RightRelaxedBue":
@@ -72,6 +72,9 @@ namespace CrustCrawlerApp
                 WindowRecognition.WindowFilled += RecognizeEmgWindow;
 
                 worker.DoWork += worker_DoRecognition;
+
+                poseListener.StartListening(this);
+
                 worker.RunWorkerCompleted += worker_RecognitionCompleted;
                 worker2.DoWork += worker_DoRecognition;
                 worker2.RunWorkerCompleted += worker2_RecognitionCompleted;
@@ -84,6 +87,9 @@ namespace CrustCrawlerApp
             {
                 WindowRecognition.WindowFilled -= RecognizeEmgWindow;
                 worker.DoWork -= worker_DoRecognition;
+
+                poseListener.StopListening(this);
+
                 worker.RunWorkerCompleted -= worker_RecognitionCompleted;
 
                 worker2.DoWork -= worker_DoRecognition;
