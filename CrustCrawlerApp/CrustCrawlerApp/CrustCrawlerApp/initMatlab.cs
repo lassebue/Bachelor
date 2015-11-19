@@ -89,7 +89,7 @@ namespace CrustCrawlerApp
 
         private void RecognizeEmgWindow(object sender, EmgWindEventArgs e)      //Flyttet -> Recogn
         {
-            object result = null;
+            //object result = null;
 
             emgWindowThreadData = new ThreadLocal<List<Array>>(() => e.EmgWindow);
 

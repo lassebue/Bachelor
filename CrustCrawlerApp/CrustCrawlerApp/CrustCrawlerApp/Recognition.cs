@@ -4,12 +4,19 @@ using System.ComponentModel;
 using System.Linq;
 using System.Threading;
 using CrustCrawlerApp.WindControl;
+using CrustCrawlerApp.Poses;
 
 namespace CrustCrawlerApp
 {
-    public class Recognition
+    public interface IListenToRecognition
+    {
+        event PoseRecognizedHandler PoseRecognized;
+    }
+    public class Recognition: IListenToRecognition
     {
         private readonly IDisplayPose mv;
+        private CCManagement ccm;
+
         private readonly BackgroundWorker worker = new BackgroundWorker();
         private readonly BackgroundWorker worker2 = new BackgroundWorker();
 
@@ -22,27 +29,39 @@ namespace CrustCrawlerApp
         public Recognition(IDisplayPose mv)
         {
             this.mv = mv;
+
+            ccm = new CCManagement(this);
+        }
+
+        public event PoseRecognizedHandler PoseRecognized;
+
+        protected virtual void OnPoseRecognized(PoseRecognizedEventArgs e)
+        {
+            if (PoseRecognized != null)
+                PoseRecognized(this, e);
         }
 
         public EmgWindowRecognition WindowRecognition { get; set; }
 
-
-        private void ActionOnPose(string pose, BackgroundWorker worker)
+        private void ActionOnPose(string poseName, BackgroundWorker worker)
         {
-            var ccm = new CCManagement();
-            switch (pose)
+            Pose pose = null;
+            switch (poseName)
             {
                 case "RightFingerSpreadBue":
+                    pose = new OpenHandPose();
                     ccm.OpenClaw();
                     break;
 
                 case "RightClosedBue":
+                    pose = new ClosedHandPose();
                     ccm.CloseClaw();
                     break;
 
                 case "RightRelaxedBue":
                     break;
             }
+            OnPoseRecognized(new PoseRecognizedEventArgs(pose));
             worker.RunWorkerAsync();
         }
 
@@ -78,7 +97,7 @@ namespace CrustCrawlerApp
 
         private void RecognizeEmgWindow(object sender, EmgWindEventArgs e)
         {
-            object result = null;
+            //object result = null;
 
             emgWindowThreadData = new ThreadLocal<List<Array>>(() => e.EmgWindow);
 

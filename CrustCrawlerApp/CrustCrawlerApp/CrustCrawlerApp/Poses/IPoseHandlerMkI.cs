@@ -8,9 +8,8 @@ namespace CrustCrawlerApp
 {
     public interface IPoseHandlerMkI
     {
-        public void RelaxedHandPoseAction();
-        public void ClosedHandPoseAction();
-        public void OpenHandPoseAction();
-
+        void RelaxedHandPoseAction();
+        void ClosedHandPoseAction();
+        void OpenHandPoseAction();
     }
 }

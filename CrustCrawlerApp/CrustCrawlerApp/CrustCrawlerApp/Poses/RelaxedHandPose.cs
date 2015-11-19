@@ -8,12 +8,18 @@ namespace CrustCrawlerApp.Poses
 {
     class RelaxedHandPose:Pose
     {
-        public RelaxedHandPose(string poseName, int poseId )   : base( poseName, poseId )
+        public RelaxedHandPose()
         {
-
+            _poseName = "RelaxedHand";
+            _poseId = 2;
         }
 
-        public void CallRelaxedHandAction(IPoseHandlerMkII handler)
+        public override void PoseAction(IPoseHandlerMkI handler)
+        {
+            CallRelaxedHandAction(handler);
+        }
+
+        public void CallRelaxedHandAction(IPoseHandlerMkI handler)
         {
             handler.RelaxedHandPoseAction();
         }

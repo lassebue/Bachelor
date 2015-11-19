@@ -143,7 +143,6 @@ namespace CrustCrawlerApp
 
         private int _sampleCount = 0;
         private IEmgWindowRecognition emgWindRecogn;
-        private readonly int windSize = 256;
         private List<System.Array> emgWindowContainer = new List<Array>(8);
         
 

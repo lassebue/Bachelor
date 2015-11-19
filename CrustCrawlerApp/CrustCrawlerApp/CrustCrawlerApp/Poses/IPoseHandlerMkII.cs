@@ -8,8 +8,7 @@ namespace CrustCrawlerApp.Poses
 {
     public interface IPoseHandlerMkII : IPoseHandlerMkI
     {
-        public void VictoryHandPose();
-        public void HeldLeftHandPose();
-
+        void VictoryHandPose();
+        void HeldLeftHandPose();
     }
 }

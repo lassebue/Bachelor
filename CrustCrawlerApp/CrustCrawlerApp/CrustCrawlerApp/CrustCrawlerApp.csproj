@@ -65,6 +65,7 @@
     <Compile Include="Poses\IPoseHandlerMkII.cs" />
     <Compile Include="Poses\OpenHandPose.cs" />
     <Compile Include="Poses\Pose.cs" />
+    <Compile Include="Poses\PoseRecognizedEventArgs.cs" />
     <Compile Include="Poses\RelaxedHandPose.cs" />
     <Compile Include="Recognition.cs" />
     <Compile Include="WindControl\IDisplayPose.cs" />

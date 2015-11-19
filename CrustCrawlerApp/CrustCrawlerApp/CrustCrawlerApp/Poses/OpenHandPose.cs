@@ -8,12 +8,18 @@ namespace CrustCrawlerApp.Poses
 {
     class OpenHandPose: Pose
     {
-        public OpenHandPose(string poseName, int poseId )   : base( poseName, poseId )
+        public OpenHandPose()
         {
-
+            _poseName = "OpenHand";
+            _poseId = 0;
         }
 
-        public void CallOpenHandAction(IPoseHandlerMkII handler)
+        public override void PoseAction(IPoseHandlerMkI handler)
+        {
+            CallOpenHandAction(handler);
+        }
+
+        public void CallOpenHandAction(IPoseHandlerMkI handler)
         {
             handler.OpenHandPoseAction();
         }
