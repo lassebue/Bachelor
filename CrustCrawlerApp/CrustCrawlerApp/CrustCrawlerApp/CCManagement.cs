@@ -7,7 +7,7 @@ namespace CrustCrawlerApp
         void StartListening(IListenToRecognition recogn);
         void StopListening(IListenToRecognition recogn);
     }
-    public class CCManagement: IPoseHandlerMkI, IDisposable, IPoseListener
+    public class CCManagement: IPoseHandlerMkI, IPoseListener
     {
         private readonly Matlab matlab = new Matlab();
         private readonly int speed = 120;
@@ -48,10 +48,6 @@ namespace CrustCrawlerApp
             OpenClaw();
         }
 
-        public void Dispose()
-        {
-            //_mv.PoseRecognized -= RecognizedPose;
-        }
 
         public void StartListening(IListenToRecognition recognition)
         {
