@@ -50,18 +50,19 @@ namespace CrustCrawlerApp
             {
                 case "RightFingerSpreadBue":
                     pose = new OpenHandPose();
+                    OnPoseRecognized(new PoseRecognizedEventArgs(new OpenHandPose()));
+
                     //ccm.OpenClaw();
                     break;
 
                 case "RightClosedBue":
-                    pose = new ClosedHandPose();
-                    //ccm.CloseClaw();
+                    OnPoseRecognized(new PoseRecognizedEventArgs(new ClosedHandPose()));
+
                     break;
 
                 case "RightRelaxedBue":
                     break;
             }
-            OnPoseRecognized(new PoseRecognizedEventArgs(pose));
             worker.RunWorkerAsync();
         }
 

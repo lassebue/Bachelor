@@ -16,10 +16,10 @@ namespace CrustCrawlerApp.Poses
 
         public override void PoseAction(IPoseHandlerMkI handler)
         {
-            CallRelaxedHandAction((IPoseHandlerMkII)handler);
+            CallRelaxedHandAction(handler);
         }
 
-        public void CallRelaxedHandAction(IPoseHandlerMkII handler)
+        public void CallRelaxedHandAction(IPoseHandlerMkI handler)
         {
             handler.RelaxedHandPoseAction();
         }
