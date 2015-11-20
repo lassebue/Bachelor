@@ -9,7 +9,7 @@ namespace CrustCrawlerApp
     public class Matlab
     {
         private readonly BackgroundWorker worker = new BackgroundWorker();
-        public MLApp.MLApp matlab = new MLApp.MLApp();
+        public MLApp.MLApp matlab;
 
         // Inits the matlab server and start the predictions of the server 
         public Matlab()
@@ -69,6 +69,20 @@ namespace CrustCrawlerApp
             return res;
         }
 
+        public object MatlabZeroParam(string funcName, int noOfOutputs)
+        {
+            object res = null;
+            try
+            {
+                matlab.Feval(funcName, noOfOutputs, out res);
+            }
+            catch (Exception e )
+            {
+                e.ToString();
+                //NB! Unknown exeption which causes no damage
+            }
+            return res;
+        }
         public object MatlabOneParam(string funcName, int noOfOutputs, object param1)
         {
             object res = null;
@@ -89,6 +103,20 @@ namespace CrustCrawlerApp
             try
             {
                 matlab.Feval("posePredictor", noOfOutputs, out res, param1, param2, param3, param4, param5, param6, param7, param8);
+            }
+            catch (Exception)
+            {
+                //NB! Unknown exeption which causes no damage
+            }
+            return res;
+        }
+
+        public object MatlabNineParam(string funcName, int noOfOutputs, object param1, object param2, object param3, object param4, object param5, object param6, object param7, object param8, object param9 )
+        {
+            object res = null;
+            try
+            {
+                matlab.Feval("posePredictor", noOfOutputs, out res, param1, param2, param3, param4, param5, param6, param7, param8, param9);
             }
             catch (Exception)
             {

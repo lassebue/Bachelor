@@ -33,6 +33,6 @@ newPoseTrainingData = [meanData stdData cpaData table(orientation)];
 
 load('MediumGaussianSvm')
 predictedCats = mediumGaussianSvm.predictFcn(newPoseTrainingData);
-% abe = char(predictedCats(1));
-abe = getPoseId(mediumGaussianSvm.ClassificationSVM.ClassNames,predictedCats(1));
+predictedCats
+abe = getPoseId(mediumGaussianSvm.ClassificationSVM.ClassNames,predictedCats(1))
 end

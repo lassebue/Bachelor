@@ -16,7 +16,9 @@ namespace CrustCrawlerApp
     {
         private readonly IDisplayPose mv;
         private IPoseListener poseListener;
-
+        private List<int> modelPoseIds;
+        private List<Pose> poseList;
+        private List<Pose> modelPoseList;
         private readonly BackgroundWorker worker = new BackgroundWorker();
         private readonly BackgroundWorker worker2 = new BackgroundWorker();
 
@@ -30,7 +32,10 @@ namespace CrustCrawlerApp
         {
             this.mv = mv;
             this.poseListener = poseListener;
+            modelPoseIds = new List<int>();
 
+            // List of poses to compare with matlab recognition result. If new poses are added to the system, they should be added here too!
+            poseList = new List<Pose>() { new OpenHandPose(), new ClosedHandPose(), new RelaxedHandPose() };
         }
 
         public event PoseRecognizedHandler PoseRecognized;
@@ -43,26 +48,16 @@ namespace CrustCrawlerApp
 
         public EmgWindowRecognition WindowRecognition { get; set; }
 
-        private void ActionOnPose(string poseName, BackgroundWorker worker)
+        private void ActionOnPose(int poseId, BackgroundWorker worker)
         {
-            Pose pose = null;
-            switch (poseName)
-            {
-                case "RightFingerSpreadBue":
-                    pose = new OpenHandPose();
-                    OnPoseRecognized(new PoseRecognizedEventArgs(new OpenHandPose()));
+            mv.CurrentWindow = mv.WindowCount;
 
-                    //ccm.OpenClaw();
-                    break;
+            var pose = poseList.Find(x => x.PoseId == poseId);
 
-                case "RightClosedBue":
-                    OnPoseRecognized(new PoseRecognizedEventArgs(new ClosedHandPose()));
+            mv.CurrentPose = "Pose: " + pose.PoseName;
 
-                    break;
+            OnPoseRecognized(new PoseRecognizedEventArgs(pose));
 
-                case "RightRelaxedBue":
-                    break;
-            }
             worker.RunWorkerAsync();
         }
 
@@ -104,23 +99,41 @@ namespace CrustCrawlerApp
 
         private void RecognizeEmgWindow(object sender, EmgWindEventArgs e)
         {
-            //object result = null;
-
             emgWindowThreadData = new ThreadLocal<List<Array>>(() => e.EmgWindow);
 
             if (myWindow == 0)
             {
-                worker.RunWorkerAsync();
+                //setModelPoseIds();
+                 worker.RunWorkerAsync();
                 mv.CurrentWindow = mv.WindowCount;
                 myWindow++;
             }
         }
+        //private void setModelPoseIds()
+        //{
+        //    var res = matlab.MatlabZeroParam("getModelPoseIds", 1);
+        //    var objArray = res as object[];
+        //    System.Array idArray = objArray[0] as System.Array;
+        //    var length = idArray.Length;
+        //    int[] pos = new int[2];
+
+        //    int id;
+
+        //    for (int i = 0; i < length; i++)
+        //    {
+        //        pos = new int[2] { 0, i };
+        //        id = (int)((double)idArray.GetValue(pos));
+
+        //        modelPoseList.Add(poseList.Find(x => x.PoseId == id));
+        //    }
+            
+        //}
 
         private void worker_DoRecognition(object sender, DoWorkEventArgs e)
         {
             var emgWindow = emgWindowThreadData.Value;
 
-            var res = matlab.MatlabEightParam("posePredictor", 1,
+            var res = matlab.MatlabNineParam("posePredictor", 1,
                 emgWindow.ElementAt(0),
                 emgWindow.ElementAt(1),
                 emgWindow.ElementAt(2),
@@ -128,25 +141,24 @@ namespace CrustCrawlerApp
                 emgWindow.ElementAt(4),
                 emgWindow.ElementAt(5),
                 emgWindow.ElementAt(6),
-                emgWindow.ElementAt(7));
+                emgWindow.ElementAt(7),
+                100
+                );
 
             var result = res as object[];
 
-            e.Result = (string)result[0];
-            mv.CurrentWindow = mv.WindowCount;
-
-            mv.CurrentPose = "Pose:  " + e.Result;
+            e.Result = (int)((double)result[0]);
         }
 
         private void worker_RecognitionCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            var res = (string) e.Result;
+            var res = (int) e.Result;
             ActionOnPose(res, worker2);
         }
 
         private void worker2_RecognitionCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            var res = (string) e.Result;
+            var res = (int) e.Result;
             ActionOnPose(res, worker);
         }
     }

@@ -1,7 +1,5 @@
 function abe = posePredictor(emg1CollectionInput,emg2CollectionInput,emg3CollectionInput,...
-    emg4CollectionInput,emg5CollectionInput,emg6CollectionInput,emg7CollectionInput,emg8CollectionInput)
-
-
+    emg4CollectionInput,emg5CollectionInput,emg6CollectionInput,emg7CollectionInput,emg8CollectionInput,orientation)
 
 emg1Collection = [];
 emg2Collection = [];
@@ -31,9 +29,10 @@ stdData     = varfun(@windStd,rawSenorData);
 cpaData     = varfun(@windPca,rawSenorData); 
 
 
-newPoseTrainingData = [meanData stdData cpaData];
+newPoseTrainingData = [meanData stdData cpaData table(orientation)];
 
-load('SubSpaceModel')
-predictedCats = subspaceKNN.predictFcn(newPoseTrainingData)  %(newPoseTrainingData);
-abe = char(predictedCats(1));
+load('MediumGaussianSvm')
+predictedCats = mediumGaussianSvm.predictFcn(newPoseTrainingData);
+% abe = char(predictedCats(1));
+abe = getPoseId(mediumGaussianSvm.ClassificationSVM.ClassNames,predictedCats(1));
 end

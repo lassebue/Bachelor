@@ -125,6 +125,7 @@ namespace CrustCrawlerApp.WindControl
 
         private string _orientation = "";
 
+        public int OrientationValue { get; set; }
         public string Orientation
         {
             get { return _orientation; }
@@ -137,7 +138,8 @@ namespace CrustCrawlerApp.WindControl
 
         private void UpdateOrientation(object sender, OrientationEventArgs e)
         {
-            Orientation = "Orientation: " + e.Orientation;
+            OrientationValue = e.Orientation;
+            Orientation = "Orientation: " + OrientationValue;
         }
 
         #endregion
