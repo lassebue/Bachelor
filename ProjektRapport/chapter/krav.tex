@@ -1,13 +1,10 @@
 \thispagestyle{fancy}
-\chapter{Krav}
-\label{chp:krav}
-I det følgende kapitel vil de funktionelle krave blive fremsat ud fra systembe- skrivelsen i kapitel \ref{chp:systembeskrivelse} og de forskellige aktører som er beskrevet i sektion \ref{sec:aktorbeskrivelser}.
-Systemets krav bliver opsat i use cases, som medvirker til at danne overblik over, hvordan systemets krav bliver opfyldt og hvordan de forskellige aktører relaterer til systemet.
-
 \section{Funktionalle krav}
 \label{sec:funktionellekrav}
+I det følgende afsnit vil de funktionelle krave blive fremsat ud fra systembe- skrivelsen i kapitel \ref{chp:systembeskrivelse} og de forskellige aktører som er beskrevet i sektion \ref{sec:aktorbeskrivelser}.
+Systemets krav bliver opsat i use cases, som medvirker til at danne overblik over, hvordan systemets krav bliver opfyldt og hvordan de forskellige aktører relaterer til systemet.
 
-\subsection{Aktørbeskrivelser}
+\subsection*{Aktørbeskrivelser}
 \label{sec:aktorbeskrivelser}
 De tre forskellige aktører Testperson, Bruger og CrustCrawler er beskrevet herunder.
 
@@ -20,8 +17,8 @@ Brugeren har en Myo-armband på og bruger genkendelssoftwaren til at styre en Cr
 \subsubsection{CrustCrawler}
 CrustCrawleren er en robotarm med en gribeklo. Denne bruges som en anvendelse af genkendelssoftwaren, hvor den ville kunne reagere på forskellige poses der kan laves af brugeren.
 
-\subsection{Tabel over funktionelle krav}
-I følgende tabel \ref{tab:funktionellekrav} ses alle de funktionelle krav der stilles til systemet.
+\subsection*{Tabel over funktionelle krav}
+I tabel \ref{tab:funktionellekrav} ses alle de funktionelle krav der stilles til systemet.
 \bgroup
 \def\arraystretch{1.8}
 \begin{center}
@@ -46,7 +43,7 @@ I følgende tabel \ref{tab:funktionellekrav} ses alle de funktionelle krav der s
 \end{center}
 \egroup
 
-\subsection{Use Case beskrivelser}
+\subsection*{Use Case beskrivelser}
 For at kunne dække de forskellige funktionelle krav opstilles der en række Use cases. Her er de forskellige use Cases gennemgået og beskrevet.
 
 \subsubsection{Se vejledning}
@@ -54,13 +51,10 @@ Her skal testpersonen have mulighed for at få en hurtig vejledning i hvordan da
 
 \subsubsection{Indsaml datasæt og tilføj ny pose}
 Testpersonen skal kunne indsamle et nyt datasæt og derefter tilføje det til en kategori, så som "knyttet hånd". Herefter uploades det til den fælles data collection. Disse Use Cases dækker krav \#2, 3, 4 og 5.
-
 \subsubsection{Slet datasæt}
 Det skal være muligt for testpersonen at kunne slette de datasæt som han selv har uploaded i data collection. Denne Use Case dækker krav \#6
-
 \subsubsection{Genkendelse af pose}
 Brugeren skal med genkendelsessoftwaren genkende en bestem pose som brugeren laver med Myo armband på. Dette er med henblik på at anvende det videre på noget andet. Denne Use Case dækker krav \#7
-
 \subsubsection{Åbn og luk CrustCrawler greb}
 Brugeren skal kunne lade CrustCrawleren greb åbne og lukke på kommando efter man laver knyttet hånd eller åben hånd. Det er her at anvendelsen er i brug. Disse Use Cases dækker krav \#8 og 9
 
@@ -68,8 +62,8 @@ Brugeren skal kunne lade CrustCrawleren greb åbne og lukke på kommando efter m
 \label{sec:ikkefunktionellekrav}
 I følgende kapitel beskrives systemets ikke funktionelle krav. Disse har ikke en direkte effekt på systemets funktionalitet, men i højere grad omfanget og kvaliteten af systemet, samt nogle generelle valg, der er truffet i forbindelse med projektet.
 
-\subsection{Dataopsamling}
-Dataopsamlingsprogrammet der sammen med et Myo armband anvendes af testpersonen, som er beskrevet i tabel \ref{tab:testperson}, har følgende ikke funktionelle krav.
+\subsection*{Dataopsamling}
+Dataopsamlingsprogrammet der sammen med et Myo armband anvendes af testpersonen, som er beskrevet i tabel \ref{tab:testperson}\todoall{hvilken tabel}, har følgende ikke funktionelle krav.
 
 \subsubsection{Brugergrænseflade}
 Dataopsamling skal anvendes af testpersonen der har en Myo til opsamling af data. Brugergrænsefladen skal være så enkelt som muligt. \todoall{Ændre her hvis ikke vi gør det ud fra Jakob Nielsens designprincipper} Derfor arbejdes der ud fra Jakob Nielsens design principper. Hvilket gør at testpersonen får en god oplevelse med systemet.
@@ -77,13 +71,13 @@ Dataopsamling skal anvendes af testpersonen der har en Myo til opsamling af data
 \subsubsection{Datasamling}
 Det ønskes at alle ejerer af et Myo armbånd skal kunne bidrage til systemets datasamling, derfor er det besluttet, at datasamlingen skal være online. Ligeledes vil det, med en online datasamling, kunne lade sig gøre at tilgå dataene fra flere computere samtidigt, således at behov udenfor projektafgrænsninger vil kunne dækkes. På trods af at datasamlingen ligger online, kan der stadig være behov for at opsamle data selvom man ikke er online, og dette skal også kunne gøres i en .csv fil, hvorefter det kan uploades når man har internetadgang.
 
-\subsection{Model træning}
+\subsection*{Model træning}
 Til systemet bruges Lasse Bue Svendsen og Kristoffer Sloth Gade som tespersoner, så det data vi anvender er målt på Lasse og Kristoffer. Gennem projektet og alle målingerne bruges der altid højre hånd for at gøre det mere enkelt at arbejde med.\\
 Når en pose laves skal der gå kortest mulig tid til at den er genkendt af algoritmen. Til anvendelse arbejdes der mod at der bruges én Myo ad gangen.
 
 
-\subsection{CrustCrawler}
+\subsection*{CrustCrawler}
 Af ikke funktoinelle krav til CrustCrawleren er at når åben hånd registreres begynder kloen at åbne, og slappes der af i hånden stoppper kloen der hvor den er kommet til. Kloen fungerer altså ikke som enten åben eller lukket, med at den åbner gradvist når bruger har åben hånd. Bruger vil altså kunne stoppe kloen halves hvis der er brug for dette.
 
-\subsection{Udvikling}
+\subsection*{Udvikling}
 Til udvikling af softwaren bruges der Jenkins som byggeserver, for at have automatiseret tests.
