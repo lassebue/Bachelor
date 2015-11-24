@@ -118,39 +118,41 @@ namespace DataOpsamlingTest
 
                 _emgLogger.FinalizeSave();
                 //MyoDispose();
-                MessageBoxResult result = MessageBox.Show("Would you like to save the recorded file online?", "DCA", MessageBoxButton.YesNo);
-                switch (result)
-                {
-                    case MessageBoxResult.Yes:
+
+                    MessageBoxResult result = MessageBox.Show("Would you like to save the recorded file online?", "DCA", MessageBoxButton.YesNo);
+                    switch (result)
+                    {
+                        case MessageBoxResult.Yes:
                         
-                        var dataSet = ((EmgDataSet)Application.Current.FindResource("emgDataSet"));
+                            var dataSet = ((EmgDataSet)Application.Current.FindResource("emgDataSet"));
 
-                        var newDataSet = new EmgDataSet(dataSet.Orientation, dataSet.Hand, dataSet.UserName, dataSet.Pose, dataSet.EmgDataFile);
+                            var newDataSet = new EmgDataSet(dataSet.Orientation, dataSet.Hand, dataSet.UserName, dataSet.Pose, dataSet.EmgDataFile);
 
-                        // Prepare for the csv file to be saved
-                        var pathArray = dataSet.EmgDataFile.Split('\\');
-                        var fileName = pathArray[pathArray.Length - 1];
+                            // Prepare for the csv file to be saved
+                            var pathArray = dataSet.EmgDataFile.Split('\\');
+                            var fileName = pathArray[pathArray.Length - 1];
 
-                        FileStream fs = new FileStream(newDataSet.EmgDataFile, FileMode.Open);
+                            FileStream fs = new FileStream(newDataSet.EmgDataFile, FileMode.Open);
 
-                        ParseFile file = new ParseFile(fileName,fs,null);
-                        SaveFileOnline(file, newDataSet);
+                            ParseFile file = new ParseFile(fileName,fs,null);
+                            SaveFileOnline(file, newDataSet);
 
-                        //dataSet.OnlineFile = file;
+                            //dataSet.OnlineFile = file;
 
-                        //dataSet["fileFile"] = file;
+                            //dataSet["fileFile"] = file;
 
-                        //SaveSomething(file);
+                            //SaveSomething(file);
 
-                        // Saves the dataSet in Parse.com
-                        //SaveDataSetOnline(dataSet);
+                            // Saves the dataSet in Parse.com
+                            //SaveDataSetOnline(dataSet);
 
 
-                        MessageBox.Show("Nice! It's been saved!", "DCA");
-                        break;
-                    case MessageBoxResult.No:
-                        break;
-                }
+                            MessageBox.Show("Nice! It's been saved!", "DCA");
+                            break;
+                        case MessageBoxResult.No:
+                            break;
+                    }
+
             }
             //System.Windows.Application.Current.Dispatcher.Invoke(
 

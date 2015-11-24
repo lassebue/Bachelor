@@ -31,8 +31,8 @@ cpaData     = varfun(@windPca,rawSenorData);
 
 newPoseTrainingData = [meanData stdData cpaData table(orientation)];
 
-load('MediumGaussianSvm')
-predictedCats = mediumGaussianSvm.predictFcn(newPoseTrainingData);
-predictedCats
+load('EnsembleBaggedTrees')
+predictedCats = ensembleBaggedTrees.predictFcn(newPoseTrainingData);
+% predictedCats
 abe = getPoseId(mediumGaussianSvm.ClassificationSVM.ClassNames,predictedCats(1))
 end

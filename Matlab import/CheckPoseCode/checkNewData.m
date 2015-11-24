@@ -39,8 +39,8 @@ cpaData     = varfun(@windPca,rawSenorData);
 
 newPoseTrainingData = [meanData stdData cpaData table(orientation)];
 %poseTrainingData.pose = cate;
-load('MediumGaussianSvm')
-abe = mediumGaussianSvm.predictFcn(newPoseTrainingData);
+load('EnsembleBaggedTreesWOri')
+abe = ensembleBaggedTrees.predictFcn(newPoseTrainingData);
 summary(abe)
 
 % [x,y] = myfunc(3,6,'world')

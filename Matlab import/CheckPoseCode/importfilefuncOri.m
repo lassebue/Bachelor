@@ -144,6 +144,7 @@ if(paddingTmp ~= 0)
     antal = antal-1;
 end
 
+testPersonNew(1,:)
 % categorical(A,catValues,catNames,'Ordinal',true)
 for k=1:antal
     cate = [cate; pose];
