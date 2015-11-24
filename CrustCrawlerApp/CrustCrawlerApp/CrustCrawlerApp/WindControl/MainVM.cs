@@ -22,8 +22,8 @@ namespace CrustCrawlerApp.WindControl
             matlab = new Matlab();
 
             // synes kun der skal være en instance af CCManagement
-            ccm = new CCManagement();
-            Rec = new Recognition(this,ccm);
+            ccm = new CCManagement(matlab);
+            Rec = new Recognition(this,ccm, matlab);
 
         }
 

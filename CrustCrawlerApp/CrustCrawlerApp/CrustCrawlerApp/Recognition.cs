@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading;
-using CrustCrawlerApp.WindControl;
 using CrustCrawlerApp.Poses;
+using CrustCrawlerApp.WindControl;
 
 namespace CrustCrawlerApp
 {
@@ -12,31 +12,34 @@ namespace CrustCrawlerApp
     {
         event PoseRecognizedHandler PoseRecognized;
     }
-    public class Recognition: IListenToRecognition
+
+    public class Recognition : IListenToRecognition
     {
+        private readonly IMatlab matlab;
         private readonly IDisplayPose mv;
-        private IPoseListener poseListener;
-        private List<int> modelPoseIds;
-        private List<Pose> poseList;
-        private List<Pose> modelPoseList;
         private readonly BackgroundWorker worker = new BackgroundWorker();
         private readonly BackgroundWorker worker2 = new BackgroundWorker();
 
         private ThreadLocal<List<Array>> emgWindowThreadData;
-
-        private readonly Matlab matlab = new Matlab();
+        private List<int> modelPoseIds;
+        private List<Pose> modelPoseList;
 
         private int myWindow;
+        private readonly List<Pose> poseList;
+        private readonly IPoseListener poseListener;
 
-        public Recognition(IDisplayPose mv, IPoseListener poseListener)
+        public Recognition(IDisplayPose mv, IPoseListener poseListener, IMatlab matlab)
         {
             this.mv = mv;
             this.poseListener = poseListener;
+            this.matlab = matlab;
             modelPoseIds = new List<int>();
 
             // List of poses to compare with matlab recognition result. If new poses are added to the system, they should be added here too!
-            poseList = new List<Pose>() { new OpenHandPose(), new ClosedHandPose(), new RelaxedHandPose() };
+            poseList = new List<Pose> {new OpenHandPose(), new ClosedHandPose(), new RelaxedHandPose()};
         }
+
+        public EmgWindowRecognition WindowRecognition { get; set; }
 
         public event PoseRecognizedHandler PoseRecognized;
 
@@ -45,8 +48,6 @@ namespace CrustCrawlerApp
             if (PoseRecognized != null)
                 PoseRecognized(this, e);
         }
-
-        public EmgWindowRecognition WindowRecognition { get; set; }
 
         private void ActionOnPose(int poseId, BackgroundWorker worker)
         {
@@ -104,11 +105,12 @@ namespace CrustCrawlerApp
             if (myWindow == 0)
             {
                 //setModelPoseIds();
-                 worker.RunWorkerAsync();
+                worker.RunWorkerAsync();
                 mv.CurrentWindow = mv.WindowCount;
                 myWindow++;
             }
         }
+
         //private void setModelPoseIds()
         //{
         //    var res = matlab.MatlabZeroParam("getModelPoseIds", 1);
@@ -126,7 +128,7 @@ namespace CrustCrawlerApp
 
         //        modelPoseList.Add(poseList.Find(x => x.PoseId == id));
         //    }
-            
+
         //}
 
         private void worker_DoRecognition(object sender, DoWorkEventArgs e)
@@ -158,7 +160,7 @@ namespace CrustCrawlerApp
 
             var result = res as object[];
 
-            e.Result = (int)((double)result[0]);
+            e.Result = (int) ((double) result[0]);
         }
 
         private void worker_RecognitionCompleted(object sender, RunWorkerCompletedEventArgs e)

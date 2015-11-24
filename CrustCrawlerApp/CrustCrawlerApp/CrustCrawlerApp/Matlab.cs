@@ -6,7 +6,16 @@ using System.Linq;
 
 namespace CrustCrawlerApp
 {
-    public class Matlab
+    public interface IMatlab
+    {
+        object MatlabFourParam(string funcName, int noOfOutputs, object param1, object param2, object param3);
+        object MatlabZeroParam(string funcName, int noOfOutputs);
+        object MatlabOneParam(string funcName, int noOfOutputs, object param1);
+        object MatlabEightParam(string funcName, int noOfOutputs, object param1, object param2, object param3, object param4, object param5, object param6, object param7, object param8);
+        object MatlabNineParam(string funcName, int noOfOutputs, object param1, object param2, object param3, object param4, object param5, object param6, object param7, object param8, object param9 );
+    }
+
+    public class Matlab : IMatlab
     {
         private readonly BackgroundWorker worker = new BackgroundWorker();
         public MLApp.MLApp matlab;
