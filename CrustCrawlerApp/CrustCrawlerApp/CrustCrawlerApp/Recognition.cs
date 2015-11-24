@@ -133,19 +133,7 @@ namespace CrustCrawlerApp
         {
             var emgWindow = emgWindowThreadData.Value;
 
-            //var res = matlab.MatlabNineParam("posePredictor", 1,
-            //    emgWindow.ElementAt(0),
-            //    emgWindow.ElementAt(1),
-            //    emgWindow.ElementAt(2),
-            //    emgWindow.ElementAt(3),
-            //    emgWindow.ElementAt(4),
-            //    emgWindow.ElementAt(5),
-            //    emgWindow.ElementAt(6),
-            //    emgWindow.ElementAt(7),
-            //    100
-            //    );
-
-            var res = matlab.MatlabEightParam("posePredictor2", 1,
+            var res = matlab.MatlabNineParam("posePredictor", 1,
                 emgWindow.ElementAt(0),
                 emgWindow.ElementAt(1),
                 emgWindow.ElementAt(2),
@@ -153,7 +141,19 @@ namespace CrustCrawlerApp
                 emgWindow.ElementAt(4),
                 emgWindow.ElementAt(5),
                 emgWindow.ElementAt(6),
-                emgWindow.ElementAt(7));
+                emgWindow.ElementAt(7),
+                mv.OrientationValue
+                );
+
+            //var res = matlab.MatlabEightParam("posePredictor2", 1,
+            //    emgWindow.ElementAt(0),
+            //    emgWindow.ElementAt(1),
+            //    emgWindow.ElementAt(2),
+            //    emgWindow.ElementAt(3),
+            //    emgWindow.ElementAt(4),
+            //    emgWindow.ElementAt(5),
+            //    emgWindow.ElementAt(6),
+            //    emgWindow.ElementAt(7));
 
 
             var result = res as object[];
