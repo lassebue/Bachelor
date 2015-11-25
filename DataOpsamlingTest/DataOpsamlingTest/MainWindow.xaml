@@ -5,7 +5,8 @@
         xmlns:model="clr-namespace:EmgDataModel;assembly=EmgDataModel"
         Title="MainWindow" Height="386" Width="600"
         ResizeMode="NoResize"
-        WindowStyle="None" AllowsTransparency="True">
+        WindowStyle="None" AllowsTransparency="True"
+        BorderBrush="#FF5EB0EA" BorderThickness="1">
 
     <StackPanel x:Name="FullStackPanel">
 
