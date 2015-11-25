@@ -24,6 +24,9 @@
                           DataContext="{DynamicResource controller}"
                           Command="{Binding instructionCommandHandler}"/>
                 <Separator/>
+                <MenuItem Header="Download online data"
+                          DataContext="{DynamicResource controller}"
+                          Command="{Binding DownloadDataCommandHandler}"/>
                 <MenuItem Header="Exit"
                           DataContext="{DynamicResource controller}"
                           Command="{Binding exitCommandHandler}"/>

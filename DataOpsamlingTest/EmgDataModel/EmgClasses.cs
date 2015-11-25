@@ -192,6 +192,8 @@ namespace EmgDataModel
             }
         }
 
+       
+
         // Between 0-360, if not within the that parameter, value = -1.
         [ParseFieldName("orientation")]
         public int Orientation

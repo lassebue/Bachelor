@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -64,7 +65,6 @@ namespace DataOpsamlingTest
             {
                 MessageBox.Show("Choose a username.\n You should always use the same username! ");
             }
-
             else
             {
                 SaveFileDialog saveFileDia = new SaveFileDialog();
@@ -179,7 +179,8 @@ namespace DataOpsamlingTest
                 // Check e.Progress to get the progress of the file upload
             })); 
             
-            dataSet["onlineFile"] = file;
+            //dataSet["onlineFile"] = file;
+            dataSet.OnlineFile = file;
             await dataSet.SaveAsync();
             //FileProgress = 75;
         }
@@ -261,6 +262,78 @@ namespace DataOpsamlingTest
             newPoseWind.ShowDialog();
         }
         #endregion
+
+        #region downloadDataOnline
+        private ICommand _downloadDataCommand;
+        private readonly BackgroundWorker worker = new BackgroundWorker();
+
+        public ICommand DownloadDataCommandHandler
+        {
+            get { return _downloadDataCommand ?? (_downloadDataCommand = new RelayCommand(DownloadData)); }
+        }
+
+        private void DownloadData()
+        {
+            GetEmgDataSet();
+        }
+        private async void GetEmgDataSet()
+        {
+            SaveFileDialog saveFileDia = new SaveFileDialog();
+            saveFileDia.Filter = "csv|*.csv";
+            saveFileDia.FileName = "Files will be saved here";
+
+            if (saveFileDia.ShowDialog() == true)
+            {
+                // Get the directory where the online files should be saved locally
+                var path = Path.GetDirectoryName(saveFileDia.FileName);
+
+                // Get list of EmgDataSet's
+                var query = ParseObject.GetQuery("EmgDataSet"); //new ParseQuery<EmgDataSet>();
+                IEnumerable<ParseObject> result = await query.FindAsync();
+
+
+                string fileName;
+                
+                Task.Factory.StartNew(() =>
+                {
+                                    
+                    foreach (var item in result)
+                    {
+                        fileName = path + "\\" + Path.GetFileName(item.Get<string>("emgDataFile"));
+
+                        var onlineFile = result.ElementAt(0).Get<ParseFile>("onlineFile");
+
+                        SaveOnlineFiles(fileName, onlineFile);
+                        
+                    }
+                });
+            }
+        }
+
+        private async void SaveOnlineFiles(string fileName, ParseFile file)
+        {
+            var fileContent = await new HttpClient().GetStringAsync(file.Url);
+
+            if (!File.Exists(fileName))
+            {
+                // Create the .csv data file locally
+                StreamWriter streamWriter = File.CreateText(fileName);
+                streamWriter.Write(fileContent);
+                streamWriter.Dispose();
+            }
+            else
+            {
+                // Create the existing data file and saves the new 
+                File.Delete(fileName);
+                StreamWriter streamWriter = File.CreateText(fileName);
+                streamWriter.Write(fileContent);
+                streamWriter.Dispose();
+            }
+        }
+
+
+        #endregion
+
 
         #region exit
         private ICommand _exitCommand;

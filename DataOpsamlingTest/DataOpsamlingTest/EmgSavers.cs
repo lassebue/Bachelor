@@ -197,8 +197,6 @@ namespace DataOpsamlingTest
                     // Saves the current samples in the file 
                     using (StreamWriter streamWriter = File.AppendText(_filePath))
                     {
-
-
                         foreach (var item in dataList)
                         {
                             if (dataList.IndexOf(item) == 0)
