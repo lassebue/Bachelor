@@ -46,12 +46,12 @@ namespace CrustCrawlerApp
             recognition.PoseRecognized += RecognizedPose;
         }
 
-        public void OpenClaw()
+        private void OpenClaw()
         {
             matlab.MatlabOneParam("OpenClaw", 0, speed);
         }
 
-        public void CloseClaw()
+        private void CloseClaw()
         {
             matlab.MatlabOneParam("CloseClaw", 0, speed);
         }

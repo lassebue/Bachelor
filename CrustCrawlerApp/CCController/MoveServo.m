@@ -9,7 +9,7 @@ function MoveServo(id,deg,speed)
     %Set up Dynamixel API
     fullPathToLibrary = 'dynamixel';
     res = calllib(fullPathToLibrary,'dxl_initialize',4,1);
-
+R=0
     if res == 1         
         goalPosition = 512+(deg/0.29);
         %dynamixel 1

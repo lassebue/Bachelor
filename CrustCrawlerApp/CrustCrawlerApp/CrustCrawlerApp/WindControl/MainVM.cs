@@ -6,9 +6,6 @@ using MvvmFoundation.Wpf;
 
 namespace CrustCrawlerApp.WindControl
 {
-    //private readonly BackgroundWorker worker = new BackgroundWorker();
-
-
     public class MainVM : INotifyPropertyChanged, IDisplayPose
     {
         private EmgWindowRecognition windRecogn;
@@ -20,10 +17,8 @@ namespace CrustCrawlerApp.WindControl
         public MainVM()
         {
             matlab = new Matlab();
-
-            // synes kun der skal være en instance af CCManagement
             ccm = new CCManagement(matlab);
-            Rec = new Recognition(this,ccm, matlab);
+            Rec = new Recognition(this, ccm, matlab);
 
         }
 
@@ -41,7 +36,6 @@ namespace CrustCrawlerApp.WindControl
             }
         }
         #endregion 
-
         
         #region Current window. For test!!!
         private int _currentWindow;
@@ -56,7 +50,6 @@ namespace CrustCrawlerApp.WindControl
             }
         }
         #endregion  
-
 
         #region Current pose
         private string _currentPose;
@@ -159,8 +152,6 @@ namespace CrustCrawlerApp.WindControl
 
             Rec.WindowRecognition = windRecogn;
             Rec.StartEmgRecognition();
-            //MatlabInit.EmgRecognition = windRecogn;
-            //MatlabInit.StartEmgRecognition();
         }
 
         #endregion
@@ -177,7 +168,6 @@ namespace CrustCrawlerApp.WindControl
         public void StopRecognition()
         {
             Rec.StopEmgRecognition();
-            //MatlabInit.StopEmgRecognition();
         }
 
         #endregion
@@ -193,8 +183,7 @@ namespace CrustCrawlerApp.WindControl
 
         private void OpenClaw()
         {
-            ccm.OpenClaw();
-            //MatlabInit.OpenClaw();
+            ccm.OpenHandPoseAction();
         }
 
         #endregion
@@ -210,8 +199,7 @@ namespace CrustCrawlerApp.WindControl
 
         private void CloseClaw()
         {
-            ccm.CloseClaw();
-            //MatlabInit.CloseClaw();
+            ccm.ClosedHandPoseAction();
         }
 
         #endregion

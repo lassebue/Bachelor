@@ -31,7 +31,6 @@ I tabel \ref{tab:funktionellekrav} ses alle de funktionelle krav der stilles til
 			Krav 3:& tilføje ny pose\\
 			Krav 4:& Gemme datasæt\\
 			Krav 5:& Uploade datasæt til data collection\\
-			Krav 6:& Slette datasæt fra data collection\\
 			\rowcolor{grey}En Bruger skal kunne: &\\
 			Krav 7:& Genkende en pose vha. genkendelsessoftwaren\\
 			Krav 8:& Lave knyttet næve så CrustCrawler lukker sammen\\
@@ -51,8 +50,6 @@ Her skal testpersonen have mulighed for at få en hurtig vejledning i hvordan da
 
 \subsubsection{Indsaml datasæt og tilføj ny pose}
 Testpersonen skal kunne indsamle et nyt datasæt og derefter tilføje det til en kategori, så som "knyttet hånd". Herefter uploades det til den fælles data collection. Disse Use Cases dækker krav \#2, 3, 4 og 5.
-\subsubsection{Slet datasæt}
-Det skal være muligt for testpersonen at kunne slette de datasæt som han selv har uploaded i data collection. Denne Use Case dækker krav \#6
 \subsubsection{Genkendelse af pose}
 Brugeren skal med genkendelsessoftwaren genkende en bestem pose som brugeren laver med Myo armband på. Dette er med henblik på at anvende det videre på noget andet. Denne Use Case dækker krav \#7
 \subsubsection{Åbn og luk CrustCrawler greb}
@@ -78,6 +75,3 @@ Når en pose laves skal der gå kortest mulig tid til at den er genkendt af algo
 
 \subsection*{CrustCrawler}
 Af ikke funktoinelle krav til CrustCrawleren er at når åben hånd registreres begynder kloen at åbne, og slappes der af i hånden stoppper kloen der hvor den er kommet til. Kloen fungerer altså ikke som enten åben eller lukket, med at den åbner gradvist når bruger har åben hånd. Bruger vil altså kunne stoppe kloen halves hvis der er brug for dette.
-
-\subsection*{Udvikling}
-Til udvikling af softwaren bruges der Jenkins som byggeserver, for at have automatiseret tests.
