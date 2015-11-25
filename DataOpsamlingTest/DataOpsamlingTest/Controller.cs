@@ -293,8 +293,12 @@ namespace DataOpsamlingTest
 
 
                 string fileName;
+
+                var fileCount = result.Count();
+                int currentFileCount = 0;
+                FileProgress = 0;
                 
-                Task.Factory.StartNew(() =>
+                Task.Factory.StartNew(() => 
                 {
                                     
                     foreach (var item in result)
@@ -304,6 +308,10 @@ namespace DataOpsamlingTest
                         var onlineFile = result.ElementAt(0).Get<ParseFile>("onlineFile");
 
                         SaveOnlineFiles(fileName, onlineFile);
+
+                        currentFileCount++;
+
+                        FileProgress = currentFileCount / fileCount * 100;
                         
                     }
                 });
