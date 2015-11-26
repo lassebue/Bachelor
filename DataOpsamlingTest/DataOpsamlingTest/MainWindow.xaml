@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:DataOpsamlingTest"
         xmlns:model="clr-namespace:EmgDataModel;assembly=EmgDataModel"
-        Title="MainWindow" Height="386" Width="600"
+        Title="MainWindow" Height="386" Width="522"
         ResizeMode="NoResize"
         WindowStyle="None" AllowsTransparency="True"
         BorderBrush="#FF5EB0EA" BorderThickness="1">
@@ -83,7 +83,7 @@
             </StackPanel>
 
             <!--2. column-->
-            <StackPanel Width="380" Margin="5,5,0,5">
+            <StackPanel Margin="5,5,0,5">
                 <ListBox Name="MyList" DataContext="{DynamicResource controller}" 
                         IsSynchronizedWithCurrentItem="True"
                         ItemsSource="{Binding Printer.PrintOutList}"
@@ -91,7 +91,7 @@
 
                 <!--4 buttons-->
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                    <StackPanel Width="190">
+                    <StackPanel Width="150">
 
                         <!--Record EMG Data Btn-->
                         <Button Content="_Record EMG Data" Name="RecordDataBtn"
@@ -107,7 +107,7 @@
                                 Margin="0,5,2.5,0"
                                 Height="25"/>
                     </StackPanel>
-                    <StackPanel Width="190">
+                    <StackPanel Width="150">
 
                         <!--Exti Btn-->
                         <Button Content="_Exit" DataContext="{DynamicResource controller}"
