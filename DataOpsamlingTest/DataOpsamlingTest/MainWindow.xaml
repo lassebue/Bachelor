@@ -80,13 +80,6 @@
 
                 <TextBox Height="25" VerticalContentAlignment="Center" TextWrapping="Wrap"
                          Margin="5,31,5,5" Text="{Binding UserName}" DataContext="{DynamicResource emgDataSet}" />
-
-                <!--Save Data Btn-->
-                <Button Content="_Save Data" Name="SaveDataBtn"
-                        DataContext="{DynamicResource controller}"
-                        Command="{Binding Path=SaveEmgDataCommandHandler}"
-                        Margin="5,20,5,5"
-                        Height="25"/>
             </StackPanel>
 
             <!--2. column-->
@@ -115,12 +108,6 @@
                                 Height="25"/>
                     </StackPanel>
                     <StackPanel Width="190">
-
-                        <!--Delete Data Btn-->
-                        <Button Content="_Delete Data"   DataContext="{DynamicResource controller}"
-                                Command="{Binding DeleteDataCommandHandler}"
-                                Margin="2.5,5,0,0"
-                                Height="25"/>
 
                         <!--Exti Btn-->
                         <Button Content="_Exit" DataContext="{DynamicResource controller}"

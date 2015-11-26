@@ -65,7 +65,7 @@ namespace MyoSharp.Communication
         /// <param name="myoErrorHandlerDriver">The error handler driver. Cannot be <c>null</c>.</param>
         /// <returns>Returns a new <see cref="IChannelDriver"/> instance.</returns>
         /// <exception cref="System.ArgumentNullException">
-        /// The exception that is thrown when <paramref name="channelBridge"/> or <paramref name="myoErrorHandlerDriver" is null.
+        /// The exception that is thrown when <paramref name="channelBridge"/> or <paramref name="myoErrorHandlerDriver"/> is null.
         /// </exception>
         public static IChannelDriver Create(IChannelBridge channelBridge, IMyoErrorHandlerDriver myoErrorHandlerDriver)
         {

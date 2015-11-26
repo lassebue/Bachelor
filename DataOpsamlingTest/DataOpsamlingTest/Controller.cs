@@ -26,20 +26,6 @@ namespace DataOpsamlingTest
         // Fields
         private bool _recording;
         // UI Commands
-        #region saveData
-        private ICommand _saveEmgDataCommand;
-
-        public ICommand SaveEmgDataCommandHandler
-        {
-            get { return _saveEmgDataCommand ?? (_saveEmgDataCommand = new RelayCommand(SaveEmgData)); }
-        }
-
-        private void SaveEmgData()
-        {
-            //var sprintList = ((IEmgSaver)Application.Current.FindResource("SprintListModel"));
-            MessageBox.Show("Save stuff wtf!!!!");
-        }
-        #endregion
 
         #region startRecording
         private ICommand _startDataRecordingCommand;
@@ -227,21 +213,6 @@ namespace DataOpsamlingTest
                 //    break;
 
             }
-        }
-        #endregion
-
-        #region deleteData
-        private ICommand _deleteDataCommand;
-
-        public ICommand DeleteDataCommandHandler
-        {
-            get { return _deleteDataCommand ?? (_deleteDataCommand = new RelayCommand(DeleteDataRecording)); }
-        }
-
-        private void DeleteDataRecording()
-        {
-            //var sprintList = ((IEmgSaver)Application.Current.gResource("SprintListModel"));
-            MessageBox.Show("Deleting stuff");
         }
         #endregion
 
