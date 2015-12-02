@@ -1,0 +1,29 @@
+\thispagestyle{fancy}
+\chapter{Machine Learning modeller}
+I den tidligere resultat sektion under Matlab afsnittet blev der fremstillet en oversigt over de individuelle machine learning modellers præcision. Herfra fremgå det, at den mest præcise model er af typen ensemble learning og bliver af MATLAB kaldt Bagged Trees. Da denne model ifølge MATLAB virker særlig god til at klassificere netop EMG signaler optaget vha. Myo'en, vil det i det følgende blive forsøgt at give et overblik over modellen og den egenskaber, hvordan den er opbygget, samt hvordan den virker. 
+
+I denne sammenhænge findes der en række andre modeller, der er tæt relateret til Bagged Trees modellen. Af disse vil Boosting efterfølgende blive gennemgået, da denne ligesom Bagged Trees stammer fra ensemble learning, og ligeledes er en af trænede modeller fra MATLAB. I forbindelse med Boosting vil egenskaber, opbygning og virkemåde blive gennemgået.
+
+\section{Bagged Trees}
+Som nævnt gav Bagged Trees modellen ifølge matlab det bedste klassifikationsresultat. \todola{inden præcision i procent} Ved er se nærmere på hvordan modellen er opbygget og hvordan den virker, vil det blive forsøget \todola{Hvordan skal formålet af dette afsnit skrives} givet et bedre indblik i, hvorfor modellens klassifikationspræcision er høj. 
+
+\subsection{Ensemble}
+Bagged Trees er som tidligere nævnt en metaalgoritme af ensemble learning. Metoden i ensemble learning er generelt set, at der ikke trænes over hele ens træningssæt, men kun trænes over et mindre subsæt af træningssættet. Herved laves forskellige regler for forskellige subsæt af data, typisk vha. simple learning metoder. Der genereres således regler, der giver gode resultater med høj klassifikationspræcision for mindre datasæt, men ikke nødvendigvis vil gøre det for større sæt af data. 
+Fordelen ved at behandle subsæt af træningssættet, frem for at se på træningssættet i sin helhed, er at det er lettere at finde simple regler for mindre datasæt.
+\todola{Lav evt. billedeksempel med helt træningssæt og subsæt, med decision boundary}
+\\Dog har klassifikationsreglernes risiko for lav nøjagtighed ved større datasæt, meget lille betydning, da alle regler for de enkelt subsæt kombinere ved ensemble learning. Således genereres der en kompleks regel med forventelig høj klassifikationspræcision for større datasæt, ud fra simple regler med høje præcision på små datasæt.
+\\\\
+I praksis bestå ensemble learning af to dele:
+\begin{enumerate}
+\item Selektion af subsæts
+\item Kombination af regler fra subsættene
+\end{enumerate}
+
+Her ligger forskellen mellem forskellige typer af ensemble learning i, hvordan de udvælger og behandler subsæt, samt hvorledes de enkelte simple regler fra hvert subsæt tilslut kombineres til en mere kompleks regel. 
+Her kommer bagging ind i billedet, da denne netop udvælger subsæt og kombinere regler på en bestemt måde, som vil blive uddybet i det følgende.
+
+\subsection{Bagging}
+
+
+
+\subsection{Decision tree}
