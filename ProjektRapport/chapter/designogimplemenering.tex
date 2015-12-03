@@ -1,7 +1,5 @@
 \thispagestyle{fancy}
-\chapter{Anvendelse - CrustCrawler Applikation}
-\label{chp:designogimpl}
-
+\chapter{Anvendelse
 I dette kapitel vil anvendelsen af systemet i form af en applikation være beskrevet.Denne er udviklet ud fra kravspecifikationen, der har dannet grundlag for applikationens funktionalitet.\\
 Det er fra starten af projektet besluttet at applikationen til systemet udvikles i Windows Presentation Foundation (WPF) i Microsoft Visual Studio, da dette er et framework der er arbejdet med tidligere, og det er derfor hurtigt at starte udviklingen, da dette allerede er kendt.
 
@@ -16,13 +14,15 @@ På figur \ref{fig:mvvm} ses den overordnede struktur i hvordan klasserne er pla
 Under udviklingen er der taget højde for Single Responsebility \cite{SingleRespons}, og dermed er klasser opdelt i projektet sådan at de har hvert deres ansvar. Matlab.cs sørger for alt kommunikation med matlab, hvilket er herigennem der sendes kommandoer til CrustCrawleren, dette er der beskrevet mere om i afsnit \ref{sssec:ktc}. I denne klasse initialiseres og startes matlab, og kommandoer sendes også til Matlab herfra. CCManagement.cs, er her metoderne til de forskellige kommandoer kan kaldes fra. Der kaldes fx. metoden OpenClaw() når CrustCrawler kloen skal åbnes. CCManagement.cs Kalder matlab.cs som sender kommando til Matlab. I Klassen recognition.cs sker alt genkendelsen af håndryk igennem EMG dataen
 
 \section{Brugergrænseflade}
+GUI'en i applikationen er lavet meget simpel. Den bærer præg af at være til for at teste systemet. Figur \ref{fig:cca} viser applikationens GUI. Den giver adgang til nogle forskellige funktionaliteter, bl.a. startes der med at checke orineteringen på armbåndet. Dette giver mulighed for at bære Myo'en med en hvilken som helst orinetering, bare den er blevet checket når Myo'en er påført. For at kunne teste, er der blevet lavet Open Claw og Close Claw knapper, så det hurtig og nemt er muligt at se om der er forbindelse til CrustCrawleren. Det er i sektion \ref{sec:ktc} forklaret hvordan der kommunikeres ud til CrustCrawleren.
 \myFigure{CCA}{CrustCrawler Applikationens GUI}{fig:cca}{0.4}
+Knapperne Sart og stop recognition er her hvor den egentligt anvendelse af den opsamlede data og de udviklede modeller foregår. Ved tryk på "Start Recognition" Vil "Window Count" og "Current Window" begynde at tælle op. Ét vindue er sekvens samples, der genkendes ud fra. "Window Count" er alle de vinduer der er samlet med samples, mens "Current Window" er det aktuelle vindue der bliver genkendt på.
 
 \section{Genkendelse}
 
 
 \section{Kommunikation med CrustCrawler}
-\label{sssec:ktc}
+\label{c:ktc}
 Som nævnt tidligere foregår alt kommunikation med CrustCrawleren igennem matlab.cs. Her sørges der for at kalde funktioner i en MATLAB Automation server\footnote{Fremover nævnt som MATLAB server} der bliver åbnet under initieringen af matlab.cs. På sekvens diagrammet på figur \ref{fig:sd} ses de kald der bliver foretaget i tilfældet at kloen på CrustCrawleren skal åbnes. OpenClaw() i CCManagement klassen kaldes, som kontakter Matlab.cs da der skal kontakt til MATLAB serveren. MATLAB serveren bliver kaldt og i MATLAB er der udviklet funktioner til at manøvrere CrustCrawleren rundt og styre kloen. Funktionen OpenClaw() i MATLAB serveren kalder funktionen MoveServo(), denne skriver ud til CrustCrawleren at servo nummer 7 skal køre til en bestemt anvist position.
 
 \myFigure{Sekvensdiagram}{Sekvens Diagram over åbning af klo}{fig:sd}{1}
