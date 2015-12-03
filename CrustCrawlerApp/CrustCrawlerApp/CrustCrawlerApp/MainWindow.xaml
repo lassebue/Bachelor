@@ -90,6 +90,6 @@
             </StackPanel>
         <Label Content="{Binding CurrentPose}" HorizontalAlignment="Left"
                DataContext="{DynamicResource mainVm}" VerticalAlignment="Top"
-               Width="216" Height="15" Margin="10,5,0,0" />
+               Width="216" Height="23" Margin="10,5,0,0" />
     </StackPanel>
 </Window>
