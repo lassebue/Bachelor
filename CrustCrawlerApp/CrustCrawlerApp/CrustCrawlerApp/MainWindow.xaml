@@ -62,7 +62,7 @@
                 <StackPanel Margin="5,0,0,0">
                     <!--Roll label-->
                     <Label Content="{Binding Orientation}" DataContext="{DynamicResource mainVm}"
-                   HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Top" Width="20" Height="25" />
+                   HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Top" Width="100" Height="25" />
 
                     <!--Close Claw-->
                     <Button Content="Close Claw" DataContext="{DynamicResource mainVm}"
