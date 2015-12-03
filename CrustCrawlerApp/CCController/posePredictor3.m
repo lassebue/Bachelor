@@ -31,10 +31,10 @@ cpaData     = varfun(@windPca,rawSenorData);
 
 newPoseTrainingData = [meanData stdData cpaData table(orientation)];
 
-load('KristofferTest1')
-predictedCats = KristofferTest1.predictFcn(newPoseTrainingData);
+load('FullyMappedModel')
+predictedCats = FUllyMappedModel.predictFcn(newPoseTrainingData);
 
 % abe = char(predictedCats(1));
 predictedCats(1)
-abe = getPoseId(KristofferTest1.ClassificationEnsemble.ClassNames,predictedCats(1))
+abe = getPoseId(FUllyMappedModel.ClassificationEnsemble.ClassNames,predictedCats(1))
 end

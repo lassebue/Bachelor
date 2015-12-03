@@ -1,22 +1,35 @@
 \thispagestyle{fancy}
-\chapter{Design og Implementering}
+\chapter{Anvendelse - CrustCrawler Applikation}
 \label{chp:designogimpl}
 
-Det er fra starten af projektet besluttet at applikationerne til systemet udvikles i Windows Presentation FOundation (WPF) i Microsoft Visual Studio, da dette er et framework der er arbejdet med tidligere, og det er derfor her der hurtigt ville kunne udviklet, da dette allerede er kendt.
-
-\subsection{Data Collection Application}
-\label{sec:datacoll}
-
-\subsection{CrustCrawler Application}
-\label{sec:ccapp}
+I dette kapitel vil anvendelsen af systemet i form af en applikation være beskrevet.Denne er udviklet ud fra kravspecifikationen, der har dannet grundlag for applikationens funktionalitet.\\
+Det er fra starten af projektet besluttet at applikationen til systemet udvikles i Windows Presentation Foundation (WPF) i Microsoft Visual Studio, da dette er et framework der er arbejdet med tidligere, og det er derfor hurtigt at starte udviklingen, da dette allerede er kendt.
 
 Denne applikation stiller krav til anvendelsen af den opsamlede data og den model træning der er lavet. Applikationen skal være i stand til at åbne og lukke CrustCrawler-kloen ved hjælp af genkendelse af poses med Myo Armbånd. Denne applikation er også udviklet i WPF for at give den en brugergrænseflade, hvormed det er mulgit at se hvilken orientering Myo armbåndet har, og starte og stoppe recognizing af EMG signaler.
 
-\subsubsection{Software arkitektur}
-Det er valgt til CrustCrawler Applikationen at den skal udvikles i en Model-View-ViewModel (MVVM) arkitektur. MVVM er et WPF design pattern, der er brugt i mange applikationer med grafisk brugergrænseflade. Dette er et naturligt valg da der udvikles på en XAML platform. I MVVM arkitekturen er View'et separeret fra modellen, hvor funktionaliteten ligger. Der er begge koblet sammen af en ViewModel. Dette der udvikling af applikationen mere overskuelig og nem at gå til, og vedligeholdelse vil også være mere lige til. Desuden gør dette bl.a. at det er muligt at udvikle et nyt View uden at ændre i det gamle og bytte det ud når det ønskes.\\
+\section{Software arkitektur}
+Det er valgt til CrustCrawler Applikationen at den skal udvikles i en Model-View-ViewModel (MVVM) arkitektur. MVVM er et WPF design pattern, der er brugt i mange applikationer med grafisk brugergrænseflade. Dette er et naturligt valg da der udvikles på en XAML platform. MVVM er et design pattern der blev udviklet hos microsoft ud fra Model-View-Presenter arkitekturen. I MVVM arkitekturen er View'et separeret fra modellen, hvor funktionaliteten ligger. De er begge koblet sammen af en ViewModel. Dette gør udviklingen af applikationen mere overskuelig og nem at gå til.
 
 \myFigure{MVVM}{MVVM Arkitektur}{fig:mvvm}{0.8}
 
-På figur \ref{fig:mvvm} ses den overordnede struktur i hvordan klasserne er placeret. Denne figur er for at give et lille overblik, og der er derfor ikke taget alle klasser med.
+På figur \ref{fig:mvvm} ses den overordnede struktur i hvordan klasserne er placeret. Denne figur er for at give et lille overblik, og der er derfor ikke taget alle klasser med. Modellen som består af flere forskellige klasser er altså vha. MVVM separeret fra viewet som er .xaml-filen MainWindow.xaml.\\
+Under udviklingen er der taget højde for Single Responsebility \cite{SingleRespons}, og dermed er klasser opdelt i projektet sådan at de har hvert deres ansvar. Matlab.cs sørger for alt kommunikation med matlab, hvilket er herigennem der sendes kommandoer til CrustCrawleren, dette er der beskrevet mere om i afsnit \ref{sssec:ktc}. I denne klasse initialiseres og startes matlab, og kommandoer sendes også til Matlab herfra. CCManagement.cs, er her metoderne til de forskellige kommandoer kan kaldes fra. Der kaldes fx. metoden OpenClaw() når CrustCrawler kloen skal åbnes. CCManagement.cs Kalder matlab.cs som sender kommando til Matlab. I Klassen recognition.cs sker alt genkendelsen af håndryk igennem EMG dataen
 
-\subsubsection{Brugergrænseflade}
+\section{Brugergrænseflade}
+\myFigure{CCA}{CrustCrawler Applikationens GUI}{fig:cca}{0.4}
+
+\section{Genkendelse}
+
+
+\section{Kommunikation med CrustCrawler}
+\label{sssec:ktc}
+Som nævnt tidligere foregår alt kommunikation med CrustCrawleren igennem matlab.cs. Her sørges der for at kalde funktioner i en MATLAB Automation server\footnote{Fremover nævnt som MATLAB server} der bliver åbnet under initieringen af matlab.cs. På sekvens diagrammet på figur \ref{fig:sd} ses de kald der bliver foretaget i tilfældet at kloen på CrustCrawleren skal åbnes. OpenClaw() i CCManagement klassen kaldes, som kontakter Matlab.cs da der skal kontakt til MATLAB serveren. MATLAB serveren bliver kaldt og i MATLAB er der udviklet funktioner til at manøvrere CrustCrawleren rundt og styre kloen. Funktionen OpenClaw() i MATLAB serveren kalder funktionen MoveServo(), denne skriver ud til CrustCrawleren at servo nummer 7 skal køre til en bestemt anvist position.
+
+\myFigure{Sekvensdiagram}{Sekvens Diagram over åbning af klo}{fig:sd}{1}
+
+Processen for at kunne kalde funktioner lavet i MATLAB fra WPF applikationen foregår som følger [\cite{MatlabC}]:
+\begin{enumerate}
+	\item Start MATLAB Automation Server og lav en instans heraf
+	\item Set sti til mappe hvor MATLAB funktioner ligger
+	\item Der kan nu Kaldes funktioner lavet i MATLAB
+\end{enumerate}
