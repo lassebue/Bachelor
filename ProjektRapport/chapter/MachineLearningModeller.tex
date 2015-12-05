@@ -1,12 +1,11 @@
 \thispagestyle{fancy}
 \chapter{Machine Learning modeller}
-\label{chp:mlm}
 I den tidligere resultat sektion under Matlab afsnittet blev der fremstillet en oversigt over de individuelle machine learning modellers præcision. Herfra fremgå det, at den mest præcise model er af typen ensemble learning og bliver af MATLAB kaldt Bagged Trees. Da denne model ifølge MATLAB virker særlig god til at klassificere netop EMG signaler optaget vha. Myo'en, vil det i det følgende blive forsøgt at give et overblik over modellen og den egenskaber, hvordan den er opbygget, samt hvordan den virker. 
 
 I denne sammenhænge findes der en række andre modeller, der er tæt relateret til Bagged Trees modellen. Af disse vil Boosting efterfølgende blive gennemgået, da denne ligesom Bagged Trees stammer fra ensemble learning, og ligeledes er en af trænede modeller fra MATLAB. I forbindelse med Boosting vil egenskaber, opbygning og virkemåde blive gennemgået.
 
 \section{Bagged Trees}
-Som nævnt gav Bagged Trees modellen ifølge matlab det bedste klassifikationsresultat. \todola{inden præcision i procent} Ved er se nærmere på hvordan modellen er opbygget og hvordan den virker, vil det blive forsøget \todola{Hvordan skal formålet af dette afsnit skrives} givet et bedre indblik i, hvorfor modellens klassifikationspræcision er høj. 
+Som nævnt gav Bagged Trees modellen ifølge matlab det bedste klassifikationsresultat. \todola{inden præcision i procent} Ved er se nærmere på hvordan modellen er opbygget og hvordan den virker, vil det blive forsøget \todola{Hvordan skal formålet af dette afsnit skrives}at give et bedre indblik i, hvorfor modellens klassifikationspræcision er høj. 
 
 \subsection{Ensemble}
 Bagged Trees er som tidligere nævnt en metaalgoritme af ensemble learning. Metoden i ensemble learning er generelt set, at der ikke trænes over hele ens træningssæt, men kun trænes over et mindre subsæt af træningssættet. Herved laves forskellige regler for forskellige subsæt af data, typisk vha. simple learning metoder. Der genereres således regler, der giver gode resultater med høj klassifikationspræcision for mindre datasæt, men ikke nødvendigvis vil gøre det for større sæt af data. 
@@ -24,7 +23,16 @@ Her ligger forskellen mellem forskellige typer af ensemble learning i, hvordan d
 Her kommer bagging ind i billedet, da denne netop udvælger subsæt og kombinere regler på en bestemt måde. Dette vil blive uddybet i det følgende. 
 
 \subsection{Bagging}
+Ved bagging, som står for bootstrap aggregation anvendes subset, som ved andre ensemble metoder til at generere et antal learners, som kombineres for at forbedre nøjagtigheden ved genkendelsen. Ensemble learners adskiller sig ved måden de trænede hypoteser kombineres på, samt processen, hvormed de individuelle hypotesers subset genereres på. 
 
+For bagging er metoden de forskellige subset genereres særlig interessant, da der anvendes her bootstrap sampling.
+Ved bootstrap sampling, samples tilfældigt data til et nyt subset med ”replacement”, hvilket tillader data duplikation i de individuelle subset af træningssættet. I praksis betyder det, at når data samples fra træningssættet til et nyt subset fjernes den samplede data ikke fra det originale datasæt, men kan stadig blive stadig blive tilfældigt ”udvalgt” ved et efterfølgende sample. Havde man samplet uden replacement, ville den samplede data blive fjernet således, at data der allerede er repræsenteret i det aktuelle subset ikke vil kunne optræde flere gange således, at al data i det genererede subset vil være unikt.
 
+En særlig egenskab ved bootstrap sampling er, at subset med samme størrelse, som det oprindelige dataset kan genereres med afvigelser fra originalen, hvilket er afgørende for modeltræning, hvor man ønsker at træne på subset af samme størrelse som det tilgængelige træningssæt. Det er således muligt er lave subset til træning med variationer, eftersom dele af dataet fra træningssættet er duplieringer og andre dele må blive undladt. 
+
+Netop det faktum at dele af dataet ikke er med i alle subset gør bagging til et godt redskab til at undgå overfitting. Dette sker, da der er sandlighed for at dårlig data, som en simple learner under normale omstændigheder vil være følsom overfor, ikke vil optræde i alle subsets og derved ikke vil påvirke alle de generede learners. Når de forskellige learners kombineres vil den resulterende learner være mindre tilbøjelig til overfitting på den dårlige data, da de enkelte learners kun har set deres eget individuelle subset af data. På den måde den måde undgå modellen at blive vildledt af individuelle data punkter og hjælpes i højere grad til at finde strukturen i dataet, på samme måde som cross validation.
+
+Kombineringen af de genererede learners er relativ simple for bagging. Ved klassifikation anvendes majorty voting, hvor klassifikationen som et flertal af de genererede classifiers har fundet korrekt, bliver outputtet fra den samlede classifier.
+Ved regression tages blot gennemsnittet af de learners der er konstrueret ud fra træningssættets subsets. Ideen med bagging, at anvende simple unbiased learners med høj varians og få et output med høj nøjagtighed ved at træne mange forskellige learners på tilfældigt samplet subsets af træningssættet og lave midling over deres resultater. Her kan en hver arbitrær learner anvendes, men ofte anvendes decision tree learners sammen med bagging, hvilket ifølge MATLAB ligeledes trænede en meget nøjagtig model på den opsamlede EMG data. Denne learner vil i det følgende blive set nærmere på.
 
 \subsection{Decision tree}
