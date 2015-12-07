@@ -37,6 +37,19 @@
         \label{#3} 
     \end{figure}
 } 
+
+% Command \myFigure{filename}{caption}{label}{width} 
+% for inserting a new figure.
+\newcommand{\myFigurePlace}[5]
+{ 
+	\begin{figure}[#5] 
+		\centering 
+		\includegraphics[width=#4\textwidth]{figure/#1} 
+		\caption{#2} 
+		\label{#3} 
+	\end{figure}
+}
+
  
 % Insert a figure wraped in text (left/right)
 % Command \myWrapFigure{filename}{caption}{label}{width}{r/l}
@@ -70,7 +83,7 @@
 
 % Keeps floats in the section. 
 % Help control place to put pix
-%\usepackage[section]{placeins}
+\usepackage[section]{placeins}
 
 
 %Package with enumirate command with extra options (used within cells of tabular)
