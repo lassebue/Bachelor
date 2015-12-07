@@ -1,4 +1,4 @@
-function abe = posePredictor(emg1CollectionInput,emg2CollectionInput,emg3CollectionInput,...
+function currentPose = posePredictor(emg1CollectionInput,emg2CollectionInput,emg3CollectionInput,...
     emg4CollectionInput,emg5CollectionInput,emg6CollectionInput,emg7CollectionInput,emg8CollectionInput,orientation)
 
 emg1Collection = [];
@@ -34,5 +34,5 @@ newPoseTrainingData = [meanData stdData cpaData table(orientation)];
 load('baggedTreesMkIIICompacted')
 predictedCats = baggedTreesMkIIICompacted.predictFcn(newPoseTrainingData);
 % abe = char(predictedCats(1));
-abe = getPoseId(baggedTreesMkIIICompacted.ClassificationEnsemble.ClassNames,predictedCats(1));
+currentPose = getPoseId(baggedTreesMkIIICompacted.ClassificationEnsemble.ClassNames,predictedCats(1));
 end
