@@ -1,6 +1,6 @@
 \thispagestyle{fancy}
 \chapter{Testapplikation}
-I dette kapitel vil Testapplikationen til anvendelsen af systemet være beskrevet. Denne er udviklet ud fra kravspecifikationen, der har dannet grundlag for applikationens funktionalitet.\\
+I dette kapitel vil Testapplikationen til anvendelsen af systemet være beskrevet. Denne er udviklet ud fra kravspecifikationen\todokr{indsæt reference til kravspecifikation}, der har dannet grundlag for applikationens funktionalitet.\\
 Det er fra starten af projektet besluttet at applikationen til systemet udvikles i Windows Presentation Foundation (WPF) i Microsoft Visual Studio, da dette er et allerede kendt framework, og det er derfor hurtigt at starte udviklingen.
 
 Denne applikation stiller krav til anvendelsen af den opsamlede data og den model træning der er udviklet. Applikationen skal være i stand til at åbne og lukke CrustCrawler-kloen ved hjælp af genkendelse af poses med Myo'en. WPF er også valgt til udviklingen da det indeholder gode væktøjer til arbejde med GUI, hvilket gør at brugeren af applikationen nemt kan avende systemets funktioner.
@@ -15,7 +15,7 @@ Under udviklingen er der taget højde for SOLID pricipperne, herunder Single Res
 
 \section{Brugergrænseflade}
 
-\myWrapFigure{CCA}{CrustCrawler Applikationens GUI}{fig:cca}{0.5}{r}
+\myWrapFigure{CCA}{CrustCrawler Applikationens GUI}{fig:cca}{0.4}{r}
 GUI'en i applikationen er lavet meget simpel. Den bærer præg af at være til for at teste systemet. Figur \ref{fig:cca} viser applikationens GUI. Den giver adgang til nogle forskellige funktionaliteter, bl.a. startes der med at checke orineteringen på armbåndet. Dette giver mulighed for at bære Myo'en med en hvilken som helst orinetering, bare den er blevet checket når Myo'en er påført. For at kunne teste, er der blevet lavet Open Claw og Close Claw knapper, så det hurtig og nemt er muligt at se om der er forbindelse til CrustCrawleren. Det er i sektion \ref{sec:ktc} forklaret hvordan der kommunikeres ud til CrustCrawleren.
 
 Knapperne Sart og stop recognition er her hvor den egentligt anvendelse af den opsamlede data og de udviklede modeller foregår. Ved tryk på "Start Recognition" vil "Window Count" og "Current Window" begynde at tælle op. Ét vindue er sekvens af samples, der genkendes ud fra. "Window Count" er alle de vinduer der er samlet med samples, mens "Current Window" er det aktuelle vindue der bliver genkendt på.
