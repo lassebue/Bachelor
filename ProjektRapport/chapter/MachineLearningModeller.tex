@@ -53,3 +53,6 @@ Dette kan forklares ved at dele træstrukturen bliver opbygget til at passe på 
 
 Ved decision trees anvendes prouning, som er en proces, hvor idéen er at fjerne de nodes i træet, der er konstrueret, for at modellen kan passe på individuelle data punkter med støj. Denne proces resulterer i et mere simpelt træer og reducerer modellens overfitting. 
 En metode, at lave prouning på er at træne hele træet ud fra træningssættet og derefter testes det aktuelle decision tree mod modellens validation set efter fejl. Efterfølgende udføres en prouning af træet, hvorefter det nye træet valideres op mod modellens validation set og testes efter fejl. Hvis det trænede decision tree med prouning har færre fejl på modellens validation set, vil en nye iteration med prouning blive udført og testes med samme metode. Hvis det trænede decision tree med prouning, derimod har flere fejl på modellens validation set, og dermed generaliserer dårligere end det oprindelige decision tree, vil det oprindelige decision tree blive anvendt og ingen yderligere prouning blive foretaget. 
+
+Decision trees anvendes i den specifikke ensemble model random forest. Dennes træningsalgoritme er, hvad der konkret bruges, når der trænes Bagged Trees, men MATLAB’s Classification learner applikation. 
+
