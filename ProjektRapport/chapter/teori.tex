@@ -4,5 +4,12 @@
 
 \section{Fysiologi}
 \label{sec:fysiologi}
+I projektet er der brugt værktøjet Myo armbånd. Denne er brugt for at der kan registreres data fra testpersoner, som kan bruges til at træne machine learning modeller, og anvende disse til udvikling af applikationer der intuitivt kan reagere på menneskets signaler der bliver sendt ud i musklerne. Men hvordan hænger det sammen mellem musklerne og Myo'en? Dette kapitel vil give et overblik over hvordan der registreres aktivitet i musklerne, i dette tilfælde i underarmen.
+
+Når mennesket bevæger sig, er det en masse signaler der sendes fra hjernen og ud igennem nerverne til musklerne. Musklerne rundt i kroppen bliver aktiveret når de får signal til det og trækker sig sammen. En kombination af mange muskler der gør dette kan få mennesket til at bevæge sig rundt, gå, rejse sig osv. Det er altså musklernes sammentrækning der gør os mobile. Det er netop disse sammentrækninger der i projektet bliver opsamlet data på. Når en muskel trækker sig sammen, er det fordi hjernen sender et elektrisk signal i nerverne igennem rygmarven og ud til en muskel. I musklen er nerven forbundet til alle de små muskelfibre, som alle vil trække sig sammen, hvilket gør at hele musklen trækker sig sammen. Dette signal der trækker musklen sammen, kan opsamles med en Myo. Myo'en består af 8 sensorer der hver er to elektroder der sørger for signalet og én reference elektrode for at adskille de to sensorer se figur \ref{fig:myo}
+
+\myFigure{myo}{Indersiden af Myo'en hvor sensorerne har grænseflade til huden på underarmen. Myo'en placeres hvor underarmen er tykkest for at få bedst mulgit resultat. De to store metalt plader er til at opfange signaler mens den smalle i midten er til reference.}{fig:myo}{0.6}
+
+De to elektroder måler hele tiden tidsforskellen i de signaler der bliver sendt ned i musklen. EMG signalet er altså denne tidsforskel der måles fra den ene elektrode til den anden \cite{nerveledning}. Første og anden elektrode på samme sensor skal også sidde på samme muskel, for at der kan måles en forskel, dette kommer dog automatisk til at ske i og med at musklerne trækker sig sammen på langs af armen. Det tal der kan aflæses er lavet om til en integer, og er ikke det rigtige EMG signal, men det kan arbejdes med på samme måde.
 
 \section{Machine Learning}
