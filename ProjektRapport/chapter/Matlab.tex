@@ -1,30 +1,42 @@
 \thispagestyle{fancy}
-\chapter{Matlab}
+\chapter{Feature extraction og model træning}
 \label{chp:matlabChapter}
-
 I dette projekt anvendes matlab til at løse en række essentielle opgave, der omtales i Machine learning sektion \ref{sec:machineLearning}. I det følgende kapitel vil disse opgave blive beskrevet nærmere. \\
-Det er valgt at anvende MATLAB, til at løse disse opgave, da det er et kendt værktøj med et bredt spektre af funktionaliteter indenfor databehandling og træning af machine learning modeller, der netop er blandt de problematikker, der i dette projekt er behov for at få løst. 
+Det er valgt at anvende MATLAB, til at løse disse opgave, da det er et kendt værktøj med et bredt spektre af veldokumenterede funktionaliteter indenfor databehandling og træning af machine learning modeller, der netop er de problematikker, der i dette projekt er behov for at få løst\todola{, der i dette projekt er fokus på}. 
   
 de opgaver, der har været behov for at be d
  funktioner lavet specifikt til at løse 
 med veldokumenterede funktion
 
 \section{Dataimport}
-Data er en vigtig del af machine learning. Denne anvendes til at træne de modeller, hvis formåler er at genkende generel data fra forskellige kilder. I dette projekt anvendes EMG data indsamlet vha. af den udviklede Data Collection Application beskrevet i kapitel \ref{chp:dataingsamlingChapter}, hvor den nødvendige data til træning gemmes i .csv filer. I denne sektion vil det blive beskrevet, hvordan den opsamlede data fra den udviklede Data Collection Application, importeres fra .csv filer og klargøres til signalprocessing.
+Data er en vigtig del af machine learning, da det er herfra genkendelige features kan udtrækkes og anvendes til at træne de modeller, hvis formål er at genkende generel data fra forskellige kilder. I dette projekt anvendes EMG data indsamlet vha. af den udviklede Data Collection Application beskrevet i kapitel \ref{chp:dataingsamlingChapter}, hvor den nødvendige data til træning gemmes i .csv filer. I denne sektion vil det blive beskrevet, hvordan den opsamlede data fra den udviklede Data Collection Application, importeres fra .csv filer og klargøres til feature extraction.
 \\\\
-Før den indsamlede data er klar til den nødvendig databehandling, skal den gennem en række trin for at omstruktureres, således at den efter databehandling kan anvendes til modeltræning.\todola{måske skulle de overordnede trin også skrives: Skaf træningssæt, træn model} Efter import, omstrukturering og signalprocessing af filerne fra den udviklede Data Collection Application, er modellernes træningssæt, således blevet lavet. 
+Før den indsamlede data er klar til den nødvendig databehandling, skal den gennem en række trin for at omstruktureres, således at feature extraction kan ske på mindre subset af dataet.\todola{måske skulle de overordnede trin også skrives: Skaf træningssæt, træn model} Efter import af filerne, omstrukturering og feature extraction, er træningssættet klar. \todola{klar til at blive anvendt i MATLAB's Classification Learner/ kan træningssættet anvendes til modeltræning} 
 \\
-Formatet fra .csv filerne er beskrevet på figure . 
+Formatet fra .csv filerne er beskrevet på figure.
+Smider kolonner fra .csv filer i arrays
+
 Denne omstrukturering består af følgende trin:
 \begin{description}
-	\item[Første trin] Den indsamlede data skal importeres og konverteres fra .csv formatet til arrays\\\\
-	Efter dataet fra EMG sensorerne er gemt, opdeles de i såkaldte vinduer som er intervaller af data samples med en fast størrelse. Det er disse vinduer signalprocessingen skal laves over.
+	\item[Første trin] Den indsamlede data skal importeres og konverteres fra .csv formatet til arrays.\\\\
+		Data fra hver kolonne i .csv filerne overføres dataet til et array til senere behandling
+		
+
 	\\
 	For hver vindue af data samples skal de udvalgte værdier fra .csv filerne ligeledes gemmes. Der er her tale om \textit{pose}, \textit{orientering} og \textit{testPerson}. Disse værdier skal kopieres, således at hver værdi optræder for hver vindue med samples.
-	
 
+  \item[Andet trin] Arrays med EMG data opdeles i vinduer. 
+  \\
+  Efter dataet fra EMG sensorerne er glemt, opdeles de i såkaldte vinduer som er intervaller af data samples med en fast størrelse. Det er disse vinduer, der laves feature extraction over.
+  \\
+  Mangler et antal sample, således at et vindue ikke får den rette størrelse fjernes det fra de øvrige vinduer.
+    
+    \item[Tredje trin] Øvrige udvalgte værdier tilføres til de samplet vinduer.
+     fra csv. filer dubleres, således hvert af de samplet vinduer har tilhørende værdier.
+  \\
+  For hver vindue af data samples skal de udvalgte værdier dubleres, således at hver værdi optræder for hver vindue. Der er her tale om \textit{pose}, \textit{orientering} og \textit{testPerson}.
   
-  \item[Andet trin] The second item
+  \item[Fjerde trin] 
 \end{description}
 
 
