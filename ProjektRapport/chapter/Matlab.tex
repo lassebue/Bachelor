@@ -2,46 +2,40 @@
 \chapter{Feature extraction og model træning}
 \label{chp:matlabChapter}
 I dette projekt anvendes matlab til at løse en række essentielle opgave, der omtales i Machine learning sektion \ref{sec:machineLearning}. I det følgende kapitel vil disse opgave blive beskrevet nærmere. \\
-Det er valgt at anvende MATLAB, til at løse disse opgave, da det er et kendt værktøj med et bredt spektre af veldokumenterede funktionaliteter indenfor databehandling og træning af machine learning modeller, der netop er de problematikker, der i dette projekt er behov for at få løst\todola{, der i dette projekt er fokus på}. 
-  
-de opgaver, der har været behov for at be d
- funktioner lavet specifikt til at løse 
-med veldokumenterede funktion
+Det er valgt at anvende MATLAB, til at løse disse opgave, da det er et kendt værktøj med et bredt spektre af veldokumenterede funktionaliteter indenfor databehandling og træning af machine learning modeller, der netop er de problematikker, der i dette projekt er behov for at få løst. \todola{, der i dette projekt er fokus på} 
 
 \section{Dataimport}
 Data er en vigtig del af machine learning, da det er herfra genkendelige features kan udtrækkes og anvendes til at træne de modeller, hvis formål er at genkende generel data fra forskellige kilder. I dette projekt anvendes EMG data indsamlet vha. af den udviklede Data Collection Application beskrevet i kapitel \ref{chp:dataingsamlingChapter}, hvor den nødvendige data til træning gemmes i .csv filer. I denne sektion vil det blive beskrevet, hvordan den opsamlede data fra den udviklede Data Collection Application, importeres fra .csv filer og klargøres til feature extraction.
 \\\\
 Før den indsamlede data er klar til den nødvendig databehandling, skal den gennem en række trin for at omstruktureres, således at feature extraction kan ske på mindre subset af dataet.\todola{måske skulle de overordnede trin også skrives: Skaf træningssæt, træn model} Efter import af filerne, omstrukturering og feature extraction, er træningssættet klar. \todola{klar til at blive anvendt i MATLAB's Classification Learner/ kan træningssættet anvendes til modeltræning} 
-\\
-Formatet fra .csv filerne er beskrevet på figure.
-Smider kolonner fra .csv filer i arrays
-
-Denne omstrukturering består af følgende trin:
+\\ Omstruktureringen består af følgende trin:
 \begin{description}
 	\item[Første trin] Den indsamlede data skal importeres og konverteres fra .csv formatet til arrays.\\\\
 		Data fra hver kolonne i .csv filerne overføres dataet til et array til senere behandling
-		
-
-	\\
+	\\\\
 	For hver vindue af data samples skal de udvalgte værdier fra .csv filerne ligeledes gemmes. Der er her tale om \textit{pose}, \textit{orientering} og \textit{testPerson}. Disse værdier skal kopieres, således at hver værdi optræder for hver vindue med samples.
 
   \item[Andet trin] Arrays med EMG data opdeles i vinduer. 
-  \\
-  Efter dataet fra EMG sensorerne er glemt, opdeles de i såkaldte vinduer som er intervaller af data samples med en fast størrelse. Det er disse vinduer, der laves feature extraction over.
-  \\
-  Mangler et antal sample, således at et vindue ikke får den rette størrelse fjernes det fra de øvrige vinduer.
-    
+  \\\\
+  Efter dataet fra EMG sensorerne er gemt, opdeles de i såkaldte vinduer som er intervaller af data samples med en fast størrelse. Det er disse vinduer, der laves feature extraction over.
+  \\\\
+  Mangler et antal sample, således at et vindue ikke får den rette størrelse fjernes det fra de øvrige vinduer. 
     \item[Tredje trin] Øvrige udvalgte værdier tilføres til de samplet vinduer.
      fra csv. filer dubleres, således hvert af de samplet vinduer har tilhørende værdier.
-  \\
-  For hver vindue af data samples skal de udvalgte værdier dubleres, således at hver værdi optræder for hver vindue. Der er her tale om \textit{pose}, \textit{orientering} og \textit{testPerson}.
+  \\\\
+  For hver vindue af data samples skal de udvalgte værdier dubleres, således at hver værdi optræder for hver vindue. Der er her tale om \textit{pose}, \textit{orientation} og \textit{testPerson}.
   
-  \item[Fjerde trin] 
+  \item[Fjerde trin] \textit{pose}-værdierne konverteres til MATLAB typer \textit{categorical}
+  \\\\
+  Efter \textit{pose}-værdierne er dubleret til hver vindue konverteres de til \textit{categorical}s, hvilket er typen MATLAB anvender som class labels. Dette essentiel, da poses netop er det der ønskes, at de modeller er i stand til at genkende. Som tidligere nævnt dækker navnet \textit{pose} i .csv filerne over pose ID\todokr{Det skal nævnes tidligere!}, der konverteres derfor fra \textit{integer}-værdier til \textit{categorical}-typen. \todola{skal typer måske skrive med itatic}
 \end{description}
 
+Det er de fire trin, der udføres på alle importerede .csv filer. Filerne behandles gennem en funktion \textit{importFileFunc}, der tager arrays med hver af de udvalgte værdier som inputs. Disse værdier er vinduer fra hver af de 8 EMG sensorer og derudover \textit{pose}-\textit{orientation}- og \textit{testPerson}-værdier til hvert vindue. Videre tager funktionen stigen og navnet til en enkelt .csv filer som input, hvilket er den specifikke fil, der behandles. 
 
+Arrays kan være fyldt eller tomme, funktion smider data i dem og sender med tilbage igen med mere data fra en ny fil.
 
- Behovet for data opstår, da 
+skriv hvordan funktionen er lavet. genereret script
+
 
 
 \section{Databehandling}
