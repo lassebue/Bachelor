@@ -1,9 +1,36 @@
 \thispagestyle{fancy}
 \chapter{Matlab}
-I dette projekt anvendes matlab til at løse en række essentielle opgave, der omtales i Machine learning sektion \ref{sec:machineLearning}. I det følgende kapitel vil disse opgave blive beskrevet nærmere. 
 \label{chp:matlabChapter}
 
+I dette projekt anvendes matlab til at løse en række essentielle opgave, der omtales i Machine learning sektion \ref{sec:machineLearning}. I det følgende kapitel vil disse opgave blive beskrevet nærmere. \\
+Det er valgt at anvende MATLAB, til at løse disse opgave, da det er et kendt værktøj med et bredt spektre af funktionaliteter indenfor databehandling og træning af machine learning modeller, der netop er blandt de problematikker, der i dette projekt er behov for at få løst. 
+  
+de opgaver, der har været behov for at be d
+ funktioner lavet specifikt til at løse 
+med veldokumenterede funktion
+
 \section{Dataimport}
+Data er en vigtig del af machine learning. Denne anvendes til at træne de modeller, hvis formåler er at genkende generel data fra forskellige kilder. I dette projekt anvendes EMG data indsamlet vha. af den udviklede Data Collection Application beskrevet i kapitel \ref{chp:dataingsamlingChapter}, hvor den nødvendige data til træning gemmes i .csv filer. I denne sektion vil det blive beskrevet, hvordan den opsamlede data fra den udviklede Data Collection Application, importeres fra .csv filer og klargøres til signalprocessing.
+\\\\
+Før den indsamlede data er klar til den nødvendig databehandling, skal den gennem en række trin for at omstruktureres, således at den efter databehandling kan anvendes til modeltræning.\todola{måske skulle de overordnede trin også skrives: Skaf træningssæt, træn model} Efter import, omstrukturering og signalprocessing af filerne fra den udviklede Data Collection Application, er modellernes træningssæt, således blevet lavet. 
+\\
+Formatet fra .csv filerne er beskrevet på figure . 
+Denne omstrukturering består af følgende trin:
+\begin{description}
+	\item[Første trin] Den indsamlede data skal importeres og konverteres fra .csv formatet til arrays\\\\
+	Efter dataet fra EMG sensorerne er gemt, opdeles de i såkaldte vinduer som er intervaller af data samples med en fast størrelse. Det er disse vinduer signalprocessingen skal laves over.
+	\\
+	Til hver vindue skal gennem 
+	
+
+  
+  \item[Andet trin] The second item
+\end{description}
+
+
+
+ Behovet for data opstår, da 
+
 
 \section{Databehandling}
 
