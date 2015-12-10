@@ -44,7 +44,8 @@
 % ALWAYS USE \citep{} or something like:
 % \citep[see this baws article]{fooArticle}
 \usepackage[]{natbib}
-\bibliographystyle{plain}
+\bibpunct[,]{[}{]}{;}{a}{,}{,} % Definerer de 6 parametre ved Harvard henvisning (bl.a. parantestype og seperatortegn)
+\bibliographystyle{bibtex/harvard}
 
 % Package for editing captions. Fx for figures and code listings
 \usepackage{caption}
@@ -110,7 +111,7 @@
     \include{chapter/projektgenneforsel}
     \include{chapter/teori}
     \include{chapter/Dataindsamling}
-    \include{chapter/Matlab}    
+    \include{chapter/Matlab}
     \include{chapter/MachineLearningModeller}
     \include{chapter/testapplikation}
     \include{chapter/resultaterogdiskussion}
