@@ -16,7 +16,7 @@ De to elektroder måler de elektriske signaler som muskelfibrene skaber ved musk
 \citep{RefWorks:13}. Første og anden elektrode på samme sensor, sidder placeret uden på huden og kan derfor sidde på samme muskel, men også hvor muskler overlapper hinanden. På figur \ref{fig:anatomy} kan det ses hvordan musklerne sidder i armen. Det er altså muligt at have en EMG sensor til at sidde delvist på den gulmarkerede muskel og delvist på den grønmarkerede muskel. Når der opsamles data med Myo'en, bliver EMG signalet bearbejdet af Myo'en, så den giver en integer som output.for hver EMG sensor pr. sample der tages. Denne integer kan der så arbejdes med og der kan med mange samples laves machine learning modeller.
 
 \myFigure{anatomy}{yo}{fig:anatomy}{0.9}
-
+\todokr{Skriv billedtekst}
 Når Myo'en påføres kan den sidde for forskellige måder rundt på armen, dog skal den sidde hvor armen er tykkest. Dette betyder at en sensor kan sidde på den rødmarkerede muskel én gang, og næste gang den påføres kan den sidde på den gulmarkerede muskel. Da musklerne er forbundet til hver sin funktionalitet i hånden, vil der også komme to forskellige udfald i den opsamlede data. Der skal derfor tages højde herfor, når der opsamles data. Dette bliver nærmere beskrevet i sektion \ref{sec:optagelsedata}.
 
 \section{Machine Learning}
