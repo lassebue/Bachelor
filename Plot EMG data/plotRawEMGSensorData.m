@@ -6,7 +6,7 @@ if nargin < 5
     n_obs = size(rawSensor1,1);
 end
 
-g = 20;
+g = 1;
 
 rawTS(:,1) = reshape(rawSensor1(1:n_obs,:)',[],1);
 rawTS(:,2) = reshape(rawSensor2(1:n_obs,:)',[],1);
@@ -17,11 +17,16 @@ rawTS(:,6) = reshape(rawSensor6(1:n_obs,:)',[],1);
 rawTS(:,7) = reshape(rawSensor7(1:n_obs,:)',[],1);
 rawTS(:,8) = reshape(rawSensor8(1:n_obs,:)',[],1);
 
-activityType = repelem((1:n_obs),128*ones(numel(activity(n_obs)),1))
+activityType = repelem(activity(1:n_obs),128*ones(numel(activity(n_obs)),1))
+
+% 
+% hFig = figure(1);
+% set(hFig, 'Position', [x y width height])
+
 
 fig = figure('Name','Pose Detection','NumberTitle','off',...
     'Units','Normalized','Visible','off');
-fig.Position(3:4) = [0.7,0.8]; 
+fig.Position(3:4) = [0.5,0.7]; 
 movegui('center')
 fig.Visible = 'on';
 
@@ -46,7 +51,7 @@ ax(8) = subplot(8,1,8,'Parent',fig,'Xgrid','on','Ygrid','on',...
 
 
 clr = get(groot,'DefaultAxesColorOrder');
-axes(ax(1)), gscatter(1:size(rawTS,1),rawTS(:,1),activityType,clr,'.',8,'on')
+axes(ax(1)), gscatter(1:size(rawTS,1),rawTS(:,1),activityType,clr,'.',8,'off')
 axes(ax(2)), gscatter(1:size(rawTS,1),rawTS(:,2),activityType,clr,'.',8,'off')
 axes(ax(3)), gscatter(1:size(rawTS,1),rawTS(:,3),activityType,clr,'.',8,'off')
 
@@ -85,11 +90,11 @@ grid(ax(8),'on')
 a = 'Amplitude';
 b = '';
 
-ylabel(ax(1),a)
+ylabel(ax(1),b)
 ylabel(ax(2),b)
 ylabel(ax(3),b)
 
-ylabel(ax(4),b)
+ylabel(ax(4),a)
 ylabel(ax(5),b)
 ylabel(ax(6),b)
 ylabel(ax(7),b)
@@ -105,15 +110,15 @@ xlabel(ax(6),b), ax(6).XTickLabel = [];
 xlabel(ax(7),b), ax(7).XTickLabel = [];
 xlabel(ax(8),b), ax(8).XTickLabel = [];
 
-% xlabel(ax(1),'Time (sec)'), ax(1).XTickLabel = [];
-% xlabel(ax(2),'Time (sec)'), ax(2).XTickLabel = [];
-% xlabel(ax(3),'Time (sec)'), ax(3).XTickLabel = [];
+% xlabel(ax(1),'Tid'), ax(1).XTickLabel = [];
+% xlabel(ax(2),'Tid'), ax(2).XTickLabel = [];
+% xlabel(ax(3),'Tid'), ax(3).XTickLabel = [];
 % 
-% xlabel(ax(4),'Time (sec)'), ax(4).XTickLabel = [];
-% xlabel(ax(5),'Time (sec)'), ax(5).XTickLabel = [];
-% xlabel(ax(6),'Time (sec)'), ax(6).XTickLabel = [];
-% xlabel(ax(7),'Time (sec)'), ax(7).XTickLabel = [];
-% xlabel(ax(8),'Time (sec)'), ax(8).XTickLabel = [];
-
+% xlabel(ax(4),'Tid'), ax(4).XTickLabel = [];
+% xlabel(ax(5),'Tid'), ax(5).XTickLabel = [];
+% xlabel(ax(6),'Tid'), ax(6).XTickLabel = [];
+% xlabel(ax(7),'Tid'), ax(7).XTickLabel = [];
+% xlabel(ax(8),'Tid'), ax(8).XTickLabel = [];
+% 
 
 end

@@ -1,9 +1,9 @@
 clc
 % getModelPoseIds()
-[FileName,PathName,FilterIndex] = uigetfile('*.csv','MultiSelect','on');
+% [FileName,PathName,FilterIndex] = uigetfile('*.csv','MultiSelect','on');
+load('FileNames');
 
-n_obs = 1500;
-
+n_obs = 1000;
 
 emg1Collection = [];
 emg2Collection = [];
@@ -28,12 +28,12 @@ orientation    = [];
         for k=1:length(FileName);
             [emg1Collection,emg2Collection,emg3Collection,emg4Collection,...
                 emg5Collection,emg6Collection,emg7Collection,emg8Collection,padding,cate,orientation,testPersons] ...
-            = importfilefuncOri( strcat(char(PathName),char(FileName(k))), 2,emg1Collection...
+            = importfilefuncOri( char(FileName(k)), 2,emg1Collection...
                 ,emg2Collection,emg3Collection,emg4Collection,emg5Collection,emg6Collection,emg7Collection,emg8Collection...
             ,padding,cate,orientation,testPersons);
         end
     end
-    
+    % strcat(char(PathName),char(FileName(k)))
     % Finding the unique pose id's from the data    
 id = unique(sort(cate)) 
 
