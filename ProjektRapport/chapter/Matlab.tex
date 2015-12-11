@@ -30,9 +30,8 @@ Før den indsamlede data er klar til den nødvendig databehandling, skal den gen
   Efter \textit{pose}-værdierne er dubleret til hver vindue konverteres de til \textit{categorical}s, hvilket er typen MATLAB anvender som class labels. Dette essentiel, da poses netop er det der ønskes, at de modeller er i stand til at genkende. Som tidligere nævnt dækker navnet \textit{pose} i .csv filerne over pose ID\todokr{Det skal nævnes tidligere!}, der konverteres derfor fra \textit{integer}-værdier til \textit{categorical}-typen. \todola{skal typer måske skrive med itatic}
 \end{description}
 
-Det er de fire trin, der udføres på alle importerede .csv filer. Filerne behandles gennem en funktion \textit{importFileFunc}, der tager arrays med hver af de udvalgte værdier som inputs. Disse værdier er vinduer fra hver af de 8 EMG sensorer og derudover \textit{pose}-\textit{orientation}- og \textit{testPerson}-værdier til hvert vindue. Videre tager funktionen stigen og navnet til en enkelt .csv filer som input, hvilket er den specifikke fil, der behandles. 
+Det er de fire trin, der udføres på alle importerede .csv filer. Filerne behandles gennem en funktion \textit{importFileFuncOri},\todola{Navnet på funktionen skal måske ændres} der tager arrays med hver af de udvalgte værdier som inputs. Disse værdier er vinduer fra hver af de 8 EMG sensorer og derudover \textit{pose}-\textit{orientation}- og \textit{testPerson}-værdier til hvert vindue. Videre tager funktionen stien og navnet til en enkelt .csv filer som input, hvilket er den specifikke fil, der behandles. Ved kald af funktionen kan array-parametrene være med data eller uden, funktionaliteten er den samme. Funktionen tilføjer værdierne for hvert af de nye vinduer til array-parametrene, og returnerer de resulterende arrays. 
 
-Arrays kan være fyldt eller tomme, funktion smider data i dem og sender med tilbage igen med mere data fra en ny fil.
 
 skriv hvordan funktionen er lavet. genereret script
 
