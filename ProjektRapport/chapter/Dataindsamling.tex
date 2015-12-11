@@ -7,7 +7,7 @@ I sektion \ref{sec:fysiologi} er det beskrevet hvordan der kan opsamles data fra
 	\item indsamle datasæt
 	\item Tilføje ny pose
 \end{myItemize}
-Instruktionen er en forklaring af de forskellige knapper på GUI'en der giver et overblik og en forståelse for hvordan applikationen betjenes. Denne kan åbnes fra "File" oppe i venstre hjørne af GUI'en, se figur \ref{fig:dca} 
+Instruktionen er en forklaring af de forskellige knapper på GUI'en der giver et overblik og en forståelse for hvordan applikationen betjenes. Denne kan åbnes fra "File"' oppe i venstre hjørne af GUI'en. "File"' ses på figur \ref{fig:dca} 
 
 \section{Optagelse af data}
 \label{sec:optagelsedata}
@@ -19,9 +19,11 @@ På figur \ref{fig:sample} ses et eksempel på et udsnit fra en sekvens at sampl
 Som det ses er der på første sample flere informationer. Grunden til dette er at de ikke ændres i løbet af én optagelse. Den første er information om hvilken hånd Myo'en sidder på. Den anden er hvilken pose der optages. Da det her er dataopsamling mappes der ind input, som er EMG signalerne, til et output, som er den pose der opsamles for. På den måde kan de mappes sammen, og det er senere muligt at genkende de enkelte poses. Den tredje er hvilken orientering Myo'en har. Denne er variabel da den ikke nødvendigvis påføres armen på samme måde hver gang. Da både EMG data og orientering optages sammen, kan de også under træning af modellerne mappes sammen, hvilken gør at der skabes en forbindelse mellem orientering og EMG signal. Den sidste information på første sample er brugernavnet på testpersonen.\\
 Data bliver optaget ved at Myo'en påføres underarmen hvor den er tykkest, herefter checkes orienteringen ved holde armen strakt ud med tommefingeren op. Den ønskede pose, testpersonen vil optage, vælges i fold-ud menuen, og optagelsen startes. På figur \ref{fig:dca} kan brugergrænsefladen til applikationen ses.
 
-\myFigure{dca}{Datacollection applikation brugergrænseflade. Her ses de omtalte knapper, check orintation hvor orineteringen af Myo'en kan findes. Der kan også tilf'jes en ny pose til databasen ved klik på "Add New Pose"' Brugernavn skal indtastes for at kunne optage, så det er muligt at se på databasen hvem der har uploaded hvad.}{fig:dca}{0.8}
+\myFigure{dca}{Data Collection Applikation brugergrænseflade. Her ses de omtalte knapper, check orientation hvor orienteringen af Myo'en kan findes. Der kan også tilføjes en ny pose til databasen ved klik på "Add New Pose"' Brugernavn skal indtastes for at kunne optage, så det er muligt at se på databasen hvem der har uploaded hvad.}{fig:dca}{0.9}
 
 Når en optagelse startes, laves den ønskede pose, og der registreres EMG signaler fra musklerne. Signalerne sendes som integers til applikationen der skriver dem ud i en .csv fil. Når en optagelse stoppes bliver .csv filen gemt, og der er mulighed for at få gemt data online. Gemmes data online bliver det sendt til en database på parse.com\citep{RefWorks:11}. Her bliver alle data gemt fra testpersoner der anvender applikationen.
-\todokr{Skriv on hvor der er brugt .csv filer}
+
+Til opbevaring af pose data er der valgt .csv fil. Valget stod mellem en database eller .csv filen. .csv filen kan læses i en bred udstrækning af miljø og applikationer, og er nem at arbejde med. Det er derfor en smart løsning at hver optagelse ligger i en fil for sig. Derfor blev .csv valg. Filerne er samlet på Parse.com i en database. Hos Parse er der så mulighed for at hente .csv filerne ud og arbejde med dem lokalt. Dette er fx. til træning af Machine Learning modeller
+
 \section{Delkonklusion}
-Med dette værktøj, er det nu muligt at opsamle data og gemme det lokalt og i skyen. Dataen er klar til brug i MATLAB, hvor der kan trænes machine learning modeller med det. Alle kan ligemeget hvor de er opsamle data og ligge det op på parse.com i ksyen, hvor der laves en samlet database med alle data, der kan bruges til at træne modeller med. 
+Med dette værktøj, er det nu muligt at opsamle data og gemme det lokalt og på Parse.com. Dataen er klar til brug i MATLAB, hvor der kan trænes Machine Learning modeller med det. Alle kan ligemeget hvor de er opsamle data og ligge det op på parse.com, hvor der laves en samlet database med alle data, der kan bruges til at træne modeller med. 
