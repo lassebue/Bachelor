@@ -41,9 +41,9 @@ Processen for at kunne kalde funktioner lavet i MATLAB fra WPF applikationen for
 	\item Der kan nu Kaldes funktioner lavet i MATLAB
 \end{enumerate}
 
-\myWrapFigure{USB2Dynamixel}{USB2Dynamixel enhed der bruges for at lave en seriel port fra en af computerens USB porte. Igennem USB2Dynamixel kan CrustCrawleren tilkobles computeren.}{fig:usb2d}{0.4}{r}
+\myFigure{USB2Dynamixel}{USB2Dynamixel enhed der bruges for at lave en seriel port fra en af computerens USB porte. Igennem USB2Dynamixel kan CrustCrawleren tilkobles computeren.}{fig:usb2d}{0.4}
 
-CrustCrawleren tilkobles computeren gennem en USB2Dynamixel, se figur \ref{fig:usb2d}. USB2Dynamixel er brugt for at lave en seriel port igennem computerens USB port. Til denne er en driver og et .dll bibliotek, med en tilhørende headerfil. Dynamixel.dll og dynamixel.h. Disse filer loades begge i MATLAB koden, hvor biblioteket giver mulighed for at kalde nogle forskellige funktioner som CrustCrawleren kan reagere på. Driveren er\\ USB2Dynamixel \citep{agaverobot} \todokr{lav reference til manual hvis denne laves} og er frit tilgængelig for alle, kan dog kun bruges med en USB2Dynamixel enhed, og Dynamixel servoer.
+CrustCrawleren tilkobles computeren gennem en USB2Dynamixel, se figur \ref{fig:usb2d}. USB2Dynamixel er brugt for at lave en seriel port igennem computerens USB port. Til denne er en driver og et .dll bibliotek, med en tilhørende headerfil. Dynamixel.dll og dynamixel.h. Disse filer loades begge i MATLAB koden, hvor biblioteket giver mulighed for at kalde nogle forskellige funktioner som CrustCrawleren kan reagere på. Driveren er USB2Dynamixel \citep{agaverobot} \todokr{lav reference til manual hvis denne laves} og er frit tilgængelig for alle, kan dog kun bruges med en USB2Dynamixel enhed, og Dynamixel servoer.
 
 \section{Delkonklusion}
 Det er nu muligt som bruger med denne applikation og en Myo at genkende håndtrykkene åben hånd og lukket hånd, vha. en trænet machine learning model. Applikationen står for at få data fra Myo'en og sende det til en MATLAB server, hvor der beregnes, og sammenlignes med den trænede model, og der sendes resultat tilbage til applikationen. Genkendelsen anvendes på en CrustCrawler robot arm, der åbnet og lukkes alt efter genkendelsen.
