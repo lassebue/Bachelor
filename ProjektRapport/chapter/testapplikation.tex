@@ -41,21 +41,21 @@ For der kan genkendes håndtryk skal der være noget at stille de data op i mod,
 
 \section{Kommunikation med CrustCrawler}
 \label{sec:ktc}
-Som nævnt tidligere foregår al kommunikation med CrustCrawleren igennem Matlab-klassen. Her sørges der for at kalde funktioner i en MATLAB Automation\todokr{Det er ikke første gang den bliver nævnt} server\footnote{Fremover nævnt som MATLAB server} der bliver åbnet under initieringen af Matlab-klassen. Kald der bliver lavet i MATLAB serveren er både, når der skal sende vinduer til genkendelse, men også når der kaldes funktioner til at manøvrere CrustCrawleren. På sekvens diagrammet på figur \ref{fig:sd} ses de kald der bliver foretaget i tilfældet at kloen på CrustCrawleren skal åbnes.
+Som nævnt tidligere foregår al kommunikation med CrustCrawleren igennem Matlab-klassen. Her sørges der for at kalde funktioner i en MATLAB Automation\todokr{Det er ikke første gang den bliver nævnt} server\footnote{Fremover nævnt som MATLAB server} der bliver åbnet under initieringen af Matlab-klassen. Kald der bliver lavet i MATLAB serveren er både, når der skal sende vinduer til genkendelse, men også når der kaldes funktioner til at styrere CrustCrawleren. På sekvensdiagrammet på figur \ref{fig:sd} ses de kald, der bliver foretaget, når kloen på CrustCrawleren skal åbnes.
 
 \myFigure{Sekvensdiagram}{OpenClaw() i CCManagement klassen kaldes, som kontakter Matlab.cs da der skal kontakt til MATLAB serveren. MATLAB serveren bliver kaldt og i MATLAB er der udviklet funktioner til at manøvrere CrustCrawleren rundt og styre kloen. Funktionen OpenClaw() i MATLAB serveren kalder funktionen MoveServo(), denne skriver ud til CrustCrawleren at servo nummer 7 skal køre til en bestemt anvist position.}{fig:sd}{1}
 
-Processen for at kunne kalde funktioner lavet i MATLAB fra WPF applikationen foregår som følger \citep{RefWorks:15}:
+Processen for at kalde funktioner i MATLAB fra WPF-applikationen foregår som følger \citep{RefWorks:15}:
 \begin{enumerate}
 %	\itemsep -0.9em 
 	\item Start MATLAB Automation Server og lav en instans heraf
-	\item Set sti til mappe hvor MATLAB funktioner ligger
-	\item Der kan nu Kaldes funktioner lavet i MATLAB
+	\item Sæt sti til mappe, hvor MATLAB funktioner ligger
+	\item MATLAB-funktioner kan efterfølgende kaldes fra WPF-applikationen.
 \end{enumerate}
 
 \myFigure{USB2Dynamixel}{USB2Dynamixel enhed der bruges for at lave en seriel port fra en af computerens USB porte. Igennem USB2Dynamixel kan CrustCrawleren tilkobles computeren.}{fig:usb2d}{0.4}
 
-CrustCrawleren tilkobles computeren gennem en USB2Dynamixel, se figur \ref{fig:usb2d}. USB2Dynamixel er brugt for at lave en seriel port igennem computerens USB port. Til denne er en driver og et .dll bibliotek, med en tilhørende headerfil. Dynamixel.dll og dynamixel.h. Disse filer loades begge i MATLAB koden, hvor biblioteket giver mulighed for at kalde nogle forskellige funktioner som CrustCrawleren kan reagere på. Driveren er USB2Dynamixel \citep{agaverobot} \todokr{lav reference til manual hvis denne laves} og er frit tilgængelig for alle, kan dog kun bruges med en USB2Dynamixel enhed, og Dynamixel servoer.
+CrustCrawleren tilkobles computeren gennem en USB2Dynamixel, se figur \ref{fig:usb2d}. USB2Dynamixel er brugt for at lave en seriel port igennem computerens USB port. Til denne er en driver og et .dll bibliotek med en tilhørende headerfil. Dynamixel.dll og dynamixel.h. Disse filer loades begge i MATLAB-koden, hvor biblioteket giver mulighed for at kalde nogle forskellige funktioner, som CrustCrawleren kan reagere på. Driveren er USB2Dynamixel \citep{agaverobot} \todokr{lav reference til manual hvis denne laves} og er frit tilgængelig for alle. Denne kan dog kun bruges med en USB2Dynamixel enhed og Dynamixel servoer.
 
 \section{Delkonklusion}
-Det er nu muligt som bruger med denne applikation og en Myo at genkende håndtrykkene åben hånd og lukket hånd, vha. en trænet machine learning model. Applikationen står for at få data fra Myo'en og sende det til en MATLAB server, hvor der beregnes, og sammenlignes med den trænede model, og der sendes resultat tilbage til applikationen. Genkendelsen anvendes på en CrustCrawler robot arm, der åbnet og lukkes alt efter genkendelsen.
+Det er nu muligt som bruger med denne applikation og en Myo at genkende håndtrykkene åben hånd og lukket hånd vha. en trænet machine learning model. Applikationen står for at få data fra Myo'en og sende det til en MATLAB server, hvor der beregnes, og sammenlignes med den trænede model og der sendes resultat tilbage til applikationen. Genkendelsen anvendes på en CrustCrawler robot arm, der åbnet og lukkes alt efter genkendelsen.
