@@ -31,23 +31,31 @@ Før den indsamlede data er klar til den nødvendig databehandling, skal den gen
 \end{description}
 Det er de fire trin, der udføres på alle importerede .csv-filer. Filerne behandles gennem en funktion \textit{importFileFuncOri},\todola{Navnet på funktionen skal måske ændres} der tager arrays med hver af de udvalgte værdier som inputs. Disse værdier er vinduer fra hver af de 8 EMG sensorer og derudover \textit{pose}-, \textit{orientation}- og \textit{testPerson}-værdier til hvert vindue. Videre tager funktionen stien og navnet til en enkelt .csv-filer som input, hvilket er den specifikke fil, der behandles. Ved kald af funktionen kan array-parametrene være med data eller uden, funktionaliteten er den samme. Funktionen tilføjer værdierne for hvert af de nye vinduer til array-parametrene, og returnerer de resulterende arrays. 
 
-Den anvendte funktion \textit{importFileFuncOri} er genereret vha. af MATLAB's \textit{uiimport}-funktion\citep{matlabUiimport}, hvor en import GUI, som kan ses på figur \ref{fig:dataImport}, præsenterer en række data import funktioner. En af disse genererer ud fra de foretaget valg i dialogboksen, en MATLAB-funktion, der importerer den valgte filtype. Når MATLAB-funktionen er glemt, modificeres dens script til at udføre de beskrevne trin, der skal udføres før feature extraction kan finde sted.
+Den anvendte funktion \textit{importFileFuncOri} er genereret vha. af MATLAB's \textit{uiimport}-funktion\citep{matlabUiimport}, hvor en import GUI, som kan ses på figur \ref{fig:dataImport}, præsenterer en række data import funktioner. En af disse genererer ud fra de foretaget valg i dialogboksen, en MATLAB-funktion, der importerer den valgte filtype. Når MATLAB-funktionen er gemt, modificeres dens script til at udføre de beskrevne trin, der skal udføres før feature extraction kan finde sted.
 
 \myFigure{uiimport}
 {
 	Her ses MATLAB's import dialogboks med data indsamlet fra Data Collection Application. Videre ses en dropdown menu øverst til højre under \textit{Import 		Selection}-knappen, hvor tre mulighed for valg af import kan findes. Her er mulighederne: \textit{Import Data}, \textit{Generate Script} og \textit{Generate Function}. \textit{Generate Function}-funktionen anvendes i dette projekt til at generere en MATLAB-funktion til dataimport.
  }{fig:dataImport}{1}
 
- 
- 
- 
-Efter import af .csv-filer vha. \textit{importFileFuncOri}-funktionen kan feature extraction udføres på 
+Vha. denne funktion kan de enkelte .csv-filer importeres til MATLAB, hvorefter EMG-signalerne kan analyseres og efterfølgende feature extraction kan foretages.
+
+\section{Feature extraction}
+
+For at være i stand til at træne machine learning modeller, skal der fra den datakilde, der behandles være generelle kendetegn, som altid vil kunne identificeres uanset, hvilket datasæt der undersøges. Disse feature skal dog identificeres og udtrækkes før træningen af modellerne kan påbegyndes. I det følgende vil det blive beskrevet, hvorledes analyse og feature extraction af EMG-signalerne er foretaget gennem projektet.
+\\\\
+Der har fra projektgruppens side været en hypotese om, at niveauet af aktivitet på MYO'ens individuelle sensorer, vil kunne anvendes som features, da forskellige muskler er aktive ved forskellige håndbevægelser. Lukkes hånden f.eks. er det især muskel grupper på indersiden af armen, der aktiveres. Omvendt forholder det sig, hvis håndens fingre strækkes, hvorved muskel grupper på ydersiden af armen aktiveres. 
+Videre er teorien blevet underbygget ved test af Myo'en på Thalmic Labs' diagnostics-hjemmeside\citep{myoDiagnostik}, hvor en real time graf over måleringer fra Myo'ens sensorer giver indtryk af at hypoteser kan være sand. Denne hjemmeside er blevet anvendt til at studere, hvordan sensorernes overordet output ved forskellige poses. Screen shots af real time grafen fra diagnostics-hjemmesiden kan ses med to poses på figur \ref{fig:diagnostic}.
+\mySubFigure{diagnosticOpenHand}{diagnosticClosedHand}{
+I hver figure, \ref{open} og \ref{closed}, ses 8 EMG-grafer for hver sensor, her med titlerne \textit{pod0}, \textit{pod1} osv. Tiden ses på den horisontal akse og amplituden på den vertikale akse. Det ses på figur \ref{open} for pose med udstrakte fingre, at amplituden ved \textit{pod3}er større end \textit{pod3} på figure \ref{closed}. Videre ser \textit{pod0} og \textit{pod1} på figur \ref{closed} ud til at være større end de tilsvarende pods på figur \ref{open}.
+}{Udstrakte fingre}{Lukkes hånd}{fig:diagnostic}{open}{closed}
+ \\\\
+ Andre mulige features der er blevet overvejet er: varians, principal components og specifikke frekvenser. Her er frekvens analyse blevet fravalg, da Myo'en kun er i stand til at sample med en frekvens på 200 Hz og EMG-frekvens spektret ligger mellem 25 Hz og adskillige kilohertz\citep{websterEMG}. 
+
 \myFigure{RawEMG}
 {
 	Her ses et eksempel på rå EMG-signaler fra de 8 EMG-sensorer efter import. På x-aksen er tiden for målingerne, hvor der er 5 ms mellem hver sample. På y-aksen er amplituden, denne er uden enhed. Her er signalerne fra hver pose repræsenteret med forskellige farver. EMG-signalerne markeret med rødt er lavet med en lukket hånd, de blå er lavet med en åben hånd og de gule er lavet med en hånd i hvile. Særligt ved sensor 6 og 7 ses forskelle i amplituden mellem poses med åben og lukket hånd. 
- }{fig:rawEmgData}{1}
-
-\section{Databehandling}
+ }{fig:rawEmgData}{1} \todoall{indsæt label på x-aksen}
 
 \section{Træning}
 
