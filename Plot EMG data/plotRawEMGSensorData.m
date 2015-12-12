@@ -55,7 +55,7 @@ axes(ax(1)), gscatter(1:size(rawTS,1),rawTS(:,1),activityType,clr,'.',8,'off')
 axes(ax(2)), gscatter(1:size(rawTS,1),rawTS(:,2),activityType,clr,'.',8,'off')
 axes(ax(3)), gscatter(1:size(rawTS,1),rawTS(:,3),activityType,clr,'.',8,'off')
 
-axes(ax(4)), gscatter(1:size(rawTS,1),rawTS(:,4),activityType,clr,'.',8,'off')
+axes(ax(4)), gscatter(1:size(rawTS,1),rawTS(:,4),activityType,clr,'.',8,'on')
 axes(ax(5)), gscatter(1:size(rawTS,1),rawTS(:,5),activityType,clr,'.',8,'off')
 axes(ax(6)), gscatter(1:size(rawTS,1),rawTS(:,6),activityType,clr,'.',8,'off')
 
