@@ -15,11 +15,11 @@ Det kan således siges at fordelen ved at behandle subsæt af træningssættet, 
 \\Risikoen for klassifikationsreglernes lave nøjagtighed ved større datasæt har dog meget lille betydning, da alle regler for de enkelt subsæt kombineres ved ensemble learning. Således genereres der en kompleks regel med forventelig høj klassifikationspræcision for større datasæt, ud fra simple regler med høje præcision på små datasæt.
 \\\\
 I praksis bestå ensemble learning af tre dele:
-\begin{enumerate}
+\begin{myEnumerate}
 \item Selektion af subset
 \item Træning af regler på de udvalgte subset
 \item Kombinering af regler 
-\end{enumerate}
+\end{myEnumerate}
 
 Her ligger forskellen mellem forskellige typer af ensemble learning i, hvordan de udvælger og behandler træningssættets subset, samt hvorledes de enkelte simple regler fra hvert subset tilslut kombineres til en mere kompleks regel. 
 Her kommer bagging ind i billedet, da denne netop udvælger subsæt og kombinere regler på en bestemt måde. Dette vil blive uddybet i det følgende. 

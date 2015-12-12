@@ -2,15 +2,15 @@
 \chapter{Systembeskrivelse}
 \label{chp:systembeskrivelse}
 
-Systemet i dette projekt består af flere dele, nemlig Dataopsamlingsprogram, Data collection og en Anvendelsesdel.
+Systemet i dette projekt består af flere dele, nemlig dataopsamlingsprogram, modeltræning og en anvendelsesdel.
 \subsubsection{Dataopsamlingsprogram}
 Til denne del af projektet anvendes en Myo. En Myo er et relativt billigt wearable device som har en række funktionaliteter, hvor den ene er at den kan opfange EMG signaler i underarmen, og sende den opsamlede data til et program.\\
-Da der er behov for data specifikt til machine learning, vil der i projektet blive designet et software program, med henblik på at opsamle og ordne data sendt fra Myo båndet, til senere træning af Machine Learning modeller.\\
+Da der er behov for data specifikt til machine learning, vil der i projektet blive designet et software program, med henblik på at opsamle og ordne data sendt fra Myo båndet, til senere træning af machine learning modeller.\\
 Data collection, som er anden del af systemet, hvilket her er hostet hos parse.com, er en database hvor alle de opsamlede data ligger. Disse kan anvendes til forskellige formål.
 
 \subsubsection{Modeltræning}
-Til træning af Machine Learnings modellen, er det intentionen at anvende Matlabs indbyggede toolboxes, der er særligt egnet til at udvikle og træne genkendelses modellerne, samt at teste disse. 
-Her er det ligeledes muligt, at undersøge, hvilke typer af Machine Learning modeller, der er de meste effektive til at genkende poses, og hvilke der er poses, de forskellige modeller har sværest ved er se forskel på.
+Til træning af machine learnings modellen, er det intentionen at anvende Matlabs indbyggede toolboxes, der er særligt egnet til at udvikle og træne genkendelses modellerne, samt at teste disse. 
+Her er det ligeledes muligt, at undersøge, hvilke typer af machine learning modeller, der er de meste effektive til at genkende poses, og hvilke der er poses, de forskellige modeller har sværest ved er se forskel på.
 
 \subsubsection{Anvendelse}
 I denne del del af systemet anvendes den trænede data. En bruger med en Myo kan her lave poses som sendes til matlab algoritmen og her genkendes det specifikke pose. Efterfølgende vil anvendelsesprogrammet ved hjælp af den genkendte pose, sende en kommando ud til en en robotarm. Systemet gør brug af en robotarm kaldet CrustCrawler. Denne robot er en arm med 2 bøjelige led, 2 roterende led og en klo der kan gribe ud efter genstande. CrustCrawleren vil modtage en kommando fra anvendelsesprogrammet, og reagere herpå. Kloen kan lukke i eller åbne alt efter om brugeren knytter sin hånd eller åbner den.\\
@@ -54,9 +54,9 @@ I tabel \ref{tab:funktionellekrav} ses alle de funktionelle krav der stilles til
 			Krav 4:& Gemme datasæt\\
 			Krav 5:& Uploade datasæt til data collection\\
 			\rowcolor{grey}En Bruger skal kunne: &\\
-			Krav 7:& Genkende en pose vha. genkendelsessoftwaren\\
-			Krav 8:& Lave knyttet næve så CrustCrawler lukker sammen\\
-			Krav 9:& Lave åbnet hånd så CrustCrawler åbnes
+			Krav 6:& Genkende en pose vha. genkendelsessoftwaren\\
+			Krav 7:& Lave knyttet næve så CrustCrawler lukker sammen\\
+			Krav 8:& Lave åbnet hånd så CrustCrawler åbnes
 		\end{tabular}
 		\caption{Funktionelle krav}
 		\label{tab:funktionellekrav}
@@ -73,9 +73,9 @@ Her skal testpersonen have mulighed for at få en hurtig vejledning i hvordan da
 \subsubsection{Indsaml datasæt og tilføj ny pose}
 Testpersonen skal kunne indsamle et nyt datasæt og derefter tilføje det til en kategori, så som "knyttet hånd". Herefter uploades det til den fælles data collection. Disse Use Cases dækker krav \#2, 3, 4 og 5.
 \subsubsection{Genkendelse af pose}
-Brugeren skal med genkendelsessoftwaren genkende en bestem pose som brugeren laver med Myo armband på. Dette er med henblik på at anvende det videre på noget andet. Denne Use Case dækker krav \#7
+Brugeren skal med genkendelsessoftwaren genkende en bestem pose som brugeren laver med Myo armband på. Dette er med henblik på at anvende det videre på noget andet. Denne Use Case dækker krav \#6
 \subsubsection{Åbn og luk CrustCrawler greb}
-Brugeren skal kunne lade CrustCrawleren greb åbne og lukke på kommando efter man laver knyttet hånd eller åben hånd. Det er her at anvendelsen er i brug. Disse Use Cases dækker krav \#8 og 9
+Brugeren skal kunne lade CrustCrawlerens greb, åbne og lukke på kommando efter man laver knyttet hånd eller åben hånd. Det er her at anvendelsen er i brug. Disse Use Cases dækker krav \#7 og 8
 
 \section{Ikke funktionelle krav}
 \label{sec:ikkefunktionellekrav}
@@ -85,7 +85,7 @@ I følgende sektion beskrives systemets ikke funktionelle krav. Disse har ikke e
 Dataopsamlingsprogrammet der sammen med et Myo armband anvendes af testpersonen, som er beskrevet i tabel \ref{tab:funktionellekrav}, har følgende ikke funktionelle krav.
 
 \subsubsection{Brugergrænseflade}
-Dataopsamling skal anvendes af testpersonen der har en Myo til opsamling af data. Brugergrænsefladen skal være så enkelt som muligt. \todoall{Ændre her hvis ikke vi gør det ud fra Jakob Nielsens designprincipper} Derfor arbejdes der ud fra Jakob Nielsens design principper. Hvilket gør at testpersonen får en god oplevelse med systemet.
+Dataopsamling skal anvendes af testpersonen der har en Myo til opsamling af data. Brugergrænsefladen skal være så enkelt som muligt, således at den er enkel at bruge.
 
 \subsubsection{Datasamling}
 Det ønskes at alle ejerer af et Myo armbånd skal kunne bidrage til systemets datasamling, derfor er det besluttet, at datasamlingen skal være online. Ligeledes vil det, med en online datasamling, kunne lade sig gøre at tilgå dataene fra flere computere samtidigt, således at behov udenfor projektafgrænsninger vil kunne dækkes. På trods af at datasamlingen ligger online, kan der stadig være behov for at opsamle data selvom man ikke er online, og dette skal også kunne gøres i en .csv fil, hvorefter det kan uploades når man har internetadgang.

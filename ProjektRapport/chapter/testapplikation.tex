@@ -1,5 +1,6 @@
 \thispagestyle{fancy}
 \chapter{Testapplikation}
+\label{chp:testapp}
 I dette kapitel vil testapplikationen til anvendelsen af systemet være beskrevet. Denne er udviklet ud fra kravspecifikationen \citep{RefWorks:8}, der har dannet grundlag for applikationens funktionalitet. \\
 Det er fra starten af projektet besluttet at applikationen til systemet udvikles i Windows Presentation Foundation (WPF) i Microsoft Visual Studio, da dette er et allerede kendt framework, og det er derfor hurtigt at starte udviklingen. WPF er også valgt til udviklingen da det indeholder gode væktøjer til arbejde med GUI, hvilket gør at brugeren af applikationen nemt kan avende systemets funktioner.
 
@@ -12,7 +13,7 @@ Det er valgt til CrustCrawler Applikationen, som testapplikationen hedder, at de
 
 På figur \ref{fig:mvvm} ses den overordnede struktur i hvordan klasserne er placeret. Denne figur er for at give et lille overblik, og der er derfor ikke taget alle klasser med. Modellen som består af flere forskellige klasser er altså vha. MVVM separeret fra viewet som er .xaml-filen MainWindow.xaml.
 
-\myFigure{CCAClassDiagram}{Klasse diagram over CrustCrawler applikationen. Klasserne af lavet ud fra SOLID principperne, og afhænger derfor ikke af hinanden med af interfaces. Hver klasse har også kun ét ansvar de skal sørge for. Applikationen er også åben for udvidelser, ved at der fx. kan tilføjes nye poses, uden der skal ændres i allerede eksisterende klasser. Der skal blot tilføjes et interface der nedarver fra IPoseHandlerMkI, hvor der kan tilføjes nye poses til.}{fig:cd}{1}
+\myFigure{CCAClassDiagram}{Klasse diagram over CrustCrawler applikationen. Klasserne af lavet ud fra SOLID principperne, og afhænger derfor ikke af hinanden med af interfaces. Hver klasse har også kun ét ansvar de skal sørge for.Applikationen er også åben for udvidelser, ved at der fx. kan tilføjes nye poses, uden der skal ændres i allerede eksisterende klasser. Der skal blot tilføjes et interface der nedarver fra IPoseHandlerMkI, hvor der kan tilføjes nye poses til.}{fig:cd}{1}
 
 Under udviklingen er der taget højde for SOLID pricipperne\citep{RefWorks:10}, derfor udformer applikationen klassediagram som det ses på figur \ref{fig:cd}. Single responsibility\citep{RefWorks:9} er overholdt, og dermed er klasser opdelt i projektet sådan at de har hvert deres ansvar. Matlab sørger for alt kommunikation med MATLAB. I denne klasse initialiseres og startes MATLAB serveren, og kommandoer sendes også til Matlab herfra. I CCManagement, er metoderne til de forskellige kommandoer kan kaldes for at styre CrustCrawleren. Der kaldes fx. metoden OpenClaw() når CrustCrawler kloen skal åbnes. CCManagement kalder Matlab som sender kommando til MATLAB serveren. I Klassen Recognition startes genkendelsesmetoderne der vil sørge for at igennem klassen Matlab og få MATLAB serveren til at sammeligne op imod den trænede machine learning model.
 
