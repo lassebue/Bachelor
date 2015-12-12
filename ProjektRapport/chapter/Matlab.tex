@@ -20,10 +20,9 @@ Før den indsamlede data er klar til den nødvendig databehandling, skal den gen
   Efter dataet fra EMG sensorerne er gemt, opdeles de i såkaldte vinduer som er intervaller af data samples med en fast størrelse. Det er disse vinduer, der laves feature extraction over.
   \\\\
   Mangler et antal sample, således at et vindue ikke får den rette størrelse fjernes det fra de øvrige vinduer. 
-    \item[Tredje trin:] Øvrige udvalgte værdier tilføres til sample vinduerne.
-     Fra .csv-filen dubleres de, således hvert af sample vinduerne har de tilhørende værdier.
+    \item[Tredje trin:] Øvrige udvalgte værdier tilføres fra .csv-filen til samplevinduerne, hvor de dubleres, således at hver samplevindue har egne tilhørende værdier.
   \\\\
-  For hver vindue af data samples skal de udvalgte værdier dubleres, således at hver værdi optræder for hver vindue. Der er her tale om \textit{pose}, \textit{orientation} og \textit{testPerson}.
+  For hver vindue af datasamples skal de udvalgte værdier dubleres, således at hver værdi optræder for hver vindue. Der er her tale om \textit{pose}, \textit{orientation} og \textit{testPerson}.
   
   \item[Fjerde trin:] \textit{pose}-værdierne konverteres til MATLAB typer \textit{categorical}
   \\\\
@@ -35,7 +34,7 @@ Den anvendte funktion \textit{importFileFuncOri} er genereret vha. MATLAB's \tex
 
 \myFigure{uiimport}
 {
-	Her ses MATLAB's import dialogboks med data indsamlet fra Data Collection Application. Videre ses en dropdown menu øverst til højre under \textit{Import 		Selection}-knappen, hvor tre muligheder for valg af import kan findes. Her er mulighederne: \textit{Import Data}, \textit{Generate Script} og \textit{Generate Function}. \textit{Generate Function}-funktionen anvendes i dette projekt til at generere en MATLAB-funktion til dataimport.
+	Her ses MATLAB's import dialogboks med data indsamlet fra Data Collection Application. Videre ses en dropdown menu øverst til højre under \textit{Import Selection}-knappen, hvor tre mulighed for valg af import kan findes. Her er mulighederne: \textit{Import Data}, \textit{Generate Script} og \textit{Generate Function}. \textit{Generate Function}-funktionen anvendes i dette projekt til at generere en MATLAB-funktion til dataimport.
  }{fig:dataImport}{1}
 
 Vha. denne funktion kan de enkelte .csv-filer importeres til MATLAB, hvorefter EMG-signalerne kan analyseres og efterfølgende feature extraction kan foretages.
@@ -44,13 +43,13 @@ Vha. denne funktion kan de enkelte .csv-filer importeres til MATLAB, hvorefter E
 
 For at være i stand til at træne machine learning modeller, skal der fra den datakilde der behandles, være generelle kendetegn, som altid vil kunne identificeres uanset, hvilket datasæt der undersøges. Disse features skal dog identificeres og udtrækkes før træningen af modellerne kan påbegyndes. I det følgende vil det blive beskrevet, hvorledes analyse og feature extraction af EMG-signalerne er foretaget gennem projektet.
 \\\\
-Der har fra projektgruppens side været en hypotese, at niveauet af aktivitet på MYO'ens individuelle sensorer, vil kunne anvendes som features. Forskellige muskler er nemlig aktive ved forskellige håndbevægelser. Lukkes hånden f.eks. er det især muskel grupper på indersiden af armen, der aktiveres. Omvendt forholder det sig, hvis håndens fingre strækkes, hvorved muskel grupper på ydersiden af armen aktiveres. 
-Videre er teorien blevet underbygget ved test af Myo'en på Thalmic Labs' diagnostics-hjemmeside\citep{myoDiagnostik}, hvor en realtime graf over måleringer fra Myo'ens sensorer giver indtryk af, at hypoteser kan være sand. Denne hjemmeside er blevet anvendt til at studere, hvordan sensorernes overordnede output ved forskellige poses. Screenshots af realtime grafen fra diagnostics-hjemmesiden kan ses med to poses på figur \ref{fig:diagnostic}.
+Der har fra projektgruppens side været en hypotese om, at niveauet af aktivitet på Myo'ens individuelle sensorer, vil kunne anvendes som features, da forskellige muskler er aktive ved forskellige håndbevægelser. Lukkes hånden f.eks. er det især muskel grupper på indersiden af armen, der aktiveres. Omvendt forholder det sig, hvis håndens fingre strækkes, hvorved muskel grupper på ydersiden af armen aktiveres. 
+Videre er teorien blevet underbygget ved test af Myo'en på Thalmic Labs' diagnostics-hjemmeside\citep{myoDiagnostik}, hvor en real time graf over måleringer fra Myo'ens sensorer giver indtryk af at hypotesen kan være sand. Denne hjemmeside er blevet anvendt til at studere sensorernes overordede output ved forskellige poses. Screen shots af real time grafen fra diagnostics-hjemmesiden kan ses med to poses på figur \ref{fig:diagnostic}.\\\\
 \mySubFigure{diagnosticOpenHand}{diagnosticClosedHand}{
 I hver figure, \ref{open} og \ref{closed}, ses 8 EMG-grafer for hver sensor, her med titlerne \textit{pod0}, \textit{pod1} osv. Tiden ses på den horisontal akse og amplituden på den vertikale akse. Det ses på figur \ref{open} for pose med udstrakte fingre, at amplituden ved \textit{pod3}er større end \textit{pod3} på figure \ref{closed}. Videre ser \textit{pod0} og \textit{pod1} på figur \ref{closed} ud til at være større end de tilsvarende pods på figur \ref{open}.
 }{Udstrakte fingre}{Lukkes hånd}{fig:diagnostic}{open}{closed}
- \\\\
- Andre mulige features der er blevet overvejet er: varians, principal components og specifikke frekvenser. Her er frekvensanalyse blevet fravalg, da Myo'en kun er i stand til at sample med en frekvens på 200 Hz og EMG-frekvens spektret ligger mellem 25 Hz og adskillige kilohertz\citep{websterEMG}. 
+Andre mulige features der er blevet overvejet er: varians, principal components og specifikke frekvenser. Her er frekvens analyse blevet fravalg, da Myo'en kun er i stand til at sample med en frekvens på 200 Hz og EMG-frekvens spektret ligger mellem 25 Hz og adskillige kilohertz\citep{websterEMG}, hvorved samlefrekvensen er for lav i forhold til EMG-signalers Nyquist Rate. Videre er størrelsen på samlingsvinduerne interessante i denne overvejelse, da intentionen er at anvende de trænede modeller til styring af CrustCrawleren. I denne sammenhæng er det vigtigt at tage højde for systemet responsiveness, hvor størrelse på vinduerne er afgørende for hvor lang tid, der går fra samplet data modtages, til modellen har klassificeret dataet fra vinduet, da vinduet "fyldes" før feature extraction.\todoall{Det skal lige tjekkes om det er rigtigt} Jo mindre vinduerne er, jo hurtigere respons vil systemet kunne få. Dog vil små vinduer resultere i at mindre brugbar frekvensinformation vil kunne udtrække, hvorved frekvenser ikke vil være en kilde til features uden det påvirker reaktionshastighed. Derfor er det blevet vurderet, at der kan ses bort fra frekvenser som features til modeltræningen.
+Det vurderes dog, at de øvrige tre features kan anvendes og 
 
 \myFigure{RawEMG}
 {
