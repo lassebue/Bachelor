@@ -16,6 +16,7 @@ På figur \ref{fig:sample} ses et eksempel på et udsnit fra en sekvens at sampl
 
 \myFigure{sample2}{eks. fra en sekvens af samples, hvor informationerne der optages ses. Time er tiden der er gået siden starten af optagelsen. Emg1-8 er EMG signalerne fra de 8 sensorer lavet til en integer. Hand er hvilken hånd der er brugt. Pose er hvilken pose der opsamles data på.orientation er Myo'en orientering. testPerson, er den person er har opsamlet dataen. }{fig:sample}{1}
 
+\todokr{skriv om at hand ikke bliver gemt i videre behandling at data, da vores krav siger at vi kun bruger højre hånd}
 Som det ses er der på første sample flere informationer. Grunden til dette er at de ikke ændres i løbet af én optagelse. Hvilken pose der optages gemmes da dataopsamlingen er input og pose er output. Det bliver mappet sammen, således, pose kan bruges som et output efter træningen. på den måde kan der senere genkendes poses. Orientering gemmes da denne er variabel da den ikke nødvendigvis påføres armen på samme måde hver gang. Da både EMG data og orientering optages sammen, kan de også under træning af modellerne mappes sammen, hvilken gør at der skabes en forbindelse mellem orientering og EMG signal.\\
 Data bliver optaget ved at Myo'en påføres underarmen hvor den er tykkest, herefter checkes orienteringen ved holde armen strakt ud med tommefingeren op. Den ønskede pose, testpersonen vil optage, vælges i fold-ud menuen, og optagelsen startes. På figur \ref{fig:dca} kan brugergrænsefladen til applikationen ses.
 

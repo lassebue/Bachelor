@@ -1,56 +1,56 @@
 \thispagestyle{fancy}
 \chapter{Feature extraction og model træning}
 \label{chp:matlabChapter}
-I dette projekt anvendes matlab til at løse en række essentielle opgave, der omtales i Machine learning sektion \ref{sec:machineLearning}. I det følgende kapitel vil disse opgave blive beskrevet nærmere. \\
-Det er valgt at anvende MATLAB, til at løse disse opgave, da det er et kendt værktøj med et bredt spektre af veldokumenterede funktionaliteter indenfor databehandling\citep{matlabFeatures} og træning af machine learning modeller\citep{matlabML}, der netop er de problematikker, der i dette projekt er behov for at få løst. \todola{, der i dette projekt er fokus på} 
+I dette projekt anvendes matlab til at løse en række essentielle opgave, der omtales i machine learning sektionen \ref{sec:machineLearning}. I det følgende kapitel, vil disse opgaver blive beskrevet nærmere. \\
+Det er valgt at anvende MATLAB til at løse disse opgave, da det er et kendt værktøj med et bredt spektre af veldokumenterede funktionaliteter indenfor databehandling\citep{matlabFeatures} og træning af machine learning modeller\citep{matlabML}. Disse er netop problematikkerne, der i dette projekt er fokus på. 
 
 \section{Dataimport}
-Data er en vigtig del af machine learning, da det er herfra genkendelige features kan udtrækkes og anvendes til at træne de modeller, hvis formål er at genkende generel data fra forskellige kilder. I dette projekt anvendes EMG data indsamlet vha. af den udviklede Data Collection Application beskrevet i kapitel \ref{chp:dataingsamlingChapter}, hvor den nødvendige data til træning gemmes i .csv-filer. I denne sektion vil det blive beskrevet, hvordan den opsamlede data fra den udviklede Data Collection Application, importeres fra .csv-filer og klargøres til feature extraction.
+Data er en vigtig del af machine learning, da det er herfra genkendelige features kan udtrækkes og anvendes til at træne de modeller, hvis formål er at genkende generel data fra forskellige kilder. I dette projekt anvendes EMG data indsamlet vha. den udviklede Data Collection Application beskrevet i kapitel \ref{chp:dataingsamlingChapter}, hvor den nødvendige data til træning gemmes i .csv-filer. I denne sektion vil det blive beskrevet, hvordan den opsamlede data fra den udviklede Data Collection Application, importeres fra .csv-filer og klargøres til feature extraction.
 \\\\
 Før den indsamlede data er klar til den nødvendig databehandling, skal den gennem en række trin for at omstruktureres, således at feature extraction kan ske på mindre subset af dataet.\todola{måske skulle de overordnede trin også skrives: Skaf træningssæt, træn model} Efter import af filerne, omstrukturering og feature extraction, er træningssættet klar. \todola{klar til at blive anvendt i MATLAB's Classification Learner/ kan træningssættet anvendes til modeltræning} 
 \\ Omstruktureringen består af følgende trin:
 \begin{description}
-	\item[Første trin] Den indsamlede data skal importeres og konverteres fra .csv-formatet til arrays.\\\\
-		Data fra hver kolonne i .csv-filerne overføres dataet til et array til senere behandling
+	\item[Første trin:] Den indsamlede data skal importeres og konverteres fra .csv-formatet til arrays.\\\\
+		Data fra hver kolonne i .csv-filerne overføres til et array til senere behandling
 	\\\\
-	For hver vindue af data samples skal de udvalgte værdier fra .csv-filerne ligeledes gemmes. Der er her tale om \textit{pose}, \textit{orientering} og \textit{testPerson}. Disse værdier skal kopieres, således at hver værdi optræder for hver vindue med samples.
+	For hver vindue af datasamples, skal udvalgte værdier fra .csv-filerne gemmes. Der er her tale om \textit{pose}, \textit{orientering} og \textit{testPerson}. Disse værdier skal kopieres, således at hver værdi optræder for hver vindue med samples.
 
-  \item[Andet trin] Arrays med EMG data opdeles i vinduer. 
+  \item[Andet trin:] Arrays med EMG data opdeles i vinduer. 
   \\\\
   Efter dataet fra EMG sensorerne er gemt, opdeles de i såkaldte vinduer som er intervaller af data samples med en fast størrelse. Det er disse vinduer, der laves feature extraction over.
   \\\\
   Mangler et antal sample, således at et vindue ikke får den rette størrelse fjernes det fra de øvrige vinduer. 
-    \item[Tredje trin] Øvrige udvalgte værdier tilføres til de samplet vinduer.
-     fra .csv-filer dubleres, således hvert af de samplet vinduer har tilhørende værdier.
+    \item[Tredje trin:] Øvrige udvalgte værdier tilføres til sample vinduerne.
+     Fra .csv-filen dubleres de, således hvert af sample vinduerne har de tilhørende værdier.
   \\\\
   For hver vindue af data samples skal de udvalgte værdier dubleres, således at hver værdi optræder for hver vindue. Der er her tale om \textit{pose}, \textit{orientation} og \textit{testPerson}.
   
-  \item[Fjerde trin] \textit{pose}-værdierne konverteres til MATLAB typer \textit{categorical}
+  \item[Fjerde trin:] \textit{pose}-værdierne konverteres til MATLAB typer \textit{categorical}
   \\\\
-  Efter \textit{pose}-værdierne er dubleret til hver vindue konverteres de til \textit{categorical}s, hvilket er typen MATLAB anvender til \textit{response}. Dette essentiel, da poses netop er det der ønskes, at de modeller er i stand til at genkende. Som tidligere nævnt dækker navnet \textit{pose} i .csv-filerne over pose ID\todokr{Det skal nævnes tidligere!}, der konverteres derfor fra \textit{integer}-værdier til \textit{categorical}-typen. \todola{skal typer måske skrive med itatic}
+  Efter \textit{pose}-værdierne er dubleret til hver vindue konverteres de til \textit{categorical}s, hvilket er typen MATLAB anvender til \textit{response}. Dette er essentielt, da poses netop er det der ønskes, at de modeller er i stand til at genkende. Som tidligere nævnt dækker navnet \textit{pose} i .csv-filerne over pose ID\todokr{Det skal nævnes tidligere!}, der konverteres derfor fra \textit{integer}-værdier til \textit{categorical}-typen. \todola{skal typer måske skrive med itatic}
 \end{description}
-Det er de fire trin, der udføres på alle importerede .csv-filer. Filerne behandles gennem en funktion \textit{importFileFuncOri},\todola{Navnet på funktionen skal måske ændres} der tager arrays med hver af de udvalgte værdier som inputs. Disse værdier er vinduer fra hver af de 8 EMG sensorer og derudover \textit{pose}-, \textit{orientation}- og \textit{testPerson}-værdier til hvert vindue. Videre tager funktionen stien og navnet til en enkelt .csv-filer som input, hvilket er den specifikke fil, der behandles. Ved kald af funktionen kan array-parametrene være med data eller uden, funktionaliteten er den samme. Funktionen tilføjer værdierne for hvert af de nye vinduer til array-parametrene, og returnerer de resulterende arrays. 
+Det er de fire trin, der udføres på alle importerede .csv-filer. Filerne behandles gennem funktionen \textit{importFileFuncOri},\todola{Navnet på funktionen skal måske ændres} der tager arrays med hver af de udvalgte værdier som inputs. Disse værdier er vinduer fra hver af de 8 EMG sensorer og derudover \textit{pose}-, \textit{orientation}- og \textit{testPerson}-værdier til hvert vindue. Videre tager funktionen stien og navnet til en enkelt .csv-filer som input, hvilket er den specifikke fil, der behandles. Ved kald af funktionen kan array-parametrene være med data eller uden, funktionaliteten er den samme. Funktionen tilføjer værdierne for hvert af de nye vinduer til array-parametrene, og returnerer de resulterende arrays. 
 
-Den anvendte funktion \textit{importFileFuncOri} er genereret vha. af MATLAB's \textit{uiimport}-funktion\citep{matlabUiimport}, hvor en import GUI, som kan ses på figur \ref{fig:dataImport}, præsenterer en række data import funktioner. En af disse genererer ud fra de foretaget valg i dialogboksen, en MATLAB-funktion, der importerer den valgte filtype. Når MATLAB-funktionen er gemt, modificeres dens script til at udføre de beskrevne trin, der skal udføres før feature extraction kan finde sted.
+Den anvendte funktion \textit{importFileFuncOri} er genereret vha. MATLAB's \textit{uiimport}-funktion\citep{matlabUiimport}, hvor en import GUI, som kan ses på figur \ref{fig:dataImport}, præsenterer en række data import funktioner. En af disse genererer ud fra de foretagede valg i dialogboksen, en MATLAB-funktion, der importerer den valgte filtype. Når MATLAB-funktionen er gemt, modificeres dens script til at udføre de beskrevne trin, der skal udføres før feature extraction kan finde sted.
 
 \myFigure{uiimport}
 {
-	Her ses MATLAB's import dialogboks med data indsamlet fra Data Collection Application. Videre ses en dropdown menu øverst til højre under \textit{Import 		Selection}-knappen, hvor tre mulighed for valg af import kan findes. Her er mulighederne: \textit{Import Data}, \textit{Generate Script} og \textit{Generate Function}. \textit{Generate Function}-funktionen anvendes i dette projekt til at generere en MATLAB-funktion til dataimport.
+	Her ses MATLAB's import dialogboks med data indsamlet fra Data Collection Application. Videre ses en dropdown menu øverst til højre under \textit{Import 		Selection}-knappen, hvor tre muligheder for valg af import kan findes. Her er mulighederne: \textit{Import Data}, \textit{Generate Script} og \textit{Generate Function}. \textit{Generate Function}-funktionen anvendes i dette projekt til at generere en MATLAB-funktion til dataimport.
  }{fig:dataImport}{1}
 
 Vha. denne funktion kan de enkelte .csv-filer importeres til MATLAB, hvorefter EMG-signalerne kan analyseres og efterfølgende feature extraction kan foretages.
 
 \section{Feature extraction}
 
-For at være i stand til at træne machine learning modeller, skal der fra den datakilde, der behandles være generelle kendetegn, som altid vil kunne identificeres uanset, hvilket datasæt der undersøges. Disse feature skal dog identificeres og udtrækkes før træningen af modellerne kan påbegyndes. I det følgende vil det blive beskrevet, hvorledes analyse og feature extraction af EMG-signalerne er foretaget gennem projektet.
+For at være i stand til at træne machine learning modeller, skal der fra den datakilde der behandles, være generelle kendetegn, som altid vil kunne identificeres uanset, hvilket datasæt der undersøges. Disse features skal dog identificeres og udtrækkes før træningen af modellerne kan påbegyndes. I det følgende vil det blive beskrevet, hvorledes analyse og feature extraction af EMG-signalerne er foretaget gennem projektet.
 \\\\
-Der har fra projektgruppens side været en hypotese om, at niveauet af aktivitet på MYO'ens individuelle sensorer, vil kunne anvendes som features, da forskellige muskler er aktive ved forskellige håndbevægelser. Lukkes hånden f.eks. er det især muskel grupper på indersiden af armen, der aktiveres. Omvendt forholder det sig, hvis håndens fingre strækkes, hvorved muskel grupper på ydersiden af armen aktiveres. 
-Videre er teorien blevet underbygget ved test af Myo'en på Thalmic Labs' diagnostics-hjemmeside\citep{myoDiagnostik}, hvor en real time graf over måleringer fra Myo'ens sensorer giver indtryk af at hypoteser kan være sand. Denne hjemmeside er blevet anvendt til at studere, hvordan sensorernes overordet output ved forskellige poses. Screen shots af real time grafen fra diagnostics-hjemmesiden kan ses med to poses på figur \ref{fig:diagnostic}.
+Der har fra projektgruppens side været en hypotese, at niveauet af aktivitet på MYO'ens individuelle sensorer, vil kunne anvendes som features. Forskellige muskler er nemlig aktive ved forskellige håndbevægelser. Lukkes hånden f.eks. er det især muskel grupper på indersiden af armen, der aktiveres. Omvendt forholder det sig, hvis håndens fingre strækkes, hvorved muskel grupper på ydersiden af armen aktiveres. 
+Videre er teorien blevet underbygget ved test af Myo'en på Thalmic Labs' diagnostics-hjemmeside\citep{myoDiagnostik}, hvor en realtime graf over måleringer fra Myo'ens sensorer giver indtryk af, at hypoteser kan være sand. Denne hjemmeside er blevet anvendt til at studere, hvordan sensorernes overordnede output ved forskellige poses. Screenshots af realtime grafen fra diagnostics-hjemmesiden kan ses med to poses på figur \ref{fig:diagnostic}.
 \mySubFigure{diagnosticOpenHand}{diagnosticClosedHand}{
 I hver figure, \ref{open} og \ref{closed}, ses 8 EMG-grafer for hver sensor, her med titlerne \textit{pod0}, \textit{pod1} osv. Tiden ses på den horisontal akse og amplituden på den vertikale akse. Det ses på figur \ref{open} for pose med udstrakte fingre, at amplituden ved \textit{pod3}er større end \textit{pod3} på figure \ref{closed}. Videre ser \textit{pod0} og \textit{pod1} på figur \ref{closed} ud til at være større end de tilsvarende pods på figur \ref{open}.
 }{Udstrakte fingre}{Lukkes hånd}{fig:diagnostic}{open}{closed}
  \\\\
- Andre mulige features der er blevet overvejet er: varians, principal components og specifikke frekvenser. Her er frekvens analyse blevet fravalg, da Myo'en kun er i stand til at sample med en frekvens på 200 Hz og EMG-frekvens spektret ligger mellem 25 Hz og adskillige kilohertz\citep{websterEMG}. 
+ Andre mulige features der er blevet overvejet er: varians, principal components og specifikke frekvenser. Her er frekvensanalyse blevet fravalg, da Myo'en kun er i stand til at sample med en frekvens på 200 Hz og EMG-frekvens spektret ligger mellem 25 Hz og adskillige kilohertz\citep{websterEMG}. 
 
 \myFigure{RawEMG}
 {
