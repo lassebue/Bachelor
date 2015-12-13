@@ -28,12 +28,13 @@ Knapperne \textit{Start Recognition} og \textit{Stop Recognition} er, hvor anven
 
 \section{Genkendelse}
 \todokr{Forslag til ændring:
-Når et vinduet med datasamples fra et EMG-signal er blevet optaget, skal der udføres feature extraction, hvorefter de resulterende features kan genkendelse af machine learningen modellen. Her skal også være noget, om hvad der skar i MATLAB i dette afsnit!}
+Når et vinduet med datasamples fra et EMG-signal er blevet optaget, skal der udføres feature extraction, hvorefter de resulterende features kan genkendelse af machine learningen modellen. 
+Her skal også være noget, om hvad der skar i MATLAB i dette afsnit!}
 
 For der kan genkendes håndtryk skal der være noget at stille de data op i mod, som kommer fra Myo'en. Det er her alt den opsamlede data der er trænet en model på bruges. Dataen der kommer direkte fra myoen, bliver sendt fra applikationen sat op imod den trænede model der er blevet gennemgået i kapitel \ref{chp:matlabChapter}, og der bliver set på hvilken den mest ligner. 
 
 \myFigure{SekvensDiagramRecognition}{Flow der gennemgåes ved start af genkendelse. Ved tryk på Start Recognition, sendes et command til ViewModel, der starter recognition i Recognition-klassen, som laver administrer genkendelsen signalerne fra Myo'en. Alt efter hvilken pose der genkendes, vil CCManagement lytte efter events sendt af Recognition-klassen og kalde funktionen, der matcher den genkendte pose.}{fig:sdr}{1}
-
+\todokr{Der skal noget om genkendelsen med i MATLAB her}
 \section{Kommunikation med CrustCrawler}
 \label{sec:ktc}
 Som nævnt tidligere foregår al kommunikation med CrustCrawleren igennem Matlab-klassen. Her sørges der for at kalde funktioner i en MATLAB Automation\todokr{Det er ikke første gang den bliver nævnt} server\footnote{Fremover nævnt som MATLAB server} der bliver åbnet under initieringen af Matlab-klassen. Kald der bliver lavet i MATLAB serveren er både, når der skal sende vinduer til genkendelse, men også når der kaldes funktioner til at styrere CrustCrawleren. På sekvensdiagrammet på figur \ref{fig:sd} ses de kald, der bliver foretaget, når kloen på CrustCrawleren skal åbnes.
