@@ -1,5 +1,5 @@
-function plotRawEMGSensorData(rawSensor1,rawSensor2,rawSensor3...
-    ,rawSensor4,rawSensor5,rawSensor6,rawSensor7,rawSensor8,activity,n_obs)
+function plotMeanSensorData(meanSensor1,meanSensor2,meanSensor3...
+    ,meanSensor4,meanSensor5,meanSensor6,meanSensor7,meanSensor8,activity,n_obs)
 % Copyright (c) 2015, MathWorks, Inc.
 
 if nargin < 5 
@@ -8,16 +8,16 @@ end
 
 g = 1;
 
-rawTS(:,1) = reshape(rawSensor1(1:n_obs,:)',[],1);
-rawTS(:,2) = reshape(rawSensor2(1:n_obs,:)',[],1);
-rawTS(:,3) = reshape(rawSensor3(1:n_obs,:)',[],1);
-rawTS(:,4) = reshape(rawSensor4(1:n_obs,:)',[],1);
-rawTS(:,5) = reshape(rawSensor5(1:n_obs,:)',[],1);
-rawTS(:,6) = reshape(rawSensor6(1:n_obs,:)',[],1);
-rawTS(:,7) = reshape(rawSensor7(1:n_obs,:)',[],1);
-rawTS(:,8) = reshape(rawSensor8(1:n_obs,:)',[],1);
+rawTS(:,1) = reshape(meanSensor1(1:n_obs,:)',[],1);
+rawTS(:,2) = reshape(meanSensor2(1:n_obs,:)',[],1);
+rawTS(:,3) = reshape(meanSensor3(1:n_obs,:)',[],1);
+rawTS(:,4) = reshape(meanSensor4(1:n_obs,:)',[],1);
+rawTS(:,5) = reshape(meanSensor5(1:n_obs,:)',[],1);
+rawTS(:,6) = reshape(meanSensor6(1:n_obs,:)',[],1);
+rawTS(:,7) = reshape(meanSensor7(1:n_obs,:)',[],1);
+rawTS(:,8) = reshape(meanSensor8(1:n_obs,:)',[],1);
 
-activityType = repelem(activity(1:n_obs),128*ones(numel(activity(n_obs)),1))
+activityType = repelem(activity(1:n_obs),1*ones(numel(activity(n_obs)),1));
 
 % 
 % hFig = figure(1);
@@ -50,11 +50,7 @@ ax(8) = subplot(8,1,8,'Parent',fig,'Xgrid','on','Ygrid','on',...
     'YLim',[-3*g 2*g]);
 
 clr = get(groot,'DefaultAxesColorOrder');
-
-abe = 1:size(rawTS,1);
-buller = rawTS(:,1);
-
-axes(ax(1)), gscatter(1:size(rawTS,1),rawTS(:,1),activityType,clr,'.',8,'off')
+axes(ax(1)), gscatter(1:size(rawTS,1),(rawTS(:,1)),activityType,clr,'.',8,'off')
 axes(ax(2)), gscatter(1:size(rawTS,1),rawTS(:,2),activityType,clr,'.',8,'off')
 axes(ax(3)), gscatter(1:size(rawTS,1),rawTS(:,3),activityType,clr,'.',8,'off')
 
@@ -90,7 +86,7 @@ grid(ax(7),'on')
 grid(ax(8),'on')
 
 
-a = 'Amplitude';
+a = 'Varians';
 b = '';
 
 ylabel(ax(1),b)
