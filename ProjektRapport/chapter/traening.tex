@@ -1,0 +1,7 @@
+Når import og feature extraction er udført, er den næste del træningen af en machine learningmodellerne. Udførelsen af dette vil i denne sektion være beskrevet.
+
+For at finde ud af om det er muligt at genkende poses med Myo'en og machine larning, er der først trænet modeller , hvor dataet er opsamlet fra Myo'en hvor den sidder på én måde. Det blev bekræftet at det var muligt at genkende poses vha. machine learning på EMG-signaler fra Myo'en. Efterfølgende er nye data indsamlet hvor der mellem hver indsamling er lavet en lille rotation af Myo'en på armen, og der opsamles dermed data i positioner hele vejen rundt på underarmen.
+
+Træningen af machine learning modellerne foregår i Matlabs Classification Learner\citep{matlabClassificationLearner}. Classification Learner er et værktøj der giver mulighed for træning af mange forskellige slags machine learning modeller. Under træningen er flere forskellige afprøvet for at se deres nøjagtighed. Et par af disse er gennemgået i kapitel \ref{chp:mlm}.
+
+Classification Learneren åbnes og der startes en ny session. Her skal valideringsmetoden vælges.
