@@ -2,31 +2,18 @@
 \chapter{Indledning}
 \label{chp:indledning}
 
+Målet med projektet er at undersøge mulighederne for at lave EMG-signal genkendelse på armens muskler vha. machine learning.
+I forbindelse med machine learning, har man behov for relativt store mængder data. Har man ingen data, kan man ikke lave machine learning. I projektet er der behov for et device, der både er i stand til at opfange EMG-signaler fra armen,  og derefter sende brugbare data til en computer e.l.
+
 \section{Systembeskrivelse}
+I dette projekt vil en Myo levere denne funktionalitet. En Myo, er et relative billigt wearable device, der har en række forskellige funktionaliteter, hvor en funktionalitet netop er at opfange EMG signaler og sende den opsamlede data til et program. 
 
-\subsubsection{Koncept}
-Målet med projektet er at undersøge mulighederne for at lave EMG signal genkendelse på armens muskler vha. machine learning.
-I forbindelse med machine learning, har man behov for relativt store mængder data. Har man ingen data, kan man ikke lave machine learning. I projektet er der behov for et device, der både er i stand til at opfange EMG signaler fra armen,  og derefter sende brugbare data til en computer e.l.
- 
-I dette projekt vil Myo Armband\footnote{Evt. link her?} levere denne funktionalitet. Myo, er et relative billigt wearable device, der har en række forskellige funktionaliteter, hvor en funktionalitet netop er at opfange EMG signaler og sende den opsamlede data til et program. 
+Da der er behov for data specifikt til machine learning, vil der i projektet blive designet et software program, med henblik på at opsamle og ordne data sendt fra Myo'en, til senere træning af machine learning modeller.
 
-Da der er behov for data specifikt til machine learning, vil der i projektet blive designet et software program, med henblik på at opsamle og ordne data sendt fra Myo båndet, til senere træning af machine learning modeller.
-
-Ligeledes er det tanken, at de trænede machine learnings modeller vil kunne eksporteres og implementeres i programmer eller på andre platforme, som for eksempel på mobiltelefoner eller andre små computere, hvor man vil kunne have langt mere fleksible og mobile løsninger.
-
-\subsubsection{Anvendelse}
-Systemet giver plads til mange forskellige anvendelsesmuligheder.
-
-En anvendelsesmuligheder for genkendelses modellerne kunne være, at integrerer dem i et virtuelt miljø, hvor man vha. Myo’en og genkendelsesmodellerne vil kunne være i stand til at manipulere med elementer, der eksisterer i det virtuelle miljø mere intuitivt vha. hænderne. Et eksempel på det kunne være et spil, hvor man kan gribe, løfte, flytte rundt på, og give slip på nogle klodser.
-
-På Regionshospitalet Hammel Neurocenter Forskes, udvikles og eksperimenteres der en masse inden for nye løsninger til at hjælpe til med genoptræning af patienter. Én af de projekter der har været igang er udviklingen af et en exoskelet-arm. Denne exo-arm skal hjælpe patienten med at bøje albueleddet når bicept bliver aktiveret. Modsat gælder det når det registreres at triceps aktiveres, her hjælper exo-armen med at strække patientens arm ud igen. Hensigten med exo-armen er ikke at gøre patienten stærkere, men har i stedet fokus på genoptræning af patienterne, ved at give dem evnen til at løfte deres arm tilbage.
-
-På samme måde som exo-armen hjælper med genoptræning i albueleddet, vil anvendelsen af EMG genkendelsessystemet kunne hjælpe med genoptræning af hånd og fingre i forbindelse med en exoskelet-hånd. Ved at registrere aktivitet i musklerne i underarmen, vil en exo-hånd kunne hjælpe en patient med at åbne og lukke sin hånd . Derved vil patienten gradvis få førlighed tilbage, og har hjælp til at gribe fat i ting. Det kan siges at systemet her er en udvidelse af den exo-arm, der er udviklet i projektet på Neurocentret.
-
-En anden anvendelse, der vil være lidt mere primitiv, men også viser hvad systemet er i stand til, er at bruge det sammen med CrustCrawler-robotten som findes i Ingeniørhøjskolens robotlab. Denne robot er en arm der kan dreje og har flere bøjelige led, og i enden en "klo" der kan gribe ud efter noget. Kloen vil passende kunne symbolisere en hånd. Her vil man knytte sin hånd, og kloen vil så gribe fat om et objekt.
-
-\subsubsection{Inspiration}
-Projektet er netop inspireret af disse elektriske proteser som anvender EMG signaler til at styre armproteserne.
+\subsection{Anvendelse}
+En applikation vil blive udviklet der kan vise hvordan systemet kan bruges. Dette er an CrustCrawler applikation. Sammen med en CrustCrawler-robot Vil det blive vist at ved anvendelse af EMG og machine learning, kan CrustCrawlerens klo åbnes og lukkes. Kloen vil kunne symbolisere en protese eller exo-skelet, som ville være et oplagt mål, med 
+\subsection{Inspiration}
+Projektet er netop inspireret af disse elektriske proteser som anvender EMG signaler til at styring.
 
 \section{Projektafgrænsning}
 \label{chp:projektafgensning}
@@ -34,13 +21,15 @@ I dette projekt vil der blive fokuseret på tre overordnet dele. Nemlig dataopsa
 
 \myFigure{konceptbillede}{Systemskitse}{fig:koncept}{1}
 
-På systemskitsen i figur \ref{fig:koncept} ses, hvordan systemet overordnet set er opdelt vha. af stiplede linier. Første del af systemet, er dataopsamling, som sker vha. Myo’en gennem et PC program, der bliver udviklet til at gemme og ordne data relateret til de forskellige poses. Programmet gemmer dataene online, således at der er flexible tilgang til dem.
- I systemets anden del, Model træningen som ses midt i figuren, hentes dataene online og behandles, så de kan anvendes til træningen. Her genereres en model, som skal kunne genkende de udvalgt poses, der er data fra online. 
- Til højre i systemskitsen ses systemets sidste del, som er selve anvendelse af ML modellen. Her modtages ny data fra en Myo på en computer med kørende ML modellen, hvorefter dataene først behandles på samme vis, som ved model træningen, og efterfølgende genkendes af ML modellen. Hvis dataene fra Myo’en genkendes, som poses vil kommandoer blive sendt fra computeren til CrustCrawleren, hvorefter den udfører en handling.  
+På systemskitsen i figur \ref{fig:koncept} ses, hvordan systemet overordnet set er opdelt vha. af stiplede linier. Første del af systemet, er dataopsamling, som sker vha. Myo’en gennem et PC program, der bliver udviklet til at gemme og ordne data relateret til de forskellige poses. Programmet gemmer dataene online, således at der er fleksibel tilgang til dem.
 
-Mht. datopsamlingen er det tanken, at dataen skal ordnes efter, hvem og hvilken hånd dataen kommer fra, hvilken orienteringen Myo’en har på testpersonens arm, samt hvilke poses, der er lavet, når dataen opsamles. Videre skal der i projektet opbygges en online database, hvor forskellige brugere af dataopsamling programmet vil kunne uploade deres data. Således vil andre brugere kunne anvende en større datamængde til træne deres egne machine learnings modeller.
+I systemets anden del - Model træningen, som ses midt i figuren. Her behandles behandles dataet, så de kan anvendes til træningen. Her trænes en model, som skal kunne genkende poses lavet af brugeren med en Myo. 
 
-Til træning af machine learnings modellen, er det intentionen at anvende Matlabs indbyggede toolboxes, der er særligt egnet til at udvikle og træne genkendelses modellerne, samt at teste disse. 
-Her er det ligeledes muligt, at undersøge, hvilke typer af machine learning modeller, der er de meste effektive til at genkende poses, og hvilke der er poses, de forskellige modeller har sværest ved er se forskel på. 
+Til højre på figur \ref{fig:koncept} ses systemets sidste del, som er selve anvendelse af ML modellen. Her modtages ny data fra en Myo på en computer med en CrustCrawler applikation. Dataene behandles først på samme vis, som ved model træningen, og efterfølgende genkendes af ML modellen. Hvis dataene fra Myo’en genkendes, som poses vil kommandoer blive sendt fra computeren til CrustCrawleren, hvorefter den udfører den pågældende handling.  
+
+Mht. datopsamlingen er det tanken, at dataen skal ordnes efter, hvem og hvilken hånd dataen kommer fra, hvilken orienteringen Myo’en har på testpersonens arm, samt hvilke poses, der er lavet, når dataen opsamles. Videre skal der i projektet opbygges en online database, hvor forskellige brugere af dataopsamlingsprogrammet vil kunne uploade deres data. Således vil andre brugere kunne anvende en større datamængde til træne deres egne machine learnings modeller.
+
+Til træning af machine learnings modellen, er det intentionen at anvende Matlabs indbyggede toolboxes, der er særligt egnet til at udvikle og træne genkendelses modeller, samt at teste disse. 
+Her er det ligeledes muligt, at undersøge, hvilke typer af machine learning modeller, der er de meste effektive til at genkende poses, og hvilke poses, de forskellige modeller har sværest ved er se forskel på. 
 
 Fra Matlab vil det muligvis være muligt, at modtage data i realtid, lave databehandling og kør classifications model på den, og dermed på realtid kunne genkende, hvilke poses, der laves med hånden.
