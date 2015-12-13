@@ -48,11 +48,11 @@ I hver figure, \ref{open} og \ref{closed}, ses 8 EMG-grafer for hver sensor, her
 }{Udstrakte fingre}{Lukkes hånd}{fig:diagnostic}{open}{closed}
 Videre er teorien blevet underbygget ved test af Myo'en på Thalmic Labs' diagnostics-hjemmeside\citep{myoDiagnostik}, hvor en real time graf over måleringer fra Myo'ens sensorer giver indtryk af at hypotesen kan være sand. Denne hjemmeside er blevet anvendt til at studere sensorernes overordede output ved forskellige poses. Screen shots af real time grafen fra diagnostics-hjemmesiden kan ses med to poses på figur \ref{fig:diagnostic}.\\\\
 Andre mulige features der er blevet overvejet er: varians, principal components og specifikke frekvenser. Her er frekvens analyse blevet fravalg, da Myo'en kun er i stand til at sample med en frekvens på 200 Hz og EMG-frekvens spektret ligger mellem 25 Hz og adskillige kilohertz\citep{websterEMG}, hvorved samlefrekvensen er for lav i forhold til EMG-signalers Nyquist Rate. Videre er størrelsen på samlingsvinduerne interessante i denne overvejelse, da intentionen er at anvende de trænede modeller til styring af CrustCrawleren. I denne sammenhæng er det vigtigt at tage højde for systemet responsiveness, hvor størrelse på vinduerne er afgørende for hvor lang tid, der går fra samplet data modtages, til modellen har klassificeret dataet fra vinduet, da vinduet "fyldes" før feature extraction.\todoall{Det skal lige tjekkes om det er rigtigt} Jo mindre vinduerne er, jo hurtigere respons vil systemet kunne få. Dog vil små vinduer resultere i at mindre brugbar frekvensinformation vil kunne udtrække, hvorved frekvenser ikke vil være en kilde til features uden det påvirker reaktionshastighed. Derfor er det blevet vurderet, at der kan ses bort fra frekvenser som features til modeltræningen.\\\\
-Dog blev det vurderet, at de øvrige tre features vil kunne anvendes som features. Derfor er der i MATLAB blevet udviklet funktioner til at udregne EMG-signalernes gennemsnit, varians og First Principal Component for at kunne undersøge, hvorvidt disse vil kunne anvendes til modeltræning. \todoall{Skal måske referere til bilag med MATLAB-funktioner}
+Dog blev det vurderet, at de øvrige tre features vil kunne anvendes som features. Derfor er der i MATLAB blevet udviklet funktioner til at udregne EMG-signalernes gennemsnit, varians og First Principal Component for at kunne undersøge, hvorvidt disse vil kunne anvendes til modeltræning.  \todoall{Skal måske referere til bilag med MATLAB-funktionerne}
 For at test de udvalgte værdier som features, der er blevet udviklet et script, som udfører følgende funktionaliteter:
 \begin{myItemize}
 \item Importerer udvalgte .csv-filer og gemmer alle vinduernes værdier i arrays
-\item Tager kvadratet af alle EMG-samples, hvorved alle værdier bliver positive
+\item Ensretter alle EMG-samples ved kvadrering 
 \item Gemmer vinduernes EMG-samples i en MATLAB-table
 \item Beregner for hver sensor middelværdierne for hvert vindues kvadreret EMG-signal
 \item Beregner  for hver sensor variansen for hvert vindues kvadreret EMG-signal
@@ -61,16 +61,23 @@ For at test de udvalgte værdier som features, der er blevet udviklet et script,
 \item Tilføjer den optaget pose for hvert vindue til den MATLAB-table, som indholder de beregnede features
 \item Åbner MATLAB Classification Learner\citep{matlabClassificationLearner}
 \end{myItemize}
-Efter import .csv-filerne kan et bedre indtryk af de forskellige dannes ved at studere de forskellige sensor outputs. På figur \ref{fig:rawEmgData} er rå sensordata  plottet for hver sensor ved forskellige poses. Her ses igen en tendens, hvor de forskellige sensorers position, giver anledning til variation i amplituden mellem de tre poses. Igen synes den omtalte hypotese at blive underbygget, denne gang af den opsamlede data fra Myo'en.
+Efter import af .csv-filerne kan et bedre indtryk dannes ved at studere de forskellige sensor outputs. På figur \ref{fig:rawEmgData} er rå sensordata plottet for hver sensor ved forskellige poses. Her ses igen en tendens, hvor de forskellige sensorers position, giver anledning til variation i amplituden mellem de tre poses. Igen synes den omtalte hypotese at blive underbygget, denne gang af den opsamlede data fra Myo'en.
 \myFigure{RawEmgMedXlabel}
 {
 	Her ses et eksempel på rå EMG-signaler fra de 8 EMG-sensorer efter import. På x-aksen er tiden for målingerne, hvor der er 5 ms mellem hver sample. På y-aksen er amplituden, denne er uden enhed. Her er signalerne fra hver pose repræsenteret med forskellige farver. EMG-signalerne markeret med rødt er lavet med en lukket hånd, de blå er lavet med en åben hånd og de gule er lavet med en hånd i hvile. Særligt ved sensor 6 og 7 ses forskelle i amplituden mellem poses med åben og lukket hånd. 
- }{fig:rawEmgData}{1} \todoall{indsæt label på x-aksen}
+ }{fig:rawEmgData}{1}
+ 
+ Ved at køre det udviklede script og derefter vælge hvilke .csv-filer skal med i træningssættet, bliver vinduerne konstrueret og deres features udtrukket. Herved vil modeller efterfølgende kunne trænes. På figur \ref{fig:meanEmgData} ses middelværdier for vinduer optaget ved de forskellige poses. Graferne giver et godt overblik over, hvordan middelværdierne varierer mellem de forskellige poses for hver sensor. Tilsvarende grafer for de øvrige features kan ses i bilag \ref{fig:pcaEmgData} og \ref{fig:stdEmgData}. Det er variationer som disse, der ved modeltræning anvendes til at opbygge de classifiers, som kan genkendes poses ud fra EMG-vinduer. Hvordan træningen disse classifiers er blevet udført i dette projekt, vil blive beskrevet i den følgende sektion.
+ 
+\myFigure{EmgMeanPlot}
+{
+	På graferne ses 400 vinduer med deres tilhørende middelværdier. På x-aksen er vinduerne, og opad y-aksen er middelværdierne, som er enhedsløse. Vinduernes middelværdier markeret med rødt er optaget fra en lukket hånd, de blå er optaget fra en åben hånd og de gule er optaget fra en hånd i hvile. Det ses tydeligt på middelværdierne fra hånden i hvilke, at der ingen aktivitet er, på nær enkelte vinduer. Både for vinduer optaget ved åben og lukket hånden ses aktivitet, dog er der ved sensor 7 for den lukkede hånd ingen aktivitet. Ligeledes forholder det sig ved sensor 6 for vinduer optaget med åben hånd.
+ }{fig:meanEmgData}{1}
 
-\section{Træning}
-\myWrapFigure{matlabModeller}{De forskellige machine learning modeller man kan træne sit data ud fra. Der bliver valgt Bagged Trees da den giver en precis model. Dette er der beskrevet mere om i sektion \ref{sec:baggedTrees} }{fig:matlabModeller}{0.4}{r}
-
+\section{Modeltræning}
 Når import og feature extraction er udført, er den næste del træningen af en machine learningmodellerne. Udførelsen af dette vil i denne sektion være beskrevet.
+
+\myWrapFigure{matlabModeller}{De forskellige machine learning modeller man kan træne sit data ud fra. Der bliver valgt Bagged Trees da den giver en precis model. Dette er der beskrevet mere om i sektion \ref{sec:baggedTrees} }{fig:matlabModeller}{0.4}{r}
 
 For at finde ud af om det er muligt at genkende poses med Myo'en og machine larning, er der først trænet modeller , hvor dataet er opsamlet fra Myo'en hvor den sidder på én måde. Det blev bekræftet at det var muligt at genkende poses vha. machine learning på EMG-signaler fra Myo'en. Efterfølgende er nye data indsamlet hvor der mellem hver indsamling er lavet en lille rotation af Myo'en på armen, og der opsamles dermed data i positioner hele vejen rundt på underarmen.
 
@@ -86,7 +93,7 @@ Træningen er modellerne er nu klar til at blive gennemført og der skal vælges
 Bagged Trees vælges, og modellen trænes.
 Der kan trænes flere modeller i én session, det bliver derfor nemt at sammenligne dem, for at se hvilke der er bedst. Som figur \ref{fig:CLHistory} viser, vil de trænede modeller vises i historikken i Classification Learneren, hvor præcisionen er vist.
 
-Når en model er blevet trænet er det muligt at se hvornår den har risiko for at lave hvilke fejl. Værktøjet Confusion Matrix, er en nem og overskuelig måde at se modellens fejl på. På en Confusion Matrix er de testede input op ad y-aksen og modellens output, altså posegenkendelsen, ud af x-aksen. De tre poses der arbejdes med har et nr. fra 0 til 2. Det kan nu ses at hvis inputtet er 1, er der et x antal procent chance for at ouputtet også er 1. Omvendt viser den også hvad chance er for at outputtet bliver 2, selvom inputtet er 1.
+Når en model er blevet trænet er det muligt at se, hvornår den har risiko for at lave hvilke fejl. Værktøjet Confusion Matrix, er en nem og overskuelig måde at se modellens fejl på. På en Confusion Matrix er de testede input op ad y-aksen og modellens output, altså posegenkendelsen, ud af x-aksen. De tre poses der arbejdes med har et nr. fra 0 til 2. Det kan nu ses at hvis inputtet er 1, er der et x antal procent chance for at ouputtet også er 1. Omvendt viser den også hvad chance er for at outputtet bliver 2, selvom inputtet er 1.
 
 \myFigure{CLConfusionMatrix}{På y-aksen ses input 0, 1 og 2. Giver der et pose input 0, vil der være 97,5\% chance for at outputtet og dermed modellen genkendelse er 0. Det ses også at der er 0,7\% risiko for at ouputtet bliver 1, og 1,9\% risiko for output 2. Der er testet med 914 0 inputs, hvoraf 891 giver det sande output 0. 6 giver output 1 og 17 giver output 2.}{fig:clcm}{0.7}
 
