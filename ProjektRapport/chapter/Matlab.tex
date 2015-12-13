@@ -66,9 +66,8 @@ Efter import af .csv-filerne kan et bedre indtryk dannes ved at studere de forsk
 {
 	Her ses et eksempel på rå EMG-signaler fra de 8 EMG-sensorer efter import. På x-aksen er tiden for målingerne, hvor der er 5 ms mellem hver sample. På y-aksen er amplituden, denne er uden enhed. Her er signalerne fra hver pose repræsenteret med forskellige farver. EMG-signalerne markeret med rødt er lavet med en lukket hånd, de blå er lavet med en åben hånd og de gule er lavet med en hånd i hvile. Særligt ved sensor 6 og 7 ses forskelle i amplituden mellem poses med åben og lukket hånd. 
  }{fig:rawEmgData}{1}
- 
- Ved at køre det udviklede script og derefter vælge hvilke .csv-filer skal med i træningssættet, bliver vinduerne konstrueret og deres features udtrukket. Herved vil modeller efterfølgende kunne trænes. På figur \ref{fig:meanEmgData} ses middelværdier for vinduer optaget ved de forskellige poses. Graferne giver et godt overblik over, hvordan middelværdierne varierer mellem de forskellige poses for hver sensor. Tilsvarende grafer for de øvrige features kan ses i bilag \ref{fig:pcaEmgData} og \ref{fig:stdEmgData}. Det er variationer som disse, der ved modeltræning anvendes til at opbygge de classifiers, som kan genkendes poses ud fra EMG-vinduer. Hvordan træningen disse classifiers er blevet udført i dette projekt, vil blive beskrevet i den følgende sektion.
- 
+Ved at køre det udviklede script og derefter vælge hvilke .csv-filer skal med i træningssættet, bliver vinduerne konstrueret og deres features udtrukket. Herved vil modeller efterfølgende kunne trænes. På figur \ref{fig:meanEmgData} ses middelværdier for vinduer optaget ved de forskellige poses. Graferne giver et godt overblik over, hvordan middelværdierne varierer mellem de forskellige poses for hver sensor. Tilsvarende grafer for de øvrige features kan ses i bilag \ref{fig:pcaEmgData} og \ref{fig:stdEmgData}. Det er variationer som disse, der ved modeltræning anvendes til at opbygge de classifiers, som kan genkendes poses ud fra EMG-vinduer. Hvordan træningen disse classifiers er blevet udført i dette projekt, vil blive beskrevet i den følgende sektion.
+
 \myFigure{EmgMeanPlot}
 {
 	På graferne ses 400 vinduer med deres tilhørende middelværdier. På x-aksen er vinduerne, og opad y-aksen er middelværdierne, som er enhedsløse. Vinduernes middelværdier markeret med rødt er optaget fra en lukket hånd, de blå er optaget fra en åben hånd og de gule er optaget fra en hånd i hvile. Det ses tydeligt på middelværdierne fra hånden i hvilke, at der ingen aktivitet er, på nær enkelte vinduer. Både for vinduer optaget ved åben og lukket hånden ses aktivitet, dog er der ved sensor 7 for den lukkede hånd ingen aktivitet. Ligeledes forholder det sig ved sensor 6 for vinduer optaget med åben hånd.
@@ -77,7 +76,7 @@ Efter import af .csv-filerne kan et bedre indtryk dannes ved at studere de forsk
 \section{Modeltræning}
 Når import og feature extraction er udført, er den næste del træningen af en machine learningmodellerne. Udførelsen af dette vil i denne sektion være beskrevet.
 
-\myWrapFigure{matlabModeller}{De forskellige machine learning modeller man kan træne sit data ud fra. Der bliver valgt Bagged Trees da den giver en precis model. Dette er der beskrevet mere om i sektion \ref{sec:baggedTrees} }{fig:matlabModeller}{0.4}{r}
+\myWrapFigure{matlabModeller}{De forskellige machine learning modeller man kan træne ud fra sit data. Der bliver valgt Bagged Trees da den giver en præcise model. Denne model er beskrevet nærmere i sektion \ref{sec:baggedTrees} }{fig:matlabModeller}{0.4}{r}
 
 For at finde ud af om det er muligt at genkende poses med Myo'en og machine larning, er der først trænet modeller , hvor dataet er opsamlet fra Myo'en hvor den sidder på én måde. Det blev bekræftet at det var muligt at genkende poses vha. machine learning på EMG-signaler fra Myo'en. Efterfølgende er nye data indsamlet hvor der mellem hver indsamling er lavet en lille rotation af Myo'en på armen, og der opsamles dermed data i positioner hele vejen rundt på underarmen.
 
@@ -85,9 +84,7 @@ Træningen af machine learning modellerne foregår i Matlabs Classification Lear
 
 Classification Learneren åbnes og der startes en ny session. Her skal valideringsmetoden vælges. Holdout-validation vælges da det er en stor mængde data der skal trænes på. Med Holdout-validering vælges en procentdel af dataet der holdes ude af træningen. Den del der holdes ude bruges til test for at se hvor god modellen er\citep{matlabValidation}.
 
-\todokr{gå billedtekster igennem og se at \% passer}
 \myWrapFigure{CLHistory}{Historie over de trænede modeller. Bagged Tree øverst, markeret med størst præcision på 99,1\%. Hvorimod Simple Tree f.eks. kun har en præcision på 71,2\%}{fig:CLHistory}{0.35}{l}
-
 
 Træningen er modellerne er nu klar til at blive gennemført og der skal vælges hvilken machine learning model der skal bruges. På figur \ref{fig:matlabModeller} ses valgmulighederne.
 Bagged Trees vælges, og modellen trænes.
