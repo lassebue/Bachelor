@@ -68,9 +68,9 @@ Efter import .csv-filerne kan et bedre indtryk af de forskellige dannes ved at s
  }{fig:rawEmgData}{1} \todoall{indsæt label på x-aksen}
 
 \section{Træning}
-Når import og feature extraction er udført, er den næste del træningen af en machine learningmodellerne. Udførelsen af dette vil i denne sektion være beskrevet.
-
 \myWrapFigure{matlabModeller}{De forskellige machine learning modeller man kan træne sit data ud fra. Der bliver valgt Bagged Trees da den giver en precis model. Dette er der beskrevet mere om i sektion \ref{sec:baggedTrees} }{fig:matlabModeller}{0.4}{r}
+
+Når import og feature extraction er udført, er den næste del træningen af en machine learningmodellerne. Udførelsen af dette vil i denne sektion være beskrevet.
 
 For at finde ud af om det er muligt at genkende poses med Myo'en og machine larning, er der først trænet modeller , hvor dataet er opsamlet fra Myo'en hvor den sidder på én måde. Det blev bekræftet at det var muligt at genkende poses vha. machine learning på EMG-signaler fra Myo'en. Efterfølgende er nye data indsamlet hvor der mellem hver indsamling er lavet en lille rotation af Myo'en på armen, og der opsamles dermed data i positioner hele vejen rundt på underarmen.
 
@@ -78,7 +78,9 @@ Træningen af machine learning modellerne foregår i Matlabs Classification Lear
 
 Classification Learneren åbnes og der startes en ny session. Her skal valideringsmetoden vælges. Holdout-validation vælges da det er en stor mængde data der skal trænes på. Med Holdout-validering vælges en procentdel af dataet der holdes ude af træningen. Den del der holdes ude bruges til test for at se hvor god modellen er\citep{matlabValidation}.
 
+\todokr{gå billedtekster igennem og se at \% passer}
 \myWrapFigure{CLHistory}{Historie over de trænede modeller. Bagged Tree øverst, markeret med størst præcision på 99,1\%. Hvorimod Simple Tree f.eks. kun har en præcision på 71,2\%}{fig:CLHistory}{0.35}{l}
+
 
 Træningen er modellerne er nu klar til at blive gennemført og der skal vælges hvilken machine learning model der skal bruges. På figur \ref{fig:matlabModeller} ses valgmulighederne.
 Bagged Trees vælges, og modellen trænes.
