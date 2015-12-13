@@ -31,10 +31,10 @@ stdData     = varfun(@windStd,rawSenorData);
 cpaData     = varfun(@windPca,rawSenorData); 
 
 
-newPoseTrainingData = [meanData stdData cpaData];
+PoseTrainingData = [meanData stdData cpaData];
 
 load('SubSpaceModel')
-predictedCats = subspaceKNN.predictFcn(newPoseTrainingData)  %(newPoseTrainingData);
+predictedCats = subspaceKNN.predictFcn(PoseTrainingData)  %(newPoseTrainingData);
 
 if(predictedCats(1) == 1)
     abe = 0;

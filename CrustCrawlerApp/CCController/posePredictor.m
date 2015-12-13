@@ -29,10 +29,10 @@ stdData     = varfun(@windStd,rawSenorData);
 cpaData     = varfun(@windPca,rawSenorData); 
 
 
-newPoseTrainingData = [meanData stdData cpaData table(orientation)];
+PoseTrainingData = [meanData stdData cpaData table(orientation)];
 
 load('baggedTreesMkIIICompacted')
-predictedCats = baggedTreesMkIIICompacted.predictFcn(newPoseTrainingData);
+predictedCats = baggedTreesMkIIICompacted.predictFcn(PoseTrainingData);
 % abe = char(predictedCats(1));
 currentPose = getPoseId(baggedTreesMkIIICompacted.ClassificationEnsemble.ClassNames,predictedCats(1));
 end
