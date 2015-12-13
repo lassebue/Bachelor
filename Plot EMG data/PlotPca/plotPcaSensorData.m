@@ -86,7 +86,7 @@ grid(ax(7),'on')
 grid(ax(8),'on')
 
 
-a = 'Varians';
+a = 'First principal component';
 b = '';
 
 ylabel(ax(1),b)
@@ -117,7 +117,7 @@ xlabel(ax(8),b), ax(8).XTickLabel = [];
 % xlabel(ax(5),'Tid'), ax(5).XTickLabel = [];
 % xlabel(ax(6),'Tid'), ax(6).XTickLabel = [];
 % xlabel(ax(7),'Tid'), ax(7).XTickLabel = [];
-xlabel(ax(8),'Tid'), ax(8).XTickLabel = [];
+xlabel(ax(8),'Vinduer'), ax(8).XTickLabel = [];
 % 
 
 end

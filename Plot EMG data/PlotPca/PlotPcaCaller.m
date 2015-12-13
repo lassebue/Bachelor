@@ -67,4 +67,4 @@ emg5Collection,emg6Collection,emg7Collection,emg8Collection);
 
 pcaData    = varfun(@windPca,rawSenorData);
     
-plotStdSensorData(meanData{:,1},meanData{:,2},meanData{:,3},meanData{:,4},meanData{:,5},meanData{:,6},meanData{:,7},meanData{:,8},theCategories,n_obs)
+plotPcaSensorData(pcaData{:,1},pcaData{:,2},pcaData{:,3},pcaData{:,4},pcaData{:,5},pcaData{:,6},pcaData{:,7},pcaData{:,8},theCategories,n_obs)
