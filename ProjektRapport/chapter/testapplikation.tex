@@ -15,7 +15,7 @@ På figur \ref{fig:mvvm} ses den overordnede struktur i, hvordan klasserne er pl
 
 \myFigure{CCAClassDiagram}{Klasse diagram over CrustCrawler applikationen. Klasserne af lavet ud fra SOLID-principperne, og anvender interfaces til undgå høj kobling. Hver klasse har kun ét ansvar de skal sørge for. Applikationen er også åben for udvidelser. Der kan f.eks. tilføjes nye poses, uden der skal ændres i allerede eksisterende klasser. Der skal blot tilføjes et interface der nedarver fra IPoseHandlerMkI, hvor der kan tilføjes nye funktionaliteter, som kan udføres ved genkendelse af de nye poses.}{fig:cd}{1}
 
-Under udviklingen er der taget højde for SOLID-principperne\citep{RefWorks:10}, derfor udformer applikationen klassediagram som det ses på figur \ref{fig:cd}. Single responsibility\citep{RefWorks:9} er overholdt, og dermed er klasser opdelt i projektet, sådan at de har hvert deres ansvar. Matlab sørger for al kommunikation med MATLAB. I denne klasse initialiseres og startes MATLAB serveren, desuden sendes kommandoer MATLAB herfra. I CCManagement, er metoderne de forskellige kommandoer, der kan kaldes for at styre CrustCrawleren. Der kaldes f.eks. metoden OpenClaw(), når CrustCrawler-kloen skal åbnes. CCManagement kalder Matlab som sender kommandoen til MATLAB serveren. I klassen Recognition startes genkendelsesmetoderne, der gennem Matlab-klassen, og dermed MATLAB serveren, sendes vinduer med datasamples og Myo'ens orientering til at blive genkendt af machine learning modellen.
+Under udviklingen er der taget højde for SOLID-principperne\citep{RefWorks:10}, derfor udformer applikationen klassediagram som det ses på figur \ref{fig:cd}. Single responsibility\citep{RefWorks:9} er overholdt, og dermed er klasser opdelt i projektet, sådan at de har hvert deres ansvar. Matlab sørger for al kommunikation med MATLAB. I denne klasse initialiseres og startes MATLAB serveren, desuden sendes kommandoer MATLAB herfra. I CCManagement, er metoderne de forskellige kommandoer, der kan kaldes for at styre CrustCrawleren. Der kaldes f.eks. metoden \textit{OpenClaw()}, når CrustCrawler-kloen skal åbnes. CCManagement kalder Matlab som sender kommandoen til MATLAB serveren. I klassen Recognition startes genkendelsesmetoderne, der gennem Matlab-klassen, og dermed MATLAB serveren, sendes vinduer med datasamples og Myo'ens orientering til at blive genkendt af machine learning modellen.
 
 
 
@@ -27,31 +27,28 @@ GUI'en i applikationen er lavet meget simpel. Den bærer præg af at være bereg
 Knapperne \textit{Start Recognition} og \textit{Stop Recognition} er, hvor anvendelsen af den opsamlede data og de udviklede modeller sættes i gang. Ved tryk på \textit{Start Recognition} vil \textit{Window Count} og \textit{Current Window} begynde at tælle op. \textit{Current Window} er det vindue af datasamples, der er ved at blive klassificeret af modellen. \textit{Window Count} er alle de vinduer, der er samlet med datasamples.
 
 \section{Genkendelse}
-\todokr{Forslag til ændring:
-Når et vinduet med datasamples fra et EMG-signal er blevet optaget, skal der udføres feature extraction, hvorefter de resulterende features kan genkendelse af machine learningen modellen. 
-Her skal også være noget, om hvad der skar i MATLAB i dette afsnit!}
+For at der kan genkendes håndtryk skal der være noget at stille de data op i mod, som kommer fra Myo'en. Det er her alt den opsamlede data der er trænet en model på, bruges. Når et vindue med datasamples fra et EMG-signal er blevet optaget, skal der udføres feature extraction, hvorefter de resulterende features kan genkendes af machine learning modellen. På figur \ref{fig:sdr} ses hvordan et flow udføres, fra brugeren starter genkendelse af poses med applikationen.
 
-For der kan genkendes håndtryk skal der være noget at stille de data op i mod, som kommer fra Myo'en. Det er her alt den opsamlede data der er trænet en model på bruges. Dataen der kommer direkte fra myoen, bliver sendt fra applikationen sat op imod den trænede model der er blevet gennemgået i kapitel \ref{chp:matlabChapter}, og der bliver set på hvilken den mest ligner. 
+\myFigure{SekvensDiagramRecognition}{Flow der gennemgåes ved start af genkendelse. Ved tryk på Start Recognition, sendes et command til ViewModel, der starter recognition i Recognition-klassen. Matlab kaldes i en seterat tråd, og den kalder \textit{PosePredictor()} i MATLAB. på figur \ref{fig:PosePredictorAD} ses genkendelses processen i MATLAB. Alt efter hvilken pose der genkendes, vil CCManagement lytte efter events sendt af Recognition-klassen og kalde funktionen, der matcher den genkendte pose.}{fig:sdr}{1}
 
-\myFigure{SekvensDiagramRecognition}{Flow der gennemgåes ved start af genkendelse. Ved tryk på Start Recognition, sendes et command til ViewModel, der starter recognition i Recognition-klassen, som laver administrer genkendelsen signalerne fra Myo'en. Alt efter hvilken pose der genkendes, vil CCManagement lytte efter events sendt af Recognition-klassen og kalde funktionen, der matcher den genkendte pose.}{fig:sdr}{1}
-\todokr{Der skal noget om genkendelsen med i MATLAB her}
+\myFigure{PosePredictorActivityDiagram}{Activitet der sker for et vindue af samples fra Myo'en. Funktionen tager ni parametre. Otte EMG signaler og én orientering. EMG input bliver kvadreret for der ikke findes negative værdier og en evt. middelværdig ville blive 0. herefter ligges EMG input og Orientering ind i hver sin tabel. Middelværdi, varians og first principal component findes og ligges i en tabel sammen med orienteringen. Tabellen køre igennem \textit{PredictFcn()} der returnerer et pose resultat.}{fig:PosePredictorAD}{0.9}
+
 \section{Kommunikation med CrustCrawler}
 \label{sec:ktc}
 Som nævnt tidligere foregår al kommunikation med CrustCrawleren igennem Matlab-klassen. Her sørges der for at kalde funktioner i en MATLAB Automation\todokr{Det er ikke første gang den bliver nævnt} server\footnote{Fremover nævnt som MATLAB server} der bliver åbnet under initieringen af Matlab-klassen. Kald der bliver lavet i MATLAB serveren er både, når der skal sende vinduer til genkendelse, men også når der kaldes funktioner til at styrere CrustCrawleren. På sekvensdiagrammet på figur \ref{fig:sd} ses de kald, der bliver foretaget, når kloen på CrustCrawleren skal åbnes.
 
-\myFigure{Sekvensdiagram}{OpenClaw() i CCManagement klassen kaldes, som kontakter Matlab.cs da der skal kontakt til MATLAB serveren. MATLAB serveren bliver kaldt og i MATLAB er der udviklet funktioner til at manøvrere CrustCrawleren rundt og styre kloen. Funktionen OpenClaw() i MATLAB serveren kalder funktionen MoveServo(), denne skriver ud til CrustCrawleren at servo nummer 7 skal køre til en bestemt anvist position.}{fig:sd}{1}
+\myFigure{Sekvensdiagram}{\textit{OpenClaw()} i CCManagement klassen kaldes, som kontakter Matlab.cs da der skal kontakt til MATLAB serveren. MATLAB serveren bliver kaldt og i MATLAB er der udviklet funktioner til at manøvrere CrustCrawleren rundt og styre kloen. Funktionen \textit{OpenClaw()} i MATLAB serveren kalder funktionen \textit{MoveServo()}, denne skriver ud til CrustCrawleren at servo nummer 7 skal køre til en bestemt anvist position.}{fig:sd}{1}
 
 Processen for at kalde funktioner i MATLAB fra WPF-applikationen foregår som følger \citep{RefWorks:15}:
-\begin{enumerate}
-%	\itemsep -0.9em 
+\begin{myEnumerate}
 	\item Start MATLAB Automation Server og lav en instans heraf
 	\item Sæt sti til mappe, hvor MATLAB funktioner ligger
 	\item MATLAB-funktioner kan efterfølgende kaldes fra WPF-applikationen.
-\end{enumerate}
+\end{myEnumerate}
 
 \myFigure{USB2Dynamixel}{USB2Dynamixel enhed der bruges for at lave en seriel port fra en af computerens USB porte. Igennem USB2Dynamixel kan CrustCrawleren tilkobles computeren.}{fig:usb2d}{0.4}
 
-CrustCrawleren tilkobles computeren gennem en USB2Dynamixel, se figur \ref{fig:usb2d}. USB2Dynamixel er brugt for at lave en seriel port igennem computerens USB port. Til denne er en driver og et .dll bibliotek med en tilhørende headerfil. Dynamixel.dll og dynamixel.h. Disse filer loades begge i MATLAB-koden, hvor biblioteket giver mulighed for at kalde nogle forskellige funktioner, som CrustCrawleren kan reagere på. Driveren er USB2Dynamixel \citep{agaverobot} \todokr{lav reference til manual hvis denne laves} og er frit tilgængelig for alle. Denne kan dog kun bruges med en USB2Dynamixel enhed og Dynamixel servoer.
+CrustCrawleren tilkobles computeren gennem en USB2Dynamixel, se figur \ref{fig:usb2d}. USB2Dynamixel er brugt for at lave en seriel port igennem computerens USB port. Til denne er en driver og et .dll bibliotek med en tilhørende headerfil. Dynamixel.dll og dynamixel.h. Disse filer loades begge i MATLAB-koden, hvor biblioteket giver mulighed for at kalde nogle forskellige funktioner, som CrustCrawleren kan reagere på. Driveren er USB2Dynamixel \citep{agaverobot} og er frit tilgængelig for alle. Denne kan dog kun bruges med en USB2Dynamixel enhed og Dynamixel servoer.
 
 \section{Delkonklusion}
 Det er nu muligt som bruger med denne applikation og en Myo at genkende håndtrykkene åben hånd og lukket hånd vha. en trænet machine learning model. Applikationen står for at få data fra Myo'en og sende det til en MATLAB server, hvor der beregnes, og sammenlignes med den trænede model og der sendes resultat tilbage til applikationen. Genkendelsen anvendes på en CrustCrawler robot arm, der åbnet og lukkes alt efter genkendelsen.
