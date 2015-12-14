@@ -92,6 +92,8 @@ Der kan trænes flere modeller i én session, det bliver derfor nemt at sammenli
 
 Når en model er blevet trænet er det muligt at se, hvornår den har risiko for at lave hvilke fejl. Værktøjet Confusion Matrix, er en nem og overskuelig måde at se modellens fejl på. På en Confusion Matrix er de testede input op ad y-aksen og modellens output, altså posegenkendelsen, ud af x-aksen. De tre poses der arbejdes med har et nr. fra 0 til 2. Det kan nu ses at hvis inputtet er 1, er der et x antal procent chance for at ouputtet også er 1. Omvendt viser den også hvad chance er for at outputtet bliver 2, selvom inputtet er 1.
 
-\myFigure{CLConfusionMatrix}{På y-aksen ses input 0, 1 og 2. Giver der et pose input 0, vil der være 97,5\% chance for at outputtet og dermed modellen genkendelse er 0. Det ses også at der er 0,7\% risiko for at ouputtet bliver 1, og 1,9\% risiko for output 2. Der er testet med 914 0 inputs, hvoraf 891 giver det sande output 0. 6 giver output 1 og 17 giver output 2.}{fig:clcm}{0.7}
+\myFigure{CLConfusionMatrix}{På y-aksen ses input 0, 1 og 2. Giver der et pose input 0, vil der være 97,5\% chance for at outputtet og dermed modellen genkendelse er 0. Det ses også at der er 0,7\% risiko for at ouputtet bliver 1, og 1,9\% risiko for output 2. Der er testet med 914 0 inputs, hvoraf 891 giver det sande output 0. 6 giver output 1 og 17 giver output 2.}{fig:clcm}{0.6}
+
+En trænet model er nu lavet, og den kan eksporteres, sådan at den kan bruges i en genkendelsesfunktion.
 
 \section{Resultater}
