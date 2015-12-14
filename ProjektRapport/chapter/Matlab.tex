@@ -26,7 +26,7 @@ Før den indsamlede data er klar til den nødvendig databehandling, skal den gen
   
   \item[Fjerde trin:] \textit{pose}-værdierne konverteres til MATLAB typer \textit{categorical}
   \\\\
-  Efter \textit{pose}-værdierne er dubleret til hver vindue, konverteres de til \textit{categorical}s, hvilket er typen MATLAB anvender til \textit{response}. Dette er essentielt, da poses netop er det der ønskes, at de modeller er i stand til at genkende. Som tidligere nævnt dækker navnet \textit{pose} i .csv-filerne over pose ID, der konverteres derfor fra \textit{integer}-værdier til \textit{categorical}-typen. \todola{skal typer måske skrive med itatic}
+  Efter \textit{pose}-værdierne er dubleret til hver vindue konverteres de til \textit{categorical}s, hvilket er typen MATLAB anvender til \textit{response}. Dette er essentielt, da poses netop er det der ønskes, at de modeller er i stand til at genkende. Som tidligere nævnt dækker navnet \textit{pose} i .csv-filerne over pose ID\todokr{Det skal nævnes tidligere!}, der konverteres derfor fra \textit{integer}-værdier til \textit{categorical}-typen. \todola{skal typer måske skrive med itatic}
 \end{description}
 Det er de fire trin, der udføres på alle importerede .csv-filer. Filerne behandles gennem funktionen \textit{importFileFuncOri},\todola{Navnet på funktionen skal måske ændres} der tager arrays med hver af de udvalgte værdier som inputs. Disse værdier er vinduer fra hver af de 8 EMG sensorer og derudover \textit{pose}-, \textit{orientation}- og \textit{testPerson}-værdier til hvert vindue. Videre tager funktionen stien og navnet til en enkelt .csv-filer som input, hvilket er den specifikke fil, der behandles. Ved kald af funktionen kan array-parametrene være med data eller uden, funktionaliteten er den samme. Funktionen tilføjer værdierne for hvert af de nye vinduer til array-parametrene, og returnerer de resulterende arrays. 
 
@@ -94,6 +94,16 @@ Når en model er trænet er det muligt at få et overblik over, hvilke klassifik
 
 \myFigure{CLConfusionMatrix}{Ved hver kolonnerne ses input 0, 1 og 2. Gives et pose med id 0 som input, vil der være 97,5\% chance for at outputtet er 0. Det ses, at der er 0,7\% risiko for at ouputtet bliver 1, og 1,9\% risiko for output 2. Der er testet med 914 inputs med id 0, hvoraf 891 giver det sande output. Hvorimod 6 inputs er fejlklassificeret til id 1 og 17 til id 2.}{fig:clcm}{0.6}
 
-De trænede modeller kan eksporteres som klasser til et workspace, hvorefter de kan indgå og anvendes i MATLAB-funktion og scripts til klassifikation af EMG-vinduer.
+De trænede modeller kan eksporteres som klasser til et workspace, hvorefter de kan anvendes i MATLAB-funktion og scripts til klassifikation af EMG-vinduer.
 
-\section{Resultater}
+\section{Resultater}	
+I den følgende sektion vil resultaterne for modeltræningen med projektets opsamlede EMG-data blive gennemgået. Sektionen er opdel i to dele, hvor første del omhandler projektet indledende resultater, hvor EMG-data er optaget af Myo'en med en bestemt placering på armen.
+
+I den anden del af sektionen vil resultaterne for de endelige modeltræninger blive præsenteret. Her er Myo'ens placering på armen blevet gemt for hver enkelt optagelse og tilføjet som feature ved træning af modellerne.
+
+ \subsection{Indledende træningsresultater}
+
+ 
+ \subsection{Endelige træningsresultater}
+
+ 
