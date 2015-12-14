@@ -12,8 +12,13 @@ Data collection, som er anden del af systemet, hvilket her er hostet hos parse.c
 Til træning af machine learnings modellen, er det intentionen at anvende Matlabs indbyggede toolboxes, der er særligt egnet til at udvikle og træne genkendelses modellerne, samt at teste disse. 
 Her er det ligeledes muligt, at undersøge, hvilke typer af machine learning modeller, der er de meste effektive til at genkende poses, og hvilke der er poses, de forskellige modeller har sværest ved er se forskel på.
 
-\subsubsection{Anvendelse}
-I denne del del af systemet anvendes den trænede data. En bruger med en Myo kan her lave poses som sendes til matlab algoritmen og her genkendes det specifikke pose. Efterfølgende vil anvendelsesprogrammet ved hjælp af den genkendte pose, sende en kommando ud til en en robotarm. Systemet gør brug af en robotarm kaldet CrustCrawler. Denne robot er en arm med 2 bøjelige led, 2 roterende led og en klo der kan gribe ud efter genstande. CrustCrawleren vil modtage en kommando fra anvendelsesprogrammet, og reagere herpå. Kloen kan lukke i eller åbne alt efter om brugeren knytter sin hånd eller åbner den.\\
+\subsubsection{Testapplikation}
+I denne del del af systemet anvendes den trænede data. En bruger med en Myo kan her lave poses som sendes til matlab algoritmen og her genkendes det specifikke pose. Efterfølgende vil anvendelsesprogrammet ved hjælp af den genkendte pose, sende en kommando ud til en en robotarm. Systemet gør brug af en robotarm kaldet CrustCrawler. Denne robot er en arm med 2 bøjelige led, 2 roterende led og en klo der kan gribe ud efter genstande. CrustCrawleren vil modtage en kommando fra anvendelsesprogrammet, og reagere herpå. Kloen kan lukke i eller åbne alt efter om brugeren knytter sin hånd eller åbner den. De poses der vil blive arbejdet med og indsamlet data på er dermed:
+\begin{myItemize}
+	\item Åben hånd - Hvor fingrene er strakte
+	\item Lukket hånd - hvor hånden er knyttet
+	\item Afslappet hånd - hvor hånden er i hvile
+\end{myItemize}
 
 
 På figur \ref{fig:koncept} ses en skitse over systemet. Delen til venstre er indsamling af data fra Myo armbånd til en computer hvorfra det kan uploades til data collection. Fra data collection ses det at dette er en database. Dataen i data collectionen bliver trænet i matlab og er derfra klar til anvendelse. På højre side ses det at Myoen kan bæres og bruges til at styre crustcrawleren vha. matlab algoritmen.
