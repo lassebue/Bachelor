@@ -32,7 +32,7 @@ orientation    = [];
     end
 
 % Finding the unique pose id's from the data    
-id = unique(sort(cate)) 
+id = unique(sort(cate)); 
 
 % 
 poses = cate;
@@ -70,7 +70,6 @@ poseTrainingData.orientation = orientation;
 
 
 classificationLearner
-
 
 
 

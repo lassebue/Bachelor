@@ -1,5 +1,5 @@
 \thispagestyle{fancy}
-\chapter{Feature extraction og model træning}
+\chapter{Feature extraction og modeltræning}
 \label{chp:matlabChapter}
 I dette projekt anvendes matlab til at løse en række essentielle opgave, der omtales i machine learning sektionen \ref{sec:machineLearning}. I det følgende kapitel, vil disse opgaver blive beskrevet nærmere. \\
 Det er valgt at anvende MATLAB til at løse disse opgave, da det er et kendt værktøj med et bredt spektre af veldokumenterede funktionaliteter indenfor databehandling\citep{matlabFeatures} og træning af machine learning modeller\citep{matlabML}. Disse er netop problematikkerne, der i dette projekt er fokus på. 
@@ -74,26 +74,26 @@ Ved at køre det udviklede script og derefter vælge hvilke .csv-filer skal med 
  }{fig:meanEmgData}{1}
 
 \section{Modeltræning}
-Når import og feature extraction er udført, er næste del træningen af machine learning modellerne. Udførelsen af dette vil i denne sektion være beskrevet.
+Når import og feature extraction er udført, er næste del træningen af machine learning modellerne. Udførelsen af dette vil i denne sektion blive beskrevet.
 
-\myWrapFigure{matlabModeller}{De forskellige machine learning modeller man kan træne ud fra sit data. Der bliver valgt Bagged Trees da den giver en præcise model. Denne model er beskrevet nærmere i sektion \ref{sec:baggedTrees} }{fig:matlabModeller}{0.4}{r}
+\myWrapFigure{matlabModeller}{Her ses de forskellige machine learning modellertyper, der kan trænes i Classification Learner. Heraf giver Bagged Trees en præcise model. Denne model er beskrevet nærmere i sektion \ref{sec:baggedTrees} }{fig:matlabModeller}{0.4}{r}
 
-For at finde ud af om det er muligt at genkende poses med Myo'en og machine larning, er der først trænet modeller , hvor dataet er opsamlet fra Myo'en hvor den sidder på én måde. Det blev bekræftet at det var muligt at genkende poses vha. machine learning på EMG-signaler fra Myo'en. Efterfølgende er nye data indsamlet hvor der mellem hver indsamling er lavet en lille rotation af Myo'en på armen, og der opsamles dermed data i positioner hele vejen rundt på underarmen.
+For at undersøg om det er muligt at genkende poses med Myo'en og machine larning, er der i projektet, først blevet trænet modeller, hvor træningsdataet er opsamlet fra Myo'en, fra den samme placering på armen. Det blev bekræftet at det var muligt at genkende poses vha. machine learning på EMG-signaler fra Myo'en. Efterfølgende er nye data indsamlet hvor der mellem hver indsamling er lavet en lille rotation af Myo'en på armen, og der opsamles dermed data i positioner hele vejen rundt på underarmen.
 
 Træningen af machine learning modellerne foregår i Matlabs Classification Learner\citep{matlabClassificationLearner}. Classification Learner er et værktøj der giver mulighed for træning af mange forskellige slags machine learning modeller. Under træningen er flere forskellige afprøvet for at se deres nøjagtighed. Et par af disse er gennemgået i kapitel \ref{chp:mlm}.
 
-Classification Learneren åbnes og der startes en ny session. Her skal valideringsmetoden vælges. Holdout-validation vælges da det er en stor mængde data der skal trænes på. Med Holdout-validering vælges en procentdel af dataet der holdes ude af træningen. Den del der holdes ude bruges til test for at se hvor god modellen er\citep{matlabValidation}.
+Classification Learneren åbnes og der startes en ny session. Her skal valideringsmetoden vælges. Holdout-validering vælges da det er en stor mængde data der skal trænes på. Med Holdout-validering vælges en tilfældig procentdel af dataet, der holdes ude af træningen. Denne del bruges til at teste, hvor præcis modellen er\citep{matlabValidation}.
 
-\myFigure{CLHistory}{Historie over de trænede modeller. Bagged Tree øverst, markeret med størst præcision på 99,1\%. Hvorimod Simple Tree f.eks. kun har en præcision på 71,2\%}{fig:CLHistory}{0.35}
+\myFigure{CLHistory}{Historik over de trænede modeller. Bagged Trees, øverst er markeret og har den størst præcision på 97,2\%. Hvorimod Simple Tree f.eks. kun har en præcision på 70,1\%}{fig:CLHistory}{0.35}
 
-Træningen er modellerne er nu klar til at blive gennemført og der skal vælges hvilken machine learning model der skal bruges. På figur \ref{fig:matlabModeller} ses valgmulighederne.
+Træningen er modellerne er nu klar til at blive gennemført og der skal vælges, hvilken machine learning model der skal bruges. På figur \ref{fig:matlabModeller} ses valgmulighederne.
 Bagged Trees vælges, og modellen trænes.
-Der kan trænes flere modeller i én session, det bliver derfor nemt at sammenligne dem, for at se hvilke der er bedst. Som figur \ref{fig:CLHistory} viser, vil de trænede modeller vises i historikken i Classification Learneren, hvor præcisionen er vist.
+Der kan trænes flere modeller i én session, det bliver derfor nemt at sammenligne dem og finde den mest præcise. Som figur \ref{fig:CLHistory} viser, vil de trænede modeller vises i historikken i Classification Learner, hvor deres individuelle præcision bliver vist.
 
-Når en model er blevet trænet er det muligt at se, hvornår den har risiko for at lave hvilke fejl. Værktøjet Confusion Matrix, er en nem og overskuelig måde at se modellens fejl på. På en Confusion Matrix er de testede input op ad y-aksen og modellens output, altså posegenkendelsen, ud af x-aksen. De tre poses der arbejdes med har et nr. fra 0 til 2. Det kan nu ses at hvis inputtet er 1, er der et x antal procent chance for at ouputtet også er 1. Omvendt viser den også hvad chance er for at outputtet bliver 2, selvom inputtet er 1.
+Når en model er trænet er det muligt at få et overblik over, hvilke klassifikationsfejl modellen har størst risiko for at lave. Værktøjet Confusion Matrix, er en nem og overskuelig måde at se modellens fejl på. På en Confusion Matrix ses de faktiske poses ved hver række og modellens output, de genkendte poses, ved hver kolonne. De tre poses, der arbejdes med har id fra 0 til 2. Det kan ses, at hvis inputtet er 1, er der et antal procents chance for at outputtet også er 1. Ligeledes vises risikoen, for at outputtet bliver 2, selvom inputtet f.eks. er 1.
 
-\myFigure{CLConfusionMatrix}{På y-aksen ses input 0, 1 og 2. Giver der et pose input 0, vil der være 97,5\% chance for at outputtet og dermed modellen genkendelse er 0. Det ses også at der er 0,7\% risiko for at ouputtet bliver 1, og 1,9\% risiko for output 2. Der er testet med 914 0 inputs, hvoraf 891 giver det sande output 0. 6 giver output 1 og 17 giver output 2.}{fig:clcm}{0.6}
+\myFigure{CLConfusionMatrix}{Ved hver kolonnerne ses input 0, 1 og 2. Gives et pose med id 0 som input, vil der være 97,5\% chance for at outputtet er 0. Det ses, at der er 0,7\% risiko for at ouputtet bliver 1, og 1,9\% risiko for output 2. Der er testet med 914 inputs med id 0, hvoraf 891 giver det sande output. Hvorimod 6 inputs er fejlklassificeret til id 1 og 17 til id 2.}{fig:clcm}{0.6}
 
-En trænet model er nu lavet, og den kan eksporteres, sådan at den kan bruges i en genkendelsesfunktion.
+De trænede modeller kan eksporteres som klasser til et workspace, hvorefter de kan indgå og anvendes i MATLAB-funktion og scripts til klassifikation af EMG-vinduer.
 
 \section{Resultater}
