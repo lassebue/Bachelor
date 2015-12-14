@@ -21,30 +21,37 @@ Dette bliver nærmere beskrevet i sektion \ref{sec:optagelsedata}.
 
 \section{Machine Learning}
 \label{sec:machineLearning}
+I følgende sektion vil den grundlæggende teori for brugen af machine learning blive belyst. Machine learning er læren om at få computere til at selv at "tænke" uden rent faktisk at programmere dem.
 
-\subsection{Formål}
+Formålet med machine learninger er, at lade en program lære af opsamlet data, i stedet for at programmere det. Der er flere typer af machine learning\citep{PatternBishop}:
+\begin{description}
+	\item[Supervised learning] er hvor træningsdata inputtet sammen med det ønskede output bliver givet til computeren. Her bliver den altså lært hvilket output et givent input passer til.
+	\item[Unsuperviced learning] er derimod hvor der gives træningsdata, hvor der ikke er et tilhørende matchene output. Her er det altså op til computeren at finde et mønster, og dermed at kunne genkende lignede mønstre ud fra træningsdataet.
+	\item[Reinforcement learning] er hvor computeren befinder sig i et dynamisk miljø og der skal findes løsninger for at komme nærmest målet. Reinforcement learning er bl.a. brugt i selvkørende biler.
+\end{description}
 
-Indtro
-Hvad er Machine Learning?
-superviced learning
-generalisering
-inductive bias
-\\
+I dette projekt er der arbejdet med Supervised learning. Der bliver optaget data fra Myo'en og fortalt hvad inputtet er, og dermed også hvad den skal give af output. Inputtet er et specifikt datasæt der bliver opsamlet. Der bruges derfor det der hedder \textit{inductive bias}. Den specifikke data skal bruges til at geneknde et mønster på noget nyt data. Det specifikke skal bruges til at genkende det generelle. Omvendt er \textit{deduction} at gå den anden vej, fra det generelle til det specifikke.
 
-Træningssæt \todola{Der bruges training set, så alle begreber er på engelsk}
+
+%generalisering
+%inductive bias
+
+
+%Træningssæt
+\todola{Der bruges training set, så alle begreber er på engelsk}
 
 \subsection{Proces}
 \todola{Hvordan gøres det, beskriv trinene}
 \subsection{Problematik}
 
-Kurve med validationsfejl kontra fejl/ fejl på træningssættet. 
+%Kurve med validationsfejl kontra fejl/ fejl på træningssættet. 
 
 \subsubsection{overfitting}
-Varians - sensitivitet over for individuelle data punktet i træningssæt, fejl i træningssættet
+%Varians - sensitivitet over for individuelle data punktet i træningssæt, fejl i træningssættet
 \subsubsection{underfitting}
-Bias - 
+%Bias - 
 
 \subsection{Løsninger}
-test set/ validation set
-\\ Cross validation
-\\ Hold out
+%test set/ validation set
+%\\ Cross validation
+%\\ Hold out
