@@ -41,7 +41,7 @@ Det ses ud fra problemformuleringen at flere systemer vil kunne optimeres og gø
 I forbindelse med armproteser, hvor der allerede findes en løsning, hvor proteser kan styres vha. EMG signaler, er problemet at der anvendes kommandoer, som brugerne skal huske, videre er der kun få mulige kommandoer, således er brugerne ofte nød til at skrifte protese bevægelser, bestemt af kommandoerne. Desuden gør kommandoerne at brugerne ikke kan lave intuitive muskelbevægelser for de poses de gerne vil lave med protesen. 
 
 Her vil det gennem projektet bliver undersøgt om det er muligt at udvikle pose genkendelse vha. machine learning, da man, hvis det er muligt, vil kunne lave intuitiv styring af flere protese bevægelser. \\
-Som tidligere nævnt findes et wearable device, Myo armbåndet til pose genkendelse. Denne funktionalitet ville kunne anvendes i denne sammenhæng, dog har armbåndet en stor begrænsning i forhold til antallet af poses, der kan genkendes. Denne løsning vil således ikke være meget bedre end den eksisterende.\\
+Som tidligere nævnt kan en Myo opsamle EMG signaler fra armen og bruges til pose genkendelse. Denne funktionalitet ville kunne anvendes i denne sammenhæng, dog har Myo'en en stor begrænsning i forhold til antallet af poses, der kan genkendes. Denne løsning vil således ikke være meget bedre end den eksisterende.\\
 
 Derfor vil der i dette projekt, blive udviklet et program til genkendelse af EMG signaler vha. machine learning. \\
 Ved machine learning, har man behov for relativt store mængder data. Har man ingen data, kan man ikke lave machine learning. I den forbindelse ville det være smart at have en datasamling. Til at indsamle denne data har Myo armbåndet, en anden funktion, der gør det muligt at opsamle den rå EMG data. Således vil det være muligt anskaffe signal data fra underarm, som vil kunne anvendes til træning machine learnings klassifikationsmodeller. \\
@@ -50,11 +50,11 @@ Det færdige projekt skal således indeholde:
 \begin{myItemize}
 \item Et system der skal kunne:
 	\begin{myItemize}
-		\item Opsamle EMG data fra underarmen.
+		\item Opsamle EMG-data fra underarmen.
 		\item Uploade data til en samlet datasamling.
 		\item Bruge den indsamlede data til træning af en genkendelse algoritme.
-		\item Genkende forskellige poses i realtid vha. udviklet genkendelse algoritme.
-		\item Implementer relevant anvendelse af genkendelse algoritme.
+		\item Genkende forskellige poses i realtid vha. udviklet genkendelses algoritme.
+		\item Lave relevant anvende algoritmen.
 	\end{myItemize}
 \item Undersøgelse af eksisterende projekter indenfor machine learning.
 \item Undersøgelse af det udviklede system.
