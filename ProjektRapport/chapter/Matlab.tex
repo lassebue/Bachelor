@@ -40,7 +40,7 @@ Den anvendte funktion \textit{importFileFuncOri} er genereret vha. MATLAB's \tex
 Vha. denne funktion kan de enkelte .csv-filer importeres til MATLAB, hvorefter EMG-signalerne kan analyseres og efterfølgende feature extraction kan foretages.
 
 \section{Feature extraction}
-
+\label{sec:featurex}
 For at være i stand til at træne machine learning modeller, skal der fra den datakilde der behandles, være generelle kendetegn, som altid vil kunne identificeres uanset, hvilket datasæt der undersøges. Disse features skal dog identificeres og udtrækkes før træningen af modellerne kan påbegyndes. I det følgende vil det blive beskrevet, hvorledes analyse og feature extraction af EMG-signalerne er foretaget gennem projektet.
 \\\\
 Der har fra projektgruppens side været en hypotese om, at niveauet af aktivitet på Myo'ens individuelle sensorer, vil kunne anvendes som features, da forskellige muskler er aktive ved forskellige håndbevægelser. Lukkes hånden f.eks. er det især muskel grupper på indersiden af armen, der aktiveres. Omvendt forholder det sig, hvis håndens fingre strækkes, hvorved muskel grupper på ydersiden af armen aktiveres. \mySubFigure{diagnosticOpenHand}{diagnosticClosedHand}{
