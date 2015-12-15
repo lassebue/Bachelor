@@ -40,7 +40,7 @@ Den anvendte funktion \textit{importFileFuncOri} er genereret vha. MATLAB's \tex
 Vha. denne funktion kan de enkelte .csv-filer importeres til MATLAB, hvorefter EMG-signalerne kan analyseres og efterfølgende feature extraction kan foretages.
 
 \section{Feature extraction}
-\label{sec:featurex}
+
 For at være i stand til at træne machine learning modeller, skal der fra den datakilde der behandles, være generelle kendetegn, som altid vil kunne identificeres uanset, hvilket datasæt der undersøges. Disse features skal dog identificeres og udtrækkes før træningen af modellerne kan påbegyndes. I det følgende vil det blive beskrevet, hvorledes analyse og feature extraction af EMG-signalerne er foretaget gennem projektet.
 \\\\
 Der har fra projektgruppens side været en hypotese om, at niveauet af aktivitet på Myo'ens individuelle sensorer, vil kunne anvendes som features, da forskellige muskler er aktive ved forskellige håndbevægelser. Lukkes hånden f.eks. er det især muskel grupper på indersiden af armen, der aktiveres. Omvendt forholder det sig, hvis håndens fingre strækkes, hvorved muskel grupper på ydersiden af armen aktiveres. \mySubFigure{diagnosticOpenHand}{diagnosticClosedHand}{
@@ -112,8 +112,18 @@ For modellerne med højest præcision er deres confusion matrix blevet gemt til 
 På figuren ses Bagged Tree-modellens Confusion Matrix. Ved rækkerne ses de forskellige poses, åben hånd øverst, lukket hånd midt for, og afslappet hånd nederst, som er de faktiske inputs. Ved kolonnerne ses, de samme poses, dog er de her outputs. Ud fra matricen ses det, at modellen i alt har 8 fejlklassifikationer ud af 629 klassifikationer.
  }{fig:cmBaggedTrees}{1}
  
- I det indledende forløb af projektet blev det vurderet, at resultaterne for modeltræningen var tilstrækkelige til konkludere, at EMG-data optaget med Myo'en kan anvendestil machine learning med rimelige resultater. Dette blev vurderet ud fra den generelt høje nøjagtighed for de forskellige learners, der alle har en nøjagtighed over 86\%. Videre blev det vurderet, at de udvalgte features må være tilstrækkelige til modeltræningen, da specifikke learners træner modeller med op til 98,7\% nøjagtighed. Efter disse konklusioner blevet draget begyndte videreudviklingen af Data Collection Application, til at håndtere Myo'ens orientering på armen.  
+ I det indledende forløb af projektet blev det vurderet, at resultaterne for modeltræningen var tilstrækkelige til konkludere, at EMG-data optaget med Myo'en kan anvendes til machine learning med rimelige resultater. Dette blev vurderet ud fra den generelt høje nøjagtighed for de forskellige learners, der alle har en nøjagtighed over 86\%. Videre blev det vurderet, at de udvalgte features må være tilstrækkelige til modeltræningen, da specifikke learners træner modeller med op til 98,7\% nøjagtighed. Efter disse konklusioner blevet draget, begyndte videreudviklingen af Data Collection Application til at håndtere Myo'ens orientering på armen, og implementeringen af testapplikation, hvor de trænede modeller kan anvendes, blev startet.
 
  \subsection{Endelige træningsresultater}
+ Efter den videreudviklede Data Collection Application var implementeret til at håndtere Myo'ens orientering, kunne EMG-data opsamles rundt om armens bredeste punkt. Denne data blev opsamlet med henblik på, at forbedre modellernes evne til at klassificere EMG-signal, som ikke er optaget præcist samme sted på armen, som modellernes træningssæt.
 
+\myWrapFigure{modellerPrecisionMedOri}{}{fig:modelsAvg}{0.35}{r}
+
+
+ \myFigure{ModelresultaterMedOri}{
+På figuren ses Bagged Tree-modellers
+ }{fig:modelAvg}{1}
+ 
+ \myFigure{cm30HighprecOverall}
+{Herover ses en tabel over alle }{fig:cmBagged20}{0.8}
  

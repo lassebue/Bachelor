@@ -11,12 +11,31 @@
 {På graferne ses 400 vinduer med deres tilhørende first principal component. På x-aksen er vinduerne, og opad y-aksen er first principal component. Vinduernes first principal component-koefficienter markeret med rødt er optaget fra en lukket hånd, de blå er optaget fra en åben hånd og de gule er optaget fra en hånd i hvile.}{fig:pcaEmgData}{1}
 
 \chapter{Modeltræningsresultater}
+\section{Indledende træningsresultater}
 \myFigure{modelPrecisionUdenOri}
 {Herover ses en tabel over alle tilgængelige modeltyper, der kan trænes i MATLAB Classification Learner. Modellerne er trænet med 24 features, som er udtrukket fra EMG-data opsamlet med Myo'en, hvor myo'en har haft samme placering på armen under optagelse af hele datasættet. Videre ses hver models præcision på tabellen, hvor det fremgår, at modeltyperne Coarse Gaussian SVM og Bagged Trees har de højeste nøjagtigheder, begge på 98,7\%. Værdier der ses på tabellen er ikke de samme, som blev set af gruppen ved træning af den oprindelige model, men er genskabt fra samme data}{fig:modelAccuracyWithout}{0.4}
 
 \myFigure{cmCoarseGaussianSVM}
 {På figuren ses Coarse Gaussian SVM-modellens Confusion Matrix. Ved rækkerne ses de forskellige poses, åben hånd øverst, lukket hånd midt for, og afslappet hånd nederst, som er de faktiske inputs. Ved kolonnerne ses, de samme poses, dog er de her outputs. Ud fra matricen ses det, at modellen i alt har 8 fejlklassifikationer ud af 629 klassifikationer, dog ingen fejlklassifikationer mellem de to poses, åben hånd og lukket hånd. Hvis den faktiske pose er lukket hånd, vil modellen ifølge matricen ikke fejlklassificerer posen til åben hånden. Dog vil der kunne forekomme fejlklassificeringer mellem åben hånd og lukket hånd, lukket hånd og afslappet hånd samt afslappet hånd og lukket hånd.}{fig:cmCoarseGaussianSVM}{1} 
 
+\section{Endelige træningsresultater}
+
+\myFigure{baggedTreesResult}
+{Herover ses en tabel over alle }{fig:baggedTreesStats}{1}
+
+\myFigure{cm20overall}
+{Herover ses en tabel over alle }{fig:baggedTreesStats}{0.8}
+
+\myFigure{cm30HighprecOverall}
+{Herover ses en tabel over alle }{fig:cmBagged20}{0.8}
+
+\myFigure{cm40Overall}
+{Herover ses en tabel over alle }{fig:cmBagged30}{0.8}
+
+\myFigure{cm60Overall}
+{Herover ses en tabel over alle }{fig:cmBagged40}{0.8}
+
+\chapter{Other}
 \newpage
 \listoftables
 \vspace{1cm}
