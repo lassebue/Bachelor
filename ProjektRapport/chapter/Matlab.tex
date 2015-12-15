@@ -92,7 +92,7 @@ Der kan trænes flere modeller i én session, det bliver derfor nemt at sammenli
 
 Når en model er trænet er det muligt at få et overblik over, hvilke klassifikationsfejl modellen har størst risiko for at lave. Værktøjet Confusion Matrix, er en nem og overskuelig måde at se modellens fejl på. På en Confusion Matrix ses de faktiske poses ved hver række og modellens output, de genkendte poses, ved hver kolonne. De tre poses, der arbejdes med har id fra 0 til 2. Det kan ses, at hvis inputtet er 1, er der et antal procents chance for at outputtet også er 1. Ligeledes vises risikoen, for at outputtet bliver 2, selvom inputtet f.eks. er 1.
 
-\myFigure{CLConfusionMatrix}{Ved hver kolonnerne ses input 0, 1 og 2. Gives et pose med id 0 som input, vil der være 97,5\% chance for at outputtet er 0. Det ses, at der er 0,7\% risiko for at ouputtet bliver 1, og 1,9\% risiko for output 2. Der er testet med 914 inputs med id 0, hvoraf 891 giver det sande output. Hvorimod 6 inputs er fejlklassificeret til id 1 og 17 til id 2.}{fig:clcm}{0.6}
+\myFigure{CLConfusionMatrix}{Ved rækkerne ses de faktiske poses, modellen forsøger at genkende. Ved kolonnerne ses de forskellige outputs. 0 er idet for åben hånd, 1 er idet for lukket hånd og 2 er idet for afslappet hånd. Gives et pose med id 0 som input, vil der være 97,5\% chance for at outputtet er id 0. Det ses, at der er 0,7\% risiko for at ouputtet bliver 1, og 1,9\% risiko for output 2. Der er testet med 914 inputs med id 0, hvoraf 891 giver det sande output. Hvorimod 6 inputs er fejlklassificeret til id 1 og 17 til id 2.}{fig:clcm}{0.6}
 
 De trænede modeller kan eksporteres som klasser til et workspace, hvorefter de kan anvendes i MATLAB-funktion og scripts til klassifikation af EMG-vinduer.
 
@@ -104,9 +104,16 @@ I den anden del af sektionen vil resultaterne for de endelige modeltræninger bl
  \subsection{Indledende træningsresultater}
  De indledende resultater har haft afgørende betydning for projektets videre forløb. Det er ud fra dem blevet afgjort, om data optaget fra Myo'en kan anvendes ved machine learning og om de udvalgte features vil tilstrækkelige til at træne nøjagtige modeller. 
  
- For at få et indtryk af, hvilke modeller har høj præcision på det optaget EMG-data, er alle tilgænge model modeller i Classification Learner blev trænet. 
+For at få et indtryk af, hvilke modeller der har højest præcision på det optaget EMG-data, er alle tilgænge modeller i Classification Learner blev trænet. I bilag \ref{fig:modelAccuracyWithout} ses en tabel over alle trænede modellers præcision, hvor Coarse Gaussian SVM og Bagged Trees begge har den højeste nøjagtighed på 98,7\%.
+Det bemærkes ud fra tabellen i bilag \ref{fig:modelAccuracyWithout}, at alle modeller har en præcision over 86\%, hvilket vurderes til at være en høj generel præcision for modellerne. 
+\\\\
+For modellerne med højest præcision er deres confusion matrix blevet gemt til analyse. På figure \ref{fig:cmBaggedTrees} kan det ses, at Bagged Tree-modellen har få klassifikationsfejl og ingen fejlklassifikationer mellem de to poses, åben hånd og afslappet hånd. Derimod er der fejlklassifikationer mellem lukket hånd og åben hånd, og videre mellem lukket hånd og afslappet hånd, men disse fejl vurderes ikke til at være problematiske, da den samlede fejlprocent er på 1,3\%. En tilsvarende Confusion Matrix kan ses for Coarse Gaussian SVM-modellen i bilag \ref{fig:cmCoarseGaussianSVM}. 
+ \myFigure{cmBaggedTrees}{
+På figuren ses Bagged Tree-modellens Confusion Matrix. Ved rækkerne ses de forskellige poses, åben hånd øverst, lukket hånd midt for, og afslappet hånd nederst, som er de faktiske inputs. Ved kolonnerne ses, de samme poses, dog er de her outputs. Ud fra matricen ses det, at modellen i alt har 8 fejlklassifikationer ud af 629 klassifikationer.
+ }{fig:cmBaggedTrees}{1}
  
- 
+ I det indledende forløb af projektet blev det vurderet, at resultaterne for modeltræningen var tilstrækkelige til konkludere, at EMG-data optaget med Myo'en kan anvendestil machine learning med rimelige resultater. Dette blev vurderet ud fra den generelt høje nøjagtighed for de forskellige learners, der alle har en nøjagtighed over 86\%. Videre blev det vurderet, at de udvalgte features må være tilstrækkelige til modeltræningen, da specifikke learners træner modeller med op til 98,7\% nøjagtighed. Efter disse konklusioner blevet draget begyndte videreudviklingen af Data Collection Application, til at håndtere Myo'ens orientering på armen.  
+
  \subsection{Endelige træningsresultater}
 
  
