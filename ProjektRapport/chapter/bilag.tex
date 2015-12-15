@@ -16,24 +16,24 @@
 {Herover ses en tabel over alle tilgængelige modeltyper, der kan trænes i MATLAB Classification Learner. Modellerne er trænet med 24 features, som er udtrukket fra EMG-data opsamlet med Myo'en, hvor myo'en har haft samme placering på armen under optagelse af hele datasættet. Videre ses hver models præcision på tabellen, hvor det fremgår, at modeltyperne Coarse Gaussian SVM og Bagged Trees har de højeste nøjagtigheder, begge på 98,7\%. Værdier der ses på tabellen er ikke de samme, som blev set af gruppen ved træning af den oprindelige model, men er genskabt fra samme data}{fig:modelAccuracyWithout}{0.4}
 
 \myFigure{cmCoarseGaussianSVM}
-{På figuren ses Coarse Gaussian SVM-modellens Confusion Matrix. Ved rækkerne ses de forskellige poses, åben hånd øverst, lukket hånd midt for, og afslappet hånd nederst, som er de faktiske inputs. Ved kolonnerne ses, de samme poses, dog er de her outputs. Ud fra matricen ses det, at modellen i alt har 8 fejlklassifikationer ud af 629 klassifikationer, dog ingen fejlklassifikationer mellem de to poses, åben hånd og lukket hånd. Hvis den faktiske pose er lukket hånd, vil modellen ifølge matricen ikke fejlklassificerer posen til åben hånden. Dog vil der kunne forekomme fejlklassificeringer mellem åben hånd og lukket hånd, lukket hånd og afslappet hånd samt afslappet hånd og lukket hånd.}{fig:cmCoarseGaussianSVM}{1} 
+{På figuren ses Coarse Gaussian SVM-modellens Confusion Matrix. Ved rækkerne ses de forskellige poses, åben hånd med id 0 øverst, lukket hånd med id 1 midt for, og afslappet hånd med id 2 nederst, som er de faktiske inputs. Ved kolonnerne ses, de samme poses, dog er de her outputs. Ud fra matricen ses det, at modellen i alt har 8 fejlklassifikationer ud af 629 klassifikationer, dog ingen fejlklassifikationer mellem de to poses, åben hånd og lukket hånd. Hvis den faktiske pose er lukket hånd, vil modellen ifølge matricen ikke fejlklassificerer posen til åben hånden. Dog vil der kunne forekomme fejlklassificeringer mellem åben hånd og lukket hånd, lukket hånd og afslappet hånd samt afslappet hånd og lukket hånd.}{fig:cmCoarseGaussianSVM}{1} 
 
 \section{Endelige træningsresultater}
 
 \myFigure{baggedTreesResult}
 {Herover ses en tabel over alle }{fig:baggedTreesStats}{1}
 
-\myFigure{cm20overall}
-{Herover ses en tabel over alle }{fig:baggedTreesStats}{0.8}
-
 \myFigure{cm30HighprecOverall}
-{Herover ses en tabel over alle }{fig:cmBagged20}{0.8}
+{Herover ses den Confusion Matrix, der tilhører modellen for Bagged Trees med 30 learners, med den største nøjagtighed. Ved rækkerne ses de forskellige poses, åben hånd med id 0 øverst, lukket hånd med id 1 midt for, og afslappet hånd med id 2 nederst, som er de faktiske inputs. Ved kolonnerne ses, de samme poses, dog er de her outputs. Ud fra matricen kan det beregnes, at modellen i alt har 115 fejlklassifikationer ud af 4202 klassifikationer, altså 2,74\%.}{fig:cmBagged30}{0.8}
+
+\myFigure{cm20overall}
+{Herover ses den Confusion Matrix, der tilhører modellen for Bagged Trees med 20 learners, med den største nøjagtighed. Ved rækkerne ses de forskellige poses, åben hånd med id 0 øverst, lukket hånd med id 1 midt for, og afslappet hånd med id 2 nederst, som er de faktiske inputs. Ved kolonnerne ses, de samme poses, dog er de her outputs.}{fig:cmBagged20}{0.8}
 
 \myFigure{cm40Overall}
-{Herover ses en tabel over alle }{fig:cmBagged30}{0.8}
+{Herover ses den Confusion Matrix, der tilhører modellen for Bagged Trees med 40 learners, med den største nøjagtighed. Ved rækkerne ses de forskellige poses, åben hånd med id 0 øverst, lukket hånd med id 1 midt for, og afslappet hånd med id 2 nederst, som er de faktiske inputs. Ved kolonnerne ses, de samme poses, dog er de her outputs.}{fig:cmBagged30}{0.8}
 
 \myFigure{cm60Overall}
-{Herover ses en tabel over alle }{fig:cmBagged40}{0.8}
+{Herover ses den Confusion Matrix, der tilhører modellen for Bagged Trees med 60 learners, med den største nøjagtighed. Ved rækkerne ses de forskellige poses, åben hånd med id 0 øverst, lukket hånd med id 1 midt for, og afslappet hånd med id 2 nederst, som er de faktiske inputs. Ved kolonnerne ses, de samme poses, dog er de her outputs.}{fig:cmBagged40}{0.8}
 
 \chapter{Other}
 \newpage
