@@ -23,9 +23,9 @@ Dette bliver nærmere beskrevet i sektion \ref{sec:optagelsedata}.
 \label{sec:machineLearning}
 I følgende sektion vil den grundlæggende teori for brugen af machine learning blive belyst. Machine learning er læren om at få computere til at selv at "tænke"' uden rent faktisk at programmere dem.
 
-Formålet med machine learninger er, at lade et program lære af opsamlet data, i stedet for at programmere det. Der er tre typer af machine learning\citep{PatternBishop}:
+Formålet med machine learning er, at lade et program lære af opsamlet data, i stedet for at programmere det. Der er tre typer af machine learning\citep{PatternBishop}:
 \begin{description}
-	\item[Supervised learning] er hvor træningsdata inputtet sammen med det ønskede output bliver givet til computeren. Her bliver den altså lært hvilket output et givent input passer til.
+	\item[Supervised learning] er hvor træningsdata inputtet sammen med det ønskede output gives til computeren. Her bliver den altså lært hvilket output et givet input passer til.
 	\item[Unsupervised learning] er derimod hvor der gives træningsdata, men ikke et tilhørende matchene output. Her er det altså op til computeren at finde et mønster, og dermed at kunne genkende lignede mønstre ud fra træningsdataene.
 	\item[Reinforcement learning] er hvor computeren befinder sig i et dynamisk miljø og der skal findes løsninger for at komme nærmest målet. Reinforcement learning er bl.a. brugt i selvkørende biler.
 \end{description}
@@ -42,11 +42,11 @@ Nu er modellen lavet er klar til at lave mønstergenkendelse. Som det ses på fi
 \myFigure{mlprocess2}{Der bliver opsamlet data, som bliver pre-processeret. Disse to steps er det samme som gennemgået inden træning af en model. Når data er præ-processeret bliver de nu kørt igennem modellen, der løber alle dataene igennem og laver genkendelse på dem.}{fig:mlprocess2}{1}
 
 \subsection{Problematik}
-Når der trænes machine learning modeller, er det ikke altid at de laver genkendelse helt korrekt, som planlagt. To problemer man kan støde på ved en model er \textit{overfitting} og \textit{underfitting}. Overfitting opstår hvis der er for mange features. Modellen prøver derfor "For meget"' på at ramme hver enkel sample. Underfitting sker hvis der er for få features, der kendetegner dataene. Er det tilfældet, vil modellen ikke kunne lave successfuld genkendelse, da den ikke har haft nok informationer at gå ud fra.
+Når der trænes machine learning modeller, er det ikke altid at de laver genkendelse helt korrekt, som planlagt. To problemer man kan støde på ved en model er \textit{overfitting} og \textit{underfitting}. Overfitting opstår hvis der er for mange features. Modellen prøver derfor "for meget"' på at ramme hver enkel sample. Underfitting sker hvis der er for få features, der kendetegner dataene. Er det tilfældet, vil modellen ikke kunne lave successfuld genkendelse, da den ikke har haft nok informationer at gå ud fra.
 %Kurve med validationsfejl kontra fejl/ fejl på træningssættet. 
 
 \subsubsection{Over- og Underfitting}
-Hvis der er lavet en complex model der er meget fleksibel og specifik, kan den være overfittet. På figur \ref{fig:over}\citep{fitting} ses et eksempel af en model med overfitting. Umiddelbart ser den ud til at være god, da den går gennem næsten alle samples. Problemet er, at den afviger meget fra den funktion, der er datasamples fra. Derfor kan den lave outputs der ligger langt fra målet. På figur \ref{fig:under}, ses det modsatte eksempel. På denne model ses underfitting. Modellen er en lige linje langs de samplede data, men den mister en masse samples, da den ligger for langt fra hver datasample.
+Hvis der er lavet en kompleks model der er meget fleksibel og specifik, kan den være overfittet. På figur \ref{fig:over}\citep{fitting} ses et eksempel af en model med overfitting. Umiddelbart ser den ud til at være god, da den går gennem næsten alle samples. Problemet er, at den afviger meget fra den funktion, der er datasamples fra. Derfor kan den lave outputs der ligger langt fra målet. På figur \ref{fig:under}, ses det modsatte eksempel. På denne model ses underfitting. Modellen er en lige linje langs de samplede data, men den mister en masse samples, da den ligger for langt fra hver datasample.
 
 \mySubFigure{overfitting}{underfitting}{Overfitting og underfitting. Det ses hvordan begge modeller har deres svagheder. Modellen på \ref{fig:over} har stor risiko for at "genkende"' for mange data som sit mål. Dog finder den alle de rigtige. På modellen på \ref{fig:under} derimod, finder den ikke de samples den bør, og genkender dermed ikke de mål den bør. }{}{}{fig:fitting}{fig:over}{fig:under}
 
