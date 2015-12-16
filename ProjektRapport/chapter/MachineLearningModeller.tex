@@ -57,15 +57,16 @@ Ved decision trees anvendes prouning, som er en proces, hvor idéen er at fjerne
 Decision Trees anvendes i den specifikke ensemble model random forest. Dennes træningsalgoritme er, hvad der konkret bruges, når der trænes Bagged Trees med MATLAB’s Classification learner applikation. I det følgende vil vi se nærmere på netop random forest metoden.
 
 \subsection{Random forest}
-MATLAB anvender random forest algoritmen ved træning af Bagged trees. Det kan være vanskeligt at beskrive nøjagtigt, hvorfor en træningsmodel virker bedre end en anden, men efter at have undersøgt de ovennævnte træningstyper, vil det dog blive forsøgt at give et bud på, hvorfor præcisionen for denne model er høj.\todola{Find igen en mere præcis formulering}
+MATLAB anvender random forest algoritmen ved træning af Bagged trees. Det kan være vanskeligt at beskrive nøjagtigt, hvorfor en træningsmodel virker bedre end en anden, men efter at have undersøgt de ovennævnte træningstyper, vil det dog blive forsøgt at give et bud på, hvorfor præcisionen for denne model er høj.%\todola{Find igen en mere præcis formulering}
 
-En Random forest learner har kvaliteterne fra ensemble learning gennem dens anvendelse af bagging, og genererer adskillige decision trees ud fra subset af træningssættet. Outputtet af denne learner bliver efter bagging metoden gennemsnittet af de individuelle træers output ved regression og resultatet af en majority voting af træerne ved klassifikation. \todola{Random forest 3 ref}
+En Random forest learner har kvaliteterne fra ensemble learning gennem dens anvendelse af bagging, og genererer adskillige decision trees ud fra subset af træningssættet. Outputtet af denne learner bliver efter bagging metoden gennemsnittet af de individuelle træers output ved regression og resultatet af en majority voting af træerne ved klassifikation.% \todola{Random forest 3 ref}
 
-\todola{Indsæt billede af Random forest}
+%\todola{Indsæt billede af Random forest}
+\myFigure{randomForest}{På figuren ses en random forest model.\citep{randomForestModel}}{fig:randomForestPic}{0.8}
 
 Ved at kombinere resultatet af de enkelte genererede træer, reduceres effekten af decision trees' tilbøjelighed til overfitting. Videre stiger modellens nøjagtighed, når resultatet fra flere træer kombineres. Dette resulterer i, at modellens kompleksitet kan øges uden at valideringsfejl fra overfitting stiger tilsvarende. 
-Ved andre learners, vil øget kompleksitet medføre en højere grad af sensitivitet overfor individuelle data punkter i træningssættet. Dette mindsker modellernes evne til at generalisere på ukendt data, hvilket resulterer i problemer med overfitting.\todola{Random forest 8,9,10 ref} Her har Random forest modellen således en fordel, da dennes kompleksitet kan øges, ved at genererer flere decision trees, uden tilsvarende at hæve variansen, men stadig bibeholde en lav bias. \todola{Random forest 3 ref}
-
+Ved andre learners, vil øget kompleksitet medføre en højere grad af sensitivitet overfor individuelle data punkter i træningssættet. Dette mindsker modellernes evne til at generalisere på ukendt data, hvilket resulterer i problemer med overfitting. Her har Random forest modellen således en fordel, da dennes kompleksitet kan øges, ved at genererer flere decision trees, uden tilsvarende at hæve variansen, men stadig bibeholde en lav bias. %\todola{Random forest 3 ref}
+%\todola{Random forest 8,9,10 ref problemer med overfitting}
 Dette er højst sandsynligt, hvad resulterer i Random forest modellen er i stand til at klassificerer poses ud fra EMG data med så høj præcision. \todola{Indsæt modellens præcision i procent}  
 
 \todola{Skriv afrunding efter MATLAB afsnit er færdig, generelt har modellen god præcision, fordi man kan anvende komplekse træer, som bliver genereret vha. feature bagging (Random forest 13), og videre anvende ordinær bagging til at kombinerer dem til en model med lav bias og varians.}
