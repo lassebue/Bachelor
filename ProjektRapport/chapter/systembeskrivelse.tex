@@ -2,18 +2,18 @@
 \chapter{Systembeskrivelse}
 \label{chp:systembeskrivelse}
 
-Systemet i dette projekt består af flere dele, nemlig et dataopsamlingsprogram, modeltræning og en anvendelsesdel.
+Systemet i dette projekt består af flere dele, nemlig et dataopsamlingsprogram, modeltræning og en testapplikation.
 \subsubsection{Dataopsamlingsprogram}
-Til denne del af projektet anvendes en Myo. En Myo er et relativt billigt wearable device som har en række funktionaliteter, hvor den ene er, at den kan opfange EMG-signaler i underarmen og sende de opsamlede data til et program.\\
-Da der er behov for data specifikt til machine learning, vil der i projektet blive designet et software program med henblik på at opsamle og ordne data sendt fra Myo båndet, til senere træning af machine learning modeller.\\
-Data collection er anden del af systemet. Det er en database, som her er hos pars.com, hvor alle de opsamlede data ligger. Disse kan anvendes til forskellige formål.
+Til denne del af projektet anvendes en Myo.
+Da der er behov for data specifikt til machine learning, vil der i projektet blive designet et software program med henblik på at opsamle data sendt fra Myo'en, til senere træning af machine learning modeller.\\
+Data collection er en database, som her er hos Parse.com\citep{RefWorks:11}, hvor alle de opsamlede data ligger. Disse kan anvendes til forskellige formål.
 
 \subsubsection{Modeltræning}
-Til træning af machine learnings modellen er det intentionen at anvende MATLAB indbyggede toolboxes, der er særligt egnet til at udvikle og træne genkendelses-modeller, samt til at teste disse. 
+Til træning af machine learnings modellerne, er det intentionen at anvende MATLAB indbyggede toolboxes, der er særligt egnet til at udvikle og træne genkendelses-modeller, samt til at teste disse. 
 Her er det ligeledes muligt, at undersøge, hvilke typer af machine learning modeller, der er de mest effektive til at genkende poses, og hvilke poses, de forskellige modeller har sværest ved er se forskel på.
 
 \subsubsection{Testapplikation}
-I denne del af systemet anvendes de trænede data. En bruger med en Myo kan her lave poses, som sendes til MATLAB-algoritmen og her genkendes det specifikke pose. Efterfølgende vil anvendelsesprogrammet ved hjælp af den genkendte pose, sende en kommando ud til en en robotarm. Systemet gør brug af en robotarm kaldet CrustCrawler. Denne robot er en arm med 2 bøjelige led, 2 roterende led og en klo, der kan gribe genstande. CrustCrawleren vil modtage en kommando fra anvendelsesprogrammet, og reagere herpå. Kloen kan lukke eller åbne alt efter om brugeren knytter sin hånd eller åbner den. De poses der vil blive arbejdet med og indsamlet data på er dermed:
+I denne del af systemet anvendes de trænede data. En bruger med en Myo kan her lave poses, som sendes til MATLAB-algoritmen, og her genkendes det specifikke pose. Efterfølgende vil anvendelsesprogrammet ved hjælp af den genkendte pose, sende en kommando ud til en en robotarm. Systemet gør brug af en robotarm kaldet CrustCrawler. Denne robot er en arm med 2 bøjelige led, 2 roterende led og en klo, der kan gribe genstande. CrustCrawleren vil modtage en kommando fra testapplikationen, og reagere herpå. Kloen kan lukke eller åbne alt efter om brugeren knytter sin hånd eller åbner den. De poses, der vil blive arbejdet med og indsamlet data på, er dermed:
 \begin{myItemize}
 	\item Åben hånd - hvor fingrene er strakte
 	\item Lukket hånd - hvor hånden er knyttet
@@ -21,15 +21,15 @@ I denne del af systemet anvendes de trænede data. En bruger med en Myo kan her 
 \end{myItemize}
 
 
-På figur \ref{fig:koncept} ses en skitse over systemet. Delen til venstre viser indsamling af data fra Myo'en til en computer, hvorfra der kan uploades til en data collection, som er en database.  Dataene i data collectionen bliver trænet i MATLAB og er derfra klar til anvendelse. På højre side i figuren ses det, at Myo'en kan bæres og bruges til at styre crustcrawleren vha. MATLAB-algoritmen.
+På figur \ref{fig:koncept} ses en skitse over systemet. Delen til venstre viser indsamling af data fra Myo'en til en computer, hvorfra der kan uploades til en data collection, som er en database.  Dataene i den online data collection bliver trænet i MATLAB og er derfra klar til anvendelse. På højre side i figuren ses det, at Myo'en kan bæres og bruges til at styre CrustCrawleren vha. MATLAB-algoritmen.
 
-\myFigure{konceptbillede}{Systemskitse, hvor opdeling i de 3 dele ses. Dataopsamling i venstre side fra Myo'en til Data Collection. I midten ses modeltræning hvor de opsamlede data bruges. til højre ses anvendelsen af modellerne}{fig:koncept}{0.75}
+\myFigure{konceptbillede}{Systemskitse, hvor opdeling i de 3 dele ses. Dataopsamling i venstre side fra Myo'en til Data Collection. I midten ses modeltræning, hvor de opsamlede data bruges. til højre ses anvendelsen af modellerne}{fig:koncept}{0.75}
 
 \thispagestyle{fancy}
-\section{Funktionalle krav}
+\section{Funktionelle krav}
 \label{sec:funktionellekrav}
-I det følgende afsnit vil de funktionelle krav blive fremsat ud fra systembe- skrivelsen og de forskellige aktører, som er beskrevet i sektion \ref{sec:aktorbeskrivelser}.
-Systemets krav bliver opsat i Use Cases, som medvirker til at danne overblik over, hvordan systemets krav bliver opfyldt, og hvordan de forskellige aktører relaterer til systemet. Alle Use Cases kan ses i kravspecifikationen \citep{RefWorks:8}.
+I det følgende afsnit vil de funktionelle krav for dataopsamlingsprogrammet og testapplikationen blive fremsat ud fra systembeskrivelsen og de forskellige aktører, som er beskrevet i sektion \ref{sec:aktorbeskrivelser}. Disse krav er opstillet for at målrette det fremadrettede forløb.
+Systemets krav bliver opsat i Use Cases, som medvirker til at danne overblik over, hvordan systemets krav bliver opfyldt, og hvordan aktører relaterer til systemet. Alle Use Cases kan ses i kravspecifikationen \citep{RefWorks:8}.
 
 \subsection{Aktørbeskrivelser}
 \label{sec:aktorbeskrivelser}
@@ -42,28 +42,28 @@ I systemet bruges en testperson, som har en Myo på. Han anvender dataopsamlings
 Brugeren har en Myo på og bruger genkendelssoftwaren til at styre en CrustCrawler-robot med.
 
 \subsubsection{CrustCrawler}
-CrustCrawleren er en robotarm med en gribeklo. Denne bruges som en anvendelse af genkendelssoftwaren, hvor den ville kunne reagere på forskellige poses, der kan laves af brugeren.
+CrustCrawleren er en robotarm med en gribeklo. Denne bruges som en anvendelse til testapplikationen, hvor den reagere på forskellige poses, der kan laves af brugeren.
 
 \subsection*{Tabel over funktionelle krav}
-I tabel \ref{tab:funktionellekrav} ses alle de funktionelle krav, der stilles til systemet.
+I tabel \ref{tab:funktionellekrav} ses alle de funktionelle krav, der stilles til dataopsamlingsprogrammet og testapplikationen.
 \bgroup
 \def\arraystretch{1.8}
 \begin{center}
 	\rowcolors{2}{white}{lightgrey}
 	\begin{table}
 		\begin{tabular}{lp{225pt}}
-			\rowcolor{grey} En tesperson skal kunne: &\\
+			\rowcolor{grey} En testperson skal kunne: &\\
 			Krav 1:& Se vejledning til, hvordan program bruges\\
 			Krav 2:& Optage datasæt fra Myo\\
 			Krav 3:& Tilføje ny pose\\
 			Krav 4:& Gemme datasæt\\
-			Krav 5:& Uploade datasæt til en data collectionen\\
+			Krav 5:& Uploade datasæt til en data collection\\
 			\rowcolor{grey}En Bruger skal kunne: &\\
 			Krav 6:& Genkende en pose vha. genkendelsessoftwaren\\
-			Krav 7:& Lave knyttet næve, så CrustCrawler lukker sammen\\
-			Krav 8:& Lave åbnet hånd, så CrustCrawler åbnes
+			Krav 7:& Lave lukket hånd, så CrustCrawler-kloen lukker sammen\\
+			Krav 8:& Lave åben hånd, så CrustCrawler-kloen åbnes
 		\end{tabular}
-		\caption{Funktionelle krav}
+		\caption{Her ses systemets funktionelle krav. Kravene som en testperson skal kunne, implementeres i dataopsamlingsprogrammet. Kravene som en bruger skal kunne, implementeres i testapplikationen.}
 		\label{tab:funktionellekrav}
 	\end{table}	
 \end{center}
@@ -73,14 +73,14 @@ I tabel \ref{tab:funktionellekrav} ses alle de funktionelle krav, der stilles ti
 For at kunne dække de forskellige funktionelle krav opstilles der en række Use Cases. Her er de forskellige Use Cases gennemgået og beskrevet.
 
 \subsubsection{Se vejledning}
-Her skal testpersonen have mulighed for at få en hurtig vejledning i, hvordan dataopsamlingsprogrammet virker. Denne Use Case dækker krav \#1
+Her skal testpersonen have mulighed for at få en hurtig vejledning i, hvordan dataopsamlingsprogrammet virker.
 
 \subsubsection{Indsaml datasæt og tilføj ny pose}
-Testpersonen skal kunne indsamle et nyt datasæt og derefter tilføje det til en kategori, så som "knyttet hånd". Herefter uploades det til den fælles data collection. Disse Use Cases dækker krav \#2, 3, 4 og 5.
+Testpersonen vælger en pose og indsamler et nyt datasæt, såsom lukket hånd. Herefter kan det uploades til den fælles data collection.
 \subsubsection{Genkendelse af pose}
-Brugeren skal med genkendelsessoftwaren genkende en bestem pose som brugeren laver med Myo'en på. Dette er med henblik på at anvende det videre på Use Case 5 og 6. Denne Use Case dækker krav \#6
+Brugeren skal med testapplikationen genkende en bestemt pose, som Bruger laver med Myo'en på.
 \subsubsection{Åbn og luk CrustCrawler greb}
-Brugeren skal kunne lade CrustCrawlerens greb, åbne og lukke på kommando efter, at man laver knyttet hånd eller åben hånd. Det er her, at anvendelsen er i brug. Disse Use Cases dækker krav \#7 og 8
+Brugeren skal kunne lade CrustCrawlerens greb åbne og lukke på kommando efter, at man laver knyttet hånd eller åben hånd. Det er her, at anvendelsen er i brug.
 
 \section{Ikke funktionelle krav}
 \label{sec:ikkefunktionellekrav}
