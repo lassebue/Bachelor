@@ -1,3 +1,23 @@
 \thispagestyle{fancy}
 \chapter{Resultater og diskussion}
 \label{chp:resultaterogdisk}
+
+Resultaterne, der er opnået gennem projektet, vil i det følgende kapitel blive beskrevet. Kapitlet er delt op i overordnede dele, som er beskrevet i systembeskrivelsen, dataopsamlingsprogram, modeltræning og testapplikation. Her vil resultaterne for de enkelte dele af projektet blive gennemgået. Efterfølgende findes diskussionen.
+
+\section{Dataopsamlingsprogram}
+Data Collection Application er i projektet udviklet til at opfylde kravene for en testperson, beskrevet i tabel \ref{tab:funktionellekrav}. Det er således muligt at indsamle EMG-data optaget med en Myo, gemme det lokalt og uploade dette til en data colletion. Der kan tilføjes nye poses til opsamling af data.
+Værktøjet er gennem bachelorforløbet blevet anvendt til opsamling af EMG-data mhp. machine learning modeltræning.
+Applikationen har fået tilføjet en ekstra funktionalitet, hvormed uploaded data kan downloades fra den online data collection.
+
+\section{Modeltræning}
+Det overordnede mål ved modeltræningen var at undersøge, om det er muligt at lave machine learning med data opsamlet med Myo’en. Et yderligere mål var at muliggøre anvendelse af machine learning modeller til konkrete formål.
+Igennem projektet har undersøgelsen vist, at det er muligt at træne modeller ud fra opsamlet data vha. machine learning til genkendelse af poses. Det har endvidere vist sig, at machine learning algoritmen Random Forest, opnår den største præcision med nøjagtigheder op mod 97,3\% ved træningen med MATLAB’s Classification Learner.
+
+\section{Testapplikation}
+Formålet med testapplikationen er at teste, om de trænede machine learnings-modeller kan anvendes til et praktisk formål. Med denne opfyldes kravene for en Bruger beskrevet i tabel\ref{tab:funktionellekrav}. Det er således muligt at genkende de tre poses, listet i kapitel \ref{chp:systembeskrivelse}. Med testapplikationen kan CrustCrawlerens greb åbnes og lukkes ved genkendelse af en Brugers poses.
+På trods af at kravene er opfyldt, observeres der en usikkerhed ved genkendelse af poses. Her stemmer nøjagtigheden fra modellens præcision ikke overens med den faktiske præcision af testapplikationens genkendelse. Applikationens design tillader tilføjelser af nye poses og let udskiftning af anvendelse.
+
+\section{Diskussion}
+Det blev valgt at bruge MATLAB’s Bagged Trees model, da den har en høj klassifikationsnøjagtighed. Det er erfaret, at denne model kan have genkendelseshastigheder op imod et sekund. Dette bevirker, at CrustCrawler applikationen kan have en langsom reaktionshastighed. Hvis der ved valg af modeller prioriteres genkendelseshastighed frem for præcision, vil Complex Tree eller Boosted Trees, være at foretrække med en genkendelseshastighed på 0,01 sekund \citep{matFastModels} og nøjagtigheder på hhv. 92\% og 81,9\%, som det fremgår på figur \ref{fig:modelsAvg}.\\\\
+Sammenlignes systemet, udviklet i bachelorprojektet, med Thalmic Labs’ egen software til Myo’en, kan der på nuværende tidspunkt ikke genkendes samme antal poses som Myo’en. Derimod er der mulighed for udvidelse af systemet, med nye poses. Hvorved systemet vil kunne genkende flere poses end Myo’en. Mht. genkendelse af poses opleves der fejl ved begge systemer.\\\\
+Projektets resultater giver anledning til en forhåbning om at komme et skridt nærmere udviklingen af billige elektriske proteser med intuitiv styring. Dette ville muligvis kunne anvendes i tredje-verdens lande til at forbedre livskvaliteten for invalide med manglende hænder.
