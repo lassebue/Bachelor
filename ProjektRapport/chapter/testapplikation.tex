@@ -17,8 +17,6 @@ På figur \ref{fig:mvvm} ses den overordnede struktur i, hvordan klasserne er pl
 
 Under udviklingen er der taget højde for SOLID-principperne\citep{RefWorks:10}. Derfor udformer applikationens klassediagram sig som det ses på figur \ref{fig:cd}. Single responsibility\citep{RefWorks:9} er overholdt, og dermed er klasser opdelt i projektet, sådan at de har hvert deres ansvar. Matlab sørger for al kommunikation med MATLAB. I denne klasse initialiseres og startes MATLAB Automation server\footnote{Fremover nævnt som MATLAB server}. Desuden sendes kommandoer til MATLAB herfra. I CCManagement, er metoderne til de forskellige kommandoer, der kan kaldes for at styre CrustCrawleren. Der kaldes f.eks. metoden \textit{OpenClaw()}, når CrustCrawler-kloen skal åbnes. CCManagement kalder Matlab, som sender kommandoen til MATLAB serveren. I klassen Recognition startes genkendelsesmetoderne, der gennem Matlab-klassen, og dermed MATLAB serveren, sender vinduer med datasamples og Myo'ens orientering. Disse bliver genkendt af machine learning modellen i MATLAB serveren.
 
-
-
 \section{Brugergrænseflade}
 
 \myWrapFigure{CCA}{CrustCrawler Applikationens GUI}{fig:cca}{0.4}{r}
@@ -50,6 +48,5 @@ Processen, for at kalde funktioner i MATLAB fra WPF-applikationen, foregår som 
 \myFigure{USB2Dynamixel}{USB2Dynamixel enhed, der bruges for at lave en seriel port fra en af computerens USB porte. Igennem USB2Dynamixel kan CrustCrawleren tilkobles computeren.}{fig:usb2d}{0.4}
 
 CrustCrawleren tilkobles computeren gennem en USB2Dynamixel, se figur \ref{fig:usb2d}. USB2Dynamixel er brugt for at lave en seriel port igennem computerens USB port. Til denne er en driver og et .dll bibliotek med en tilhørende headerfil. Dynamixel.dll og dynamixel.h. Disse filer loades begge i MATLAB-koden, hvor biblioteket giver mulighed for at kalde nogle forskellige funktioner, som CrustCrawleren kan reagere på. Driveren er USB2Dynamixel \citep{agaverobot} og er frit tilgængelig for alle. Denne kan dog kun bruges med en USB2Dynamixel enhed og Dynamixelservoer.
-
 \section{Delkonklusion}
 Det er nu muligt som bruger med denne applikation og en Myo at genkende håndtrykkene åben hånd og lukket hånd vha. en trænet machine learning model. Applikationen står for at få data fra Myo'en og sende det til en MATLAB-server, hvor der beregnes og sammenlignes med den trænede model, og der sendes resultat tilbage til applikationen. Genkendelsen anvendes på en CrustCrawler robot-arm, der åbnes og lukkes alt efter genkendelsen.
