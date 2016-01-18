@@ -165,8 +165,8 @@ namespace DataOpsamlingTest
                 // Check e.Progress to get the progress of the file upload
             })); 
             
-            //dataSet["onlineFile"] = file;
-            dataSet.OnlineFile = file;
+            dataSet["onlineFile"] = file;
+            //dataSet.OnlineFile = file;
             await dataSet.SaveAsync();
             //FileProgress = 75;
         }
@@ -271,12 +271,13 @@ namespace DataOpsamlingTest
                 
                 Task.Factory.StartNew(() => 
                 {
-                                    
+                    int buller = 0;               
                     foreach (var item in result)
                     {
                         fileName = path + "\\" + Path.GetFileName(item.Get<string>("emgDataFile"));
 
-                        var onlineFile = result.ElementAt(0).Get<ParseFile>("onlineFile");
+                        var onlineFile = result.ElementAt(buller).Get<ParseFile>("onlineFile");
+                        buller++;
 
                         SaveOnlineFiles(fileName, onlineFile);
 

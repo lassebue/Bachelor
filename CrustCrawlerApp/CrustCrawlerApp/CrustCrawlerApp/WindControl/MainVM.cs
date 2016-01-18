@@ -109,7 +109,7 @@ namespace CrustCrawlerApp.WindControl
             var myoControl = new MyoController();
             myoControl.OrientationReceived += UpdateOrientation;
 
-            MessageBox.Show("Orientation stuff wtf!!!!");
+            MessageBox.Show("Click OK to save the current Orientation!");
 
             myoControl.OrientationReceived -= UpdateOrientation;
 
